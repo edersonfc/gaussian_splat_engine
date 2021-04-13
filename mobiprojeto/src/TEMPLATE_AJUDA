@@ -1,0 +1,40 @@
+import React from 'react'
+import {Text} from 'react-native'
+import estilo from './estilo'
+
+export default props => {
+    return(
+        <Text style={estilo.fonteGrande}>
+            
+        </Text>
+    )
+}
+
+
+
+/****************************************************/
+{muda_cor
+              ? <Icon name='check' nativeID='Favorito' 
+                      style={[Estilo.icones_grande, Estilo.icones_clicado]}
+                      onPress={() => {
+                                    
+                        setMuda_cor(oldState => !oldState)
+                        
+                 }
+                } />
+
+              : <Icon name='check' style={[Estilo.icones_grande]}
+                onPress={() => {
+                  
+						setMuda_cor(oldState => !oldState)
+                  
+                  
+                }
+                } />
+
+            }
+			
+<Text style={[Estilo.fonteMedia, Estilo.borda_geral, style = { margin: 1, padding: 1 }]} >Macho</Text>		
+
+
+<Text  >Macho</Text>		
