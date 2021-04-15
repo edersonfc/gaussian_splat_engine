@@ -742,7 +742,8 @@ export default function ComprasVendas(props) {
             </View>
 
             {/*PAINEL DE ROLAGEM VERTICAL ABAIXO */}
-            <ScrollView style={{ paddingVertical: 1, borderWidth: 0, borderColor: 'orange',height: '1%'}} >
+            {/* FOI DESATIVADO O SCROLLVIEW ABAIXO PORQUE ESTÁ UTILIZANDO O FLATLIST EM <ProdutosEtiquetas em Outra TELA */}
+            {/* <ScrollView style={{ paddingVertical: 1, borderWidth: 0, borderColor: 'orange',height: '1%'}} > */}
                 {/*  <ProdutosEtiquetas />  */}
 
                 {produtosEtiquetasExibir
@@ -755,7 +756,8 @@ export default function ComprasVendas(props) {
                     <View></View>
                 }
 
-            </ScrollView >
+            {/* </ScrollView > */}
+             {/* FOI DESATIVADO O SCROLLVIEW ACIMA PORQUE ESTÁ UTILIZANDO O FLATLIST EM <ProdutosEtiquetas em Outra TELA */}
             {/*PAINEL DE ROLAGEM VERTICAL ACIMA */}
 
             {/* {exibeFiltroCategoria && (<FILTRO_CATEGORIA />)} */}

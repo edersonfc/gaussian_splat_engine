@@ -2320,17 +2320,13 @@ export default function AppTest() {
             :
             <View></View>
           }
+
           {/* FINAL*************************************************************************** */}
 
         {/* <FlatlistTeste /> */}
 
         
-
-        {/* <View style={{ height: 150 }} ></View> */}
-
-
-
-
+        <View style={{ height: 150 }} ></View>
 
 
 
