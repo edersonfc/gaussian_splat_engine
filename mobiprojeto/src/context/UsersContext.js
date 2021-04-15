@@ -1,0 +1,47 @@
+import React, { createContext, useState } from 'react';
+
+//TODOS PARAMETROS IMPORTANTES RELACIONADO A SITUAÇÃO DOS PRODUTOS ABAIXO
+var OBJETOS_JSON =
+ {
+     LIBERAR_GRAVACAO_TELEFONE_SEM_NUMERO:false,
+     TELEFONE:"SEM_TELEFONE_USUARIO",
+     FAZER_PROPOSTA:"",
+     NOTIFICACAO_RECEIVER_IDENTIFICACAO:"NENHUMA_NOTIFICACAO_AGORA",
+     BUSCAR_POSTAGENS: true, 
+     BUSCAR_NOTIFICACAO: true,  
+     TELA_ATUAL: "Principal",
+     TELA_ORIGEM: "nenhuma",
+
+     PROPOSTAS_RECEBIDAS:0,
+     PROPOSTAS_ENVIADAS:0,
+     PROPOSTAS_ACEITAS:0,
+     VENDAS_RECENTES:0,
+
+     ESTA_VENDIDO_OU_COMPRADO:"NAO",
+     VENDA_OU_COMPRA_CONSUMADA:"NAO",
+
+     CONEXAO_DO_APP:"OFF-LINE",
+     NUMERO_IP:"",
+
+     TODOS_OS_PRODUTOS:"",
+     PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE:"",
+
+     LISTAIMAGENS_CONTEXT:null
+};
+/**/
+//TODOS PARAMETROS IMPORTANTES RELACIONADO A SITUAÇÃO DOS PRODUTOS ACIMA
+
+
+
+//const GlobalContext = createContext({VARIAVEL_GLOBAL: array}); 
+const GlobalContext = createContext({VARIAVEL_GLOBAL: OBJETOS_JSON});
+
+export const Globalprovider = ({ children }) => (
+    <GlobalContext.Provider value={{ VARIAVEL_GLOBAL: OBJETOS_JSON }} >
+       {children}
+    </GlobalContext.Provider>
+);
+
+
+  
+export default GlobalContext;
