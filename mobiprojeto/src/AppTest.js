@@ -1845,7 +1845,6 @@ export default function AppTest() {
 
 
 
-
   return (
 
     <SafeAreaView style={[Estilo.App]}>
