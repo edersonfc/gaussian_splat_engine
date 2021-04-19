@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useContext } from 'react'
+import React, { useRef, useState, useEffect, useMemo, useContext } from 'react'
 import { View, Text, SafeAreaView, Alert, Image, TouchableOpacity, StyleSheet, ScrollView, Button, TouchableHighlight, CheckBox, PermissionsAndroid } from 'react-native'
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -111,7 +111,7 @@ export default function Postar(props) {
 
     const { VARIAVEL_GLOBAL } = useContext(GlobalContext);
 
-    // var { URL_FOTOS } = props.route.params // utilizar a {} para desestruturar a variável produto que está dentro de params
+    // var { URL_FOTOS } = props.route.params // utilizar a {} para desestruturar a variável produto que está dentro de params  17 04 2021
 
 
 
@@ -238,23 +238,26 @@ export default function Postar(props) {
     const navigation = useNavigation();
 
 
+    //DESATIVADO ABAIXO 17 04 2021
     /* PEGANDO RETORNO DA VARIAVEL PELA CHAMADA DE TELA ABAIXO */
-    var { URL_FOTOS } = props.route.params; // utilizar a {} para desestruturar a variável pesquisarCompras que está dentro de params
+    var { URL_FOTOS } = props.route.params; // utilizar a {} para desestruturar a variável pesquisarCompras que está dentro de params 
     //alert(typeof(URL))
-    //alert(URL_FOTOS)
+    // alert(URL_FOTOS)
 
-    var URL_FOTOS_2;
+    // var URL_FOTOS_2;
 
-    if (URL_FOTOS.includes("zerar_postagem")) {
+    // if (URL_FOTOS.includes("zerar_postagem")) {
 
-        ARRY_URL_IMAGENS.length = 0;
-        ARRY_URL_VIDEOS.length = 0;
+    //     // ARRY_URL_IMAGENS.length = 0;
+    //     VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length = 0;
+    //     ARRY_URL_VIDEOS.length = 0;
 
-        URL_FOTOS_2 = URL_FOTOS;
+    //     URL_FOTOS_2 = URL_FOTOS;
 
-        URL_FOTOS = URL_FOTOS.replace("zerar_postagem", "");
+    //     URL_FOTOS = URL_FOTOS.replace("zerar_postagem", "");
 
-    }//IF
+    // }//IF
+    //DESATIVADO ACIMA 17 04 2021
 
 
     var { URL_VIDEOS } = props.route.params; // utilizar a {} para desestruturar a variável pesquisarCompras que está dentro de params
@@ -392,9 +395,39 @@ export default function Postar(props) {
 
 
 
-
-
     //RESPONSÁVEL POR CARREGAR PRIMEIRO TODAS DAS FUNÇÕES DO APLICATIVO ACIMA
+
+   
+
+
+
+    const [atualizarTela, setAtualizarTela] = useState(0);
+    let VARIAVEL_DA_FUNCAO_TIMER;
+
+    // useEffect(() => {
+
+    //     //alert("EXECUTAR QUANDO É CARREGADO PELA PRIMEIRA VEZ");
+    //     nome_da_funcao();
+    //     // VARIAVEL_DA_FUNCAO_TIMER = setInterval(function atualizacao_tela_com_timer() {
+
+
+    //     // }, 1000);//function final do timer
+
+    //     // VARIAVEL_DA_FUNCAO_TIMER = setInterval(atualizacao_tela_com_timer, 1000);//INCIAR NOVAMENTE O PROCESSO COM TIMER setInterval
+
+    //     // return () => clearInterval(VARIAVEL_DA_FUNCAO_TIMER);
+
+    // }, [atualizarTela]);
+
+
+
+    useEffect(() => {
+
+        setAtualizarTela(VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length);
+        nome_da_funcao();
+
+    });
+
 
 
 
@@ -402,33 +435,35 @@ export default function Postar(props) {
     //INSERINDO IMAGENS ABAIXO POR MEIO DO ARRAY ABAIXO
     var Produtos_rows = [];
     function nome_da_funcao() {
+        // alert("18 04 2021 TESTANDO");
 
-        //ARRY_URL_IMAGENS.length = 0;
-        ARRY_URL_IMAGENS = URL_FOTOS.split("|");
-
-        // ARRY_URL_IMAGENS_DO_CELL = URL_FOTOS.split("|");
+        // ARRY_URL_IMAGENS = URL_FOTOS.split("|");
+        // VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT = URL_FOTOS.split("|");  //OBSERVER 17 04 2021
 
 
         //ARRY_URL_VIDEOS.length = 0;
         ARRY_URL_VIDEOS = URL_VIDEOS.split("|");
 
-        //ARRY_URL_VIDEOS_DO_CELL = URL_VIDEOS.split("|");
 
 
-        if (ARRY_URL_IMAGENS.length > 1 || ARRY_URL_VIDEOS.length > 1) {
+        // if (ARRY_URL_IMAGENS.length > 1 || ARRY_URL_VIDEOS.length > 1) {
+        if (VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length > 1 || ARRY_URL_VIDEOS.length > 1) {
 
             //alert('EXECUTADO NO INICIO DA EXECUÇÃO'+ ARRY_URL_IMAGENS.length);
 
 
             //LIMPANDO CONTEUDOS VAZIOS DO ARRAY DAS FOTOS ABAIXO
-            for (var i_vazio = 0; i_vazio < ARRY_URL_IMAGENS.length; i_vazio++) {
+            // for (var i_vazio = 0; i_vazio < ARRY_URL_IMAGENS.length; i_vazio++) {
+            for (var i_vazio = 0; i_vazio < VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length; i_vazio++) {
                 var vazio_no_array;
-                vazio_no_array = ARRY_URL_IMAGENS[i_vazio];
+                // vazio_no_array = ARRY_URL_IMAGENS[i_vazio];
+                vazio_no_array = VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[i_vazio];
                 //alert(vazio_no_array);
                 //alert(ARRY_URL_IMAGENS.length);
                 if (!vazio_no_array.includes("file:///") && !vazio_no_array.includes("content://") || vazio_no_array.length < 14) {
                     //if (!vazio_no_array.includes("file:///")) {    
-                    ARRY_URL_IMAGENS.splice(ARRY_URL_IMAGENS.indexOf(ARRY_URL_IMAGENS[i_vazio]), 1);
+                    // ARRY_URL_IMAGENS.splice(ARRY_URL_IMAGENS.indexOf(ARRY_URL_IMAGENS[i_vazio]), 1);
+                    VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.splice(VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.indexOf(VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[i_vazio]), 1);
 
                     //alert(i_vazio);
                 }//IF   
@@ -452,9 +487,11 @@ export default function Postar(props) {
 
 
             //ADICIONANDO VIEW COM IMAGEM pelo FOR ABAIXO 
-            for (var i = 0; i < ARRY_URL_IMAGENS.length; i++) {
+            // for (var i = 0; i < ARRY_URL_IMAGENS.length; i++) {
+            for (var i = 0; i < VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length; i++) {
 
-                Produtos_rows.push(<ImageLista key={"1" + i} IMAGE={ARRY_URL_IMAGENS[i]} LISTAIMAGENS={ARRY_URL_IMAGENS} index={i} />);
+                // Produtos_rows.push(<ImageLista key={"1" + i} IMAGE={ARRY_URL_IMAGENS[i]} LISTAIMAGENS={ARRY_URL_IMAGENS} index={i} />);
+                Produtos_rows.push(<ImageLista key={"1" + i} IMAGE={VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[i]} LISTAIMAGENS={VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT} index={i} />);
 
             }//FOR
             //ADICIONANDO VIEW COM IMAGEM pelo FOR ACIMA 
@@ -513,8 +550,8 @@ export default function Postar(props) {
 
             {/* MUDANDO A ORIENTAÇÃO DA TELA PRA PAISAGEM ABAIXO colocar dentro da View principal que fica dentro do return */}
             <ScreenOrientation
-            // orientation={LANDSCAPE_LEFT}
-            orientation={PORTRAIT}
+                // orientation={LANDSCAPE_LEFT}
+                orientation={PORTRAIT}
                 onChange={orientation => console.log('onChange', orientation)}
                 onDeviceChange={orientation => console.log('onDeviceChange', orientation)}
             />
@@ -543,9 +580,9 @@ export default function Postar(props) {
                         onPress={() => {
                             setimagensEvideos(true);
 
-                            //var ARRAY_TELA_POSTAGEN = ARRY_URL_IMAGENS;
-                            //navigation.navigate("CameraFoto", { ARRAY_TELA_POSTAGEN } );
-                            navigation.navigate("CameraFoto", { URL_FOTOS_2 });
+                            //    navigation.navigate("CameraFoto", { URL_FOTOS_2 });
+                            navigation.navigate("CameraFoto", VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT);
+
                         }}
                     >
                         <Icon name='camera' style={[Estilo.icones_medio, style = { backgroundColor: '#2A3E4A' }]} />
@@ -601,15 +638,17 @@ export default function Postar(props) {
                                 if (CAMINHO.includes('.JPEG') || CAMINHO.includes('.png')) {
 
                                     /**/
-                                    //CAMINHO = CAMINHO+'|';
-                                    ARRY_URL_IMAGENS.push(CAMINHO);
+                                    //CAMINHO = CAMINHO+'|';   VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT
+                                    // ARRY_URL_IMAGENS.push(CAMINHO);
+                                    VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.push(CAMINHO);
                                     //alert(ARRY_URL_IMAGENS);
                                     let URL_FOTOS = "";
-                                    for (var i = 0; i < ARRY_URL_IMAGENS.length; i++) {
+                                    // for (var i = 0; i < ARRY_URL_IMAGENS.length; i++) {
+                                    for (var i = 0; i < VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length; i++) {
 
 
 
-                                        URL_FOTOS += ARRY_URL_IMAGENS[i] + '|';
+                                        URL_FOTOS += VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[i] + '|';
 
 
                                     }//for
@@ -746,7 +785,7 @@ export default function Postar(props) {
 
                     <ScrollView horizontal={true} style={{ borderWidth: 0, borderColor: 'orange', backgroundColor: 'gray', height: 'auto' }} >
                     </ScrollView> */}
-                          
+
 
                 <ScrollView horizontal={true} style={{ borderWidth: 0, borderColor: 'orange', backgroundColor: 'gray', height: 'auto' }} >
                     {nome_da_funcao()}
@@ -1117,9 +1156,9 @@ export default function Postar(props) {
 
                                 //PEGANDO O NUMERO DE TELEFONE DO USUÁRIO CASO ELE NÃO TENHA POSTO ABAIXO
 
-        PEGAR_NUMERO_DO_CELL();
-        // navigation.goBack(null);
-                               
+                                PEGAR_NUMERO_DO_CELL();
+                                // navigation.goBack(null);
+
 
                                 //const data = await AsyncStorage.getItem('NUMERO_CELL');
                                 //PEGANDO O NUMERO DE TELEFONE DO USUÁRIO CASO ELE NÃO TENHA POSTO ACIMA
@@ -1227,7 +1266,7 @@ export default function Postar(props) {
                                     } else {
 
                                         var telefone = { NUMERO_CELL_J: variavelTelefone }
-                                        await GRAVAR_NUMERO_DO_CELL(telefone,false);
+                                        await GRAVAR_NUMERO_DO_CELL(telefone, false);
                                         setCaixaNumeroCelularVisivel(false);
                                         ARMAZENAR_POSTAGEM_PRIMEIRA_ETAPA();
 
@@ -1326,7 +1365,7 @@ export default function Postar(props) {
                                                         //IMPLEMENTAR GRAVAÇÃO DO TELEFONE NO CELULAR PARA USAR O APLICATIVO
                                                         // alert(variavelTelefone);
                                                         var telefone = { NUMERO_CELL_J: variavelTelefone.replace(/\"/g, '') }
-                                                        GRAVAR_NUMERO_DO_CELL(telefone,true);
+                                                        GRAVAR_NUMERO_DO_CELL(telefone, true);
                                                         var TELA_QUE_CHAMOU = props.tela_chamada;
                                                         if (TELA_QUE_CHAMOU == "tela_proposta") {
                                                             props.OCULTAR_TELA_TELEFONE_PROPOSTA_remoto();
@@ -1411,7 +1450,7 @@ export default function Postar(props) {
     async function GRAVAR_NUMERO_DO_CELL(data_object, STORAGE_SOMENTE) {
 
 
-// alert("ESTÁ EXECUTANDO");
+        // alert("ESTÁ EXECUTANDO");
 
 
         if (STORAGE_SOMENTE == false) {
@@ -1419,52 +1458,52 @@ export default function Postar(props) {
             /////////////////////////////////////////////////////////////////      
             var DEU_ERRO_SIM_OU_NAO = "NAO";
 
- try{      
+            try {
 
-         Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + 'insert_cadastro_pessoal', {
+                Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + 'insert_cadastro_pessoal', {
 
-                params:
-                {
-                    data: data_completa_ingles(),
-                    nome_completo: "",
-                    cpf: "",
-                    numero_telefone_J: data_object.NUMERO_CELL_J,
-                    email: ""
-                }
+                    params:
+                    {
+                        data: data_completa_ingles(),
+                        nome_completo: "",
+                        cpf: "",
+                        numero_telefone_J: data_object.NUMERO_CELL_J,
+                        email: ""
+                    }
 
-            })
+                })
                 // .catch(err => {
                 //     // alert("DEU ERRO => " + err)//FUNCIONA QUANDO DÁ ERRO NO Axios
                 //     alert("FALHA NA GRAVAÇÃO DO TELEFONE");
                 //     DEU_ERRO_SIM_OU_NAO = "SIM";
                 // });
 
-               //ARMAZENANDO NO STORAGE DE DADOS ABAIXO
+                //ARMAZENANDO NO STORAGE DE DADOS ABAIXO
                 await AsyncStorage.setItem('NUMERO_CELL', JSON.stringify(data_object))
-                .then( res => {
-                    VARIAVEL_GLOBAL.TELEFONE = data_object.NUMERO_CELL_J;
-                    alert("TELEFONE GRAVADO = "+ VARIAVEL_GLOBAL.TELEFONE);
-                });
-               
+                    .then(res => {
+                        VARIAVEL_GLOBAL.TELEFONE = data_object.NUMERO_CELL_J;
+                        alert("TELEFONE GRAVADO = " + VARIAVEL_GLOBAL.TELEFONE);
+                    });
 
-    }catch(erro){
 
-        console.log("#8654rfde erro "+erro);
-        alert("#8654rfde erro "+erro);
+            } catch (erro) {
 
-    }
+                console.log("#8654rfde erro " + erro);
+                alert("#8654rfde erro " + erro);
 
- /////////////////////////////////////////////////////////////////  
- }//IF
+            }
+
+            /////////////////////////////////////////////////////////////////  
+        }//IF
 
 
         if (STORAGE_SOMENTE == true) {
             //ARMAZENANDO NO STORAGE DE DADOS ABAIXO
             await AsyncStorage.setItem('NUMERO_CELL', JSON.stringify(data_object))
-            .then( res => {
-                VARIAVEL_GLOBAL.TELEFONE = data_object.NUMERO_CELL_J;
-                alert("TELEFONE GRAVADO somente STORAGE = "+ VARIAVEL_GLOBAL.TELEFONE);
-            });
+                .then(res => {
+                    VARIAVEL_GLOBAL.TELEFONE = data_object.NUMERO_CELL_J;
+                    alert("TELEFONE GRAVADO somente STORAGE = " + VARIAVEL_GLOBAL.TELEFONE);
+                });
         }
 
 
@@ -1487,12 +1526,13 @@ export default function Postar(props) {
         var random = Math.floor(Math.random() * 10000);
 
 
-        //Agrupar URLs das Imagens e Videos separando pelo caracter |
+        //Agrupar URLs das Imagens e Videos separando pelo caracter |   
         var URL_IMAGEN_DADOS = "";
         var URL_VIDEOS_DADOS = "";
-        for (var i = 0; i < ARRY_URL_IMAGENS.length; i++) {
+        // for (var i = 0; i < ARRY_URL_IMAGENS.length; i++) {
+        for (var i = 0; i < VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length; i++) {
 
-            URL_IMAGEN_DADOS += ARRY_URL_IMAGENS[i] + "|";
+            URL_IMAGEN_DADOS += VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[i] + "|";
 
 
         }//FOR

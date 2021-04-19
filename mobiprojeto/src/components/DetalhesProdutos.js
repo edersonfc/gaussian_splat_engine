@@ -21,7 +21,6 @@ import GlobalContext from '../context/UsersContext';
 import Celular_colocar from './Celular_colocar';
 
 
-
 // import { CANCELAR_VENDA_OU_COMPRA_EXPORTAR } from './components/ProdutosEtiquetas';
 import { CANCELAR_VENDA_OU_COMPRA } from './ProdutosEtiquetas';
 
@@ -289,25 +288,25 @@ export default function DetalhesProdutos(props) {
 
 
 
-  
-    
-    
-    
-    
-    
-      function QUANTIDADES_VEZES_PRECOS(quantidades, precos) {
-    
+
+
+
+
+
+
+    function QUANTIDADES_VEZES_PRECOS(quantidades, precos) {
+
         var preco_em_double = MOEDA_P_DOUBLE_OU_FLOAT(precos);
         var total_double = quantidades * preco_em_double;
         var valor_moeda = DOUBLE_OU_FLOAT_P_MOEDA(total_double, /*'R$'*/'');
-     
+
         // alert(valor_moeda);
-        return  valor_moeda;
-    
-      }
-    
-    
-    
+        return valor_moeda;
+
+    }
+
+
+
 
 
 
@@ -347,22 +346,27 @@ export default function DetalhesProdutos(props) {
                     <TouchableOpacity style={{ width: '21%', borderWidth: 0, height: 55, paddingLeft: 10, paddingTop: 5, alignItems: 'flex-start', justifyContent: 'flex-start' }}
 
                         onPress={async () => {
-                            //setFecharTelaDetalhe(oldState => !oldState)
-                            // var tela_pra_voltar = await AsyncStorage.getItem('TELA_PRA_VOLTAR');
-                            //alert(TELA_DE_ORIGEM_E_SITUACAO);
-                            //alert(tela_pra_voltar);
 
-                            if (VARIAVEL_GLOBAL.TELA_ORIGEM == "Principal") {
-                            // if (tela_pra_voltar.includes('Principal')) {
 
-                                VARIAVEL_GLOBAL.TELA_ATUAL = "Principal",
-                                VARIAVEL_GLOBAL.TELA_ORIGEM = "nenhuma",
+                            if (VARIAVEL_GLOBAL.TELA_TERCEIRA == "nenhuma" || VARIAVEL_GLOBAL.TELA_ORIGEM == "Principal" ) {
+                                // if (tela_pra_voltar.includes('Principal')) {
+
+                                VARIAVEL_GLOBAL.TELA_ATUAL = "Principal";
+                                VARIAVEL_GLOBAL.TELA_ORIGEM = "nenhuma";
+                                VARIAVEL_GLOBAL.TELA_TERCEIRA = "nenhuma";
 
                                 navigation.navigate("TelaPrincipal", { produtos })
                                 //navigation.goBack("null",{ produtos });//funciona perfeitamente esse voltar
 
-                            } else if ( VARIAVEL_GLOBAL.TELA_ORIGEM == "MenuDaTelaPrincipal" ) {    
-                            // } else if (tela_pra_voltar.includes('ComprasVendas')) {
+                            }
+
+                          else if (VARIAVEL_GLOBAL.TELA_TERCEIRA == "ComprasVendas"  ||  VARIAVEL_GLOBAL.TELA_ORIGEM == "ComprasVendas" ) {
+
+
+                                VARIAVEL_GLOBAL.TELA_ATUAL = "ComprasVendas";
+                                VARIAVEL_GLOBAL.TELA_ORIGEM = "MenuDaTelaPrincipal";
+                                VARIAVEL_GLOBAL.TELA_TERCEIRA = "Principal";
+
 
                                 var ComprasVendas = "Compras";//IN CONSTRUCTIONS
 
@@ -371,10 +375,13 @@ export default function DetalhesProdutos(props) {
 
                                 //alert(LATITUDE_USUARIO+"   |   "+LONGITUDE_USUARIO);
 
-                                //alert(TELA_DE_ORIGEM_E_SITUACAO)
+                                // alert(VARIAVEL_GLOBAL.TELA_ATUAL + " | " + VARIAVEL_GLOBAL.TELA_ORIGEM + " | " + VARIAVEL_GLOBAL.TELA_TERCEIRA)
+
                                 navigation.navigate("ComprasVendas", { ComprasVendas, LATITUDE_USUARIO, LONGITUDE_USUARIO, TELA_DE_ORIGEM_E_SITUACAO })
 
                             }
+
+                            //    alert(VARIAVEL_GLOBAL.TELA_ATUAL + " | " + VARIAVEL_GLOBAL.TELA_ORIGEM + " | " + VARIAVEL_GLOBAL.TELA_TERCEIRA)
                         }}
 
                     >
@@ -542,14 +549,49 @@ export default function DetalhesProdutos(props) {
 
                                 if (FOTO_OU_VIDEO.includes(".JPEG") || FOTO_OU_VIDEO.includes(".png")) {
 
+                                    // alert("VAI CHAMAR TELA DE NAVEGAÇÃO")
+
                                     var ARRY_URL_IMAGENS = URL_IMAGENS;
                                     var IMAGENS = ARRAY_DE_IMAGENS_E_VIDEOS[index];
                                     var index_id = index;
-                                    navigation.navigate("navegacaoFotos", { ARRY_URL_IMAGENS, IMAGENS, index_id })
+
+
+             
+                                    if (VARIAVEL_GLOBAL.TELA_ORIGEM == "Principal") {
+
+                                    // alert("DA TELA PRINCIPAL")
+
+                                        VARIAVEL_GLOBAL.TELA_ATUAL = "navegacaoFotos";
+                                        VARIAVEL_GLOBAL.TELA_ORIGEM = "ProdDetalhes";
+                                        VARIAVEL_GLOBAL.TELA_TERCEIRA = "Principal";
+
+                                     
+                                        navigation.navigate("navegacaoFotos", { ARRY_URL_IMAGENS, IMAGENS, index_id }) //ATIVAR DEPOIS
+
+                                    }
+
+
+                                    if (VARIAVEL_GLOBAL.TELA_ORIGEM == "ComprasVendas") {
+
+                                        // alert("DA TELA COMRA E VENDA")
+
+                                        VARIAVEL_GLOBAL.TELA_ATUAL = "navegacaoFotos";
+                                        VARIAVEL_GLOBAL.TELA_ORIGEM = "ProdDetalhes";
+                                        VARIAVEL_GLOBAL.TELA_TERCEIRA = "ComprasVendas";
+
+                                        navigation.navigate("navegacaoFotos", { ARRY_URL_IMAGENS, IMAGENS, index_id }) //ATIVAR DEPOIS
+
+                                    }
+
+                                    // alert(VARIAVEL_GLOBAL.TELA_ATUAL+" | "+VARIAVEL_GLOBAL.TELA_ORIGEM+" | "+VARIAVEL_GLOBAL.TELA_TERCEIRA)
+                                    // 
+
                                 } else {
 
                                     URL_Video = FOTO_OU_VIDEO;
-                                    navigation.navigate("NavegarVideos", { URL_Video })
+                                    VARIAVEL_GLOBAL.TELA_ATUAL = "NavegarVideos",
+                                        // VARIAVEL_GLOBAL.TELA_ORIGEM = "ProdDetalhes";
+                                        navigation.navigate("NavegarVideos", { URL_Video })
                                 }
                             }}
 
@@ -629,7 +671,7 @@ export default function DetalhesProdutos(props) {
 
 
                                     if (NUMERO_CELL_DO_USUARIO != "" && comprar_ou_deletar != "Comprado" && comprar_ou_deletar != "Vendido") {
-                                       
+
                                         //alert(numero_telefone_comprador);
 
                                         await Axios.get(IP_DO_SERVIDOR + 'comprar_direto', {
@@ -642,7 +684,7 @@ export default function DetalhesProdutos(props) {
                                         }, alert("Compra Realizada... Entraremos em Contato !"));
 
 
-                                       
+
                                     } else {
                                         //alert("Cadastre o Telefone pra poder Comprar ou Vender !");
                                         if (NUMERO_CELL_DO_USUARIO == "" && comprar_ou_deletar != "Comprado" && comprar_ou_deletar != "Vendido") {
@@ -686,7 +728,7 @@ export default function DetalhesProdutos(props) {
                             var numero_telefone_comprador = '{"NUMERO_CELL_J":"' + NUMERO_CELL_DO_USUARIO + '"}';//ESTA LINHA CONCERTA A FORMATAÇÃO DO Nº DO CELULAR PONDO DENTRO OBJETO JSON NESSE FORMATO PARA NÃO DAR ERRO NA GRAVAÇÃO DO BANCO DE DADOS
                             VARIAVEL_GLOBAL.FAZER_PROPOSTA = fazer_ou_ver_proposta;
 
-                            if (VARIAVEL_GLOBAL.TELEFONE != "SEM_TELEFONE_USUARIO"  ||  VARIAVEL_GLOBAL.TELEFONE != "" ) {
+                            if (VARIAVEL_GLOBAL.TELEFONE != "SEM_TELEFONE_USUARIO" || VARIAVEL_GLOBAL.TELEFONE != "") {
                                 VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta"; //OBSERVER
                             }
 
@@ -735,7 +777,7 @@ export default function DetalhesProdutos(props) {
                                     <View style={{ height: 5 }} />
                                     <Text style={{ color: 'white', fontSize: 20, marginVertical: 0, textAlign: "center", padding: 0, borderWidth: 0 }}>  Preço Avista  </Text>
                                     <Text style={{ color: 'white', fontSize: 18, marginVertical: 0, textAlign: "center", padding: 0, borderWidth: 0 }}>{"R$ " + produtos.precoSugerido_J} / UNIDADE </Text>
-                                   
+
                                     <Text style={{ color: 'white', fontSize: 15, marginVertical: 0, textAlign: "center", padding: 0, borderWidth: 0 }} >  Quantidade: {" " + produtos.quantidadeCabecasOuPesos_J} </Text>
                                     <Text style={{ color: 'white', fontSize: 15, marginVertical: 0, textAlign: "center", padding: 0, borderWidth: 0 }} >  Total: {"R$ " + QUANTIDADES_VEZES_PRECOS(produtos.quantidadeCabecasOuPesos_J, produtos.precoSugerido_J)} </Text>
 

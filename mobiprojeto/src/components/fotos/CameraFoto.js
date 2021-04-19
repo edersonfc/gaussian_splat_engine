@@ -1,4 +1,4 @@
-import React, { PureComponent, useState, useEffect } from 'react';
+import React, { PureComponent, useState, useEffect, useContext } from 'react';
 import { AppRegistry, StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 
@@ -11,6 +11,11 @@ import { color } from 'react-native-reanimated';
 import ScreenOrientation, { PORTRAIT, LANDSCAPE, LANDSCAPE_LEFT } from "react-native-orientation-locker/ScreenOrientation";
 
 import ImageResizer from 'react-native-image-resizer';
+
+
+import GlobalContext from '../../context/UsersContext';
+
+
 
 const PendingView = () => (
     <View
@@ -39,8 +44,7 @@ var andar = -1;
 
 export default function CameraFoto(props) {
 
-
-    //var { ARRAY_TELA_POSTAGEN } = props.route.params; 
+    const { VARIAVEL_GLOBAL } = useContext(GlobalContext);
 
 
     //IMPLEMENTANDO EM AUDITORIA ABAIXO
@@ -50,7 +54,8 @@ export default function CameraFoto(props) {
         try {
             if (URL_FOTOS_2.includes("zerar_postagem")) {
 
-                ARRY_URL_IMAGENS.length = 0;
+                // ARRY_URL_IMAGENS.length = 0;
+                VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length = 0;
                 //alert(ARRY_URL_IMAGENS)
 
                 URL_FOTOS_2 = "";
@@ -165,9 +170,10 @@ export default function CameraFoto(props) {
                 // URL = data.uri;
                 URL = data;
                 console.log(URL);
-                URLS_DAS_FOTOS(URL);
-                setUrl_strings(ARRY_URL_IMAGENS[IncrementoDecremento])
-                /*navigation.navigate("Postar",{URL})*/
+                // URLS_DAS_FOTOS(URL,VARIAVEL_GLOBAL); // TROCADO PELO LINHA ABAIXO
+                VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.push(URL);
+                // setUrl_strings(ARRY_URL_IMAGENS[IncrementoDecremento])
+                setUrl_strings(VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[IncrementoDecremento])
                 setTirarFoto(oldState => !oldState)
                 setNavegarFoto(oldState => !oldState)
 
@@ -285,7 +291,8 @@ export default function CameraFoto(props) {
                                         andar = andar - 1;
 
                                         if (andar > -1) {
-                                            setUrl_strings(ARRY_URL_IMAGENS[andar])
+                                            // setUrl_strings(ARRY_URL_IMAGENS[andar])
+                                            setUrl_strings(VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[andar])
                                         } else {
                                             andar = andar + 1;
                                             alert('Essa é a Primeira Imagem')
@@ -323,8 +330,8 @@ export default function CameraFoto(props) {
                                     onPress={() => {
 
                                         //ARRY_URL_IMAGENS.splice(andar)
-                                        //IMAGENS_ARRAY.splice(IMAGENS_ARRAY.indexOf(IMAGENS_ARRAY[INDICE_DA_IMAGEM]), 1);
-                                        ARRY_URL_IMAGENS.splice(ARRY_URL_IMAGENS.indexOf(ARRY_URL_IMAGENS[andar]), 1);
+                                        // ARRY_URL_IMAGENS.splice(ARRY_URL_IMAGENS.indexOf(ARRY_URL_IMAGENS[andar]), 1);
+                                        VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.splice(VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.indexOf(VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[andar]), 1);
 
                                         alert('Imagem Apagada')
 
@@ -333,10 +340,12 @@ export default function CameraFoto(props) {
                                         if (andar == -1) {
 
                                             andar = andar + 1;
-                                            setUrl_strings(ARRY_URL_IMAGENS[andar])
+                                            // setUrl_strings(ARRY_URL_IMAGENS[andar])
+                                            setUrl_strings(VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[andar])
 
                                         } else {
-                                            setUrl_strings(ARRY_URL_IMAGENS[andar])
+                                            // setUrl_strings(ARRY_URL_IMAGENS[andar])
+                                            setUrl_strings(VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[andar])
                                         }
 
 
@@ -354,8 +363,10 @@ export default function CameraFoto(props) {
 
                                         /*  */
                                         var URL_FOTOS = '';
-                                        for (var i = 0; i < ARRY_URL_IMAGENS.length; i++) {
-                                            URL_FOTOS += ARRY_URL_IMAGENS[i] + '|';
+                                        // for (var i = 0; i < ARRY_URL_IMAGENS.length; i++) {
+                                        for (var i = 0; i < VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length; i++) {
+                                            // URL_FOTOS += ARRY_URL_IMAGENS[i] + '|';
+                                            URL_FOTOS += VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[i] + '|';
                                         }
                                         navigation.navigate("Postar", { URL_FOTOS })
                                         //alert(URL_FOTOS)
@@ -389,8 +400,10 @@ export default function CameraFoto(props) {
 
                                         andar = andar + 1;
 
-                                        if (andar < ARRY_URL_IMAGENS.length) {
-                                            setUrl_strings(ARRY_URL_IMAGENS[andar])
+                                        // if (andar < ARRY_URL_IMAGENS.length) {
+                                            if (andar < VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length) {
+                                            // setUrl_strings(ARRY_URL_IMAGENS[andar])
+                                            setUrl_strings(VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[andar])
                                         } else {
                                             andar = andar - 1;
                                             alert('Esta é a Ultima Imagem')
@@ -430,9 +443,12 @@ export default function CameraFoto(props) {
 
 }
 
-function URLS_DAS_FOTOS(URLS_PARAMETRO) {
+function URLS_DAS_FOTOS(URLS_PARAMETRO,  VARIAVEL_GLOBAL) {
 
-    ARRY_URL_IMAGENS.push(URLS_PARAMETRO);
+   
+
+    // ARRY_URL_IMAGENS.push(URLS_PARAMETRO);
+    VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.push(URLS_PARAMETRO);
     //alert(URLs_Fotos);
 
 }

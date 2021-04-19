@@ -267,7 +267,10 @@ export default function Menu(param) {
                     <TouchableOpacity style={{ flexDirection: 'row', width: '100%' }}
                         onPress={async () => {
                             await AsyncStorage.setItem('TELA_PRA_VOLTAR', 'ComprasVendas');
-                            { ComprasVendas = 'Vendas'; TELA_DE_ORIGEM_E_SITUACAO = 'Tela_Menu_Vendas'; }
+                        { ComprasVendas = 'Vendas'; /*TELA_DE_ORIGEM_E_SITUACAO = 'Tela_Menu_Vendas';*/ }
+                            VARIAVEL_GLOBAL.TELA_ATUAL    = "ComprasVendas";
+                            VARIAVEL_GLOBAL.TELA_ORIGEM   = "MenuDaTelaPrincipal";
+                            VARIAVEL_GLOBAL.TELA_TERCEIRA = "Principal";
                             navigation.navigate("ComprasVendas", { ComprasVendas, LATITUDE_USUARIO, LONGITUDE_USUARIO, TELA_DE_ORIGEM_E_SITUACAO })
                         }}
                     >

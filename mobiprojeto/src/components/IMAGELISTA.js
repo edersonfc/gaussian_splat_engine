@@ -24,10 +24,15 @@ export default function IMAGELIST(param) {
             onPress={() => {
                 // alert(param.IMAGE)
                 var IMAGENS = param.IMAGE;
-                var ARRY_URL_IMAGENS = param.LISTAIMAGENS;
+                // var ARRY_URL_IMAGENS = param.LISTAIMAGENS;
+                var ARRY_URL_IMAGENS = VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT;
                 var index_id = param.index;
                 // alert(ARRY_URL_IMAGENS)
-                //alert(param.LISTAIMAGENS)
+                //alert(param.LISTAIMAGENS) 
+                VARIAVEL_GLOBAL.TELA_ATUAL  = "navegacaoFotos";
+                VARIAVEL_GLOBAL.TELA_ORIGEM = "Postar";
+                VARIAVEL_GLOBAL.TELA_TERCEIRA="Principal";
+                
                navigation.navigate("navegacaoFotos", { ARRY_URL_IMAGENS, IMAGENS, index_id })
 
             }}  >

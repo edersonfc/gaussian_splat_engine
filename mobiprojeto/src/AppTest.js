@@ -1832,7 +1832,7 @@ export default function AppTest() {
     return () => clearInterval(VARIAVEL_DA_FUNCAO_BUSCAR_NOTIFICACAO_TIMER);
 
 
-
+ 
   }, []);
   //CONTROLE DE TIMER ACIMA
 
@@ -1841,6 +1841,9 @@ export default function AppTest() {
   //VARIAVEL_DA_FUNCAO_TIMER = setInterval(contagem_tempo, 1000);
 
 
+  VARIAVEL_GLOBAL.TELA_ATUAL    = "Principal";
+  VARIAVEL_GLOBAL.TELA_ORIGEM   = "nenhuma";
+  VARIAVEL_GLOBAL.TELA_TERCEIRA = "nenhuma";
 
 
 
