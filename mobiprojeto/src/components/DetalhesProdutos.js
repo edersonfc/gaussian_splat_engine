@@ -550,41 +550,14 @@ export default function DetalhesProdutos(props) {
                                 if (FOTO_OU_VIDEO.includes(".JPEG") || FOTO_OU_VIDEO.includes(".png")) {
 
                                     // alert("VAI CHAMAR TELA DE NAVEGAÇÃO")
-
                                     var ARRY_URL_IMAGENS = URL_IMAGENS;
                                     var IMAGENS = ARRAY_DE_IMAGENS_E_VIDEOS[index];
                                     var index_id = index;
-
-
              
-                                    if (VARIAVEL_GLOBAL.TELA_ORIGEM == "Principal") {
 
-                                    // alert("DA TELA PRINCIPAL")
-
-                                        VARIAVEL_GLOBAL.TELA_ATUAL = "navegacaoFotos";
-                                        VARIAVEL_GLOBAL.TELA_ORIGEM = "ProdDetalhes";
-                                        VARIAVEL_GLOBAL.TELA_TERCEIRA = "Principal";
-
-                                     
-                                        navigation.navigate("navegacaoFotos", { ARRY_URL_IMAGENS, IMAGENS, index_id }) //ATIVAR DEPOIS
-
-                                    }
-
-
-                                    if (VARIAVEL_GLOBAL.TELA_ORIGEM == "ComprasVendas") {
-
-                                        // alert("DA TELA COMRA E VENDA")
-
-                                        VARIAVEL_GLOBAL.TELA_ATUAL = "navegacaoFotos";
-                                        VARIAVEL_GLOBAL.TELA_ORIGEM = "ProdDetalhes";
-                                        VARIAVEL_GLOBAL.TELA_TERCEIRA = "ComprasVendas";
-
-                                        navigation.navigate("navegacaoFotos", { ARRY_URL_IMAGENS, IMAGENS, index_id }) //ATIVAR DEPOIS
-
-                                    }
-
+                                    navigation.navigate("navegacaoFotos", { ARRY_URL_IMAGENS, IMAGENS, index_id }) //ATIVAR DEPOIS
                                     // alert(VARIAVEL_GLOBAL.TELA_ATUAL+" | "+VARIAVEL_GLOBAL.TELA_ORIGEM+" | "+VARIAVEL_GLOBAL.TELA_TERCEIRA)
-                                    // 
+                                    
 
                                 } else {
 

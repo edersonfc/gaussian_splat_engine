@@ -1918,6 +1918,13 @@ export default function AppTest() {
             <TouchableOpacity style={[Estilo.borda_geral, style = { width: '25%', alignItems: 'center', borderWidth: 0 }]}
               onPress={() => {
 
+                
+                VARIAVEL_GLOBAL.TELA_ATUAL = "Postar";
+                VARIAVEL_GLOBAL.TELA_ORIGEM = "Principal";
+                VARIAVEL_GLOBAL.TELA_TERCEIRA = "nenhuma";
+
+                VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length = 0;
+                VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT.length  = 0;
 
                 //navigation.navigate("Postar",{URL})
                 navigation.navigate("Postar", { URL_FOTOS, URL_VIDEOS, })

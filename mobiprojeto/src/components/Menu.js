@@ -123,7 +123,10 @@ export default function Menu(param) {
                     <TouchableOpacity style={{ flexDirection: 'row', borderWidth: 0, width: '100%' }}
                         onPress={async () => {
                             //alert("MOSTRAR MINHAS POSTAGENS");
-                            await AsyncStorage.setItem('TELA_PRA_VOLTAR', 'ComprasVendas');
+                            // await AsyncStorage.setItem('TELA_PRA_VOLTAR', 'ComprasVendas');
+                            VARIAVEL_GLOBAL.TELA_ATUAL    = "ComprasVendas";
+                            VARIAVEL_GLOBAL.TELA_ORIGEM   = "MenuDaTelaPrincipal";
+                            VARIAVEL_GLOBAL.TELA_TERCEIRA = "Principal";
                             { ComprasVendas = 'Postagens' }
                             navigation.navigate("ComprasVendas", { ComprasVendas, LATITUDE_USUARIO, LONGITUDE_USUARIO });
                         }}
@@ -209,8 +212,9 @@ export default function Menu(param) {
                         onPress={async () => {
                             
                             // await AsyncStorage.setItem('TELA_PRA_VOLTAR', 'ComprasVendas');
-                            VARIAVEL_GLOBAL.TELA_ORIGEM = "MenuDaTelaPrincipal";
-                            VARIAVEL_GLOBAL.TELA_ATUAL  = "ProdDetalhes";
+                            VARIAVEL_GLOBAL.TELA_ATUAL    = "ComprasVendas";
+                            VARIAVEL_GLOBAL.TELA_ORIGEM   = "MenuDaTelaPrincipal";
+                            VARIAVEL_GLOBAL.TELA_TERCEIRA = "Principal";
 
                             { ComprasVendas = 'Compras'; TELA_DE_ORIGEM_E_SITUACAO = 'Tela_Menu_Compras'; }
                             //alert(LONGITUDE_USUARIO);
