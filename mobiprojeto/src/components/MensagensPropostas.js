@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, useContext } from 'react';
-import { Alert, View, Text, TextInput, SafeAreaView, TouchableOpacity, Pressable, StyleSheet } from 'react-native';
+import { Alert, View, Text, TextInput, SafeAreaView, TouchableOpacity, Pressable, StyleSheet, Keyboard } from 'react-native';
 import { color, Value } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Estilo from './estilo';
@@ -586,7 +586,7 @@ export default function MensagensPropostas(param) {
                                         param.funcao_remota_enivar_proposta(conteudoDaProposta);
 
                                         //alert(VARIAVEL_GLOBAL.TELEFONE);
-
+                                        Keyboard.dismiss();
                                         VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
 
                                     }}
@@ -916,7 +916,7 @@ export default function MensagensPropostas(param) {
 
                                                 onPress={async () => {
 
-
+                                                    Keyboard.dismiss();
                                                     alernarTrueFalseCaixaResponderF(index);
                                                     alernarTrueFalseBotaoResponderF(index);
                                                     //param.funcao_resposta_da_proposta(0);

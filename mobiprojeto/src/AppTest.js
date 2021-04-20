@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useContext } from 'react'
-import { View, Text, SafeAreaView, TouchableOpacity, Alert, TextInput, ScrollView, PermissionsAndroid, TouchableHighlight } from 'react-native'
+import { View, Text, SafeAreaView, TouchableOpacity, Alert, TextInput, ScrollView, PermissionsAndroid, TouchableHighlight, Keyboard } from 'react-native'
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -287,12 +287,16 @@ export default function AppTest() {
 
   const [qtde_notificacao, setQtde_notificacao] = useState('0');
 
-
   //PROVISORIO ABAIXO
   var [quantidadeCabecasOuPesos, setQuantidadeCabecasOuPesos] = useState('');
   function quantidadeCabecasOuPesosF(quantidadeCabecasOuPesos) { setQuantidadeCabecasOuPesos(quantidadeCabecasOuPesos); }
   //PROVISORIO ACIMA
 
+
+  var [pesquisarGado, setPesquisarGado] = useState('');
+  function pesquisarGadoF(varPesquisaGado) { setPesquisarGado(varPesquisaGado); }
+
+  var [labelOuPesquisar, setLabelOuPesquisar] = useState(true);
 
   //////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////
@@ -1586,6 +1590,7 @@ export default function AppTest() {
 
   //MOSTRAR ITENS DAS NOTIFICAÇÕES QUANDO SOLICITADO ABAIXO
   function PROPOSTAS_RECEBIDAS_RECENTES() {
+    setLabelOuPesquisar(true);
 
     //alert(array_propostas_recentes_recebidas);
     PUXAR_PRODUTOS_DAS_NOTIFICACOES(array_propostas_recentes_recebidas);
@@ -1593,12 +1598,12 @@ export default function AppTest() {
     setFaixa_submenu_e_filtro(false);
     setTexto_filtro_notificacao("Propostas Recebidas");
 
-
   }
 
 
 
   function PROPOSTAS_RESPONDIDAS_RECENTES() {
+    setLabelOuPesquisar(true);
 
     //alert(array_propostas_recentes_enviadas); 
     PUXAR_PRODUTOS_DAS_NOTIFICACOES(array_propostas_recentes_enviadas);
@@ -1606,12 +1611,12 @@ export default function AppTest() {
     setFaixa_submenu_e_filtro(false);
     setTexto_filtro_notificacao("Propostas Enviadas");
 
-
   }
 
 
 
   function PROPOSTAS_ACEITAS_RECENTES() {
+    setLabelOuPesquisar(true);
 
     //alert(array_propostas_recentes_aceitas);
     PUXAR_PRODUTOS_DAS_NOTIFICACOES(array_propostas_recentes_aceitas);
@@ -1623,13 +1628,13 @@ export default function AppTest() {
 
 
   function VENDAS_RECENTES() {
+    setLabelOuPesquisar(true);
 
     //alert(array_venda_recentes_requisitadas);
     PUXAR_PRODUTOS_DAS_NOTIFICACOES(array_venda_recentes_requisitadas)
     setMenu_aviso_visivel_or_invisivel(false);
     setFaixa_submenu_e_filtro(false);
     setTexto_filtro_notificacao("Vendas Recentes");
-
 
   }
 
@@ -1832,7 +1837,7 @@ export default function AppTest() {
     return () => clearInterval(VARIAVEL_DA_FUNCAO_BUSCAR_NOTIFICACAO_TIMER);
 
 
- 
+
   }, []);
   //CONTROLE DE TIMER ACIMA
 
@@ -1841,9 +1846,86 @@ export default function AppTest() {
   //VARIAVEL_DA_FUNCAO_TIMER = setInterval(contagem_tempo, 1000);
 
 
-  VARIAVEL_GLOBAL.TELA_ATUAL    = "Principal";
-  VARIAVEL_GLOBAL.TELA_ORIGEM   = "nenhuma";
+  VARIAVEL_GLOBAL.TELA_ATUAL = "Principal";
+  VARIAVEL_GLOBAL.TELA_ORIGEM = "nenhuma";
   VARIAVEL_GLOBAL.TELA_TERCEIRA = "nenhuma";
+
+
+
+
+
+  async function PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH(variavelDaPesquisa) {
+
+    // alert(variavelDaPesquisa);
+
+    var dados_da_pesquisa_FullTextSearch_1;
+
+    const dados_da_pesquisa_FullTextSearch_2 = await Axios.get(IP_DO_SERVIDOR + 'pesquisa_full_text_search', {
+      params: {
+        // id_J: id_J,
+        numero_telefone_usuario: VARIAVEL_GLOBAL.TELEFONE,
+        DADOS_P_FULLTEXT_SEARCH: variavelDaPesquisa
+      }
+      //} , {signal: abortCont.signal} );
+    });
+
+    dados_da_pesquisa_FullTextSearch_1 = await dados_da_pesquisa_FullTextSearch_2.data;
+
+    // alert(  JSON.stringify(dados_da_pesquisa_FullTextSearch_1)  );
+    var datos =  JSON.stringify(dados_da_pesquisa_FullTextSearch_1);
+
+    //IMPLEMENTANDO FILTRO FULLTEXTSEARCH AQUI ABAIXO **********************************
+
+    if (datos.length > 2) {
+      //************************************************************** */
+      //************************************************************** */
+      /* */
+      var URLs_JSON;
+
+      if (datos.includes("|")) {
+
+        ARRAY_PRIMEIRAS_URL_IMAGENS_2.length = 0;
+        ARRAY_PRIMEIRAS_URL_VIDEOS_2.length = 0;
+
+        URLs_JSON = JSON.parse(datos);
+        //alert(URLs_JSON.length);
+        var PRIMEIRA_URL_IMAGEM_INDEXOF;
+        var PRIMEIRA_URL_VIDEO_INDEXOF;
+        for (var i = 0; i < URLs_JSON.length; i++) {
+
+          //TRATAMENTO COM IMAGENS ABAIXO
+          PRIMEIRA_URL_IMAGEM_INDEXOF = URLs_JSON[i].URL_IMAGEN_DADOS_J;
+          var TAMANHO = PRIMEIRA_URL_IMAGEM_INDEXOF.indexOf("|");
+          PRIMEIRA_URL_IMAGEM_INDEXOF = PRIMEIRA_URL_IMAGEM_INDEXOF.substring(0, TAMANHO);
+          ARRAY_PRIMEIRAS_URL_IMAGENS_2.push(PRIMEIRA_URL_IMAGEM_INDEXOF);
+          //TRATAMENTO COM IMAGENS ACIMA
+
+          //TRATAMENTO COM VIDEOSS ABAIXO
+          PRIMEIRA_URL_VIDEO_INDEXOF = URLs_JSON[i].URL_VIDEOS_DADOS_J;
+          var TAMANHO_2 = PRIMEIRA_URL_VIDEO_INDEXOF.indexOf("|");
+          PRIMEIRA_URL_VIDEO_INDEXOF = PRIMEIRA_URL_VIDEO_INDEXOF.substring(0, TAMANHO_2);
+          ARRAY_PRIMEIRAS_URL_VIDEOS_2.push(PRIMEIRA_URL_VIDEO_INDEXOF);
+          //TRATAMENTO COM VIDEOSS ACIMA
+
+
+        }//FOR
+
+
+      }//IF
+
+      //alert(datos);
+
+      setProdutos(datos);
+      //alert(produtosS);
+      setProdutosEtiquetasExibir(true);
+
+    } else { setProdutosEtiquetasExibir(false); }
+    //IMPLEMENTANDO FILTRO FULLTEXTSEARCH AQUI ACIMA ***********************************
+
+
+  }
+
+
 
 
 
@@ -1918,13 +2000,13 @@ export default function AppTest() {
             <TouchableOpacity style={[Estilo.borda_geral, style = { width: '25%', alignItems: 'center', borderWidth: 0 }]}
               onPress={() => {
 
-                
+
                 VARIAVEL_GLOBAL.TELA_ATUAL = "Postar";
                 VARIAVEL_GLOBAL.TELA_ORIGEM = "Principal";
                 VARIAVEL_GLOBAL.TELA_TERCEIRA = "nenhuma";
 
                 VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length = 0;
-                VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT.length  = 0;
+                VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT.length = 0;
 
                 //navigation.navigate("Postar",{URL})
                 navigation.navigate("Postar", { URL_FOTOS, URL_VIDEOS, })
@@ -2087,10 +2169,11 @@ export default function AppTest() {
               <TouchableOpacity style={{ width: 75, height: 'auto', borderWidth: 0, justifyContent: 'flex-end', alignItems: 'center' }}
                 onPress={() => {
 
-                  // alert("ABRIR A TELA DE FILTRO AQUI");
-                  // setExibeFiltroCategoria(oldState => !oldState);
-                  // setExibeFiltroCategoria(true);
-                  alert("PESQUISAR POSTAGENS DE GADO ");
+                  // setLabelOuPesquisar(oldState => !oldState); 
+                  setLabelOuPesquisar(false);
+                  setFaixa_submenu_e_filtro(false);
+                  // alert("PESQUISAR POSTAGENS DE GADO ");
+
                 }}
               >
 
@@ -2197,11 +2280,31 @@ export default function AppTest() {
               style={{ fontSize: 25, color: '#fff' }} />
           </TouchableOpacity>
 
-          <View style={{ width: '80%', alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0 }}>
-            <Text style={{ fontSize: 25, color: '#fff' }}>
-              {texto_filtro_notificacao}
-            </Text>
-          </View>
+          {/* LABEL DA NOTIFICACÃO ABAIXO */}
+          {labelOuPesquisar ?
+
+            <View style={{ width: '80%', alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0 }}>
+              <Text style={{ fontSize: 25, color: '#fff' }}>
+                {texto_filtro_notificacao}
+              </Text>
+            </View>
+            // {/* LABEL DA NOTIFICACÃO ACIMA */}
+            :
+            <View style={{ flexDirection: 'row', width: '80%', height: 'auto', alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0 }}>
+
+              <TextInput style={{ width: '78%', height: 'auto', backgroundColor: 'white', borderRadius: 8 }} onChangeText={pesquisarGadoF} textAlign={'center'} placeholder={'Digite a Pesquisa'} />
+
+              <TouchableOpacity style={{ width: '20%', height: '100%', alignItems: 'center', justifyContent: 'center', borderWidth: 0 }}
+                onPress={() => {
+                  Keyboard.dismiss(); /*alert("DAPESQUISA " + pesquisarGado)*/ PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH(pesquisarGado);
+                }}
+              >
+                <Icon name='search' style={{ fontSize: 25, color: '#fff' }} />
+              </TouchableOpacity>
+
+            </View>
+          }{/*labelOuPesquisar*/}
+
 
         </View>
       }
@@ -2319,22 +2422,22 @@ export default function AppTest() {
 
 
         {/* INICIO*************************************************************************** */}
-          
-          {produtosEtiquetasExibir
-            ?
-            <ProdutosEtiquetas
-              product={produtosS} ARRAY_PRIMEIRAS_URL_IMAGENSS={ARRAY_PRIMEIRAS_URL_IMAGENS_2} ARRAY_PRIMEIRAS_URL_VIDEOSS={ARRAY_PRIMEIRAS_URL_VIDEOS_2}
-              LARTITUDE={userPosition.latitude} LORNGITUDE={userPosition.longitude} numero_telefone_usuario={DADOS_TELEFONE} TELA_DE_ORIGEM_E_SITUACA={TELA_DE_ORIGEM_E_SITUACAO}
-            />
-            :
-            <View></View>
-          }
 
-          {/* FINAL*************************************************************************** */}
+        {produtosEtiquetasExibir
+          ?
+          <ProdutosEtiquetas
+            product={produtosS} ARRAY_PRIMEIRAS_URL_IMAGENSS={ARRAY_PRIMEIRAS_URL_IMAGENS_2} ARRAY_PRIMEIRAS_URL_VIDEOSS={ARRAY_PRIMEIRAS_URL_VIDEOS_2}
+            LARTITUDE={userPosition.latitude} LORNGITUDE={userPosition.longitude} numero_telefone_usuario={DADOS_TELEFONE} TELA_DE_ORIGEM_E_SITUACA={TELA_DE_ORIGEM_E_SITUACAO}
+          />
+          :
+          <View></View>
+        }
+
+        {/* FINAL*************************************************************************** */}
 
         {/* <FlatlistTeste /> */}
 
-        
+
         <View style={{ height: 150 }} ></View>
 
 
