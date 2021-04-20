@@ -143,23 +143,29 @@ export default function DetalhesProdutos(props) {
     const [eras_idades_states, setEras_idades_states] = useState(ERAS_IDADES)
     const [tipos_de_gados_states, setTipos_de_gados_states] = useState(TIPOS_DE_GADOS)
 
-
+    /*
     if (produtos.corMacho_J === true || produtos.corMacho_J === "true") { SEXO_DO_GADO = " Macho  "; }//IF
     if (produtos.corFemea_J === true || produtos.corFemea_J === "true") { SEXO_DO_GADO += " Fêmea  "; }//IF
+    */
+    SEXO_DO_GADO = produtos.corMacho_J +" "+ produtos.corFemea_J;
 
 
     //ERAS DO GADO
     var ERAS_IDADES = "";
+    /*
     if (produtos.cor_0_12_J === true || produtos.cor_0_12_J === "true") { ERAS_IDADES = " 0 à 12 "; }//IF
     if (produtos.cor_12_24_J === true || produtos.cor_12_24_J === "true") { ERAS_IDADES += "  12 à 24 "; }//IF
     if (produtos.cor_24_36_J === true || produtos.cor_24_36_J === "true") { ERAS_IDADES += "  24 à 36 "; }//IF
     if (produtos.corAcima_36_J === true || produtos.corAcima_36_J === "true") { ERAS_IDADES += "  Acima 36 "; }//IF
+    */
+    ERAS_IDADES = produtos.cor_0_12_J +" "+ produtos.cor_12_24_J +" "+ produtos.cor_24_36_J +" "+ produtos.corAcima_36_J;
 
     if (produtos.outrasErasAnterior_J != "" && produtos.outrasErasPosterior_J != "") { ERAS_IDADES += "  " + produtos.outrasErasAnterior_J + " à " + produtos.outrasErasPosterior_J }//IF
 
 
     //TIPOS DE GADO
     var TIPOS_DE_GADOS = "";
+    /*
     if (produtos.corBezerros_J === true || produtos.corBezerros_J === "true") { TIPOS_DE_GADOS = "  Bezerros  "; }//IF
     if (produtos.corGarrotes_J === true || produtos.corGarrotes_J === "true") { TIPOS_DE_GADOS += "  Garrotes  "; }//IF
     if (produtos.corTourunos_J === true || produtos.corTourunos_J === "true") { TIPOS_DE_GADOS += "  Tourunos  "; }//IF
@@ -173,15 +179,14 @@ export default function DetalhesProdutos(props) {
     if (produtos.corVacasGordas_J === true || produtos.corVacasGordas_J === "true") { TIPOS_DE_GADOS += "  Vacas Gordas  "; }//IF
     if (produtos.corVacasPrenhas_J === true || produtos.corVacasPrenhas_J === "true") { TIPOS_DE_GADOS += "  Vacas Prenhas  "; }//IF
     if (produtos.corVacasParidas_J === true || produtos.corVacasParidas_J === "true") { TIPOS_DE_GADOS += "  Vacas Paridas  "; }//IF
+    */
+    TIPOS_DE_GADOS = produtos.corBezerros_J +" "+ produtos.corGarrotes_J +" "+ produtos.corTourunos_J +" "+ produtos.corBois_J  +" "+ produtos.corBoisGordos_J  +" "+ produtos.corBezerras_J   +" "+   produtos.corNovilhas_J   +" "+ 
+                     produtos.corVacasBoiadeiras_J +" "+ produtos.corVacas_J +" "+ produtos.corVacasGordas_J +" "+ produtos.corVacasPrenhas_J +" "+ produtos.corVacasParidas_J; 
 
     // alert(SEXO_DO_GADO);
-
-
-    // }//function eras_e_tipo_de_gado()
-
-    //alert(SEXO_DO_GADO);
-    //alert(ERAS_IDADES);
-    //alert( TIPOS_DE_GADOS );
+     //alert(SEXO_DO_GADO);
+     //alert(ERAS_IDADES);
+     //alert( TIPOS_DE_GADOS );
 
 
 

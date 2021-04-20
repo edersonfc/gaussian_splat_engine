@@ -105,13 +105,41 @@ var dadosPostagem =
     }];
 
 
-//Criar o OBJETO JSON ACIMA         
+//Criar o OBJETO JSON ACIMA    
+
+var categorias_Objetos = {
+    Obj_Macho: "",
+    Obj_Femea: "",
+
+    Obj__0_12: "",
+    Obj__12_24: "",
+    Obj__24_36: "",
+    Obj_Acima_36: "",
+
+
+    Obj_Bezerros: "",
+    Obj_Garrotes: "",
+    Obj_Tourunos: "",
+    Obj_Bois: "",
+    Obj_BoisGordos: "",
+
+    Obj_Bezerras: "",
+    Obj_Novilhas: "",
+    Obj_VacasBoiadeiras: "",
+    Obj_Vacas: "",
+    Obj_VacasGordas: "",
+    Obj_VacasPrenhas: "",
+    Obj_VacasParidas: ""
+}
 
 export default function Postar(props) {
 
     const { VARIAVEL_GLOBAL } = useContext(GlobalContext);
 
     // var { URL_FOTOS } = props.route.params // utilizar a {} para desestruturar a variável produto que está dentro de params  17 04 2021
+
+
+
 
 
 
@@ -397,7 +425,7 @@ export default function Postar(props) {
 
     //RESPONSÁVEL POR CARREGAR PRIMEIRO TODAS DAS FUNÇÕES DO APLICATIVO ACIMA
 
-   
+
 
 
 
@@ -822,30 +850,10 @@ export default function Postar(props) {
                             <Text style={{ fontSize: 18, color: corMacho ? "#25E7DB" : "white", width: 'auto' }} name='check'
                                 onPress={() => {
 
-                                    setcorMacho(oldState => !oldState);
-
-
-                                    // const produtos =
-                                    // {
-                                    //     id: 1,
-                                    //     titulo: "Preço à Vista",
-                                    //     valor: "5.000",
-                                    //     quantidade: 10,
-                                    //     descricao: "10 Vacas holandezas leiteiras",
-                                    //     distancia: "120 KM"
-                                    // }
-
-                                    // /* */
-                                    // var ARRAY = pegar_somente_valores_de_JSON(produtos);
-                                    // ARRY_URL_IMAGENS = ARRAY;
-                                    // //alert(typeof ARRY_URL_IMAGENS);
-
-                                    // for (var i = 0; i < ARRY_URL_IMAGENS.length; i++) {
-
-                                    //     console.log(ARRY_URL_IMAGENS[i]);
-
-                                    // }//for
-
+                                    // setcorMacho(oldState => !oldState);
+                                    setcorMacho(oldState => !oldState ? categorias_Objetos.Obj_Macho = "Macho" : categorias_Objetos.Obj_Macho = "" );
+ 
+ 
                                 }}
                             > Machos</Text>
 
@@ -853,7 +861,10 @@ export default function Postar(props) {
 
                             <Icon style={{ fontSize: 18, color: corFemea ? "#25E7DB" : "#2A3E4A" }} name='check' />
                             <Text style={{ fontSize: 18, color: corFemea ? "#25E7DB" : "white", width: 'auto' }} name='check'
-                                onPress={() => { setcorFemea(oldState => !oldState) }}
+                                onPress={() => { 
+                                    // setcorFemea(oldState => !oldState) 
+                                    setcorFemea(oldState => !oldState ? categorias_Objetos.Obj_Femea = "Fêmea" : categorias_Objetos.Obj_Femea = "" );
+                            }}
                             > Fêmeas </Text>
                             <View style={{ width: '10%' }} />
 
@@ -880,22 +891,22 @@ export default function Postar(props) {
                                 <View style={{ width: '0%' }} />
                                 <Icon style={{ fontSize: 16, color: cor_0_12 ? "#25E7DB" : "#2A3E4A" }} name='check' />
                                 <Text style={{ fontSize: 16, color: cor_0_12 ? "#25E7DB" : "white", width: 'auto' }} name='check'
-                                    onPress={() => { setcor_0_12(oldState => !oldState) }}
+                                    onPress={() => { setcor_0_12(oldState => !oldState ? categorias_Objetos.Obj__0_12 = "0 à 12" : categorias_Objetos.Obj__0_12 = "" ) }}
                                 > 0 à 12 </Text>
                                 <View style={{ width: '4%' }} />
                                 <Icon style={{ fontSize: 16, color: cor_12_24 ? "#25E7DB" : "#2A3E4A" }} name='check' />
                                 <Text style={{ fontSize: 16, color: cor_12_24 ? "#25E7DB" : "white", width: 'auto' }} name='check'
-                                    onPress={() => { setcor_12_24(oldState => !oldState) }}
+                                    onPress={() => { setcor_12_24(oldState => !oldState ? categorias_Objetos.Obj__12_24 = "12 à 24" : categorias_Objetos.Obj__12_24 = "" ) }}
                                 > 12 à 24 </Text>
                                 <View style={{ width: '4%' }} />
                                 <Icon style={{ fontSize: 16, color: cor_24_36 ? "#25E7DB" : "#2A3E4A" }} name='check' />
                                 <Text style={{ fontSize: 16, color: cor_24_36 ? "#25E7DB" : "white", width: 'auto' }} name='check'
-                                    onPress={() => { setcor_24_36(oldState => !oldState) }}
+                                    onPress={() => { setcor_24_36(oldState => !oldState ? categorias_Objetos.Obj__24_36 = "24 à 36" : categorias_Objetos.Obj__24_36 = "" )  }}
                                 > 24 à 36 </Text>
                                 <View style={{ width: '4%' }} />
                                 <Icon style={{ fontSize: 16, color: corAcima_36 ? "#25E7DB" : "#2A3E4A" }} name='check' />
                                 <Text style={{ fontSize: 16, color: corAcima_36 ? "#25E7DB" : "white", width: 'auto' }} name='check'
-                                    onPress={() => { setcorAcima_36(oldState => !oldState) }}
+                                    onPress={() => { setcorAcima_36(oldState => !oldState ? categorias_Objetos.Obj_Acima_36 = "Acima 36" : categorias_Objetos.Obj_Acima_36 = "" ) }}
                                 >Acima 36</Text>
 
                             </View>
@@ -943,7 +954,7 @@ export default function Postar(props) {
                         <View style={{ width: '50%', height: 300, paddingLeft: 20, borderEndWidth: 0, borderColor: 'darkorange' }} >
 
                             <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
-                                onPress={() => { setcorBezerros(oldState => !oldState) }}
+                                onPress={() => { setcorBezerros(oldState => !oldState ? categorias_Objetos.Obj_Bezerros = "Bezerros" : categorias_Objetos.Obj_Bezerros = "" ) }}
                             >
                                 <Icon style={{ fontSize: 16, color: corBezerros ? "#25E7DB" : "#2A3E4A" }} name='check' />
                                 <Text style={{ fontSize: 16, color: corBezerros ? "#25E7DB" : "white", width: 'auto' }} name='check'> Bezerros</Text>
@@ -951,7 +962,7 @@ export default function Postar(props) {
 
 
                             <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
-                                onPress={() => { setcorGarrotes(oldState => !oldState) }}
+                                onPress={() => { setcorGarrotes(oldState => !oldState ? categorias_Objetos.Obj_Garrotes = "Garrotes" : categorias_Objetos.Obj_Garrotes = "" )  }}
                             >
 
                                 <Icon style={{ fontSize: 16, color: corGarrotes ? "#25E7DB" : "#2A3E4A" }} name='check' />
@@ -962,7 +973,7 @@ export default function Postar(props) {
 
 
                             <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
-                                onPress={() => { setcorTourunos(oldState => !oldState) }}
+                                onPress={() => { setcorTourunos(oldState => !oldState ? categorias_Objetos.Obj_Tourunos = "Tourunos" : categorias_Objetos.Obj_Tourunos = "" )  }}
                             >
                                 <Icon style={{ fontSize: 16, color: corTourunos ? "#25E7DB" : "#2A3E4A" }} name='check' />
                                 <Text style={{ fontSize: 16, color: corTourunos ? "#25E7DB" : "white", width: 'auto' }} name='check'> Tourunos</Text>
@@ -970,14 +981,14 @@ export default function Postar(props) {
 
 
                             <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
-                                onPress={() => { setcorBois(oldState => !oldState) }}
+                                onPress={() => { setcorBois(oldState => !oldState ? categorias_Objetos.Obj_Bois = "Bois" : categorias_Objetos.Obj_Bois = "" ) }}
                             >
                                 <Icon style={{ fontSize: 16, color: corBois ? "#25E7DB" : "#2A3E4A" }} name='check' />
                                 <Text style={{ fontSize: 16, color: corBois ? "#25E7DB" : "white", width: 'auto' }} name='check'> Bois</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
-                                onPress={() => { setcorBoisGordos(oldState => !oldState) }}
+                                onPress={() => { setcorBoisGordos(oldState => !oldState ? categorias_Objetos.Obj_BoisGordos = "Bois Gordos" : categorias_Objetos.Obj_BoisGordos = "" )  }}
                             >
                                 <Icon style={{ fontSize: 16, color: corBoisGordos ? "#25E7DB" : "#2A3E4A" }} name='check' />
                                 <Text style={{ fontSize: 16, color: corBoisGordos ? "#25E7DB" : "white", width: 'auto' }} name='check'> Bois Gordos</Text>
@@ -994,14 +1005,14 @@ export default function Postar(props) {
 
 
                             <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
-                                onPress={() => { setcorBezerras(oldState => !oldState) }}
+                                onPress={() => { setcorBezerras(oldState => !oldState ? categorias_Objetos.Obj_Bezerras = "Bezerras" : categorias_Objetos.Obj_Bezerras = "" ) }}
                             >
                                 <Icon style={{ fontSize: 16, color: corBezerras ? "#25E7DB" : "#2A3E4A" }} name='check' />
                                 <Text style={{ fontSize: 16, color: corBezerras ? "#25E7DB" : "white", width: 'auto' }} name='check'> Bezerras</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
-                                onPress={() => { setcorNovilhas(oldState => !oldState) }}
+                                onPress={() => { setcorNovilhas(oldState => !oldState ? categorias_Objetos.Obj_Novilhas = "Novilhas" : categorias_Objetos.Obj_Novilhas = "" ) }}
                             >
                                 <Icon style={{ fontSize: 16, color: corNovilhas ? "#25E7DB" : "#2A3E4A" }} name='check' />
                                 <Text style={{ fontSize: 16, color: corNovilhas ? "#25E7DB" : "white", width: 'auto' }} name='check'> Novilhas</Text>
@@ -1009,21 +1020,21 @@ export default function Postar(props) {
 
 
                             <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
-                                onPress={() => { setcorVacasBoiadeiras(oldState => !oldState) }}
+                                onPress={() => { setcorVacasBoiadeiras(oldState => !oldState ? categorias_Objetos.Obj_VacasBoiadeiras = "Vacas Boiadeiras" : categorias_Objetos.Obj_VacasBoiadeiras = "" ) }}
                             >
                                 <Icon style={{ fontSize: 16, color: corVacasBoiadeiras ? "#25E7DB" : "#2A3E4A" }} name='check' />
                                 <Text style={{ fontSize: 16, color: corVacasBoiadeiras ? "#25E7DB" : "white", width: 'auto' }} name='check'> Vacas Boiadeiras</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
-                                onPress={() => { setcorVacas(oldState => !oldState) }}
+                                onPress={() => { setcorVacas(oldState => !oldState ? categorias_Objetos.Obj_Vacas = "Vacas" : categorias_Objetos.Obj_Vacas = "" ) }}
                             >
                                 <Icon style={{ fontSize: 16, color: corVacas ? "#25E7DB" : "#2A3E4A" }} name='check' />
                                 <Text style={{ fontSize: 16, color: corVacas ? "#25E7DB" : "white", width: 'auto' }} name='check'> Vacas</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
-                                onPress={() => { setcorVacasGordas(oldState => !oldState) }}
+                                onPress={() => { setcorVacasGordas(oldState => !oldState ? categorias_Objetos.Obj_VacasGordas = "Vacas Gordas" : categorias_Objetos.Obj_VacasGordas = "" ) }}
                             >
                                 <Icon style={{ fontSize: 16, color: corVacasGordas ? "#25E7DB" : "#2A3E4A" }} name='check' />
                                 <Text style={{ fontSize: 16, color: corVacasGordas ? "#25E7DB" : "white", width: 'auto' }} name='check'> Vacas Gordas</Text>
@@ -1031,14 +1042,14 @@ export default function Postar(props) {
 
 
                             <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
-                                onPress={() => { setcorVacasPrenhas(oldState => !oldState) }}
+                                onPress={() => { setcorVacasPrenhas(oldState => !oldState ? categorias_Objetos.Obj_VacasPrenhas = "Vacas Prenhas" : categorias_Objetos.Obj_VacasPrenhas = "" ) }}
                             >
                                 <Icon style={{ fontSize: 16, color: corVacasPrenhas ? "#25E7DB" : "#2A3E4A" }} name='check' />
                                 <Text style={{ fontSize: 16, color: corVacasPrenhas ? "#25E7DB" : "white", width: 'auto' }} name='check'> Vacas Prenhas</Text>
                             </TouchableOpacity>
 
                             <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
-                                onPress={() => { setcorVacasParidas(oldState => !oldState) }}
+                                onPress={() => { setcorVacasParidas(oldState => !oldState ? categorias_Objetos.Obj_VacasParidas = "Vacas Paridas" : categorias_Objetos.Obj_VacasParidas = "" ) }}
                             >
                                 <Icon style={{ fontSize: 16, color: corVacasParidas ? "#25E7DB" : "#2A3E4A" }} name='check' />
                                 <Text style={{ fontSize: 16, color: corVacasParidas ? "#25E7DB" : "white", width: 'auto' }} name='check'> Vacas Paridas</Text>
@@ -1518,6 +1529,9 @@ export default function Postar(props) {
 
 
 
+
+
+
     async function ARMAZENAR_POSTAGEM_PRIMEIRA_ETAPA() {
 
         //variavelTelefone = variavelTelefone.replace("[", "").replace("]", "");
@@ -1556,28 +1570,36 @@ export default function Postar(props) {
         var URL_IMAGEN_DADOS_J = URL_IMAGEN_DADOS;
         var URL_VIDEOS_DADOS_J = URL_VIDEOS_DADOS;
 
-        var corMacho_J = corMacho;
-        var corFemea_J = corFemea;
-        var cor_0_12_J = cor_0_12;
-        var cor_12_24_J = cor_12_24;
-        var cor_24_36_J = cor_24_36;
-        var corAcima_36_J = corAcima_36;
+        var corMacho_J = categorias_Objetos.Obj_Macho;
+        var corFemea_J = categorias_Objetos.Obj_Femea;   
+
+        var cor_0_12_J = categorias_Objetos.Obj__0_12;
+        var cor_12_24_J = categorias_Objetos.Obj__12_24;
+        var cor_24_36_J = categorias_Objetos.Obj__24_36;
+        var corAcima_36_J = categorias_Objetos.Obj_Acima_36;
+
+
 
         var outrasErasAnterior_J = outrasErasAnterior;
         var outrasErasPosterior_J = outrasErasPosterior;
 
-        var corBezerros_J = corBezerros;
-        var corGarrotes_J = corGarrotes;
-        var corTourunos_J = corTourunos;
-        var corBois_J = corBois;
-        var corBoisGordos_J = corBoisGordos;
-        var corBezerras_J = corBezerras;
-        var corNovilhas_J = corNovilhas;
-        var corVacasBoiadeiras_J = corVacasBoiadeiras;
-        var corVacas_J = corVacas;
-        var corVacasGordas_J = corVacasGordas;
-        var corVacasPrenhas_J = corVacasPrenhas;
-        var corVacasParidas_J = corVacasParidas;
+
+
+        var corBezerros_J = categorias_Objetos.Obj_Bezerros;
+        var corGarrotes_J = categorias_Objetos.Obj_Garrotes;
+        var corTourunos_J = categorias_Objetos.Obj_Tourunos;
+        var corBois_J = categorias_Objetos.Obj_Bois;
+        var corBoisGordos_J = categorias_Objetos.Obj_BoisGordos;
+
+        var corBezerras_J = categorias_Objetos.Obj_Bezerras;
+        var corNovilhas_J = categorias_Objetos.Obj_Novilhas;
+        var corVacasBoiadeiras_J = categorias_Objetos.Obj_VacasBoiadeiras;
+        var corVacas_J = categorias_Objetos.Obj_Vacas;
+        var corVacasGordas_J = categorias_Objetos.Obj_VacasGordas;
+        var corVacasPrenhas_J = categorias_Objetos.Obj_VacasPrenhas;
+        var corVacasParidas_J = categorias_Objetos.Obj_VacasParidas;
+
+
 
         var descricoesGerais_J = descricoesGerais;
         var precoSugerido_J = precoSugerido;
@@ -1666,29 +1688,32 @@ export default function Postar(props) {
                 URL_IMAGEN_DADOS_J: URL_IMAGEN_DADOS,
                 URL_VIDEOS_DADOS_J: URL_VIDEOS_DADOS,
 
-                corMacho_J: corMacho,
-                corFemea_J: corFemea,
-                cor_0_12_J: cor_0_12,
-                cor_12_24_J: cor_12_24,
-                cor_24_36_J: cor_24_36,
-                corAcima_36_J: corAcima_36,
+                corMacho_J: categorias_Objetos.Obj_Macho,
+                corFemea_J: categorias_Objetos.Obj_Femea,
+
+                cor_0_12_J: categorias_Objetos.Obj__0_12,
+                cor_12_24_J: categorias_Objetos.Obj__12_24,
+                cor_24_36_J: categorias_Objetos.Obj__24_36,
+                corAcima_36_J: categorias_Objetos.Obj_Acima_36,
 
                 outrasErasAnterior_J: outrasErasAnterior,
                 outrasErasPosterior_J: outrasErasPosterior,
 
-                corBezerros_J: corBezerros,
-                corGarrotes_J: corGarrotes,
-                corTourunos_J: corTourunos,
-                corBois_J: corBois,
-                corBoisGordos_J: corBoisGordos,
-                corBezerras_J: corBezerras,
-                corNovilhas_J: corNovilhas,
-                corVacasBoiadeiras_J: corVacasBoiadeiras,
-                corVacas_J: corVacas,
-                corVacasGordas_J: corVacasGordas,
-                corVacasPrenhas_J: corVacasPrenhas,
-                corVacasParidas_J: corVacasParidas,
+                corBezerros_J: categorias_Objetos.Obj_Bezerros,
+                corGarrotes_J: categorias_Objetos.Obj_Garrotes,
+                corTourunos_J: categorias_Objetos.Obj_Tourunos,
+                corBois_J: categorias_Objetos.Obj_Bois,
+                corBoisGordos_J: categorias_Objetos.Obj_BoisGordos,
 
+                corBezerras_J: categorias_Objetos.Obj_Bezerras,
+                corNovilhas_J: categorias_Objetos.Obj_Novilhas,
+                corVacasBoiadeiras_J: categorias_Objetos.Obj_VacasBoiadeiras,
+                corVacas_J: categorias_Objetos.Obj_Vacas,
+                corVacasGordas_J: categorias_Objetos.Obj_VacasGordas,
+                corVacasPrenhas_J: categorias_Objetos.Obj_VacasPrenhas,
+                corVacasParidas_J: categorias_Objetos.Obj_VacasParidas,
+
+                
                 descricoesGerais_J: descricoesGerais,
                 precoSugerido_J: precoSugerido,
                 quantidadeCabecasOuPesos_J: quantidadeCabecasOuPesos,
