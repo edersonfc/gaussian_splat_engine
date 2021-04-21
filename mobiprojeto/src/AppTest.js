@@ -327,7 +327,8 @@ export default function AppTest() {
   const [muda_cor_checkado_macho, setMuda_cor_checkado_macho] = useState(false)
   const [muda_cor_checkado_femea, setMuda_cor_checkado_femea] = useState(false)
 
-  const [exibe_suas_postagens, setExibe_suas_postagens] = useState(false)
+  const [exibe_suas_postagens, setExibe_suas_postagens] = useState(false);
+  const [corIconeFiltro, setCorIconeFiltro] = useState(false);
 
   // useEffect(() => {
   //   const data = api.get('http://localhost:333/produtos').then(resposta => setProdutos(resposta.data)) 
@@ -1864,7 +1865,11 @@ export default function AppTest() {
       params: {
         // id_J: id_J,
         numero_telefone_usuario: VARIAVEL_GLOBAL.TELEFONE,
-        DADOS_P_FULLTEXT_SEARCH: variavelDaPesquisa
+        DADOS_P_FULLTEXT_SEARCH: variavelDaPesquisa,
+        PARAMETRO:"TELA_PRINCIPAL",
+        DATA_INICIAL:"vazia",
+        DATA_FINAL:"vazia",
+        ComprasVendas_J: "vazia"
       }
       //} , {signal: abortCont.signal} );
     });
@@ -1872,7 +1877,7 @@ export default function AppTest() {
     dados_da_pesquisa_FullTextSearch_1 = await dados_da_pesquisa_FullTextSearch_2.data;
 
     // alert(  JSON.stringify(dados_da_pesquisa_FullTextSearch_1)  );
-    var datos =  JSON.stringify(dados_da_pesquisa_FullTextSearch_1);
+    var datos = JSON.stringify(dados_da_pesquisa_FullTextSearch_1);
 
     //IMPLEMENTANDO FILTRO FULLTEXTSEARCH AQUI ABAIXO **********************************
 
@@ -2042,67 +2047,34 @@ export default function AppTest() {
 
             <View style={[Estilo.borda_geral, style = { width: '35%', alignItems: 'flex-start', flexDirection: 'row' }]}  >
 
-              {/* ABAIXO 1 muda_cor_checkado */}
-
-              {/* {muda_cor_checkado_macho
-                ? <Icon name='check'
-                  style={[style = { color: '#25E7DB' }]}//#2A3E4A
-
-                  onPress={() => {
-                    // setMuda_cor_checkado_macho(oldState => !oldState);
-                    setExibeFiltroCategoria(oldState => !oldState)
-                  }} />
-
-                : <Icon name='check'
-                  style={[style = { color: '#2A3E4A' }]}
-
-                  onPress={() => {
-                    // setMuda_cor_checkado_macho(oldState => !oldState)
-                    setExibeFiltroCategoria(oldState => !oldState)
-
-                  }} />
-
-              }
-
-
-              {muda_cor_checkado_macho
-                ? <Text style={[Estilo.fontePequenaIconComClick]}
-
-                  onPress={() => {
-                    // setMuda_cor_checkado_macho(oldState => !oldState)
-                    setExibeFiltroCategoria(oldState => !oldState)
-                    //APAGAR_POSTAGEM('POSTAGEM');
-                  }}
-                > Macho</Text>
-
-                : <Text style={[Estilo.fontePequenaIconSemClick]}
-
-                  onPress={() => {
-                    // setMuda_cor_checkado_macho(oldState => !oldState)
-                    setExibeFiltroCategoria(oldState => !oldState)
-                    // //APAGAR_POSTAGEM('POSTAGEM');
-                    // alert(IP_DO_SERVIDOR);
-                    // //alert(  JSON.stringify( JSON.parse( VARIAVEL_GLOBAL.TODOS_OS_PRODUTOS ) )  );
-                    // //alert(  JSON.stringify( JSON.parse( VARIAVEL_GLOBAL.TODOS_OS_PRODUTOS )[0].numero_telefone_J)  );
-                  }}
-                > Macho</Text>
-              } */}
-              {/* ACIAMA 1 muda_cor_checkado */}
 
               <TouchableOpacity style={{ width: '80%', height: 'auto', borderWidth: 0, justifyContent: 'flex-end', alignItems: 'center' }}
                 onPress={() => {
 
-                  // alert("ABRIR A TELA DE FILTRO AQUI");
-                  setExibeFiltroCategoria(oldState => !oldState);
-                  // setExibeFiltroCategoria(true);
+                  if (!corIconeFiltro) {
+
+                    setExibeFiltroCategoria(true);
+                    filtro_ativado_sim_ou_nao = true;
+
+                  } else {
+
+                    CONECTANDO_AO_BANCO_DE_DADOS();
+                    ADICIONAR_PRODUTOS_por_ARRAY(true);
+                    filtro_ativado_sim_ou_nao = false;
+
+                  }
+
+
+                  setCorIconeFiltro(oldState => !oldState);
 
                 }}
               >
 
                 <View>
-                  <Icon name='filter' nativeID='notificacao' style={[Estilo.icones_medio, style = { paddingRight: 10 }]} />
+                  {/* <Icon name='filter' nativeID='notificacao' style={[Estilo.icones_medio, style = { paddingRight: 10 }]} /> */}
+                  <Icon name='filter' nativeID='notificacao' style={[Estilo.icones_medio, style = { paddingRight: 10, color: corIconeFiltro ? "#25E7DB" : "white" }]} />
                 </View>
-                <Text style={{ fontSize: 10, color: 'white' }}>Filtrar Categorias</Text>
+                <Text style={{ fontSize: 10, color: corIconeFiltro ? "#25E7DB" : "white" }}>Filtrar Categorias</Text>
 
               </TouchableOpacity>
 
@@ -2451,9 +2423,9 @@ export default function AppTest() {
 
       {/* {exibeFiltroCategoria && (<FILTRO_CATEGORIA />)} */}
 
-      {exibeFiltroCategoria && (<FILTRO_PESQUISA_CATEGORIA />)}
+      {/* {exibeFiltroCategoria && (<FILTRO_PESQUISA_CATEGORIA />)} */}
 
-      {exibeDetalheProdutos && (<DETALHES />)}
+      {/* {exibeDetalheProdutos && (<DETALHES />)} */}
 
 
       {/*MENU DE AVISOS ABAIXO*/}
@@ -2590,7 +2562,10 @@ export default function AppTest() {
       {/*MENU DE AVISOS ACIMA*/}
 
 
-      {exibeFiltroCategoria && (<FILTRO_PESQUISA_CATEGORIA />)}
+      {exibeFiltroCategoria && (<FILTRO_PESQUISA_CATEGORIA
+        setExibeFiltroCategori={setExibeFiltroCategoria}
+        PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH_REMOTO={PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH}
+      />)}
 
 
 
@@ -2602,6 +2577,8 @@ export default function AppTest() {
   //#REMOVIDO DAQUI ABAIXO
   //#REFERENCE321
   //REMOVIDO DAQUI ACIMA
+
+
 
 
 

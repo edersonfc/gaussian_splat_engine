@@ -213,7 +213,6 @@ export default function ComprasVendas(props) {
     useEffect(() => {
 
         ADICIONAR_PRODUTOS_por_ARRAY(true);
-
         // alert("TÁ DISPARANDOY")
 
     }, [dataInicial, dataFinal]);
@@ -343,7 +342,6 @@ export default function ComprasVendas(props) {
         try {
 
             var datos = "";
-
 
             //if (estado_da_conecao) {
             //alert(estado_da_conecao);    NUMERO_CELL_J
@@ -530,6 +528,129 @@ export default function ComprasVendas(props) {
 
 
 
+    const [corIconeFiltro, setCorIconeFiltro] = useState(false);
+
+    async function PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH(variavelDaPesquisa) {
+
+        // alert("FILTRAR TELA MINHAS COMPRAS E VENDAS");
+        // alert(variavelDaPesquisa);
+
+
+        /*******************************************************************************************************/
+        var datos = "";
+        // DADOS_TELEFONE = await AsyncStorage.getItem('NUMERO_CELL');
+        DADOS_TELEFONE = { NUMERO_CELL_J: VARIAVEL_GLOBAL.TELEFONE[0] };
+        DADOS_TELEFONE = JSON.stringify(DADOS_TELEFONE);
+        // alert( DADOS_TELEFONE );
+        var DADOS_TELEFONE_VALOR = "";
+        try {
+            //var numero_telefone_J = obj_JSON[i].numero_telefone_J;
+            //alert(typeof DADOS_TELEFONE);
+            var DADOS_TELEFONE_JSON = JSON.parse(DADOS_TELEFONE);
+            //alert(Object.values(DADOS_TELEFONE_JSON));
+            DADOS_TELEFONE_VALOR = String(Object.values(DADOS_TELEFONE_JSON));
+            //alert(DADOS_TELEFONE_VALOR+"  auditação 1@#");
+        } catch (error) { /* alert("#3547wer " + error); */ }
+        /*******************************************************************************************************/
+
+
+
+
+        var dados_da_pesquisa_FullTextSearch_1;
+
+        const dados_da_pesquisa_FullTextSearch_2 = await Axios.get(IP_DO_SERVIDOR + 'pesquisa_full_text_search', {
+
+            params: {
+                // id_J: id_J,
+                numero_telefone_usuario: DADOS_TELEFONE_VALOR,
+                DADOS_P_FULLTEXT_SEARCH: variavelDaPesquisa,
+                PARAMETRO: "TELA_COMPRA_E_VENDA",
+                DATA_INICIAL: EXTRAIR_DATA_PORTUGUES_E_CONVERTER_P_INGLES(dataInicial),
+                DATA_FINAL: EXTRAIR_DATA_PORTUGUES_E_CONVERTER_P_INGLES(dataFinal),
+                ComprasVendas_J: comprasOuVendasFlag
+            }
+            //} , {signal: abortCont.signal} );
+        });
+
+
+        dados_da_pesquisa_FullTextSearch_1 = await dados_da_pesquisa_FullTextSearch_2.data;
+
+        // alert(  JSON.stringify(dados_da_pesquisa_FullTextSearch_1)  );
+        datos = JSON.stringify(dados_da_pesquisa_FullTextSearch_1);
+
+        // break;
+        // alert(datos);
+
+
+        /*******************************************************************************/
+        /*******************************************************************************/
+        try {
+
+            var valor_unitario = "";
+            var somatorioCabecas = 0;
+            for (var count = 0; count < dados_da_pesquisa_FullTextSearch_2.data.length; count++) {
+
+                //somatorioCabecas = (somatorioCabecas + parseInt( JSON.stringify(response.data[count].quantidadeCabecasOuPesos_J) ));
+                valor_unitario = JSON.stringify(response.data[count].quantidadeCabecasOuPesos_J);
+                valor_unitario = valor_unitario.replace('"', '').replace('"', '');
+                somatorioCabecas += parseInt(valor_unitario);
+                //alert(valor_unitario);
+
+            }//FOR   //quantidadeCabecasOuPesos_J
+            setNumero_de_cabecas(somatorioCabecas);
+            //alert( Object.values(JSON.stringify(response.data)) );
+            //alert( JSON.stringify(response.data[0].quantidadeCabecasOuPesos_J) );
+
+            var URLs_JSON;
+
+            if (datos.includes("|")) {
+
+                ARRAY_PRIMEIRAS_URL_IMAGENS_2.length = 0;
+                ARRAY_PRIMEIRAS_URL_VIDEOS_2.length = 0;
+
+                URLs_JSON = JSON.parse(datos);
+                //alert(URLs_JSON.length);
+                var PRIMEIRA_URL_IMAGEM_INDEXOF;
+                var PRIMEIRA_URL_VIDEO_INDEXOF;
+                for (var i = 0; i < URLs_JSON.length; i++) {
+
+                    //TRATAMENTO COM IMAGENS ABAIXO
+                    PRIMEIRA_URL_IMAGEM_INDEXOF = URLs_JSON[i].URL_IMAGEN_DADOS_J;
+                    var TAMANHO = PRIMEIRA_URL_IMAGEM_INDEXOF.indexOf("|");
+                    PRIMEIRA_URL_IMAGEM_INDEXOF = PRIMEIRA_URL_IMAGEM_INDEXOF.substring(0, TAMANHO);
+                    ARRAY_PRIMEIRAS_URL_IMAGENS_2.push(PRIMEIRA_URL_IMAGEM_INDEXOF);
+                    //TRATAMENTO COM IMAGENS ACIMA
+
+                    //TRATAMENTO COM VIDEOSS ABAIXO
+                    PRIMEIRA_URL_VIDEO_INDEXOF = URLs_JSON[i].URL_VIDEOS_DADOS_J;
+                    var TAMANHO_2 = PRIMEIRA_URL_VIDEO_INDEXOF.indexOf("|");
+                    PRIMEIRA_URL_VIDEO_INDEXOF = PRIMEIRA_URL_VIDEO_INDEXOF.substring(0, TAMANHO_2);
+                    ARRAY_PRIMEIRAS_URL_VIDEOS_2.push(PRIMEIRA_URL_VIDEO_INDEXOF);
+                    //TRATAMENTO COM VIDEOSS ACIMA
+
+                }//FOR
+
+            }//IF
+
+            //alert(datos+"  auditação 45wq&$);
+            setProdutos(datos);
+            //alert(produtosS);
+            setProdutosEtiquetasExibir(true);
+
+        } catch (error) { /*   alert("86FFD#L&S328@95 " + error); */  console.log("efc e wpac "+error)}
+        /*******************************************************************************/
+        /*******************************************************************************/
+
+
+    }
+
+
+
+
+
+
+
+
 
 
     return (
@@ -543,8 +664,8 @@ export default function ComprasVendas(props) {
                         //setFecharTelaDetalhe(oldState => !oldState)
                         //alert('FOI EXEUTADO')
                         VARIAVEL_GLOBAL.TELA_ATUAL = "Principal",
-                        VARIAVEL_GLOBAL.TELA_ORIGEM = "nenhuma",
-                        navigation.navigate("TelaPrincipal", { produto })
+                            VARIAVEL_GLOBAL.TELA_ORIGEM = "nenhuma",
+                            navigation.navigate("TelaPrincipal", { produto })
                     }}
                 >
                     <Icon name='arrow-left' style={Estilo.icones_medio} />
@@ -580,12 +701,28 @@ export default function ComprasVendas(props) {
 
                 <TouchableOpacity style={[Estilo.borda_geral, style = { width: '20%', alignItems: 'flex-start', justifyContent: 'flex-start', borderWidth: 0 }]}
                     onPress={() => {
-                        setExibeFiltroCategoria(oldState => !oldState);
-                        // setExibeFiltroCategoria(true);
+
+                        if (!corIconeFiltro) {
+
+                            setExibeFiltroCategoria(true);
+                            filtro_ativado_sim_ou_nao = true;
+
+                        } else {
+
+                            // CONECTANDO_AO_BANCO_DE_DADOS();
+                            // ADICIONAR_PRODUTOS_por_ARRAY(true);
+                            filtro_ativado_sim_ou_nao = false;
+
+                        }
+
+
+                        setCorIconeFiltro(oldState => !oldState);
+
+                        // setExibeFiltroCategoria(oldState => !oldState);
 
                     }}
                 >
-                    <Icon name='cogs' style={Estilo.fonteGrande} />
+                    <Icon name='cogs' style={[Estilo.fonteGrande, style = { color: corIconeFiltro ? "#25E7DB" : "white" }]} />
                 </TouchableOpacity>
 
                 <View style={[Estilo.borda_geral, style = { width: '26%', alignItems: 'center', justifyContent: 'center', borderWidth: 0 }]}>
@@ -744,25 +881,28 @@ export default function ComprasVendas(props) {
             {/*PAINEL DE ROLAGEM VERTICAL ABAIXO */}
             {/* FOI DESATIVADO O SCROLLVIEW ABAIXO PORQUE ESTÁ UTILIZANDO O FLATLIST EM <ProdutosEtiquetas em Outra TELA */}
             {/* <ScrollView style={{ paddingVertical: 1, borderWidth: 0, borderColor: 'orange',height: '1%'}} > */}
-                {/*  <ProdutosEtiquetas />  */}
+            {/*  <ProdutosEtiquetas />  */}
 
-                {produtosEtiquetasExibir
-                    ?
-                    <ProdutosEtiquetas
-                        product={produtosS} ARRAY_PRIMEIRAS_URL_IMAGENSS={ARRAY_PRIMEIRAS_URL_IMAGENS_2} ARRAY_PRIMEIRAS_URL_VIDEOSS={ARRAY_PRIMEIRAS_URL_VIDEOS_2}
-                        LARTITUDE={LATITUDE_USUARIO} LORNGITUDE={LONGITUDE_USUARIO} numero_telefone_usuario={DADOS_TELEFONE} TELA_DE_ORIGEM_E_SITUACA={TELA_DE_ORIGEM_E_SITUACAO}
-                    />
-                    :
-                    <View></View>
-                }
+            {produtosEtiquetasExibir
+                ?
+                <ProdutosEtiquetas
+                    product={produtosS} ARRAY_PRIMEIRAS_URL_IMAGENSS={ARRAY_PRIMEIRAS_URL_IMAGENS_2} ARRAY_PRIMEIRAS_URL_VIDEOSS={ARRAY_PRIMEIRAS_URL_VIDEOS_2}
+                    LARTITUDE={LATITUDE_USUARIO} LORNGITUDE={LONGITUDE_USUARIO} numero_telefone_usuario={DADOS_TELEFONE} TELA_DE_ORIGEM_E_SITUACA={TELA_DE_ORIGEM_E_SITUACAO}
+                />
+                :
+                <View></View>
+            }
 
             {/* </ScrollView > */}
-             {/* FOI DESATIVADO O SCROLLVIEW ACIMA PORQUE ESTÁ UTILIZANDO O FLATLIST EM <ProdutosEtiquetas em Outra TELA */}
+            {/* FOI DESATIVADO O SCROLLVIEW ACIMA PORQUE ESTÁ UTILIZANDO O FLATLIST EM <ProdutosEtiquetas em Outra TELA */}
             {/*PAINEL DE ROLAGEM VERTICAL ACIMA */}
 
             {/* {exibeFiltroCategoria && (<FILTRO_CATEGORIA />)} */}
 
-            {exibeFiltroCategoria && (<FILTRO_PESQUISA_CATEGORIA />)}
+            {exibeFiltroCategoria && (<FILTRO_PESQUISA_CATEGORIA
+                setExibeFiltroCategori={setExibeFiltroCategoria}
+                PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH_REMOTO_2={PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH}
+            />)}
 
 
 

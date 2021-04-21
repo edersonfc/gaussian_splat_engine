@@ -852,7 +852,8 @@ export default function Postar(props) {
 
                                     // setcorMacho(oldState => !oldState);
                                     setcorMacho(oldState => !oldState ? categorias_Objetos.Obj_Macho = "Macho" : categorias_Objetos.Obj_Macho = "" );
- 
+                                    alert(categorias_Objetos.Obj_Macho);
+
  
                                 }}
                             > Machos</Text>

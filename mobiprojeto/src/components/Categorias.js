@@ -33,6 +33,16 @@ export default function Categorias() {
     const [valorMenor, setValorMenor] = useState(0)
     const [valorMaior, setValorMaior] = useState(300)
 
+
+
+
+
+
+
+
+
+
+
     return (
 
 
