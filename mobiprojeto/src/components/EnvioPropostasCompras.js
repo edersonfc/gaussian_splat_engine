@@ -270,6 +270,7 @@ export default function EnvioPropostasCompras(props) {
     //RESPONDER AS PROPOSTAS ABAIXO
     async function RESPOSTA_DE_PROPOSTAS(id_resposta_proposta, resposta_da_proposta, VENDEDOR_R, COMPRADOR_R) {
 
+        VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = true;
 
         var telefone_destino = "";
 
@@ -316,6 +317,8 @@ export default function EnvioPropostasCompras(props) {
 
     ////////ENVIAR PROPOSTA ABAIXO
     function ENVIAR_PROPOSTA(funcao_remota_enivar_proposta) {
+
+        VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = true;
 
         //obreserve
         var conteudoDaProposta = funcao_remota_enivar_proposta;
@@ -400,6 +403,9 @@ export default function EnvioPropostasCompras(props) {
 
     /////////COMPRAR DIRETO ABAIXO
     async function COMPRAR_DIRETO() {
+
+        VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = true;
+
         // alert("VAI COMPRAR DIRETO");
         //alert( index+"   "+numero_telefone+"   "+id_da_postagem );
         var numero_telefone_J = numero_telefone;
@@ -423,6 +429,9 @@ export default function EnvioPropostasCompras(props) {
 
     //UPDATE ACEITAR PROPOSTA DO COMPRADOR ABAIXO
     async function ACEITAR_PROPOSTA(cod_automatico) {
+
+
+        VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = true;
 
         //alert(cod_automatico);
 

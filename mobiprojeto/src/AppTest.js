@@ -434,10 +434,9 @@ export default function AppTest() {
                         //ARMAZENAR_ESTATUS_SE_TA_ONLINE_OU_OFFLINE('ON-LINE');
                         VARIAVEL_GLOBAL.CONEXAO_DO_APP = "ON-LINE";
                         //console.log("INICIO => " + hora_e_segundo_completo());
-                        // await BUSCANDO_NOTIFICACOES();
+                        
                         await BUSCANDO_NOTIFICACOES_2();
-                        //console.log("TERMINO => " + hora_e_segundo_completo());
-
+                       
                         console.log(contador_iii + " => " + hora_e_segundo_completo())
 
                       })
@@ -743,39 +742,26 @@ export default function AppTest() {
 
           if (VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO.includes("Proposta-Recebida-Recente")) {
 
-
-            VARIAVEL_GLOBAL.PROPOSTAS_RECEBIDAS = parseInt(VARIAVEL_GLOBAL.PROPOSTAS_RECEBIDAS) + 1;
-            //alert("Foi Recebida uma Proposta Recente");
-            //alert(msg_parametro+"  Proposta-Recebida-Recente  ");
-            setQtde_propostas_recebidas_nao_vista(VARIAVEL_GLOBAL.PROPOSTAS_RECEBIDAS);
-
-
+            // VARIAVEL_GLOBAL.PROPOSTAS_RECEBIDAS = parseInt(VARIAVEL_GLOBAL.PROPOSTAS_RECEBIDAS) + 1;
+            // //alert("Foi Recebida uma Proposta Recente");
+            // //alert(msg_parametro+"  Proposta-Recebida-Recente  ");
+            // setQtde_propostas_recebidas_nao_vista(VARIAVEL_GLOBAL.PROPOSTAS_RECEBIDAS);
             setNotificacao_visivel_true_false(true);
             VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
-            //alert(qtde_propostas_recebidas_nao_vista);
-
-
-            // VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = true;//1@
-
             //console.log(msg_parametro);
 
           }
 
           if (VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO.includes("Resposta-da-Proposta-Recebida-Recente")) {
-            /*
-            VARIAVEL_GLOBAL.PROPOSTAS_RECEBIDAS =  parseInt(VARIAVEL_GLOBAL.PROPOSTAS_RECEBIDAS) + 1;
-            //alert("Foi Respondida uma Proposta Sua");
-            setQtde_propostas_enviadas_nao_vista(qtde_propostas_enviadas_nao_vista + 1);
-            //VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "NENHUMA_NOTIFICACAO_AGORA";
-            */
+
             VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
 
           }
 
           if (VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO.includes("propostas-aceitas")) {
 
-            VARIAVEL_GLOBAL.PROPOSTAS_ACEITAS = parseInt(VARIAVEL_GLOBAL.PROPOSTAS_ACEITAS) + 1;
-            setQtde_propostas_aceitas_nao_vista(VARIAVEL_GLOBAL.PROPOSTAS_ACEITAS);
+            // VARIAVEL_GLOBAL.PROPOSTAS_ACEITAS = parseInt(VARIAVEL_GLOBAL.PROPOSTAS_ACEITAS) + 1;
+            // setQtde_propostas_aceitas_nao_vista(VARIAVEL_GLOBAL.PROPOSTAS_ACEITAS);
             setNotificacao_visivel_true_false(true);
 
           }
@@ -783,8 +769,8 @@ export default function AppTest() {
           if (VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO.includes("compra-efetuada")) {
 
             //alert("Compraram Algum Produto Seu.");
-            VARIAVEL_GLOBAL.VENDAS_RECENTES = parseInt(VARIAVEL_GLOBAL.VENDAS_RECENTES) + 1;
-            setQtde_venda_recentes_nao_vista(VARIAVEL_GLOBAL.VENDAS_RECENTES);
+            // VARIAVEL_GLOBAL.VENDAS_RECENTES = parseInt(VARIAVEL_GLOBAL.VENDAS_RECENTES) + 1;
+            // setQtde_venda_recentes_nao_vista(VARIAVEL_GLOBAL.VENDAS_RECENTES);
             setNotificacao_visivel_true_false(true);
             //VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "NENHUMA_NOTIFICACAO_AGORA";
 
@@ -796,11 +782,9 @@ export default function AppTest() {
             VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
           }
 
-          //setSomatorio_notificacao_numero(array_PROPOSTAS_RECEBIDAS.length + array_PROPOSTAS_ENVIADAS.length + array_PROPOSTAS_ACEITAS.length + array_VENDAS_RECENTES.length);
-          //console.log(qtde_propostas_recebidas_nao_vista);
-          // console.log(msg);
-          //alert(msg);
-          //alert(qtde_propostas_recebidas_nao_vista);
+          VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = true;
+          BUSCANDO_NOTIFICACOES_2();
+
 
         }//IF  FUNCAO_NOTIFICACAO_PAI
 
@@ -1017,7 +1001,6 @@ export default function AppTest() {
 
     //setSomatorio_notificacao_numero(0);
 
-
     try {
 
       //Pegando dados das POSTAGENS GRAVADO OFF LINE
@@ -1152,8 +1135,6 @@ export default function AppTest() {
 
     } catch (error) { /*alert(error)*/ /*console.log("ERRO 8786414" + error);*/ }
     //OBSERVER HERE
-
-
 
 
   }
@@ -1372,189 +1353,17 @@ export default function AppTest() {
 
 
 
+
+
+
+
   //PUXAR LISTA DE PRODUTOS DAS NOTIFICACOES NO BANCO DE DADOS ABAIXO
   //BUSCANDO NOTIFICAÇÕES PELA PRIMEIRA VEZ ABAIXO
   async function BUSCANDO_NOTIFICACOES() {
 
-    //console.log("MEIO => " + hora_e_segundo_completo());
-    //console.log("BOOLEAN => " + VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO);
+
 
     if (VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO === true) {
-
-      // console.log(VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO);
-
-      //PESQUISANDO VENDAS RECENTES ABAIXO   e   NOTIFICANDO NA TELA PRINCIPAL
-      var qtd_vendas_nao_vista_pelo_vendedor = "";
-      var numero_telefone_vendedor = DADOS_TELEFONE;
-
-      var retorrno = "";
-      //alert(numero_telefone_vendedor);
-
-      numero_telefone_vendedor = JSON.parse(numero_telefone_vendedor);
-      try { numero_telefone_vendedor = numero_telefone_vendedor.NUMERO_CELL_J; } catch (err) { numero_telefone_vendedor = ""; }
-
-      //alert( numero_telefone_vendedor);
-
-      try {
-        array_venda_recentes_requisitadas.length = 0;
-        qtd_vendas_nao_vista_pelo_vendedor = await Axios.get(IP_DO_SERVIDOR + 'pesquisar_vendas_recentes', {
-
-          params: { numero_telefone_J: numero_telefone_vendedor }
-
-        });
-
-        retorrno = await qtd_vendas_nao_vista_pelo_vendedor.data;
-        if (retorrno.length > 0) {
-
-          for (var i = 0; i < retorrno.length; i++) {
-            //alert(retorrno[i].id_postagem );
-            array_venda_recentes_requisitadas.push(retorrno[i].id_J);
-          }//FOR
-          //alert( array_propostas_recentes_recebidas );
-          setQtde_venda_recentes_nao_vista(array_venda_recentes_requisitadas.length);
-          VARIAVEL_GLOBAL.VENDAS_RECENTES = array_venda_recentes_requisitadas.length;
-
-        } else {
-          //alert("ESTÁ VAZIO");
-          setQtde_venda_recentes_nao_vista(array_venda_recentes_requisitadas.length);
-          VARIAVEL_GLOBAL.VENDAS_RECENTES = array_venda_recentes_requisitadas.length;
-
-        }//IF ELSE
-
-
-      } catch (error) { } //alert(error)
-      //alert("PESQUISANDO VENDAS RECENTES");
-      //PESQUISANDO VENDAS RECENTES ACIMA   e   NOTIFICANDO NA TELA PRINCIPAL
-
-
-
-      //IN CONSTRUCTION HERE DOWN
-      //NOTIFICACAO_1 ABAIXO
-      var propospropostas_recebidas_nao_vista = "";
-      var retorno_1 = "";
-      try {
-        array_propostas_recentes_recebidas.length = 0;
-        const response = await Axios.get(IP_DO_SERVIDOR + 'pesquisar_propostas_recebidas_recentes_nao_vista', {
-
-          params: { numero_telefone_J: numero_telefone_vendedor }
-
-        })
-        propospropostas_recebidas_nao_vista = await response.data;
-
-        retorno_1 = propospropostas_recebidas_nao_vista;
-
-        if (retorno_1.length > 0) {
-
-          for (var i = 0; i < retorno_1.length; i++) {
-            //alert(retorno_1[i].id_postagem );
-            array_propostas_recentes_recebidas.push(retorno_1[i].id_postagem);
-          }//FOR
-          //alert(array_propostas_recentes_recebidas);
-          setQtde_propostas_recebidas_nao_vista(array_propostas_recentes_recebidas.length);
-          VARIAVEL_GLOBAL.PROPOSTAS_RECEBIDAS = array_propostas_recentes_recebidas.length;
-          //somatorio_notificacao_numero = somatorio_notificacao_numero + parseInt(array_propostas_recentes_recebidas.length);
-
-        } else {
-          //alert(array_propostas_recentes_recebidas);
-          //alert("ESTÁ VAZIO");
-          setQtde_propostas_recebidas_nao_vista(array_propostas_recentes_recebidas.length);
-          VARIAVEL_GLOBAL.PROPOSTAS_RECEBIDAS = array_propostas_recentes_recebidas.length;
-          //somatorio_notificacao_numero = somatorio_notificacao_numero + parseInt(array_propostas_recentes_recebidas.length);
-        }//IF ELSE
-
-
-      } catch (error) { alert("8704#7743" + error) } //console.log("8704#7743" + error)
-      /**/
-
-
-
-      //NOTIFICACAO_2 ABAIXO
-      var propospropostas_enviadas_respondidas_nao_vista = "";
-      var retorno_2 = "";
-      let response = "";
-      try {
-        array_propostas_recentes_enviadas.length = 0;
-        response = await Axios.get(IP_DO_SERVIDOR + 'pesquisar_propostas_enviadas_recentes_nao_vista', {
-          params: { numero_telefone_J: numero_telefone_vendedor }
-        })
-        //.then( async () => {
-        propospropostas_enviadas_respondidas_nao_vista = await response.data;
-        retorno_2 = propospropostas_enviadas_respondidas_nao_vista;
-        //alert("Valor => " + propospropostas_enviadas_respondidas_nao_vista);
-
-        if (retorno_2.length > 0) {
-
-          for (var i = 0; i < retorno_2.length; i++) {
-            array_propostas_recentes_enviadas.push(retorno_2[i].id_postagem);
-          }//FOR
-          //alert( array_propostas_recentes_recebidas );
-          setQtde_propostas_enviadas_nao_vista(array_propostas_recentes_enviadas.length);
-          VARIAVEL_GLOBAL.PROPOSTAS_ENVIADAS = array_propostas_recentes_enviadas.length;
-
-        } else {
-          //alert("ESTÁ VAZIO");
-          setQtde_propostas_enviadas_nao_vista(array_propostas_recentes_enviadas.length);
-          VARIAVEL_GLOBAL.PROPOSTAS_ENVIADAS = array_propostas_recentes_enviadas.length;
-
-        }//IF ELSE
-        /**/
-
-        //});
-
-      } catch (error) { alert("8430%3@97" + error) } //  alert("8430%3@97" + error);
-
-
-
-      //NOTIFICACAO_3 ABAIXO
-      var propospropostas_aceitas_nao_vistas = "";
-      var retorno_3 = "";
-      try {
-        array_propostas_recentes_aceitas.length = 0;
-        const response = await Axios.get(IP_DO_SERVIDOR + 'pesquisar_propostas_aceitas_recentes_nao_vista', {
-
-          params: { numero_telefone_J: numero_telefone_vendedor }
-
-        })
-        propospropostas_aceitas_nao_vistas = await response.data;
-        //retorno_3 = JSON.stringify(propospropostas_aceitas_nao_vistas.data);
-        retorno_3 = propospropostas_aceitas_nao_vistas;
-        //alert( retorno_3.length );
-        if (retorno_3.length > 0) {
-
-          for (var i = 0; i < retorno_3.length; i++) {
-            //alert(retorno_1[i].id_postagem );
-            array_propostas_recentes_aceitas.push(retorno_3[i].id_postagem);
-          }//FOR
-          //alert( array_propostas_recentes_recebidas );
-          setQtde_propostas_aceitas_nao_vista(array_propostas_recentes_aceitas.length);
-          VARIAVEL_GLOBAL.PROPOSTAS_ACEITAS = array_propostas_recentes_aceitas.length;
-
-
-
-        } else {
-          //alert("ESTÁ VAZIO");
-          setQtde_propostas_aceitas_nao_vista(array_propostas_recentes_aceitas.length);
-          VARIAVEL_GLOBAL.PROPOSTAS_ACEITAS = array_propostas_recentes_aceitas.length;
-
-        }//IF ELSE
-
-
-      } catch (error) { } //alert("843#@8%5" + error)
-      //IN CONSTRUCTION HERE UP
-      /**/
-
-
-      /*
-     alert(" Somatório => " + parseInt(VARIAVEL_GLOBAL.PROPOSTAS_RECEBIDAS +
-       VARIAVEL_GLOBAL.PROPOSTAS_ENVIADAS +
-       VARIAVEL_GLOBAL.PROPOSTAS_ACEITAS +
-       VARIAVEL_GLOBAL.VENDAS_RECENTES));
-     /**/
-
-      setSomatorio_notificacao_numero(parseInt(VARIAVEL_GLOBAL.PROPOSTAS_RECEBIDAS +
-        VARIAVEL_GLOBAL.PROPOSTAS_ENVIADAS +
-        VARIAVEL_GLOBAL.PROPOSTAS_ACEITAS +
-        VARIAVEL_GLOBAL.VENDAS_RECENTES));
 
 
       VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = false;
@@ -1572,7 +1381,19 @@ export default function AppTest() {
 
 
 
+
+
+
+
+
+
+
   async function BUSCANDO_NOTIFICACOES_2() {
+
+    //In this party I become array empty bellow line
+    array_propostas_recentes_recebidas.length = 0;
+    array_propostas_recentes_enviadas.length = 0;
+    array_propostas_recentes_aceitas.length = 0;
 
 
     // var numero_telefone_vendedor = DADOS_TELEFONE;
@@ -1591,39 +1412,110 @@ export default function AppTest() {
     const DADOS = await todas_as_propostas_Recebidas_Enviadas_Aceitas.data;
 
     // // alert(retorrno);
-    
 
-    const propostas_recebidas = DADOS.filter(DADO => DADO.numero_telefone_vendedor  == VARIAVEL_GLOBAL.TELEFONE )
-    var   propostas_enviadas  = DADOS.filter(DADO => DADO.numero_telefone_comprador == VARIAVEL_GLOBAL.TELEFONE
-          & DADO.proposta_aceita.includes("nao")
-      )
-          // propostas_enviadas  = DADOS.filter(DADO => DADO.proposta_aceita == "nao" )
-
-    const propostas_aceitas   = DADOS.filter(DADO => DADO.proposta_aceita == "sim" )
+    const propostas_recebidas = DADOS.filter(DADO => DADO.numero_telefone_vendedor == VARIAVEL_GLOBAL.TELEFONE && DADO.proposta_aceita == "nao")
+    const propostas_enviadas = DADOS.filter(DADO => DADO.numero_telefone_comprador == VARIAVEL_GLOBAL.TELEFONE && DADO.proposta_aceita == "nao")
+    const propostas_aceitas = DADOS.filter(DADO => DADO.proposta_aceita == "sim")
     // console.log( newDADOS )
     // alert( JSON.stringify(newDADOS) )
 
 
-   var propostas_recebidas_id_postagem = propostas_recebidas.map(newDADO => newDADO.id_postagem)
-   var propostas_enviadas_id_postagem  = propostas_enviadas.map(newDADO => newDADO.id_postagem)
-   var propostas_aceitas_id_postagem  = propostas_aceitas.map(newDADO => newDADO.id_postagem)
-    // console.log(newDADOS_2)
-    
-    
-    setQtde_propostas_recebidas_nao_vista(  propostas_recebidas_id_postagem.length );
-    setQtde_propostas_enviadas_nao_vista( propostas_enviadas_id_postagem.length );
-    setQtde_propostas_aceitas_nao_vista(  propostas_aceitas_id_postagem.length );
-    
-
-    setSomatorio_notificacao_numero(  propostas_recebidas_id_postagem.length +  
-                                      propostas_enviadas_id_postagem.length  );
-    
-    // alert(   propostas_recebidas_id_postagem.length  +"  |  "+ propostas_enviadas_id_postagem.length   +"  |  "+ propostas_aceitas_id_postagem.length );
+    array_propostas_recentes_recebidas = propostas_recebidas.map(newDADO => newDADO.id_postagem)
+    array_propostas_recentes_enviadas = propostas_enviadas.map(newDADO => newDADO.id_postagem)
+    array_propostas_recentes_aceitas = propostas_aceitas.map(newDADO => newDADO.id_postagem)
 
 
+    setQtde_propostas_recebidas_nao_vista(array_propostas_recentes_recebidas.length);
+    setQtde_propostas_enviadas_nao_vista(array_propostas_recentes_enviadas.length);
+    setQtde_propostas_aceitas_nao_vista(array_propostas_recentes_aceitas.length);
+
+
+
+
+    /***************************************************************************************************************************************/
+    /****************************************************************************************************************************************/
+    var qtd_vendas_nao_vista_pelo_vendedor
+    try {
+    
+      array_venda_recentes_requisitadas.length = 0;
+      qtd_vendas_nao_vista_pelo_vendedor = await Axios.get(IP_DO_SERVIDOR + 'pesquisar_vendas_recentes', {
+
+        params: { numero_telefone_J: VARIAVEL_GLOBAL.TELEFONE }
+
+      });
+
+      const retorrno = await qtd_vendas_nao_vista_pelo_vendedor.data;
+      
+    //  const DADOS = await qtd_vendas_nao_vista_pelo_vendedor.data;
+    //  const vendas_recentes = DADOS.filter(DADO => DADO.id_J != DADO.id_J )
+    //  array_venda_recentes_requisitadas = vendas_recentes.map(newDADO => newDADO.id_J)
+
+
+
+      //  alert(retorrno[0].id_J);
+
+      if (retorrno.length > 0) {
+
+        var ARRAY_PROVISORIO_ITENS_DUPLICADOS = []
+        for (var i = 0; i < retorrno.length; i++) {
+           // [ RowDataPacket { id_J: '10420211534524107   ' } ]
+          //  alert(retorrno[i].id_J);
+          ARRAY_PROVISORIO_ITENS_DUPLICADOS.push(retorrno[i].id_J);
+          // DADOS.filter(DADO => DADO.array_venda_recentes_requisitadas[i] ==  DADO.array_venda_recentes_requisitadas[i] )
+        }//FOR
+        //alert( array_propostas_recentes_recebidas );
+
+
+      //REMOVENDO ELEMENTOS DUPLICADOS
+        array_venda_recentes_requisitadas = ARRAY_PROVISORIO_ITENS_DUPLICADOS.filter((el, i, arr) => arr.indexOf(el) == i);
+        // console.log(unique); // ["a", "b", "c"]
+
+        setQtde_venda_recentes_nao_vista(array_venda_recentes_requisitadas.length);
+        
+
+      }//IF
+
+
+     
+
+    
+ 
+    } catch (error) { alert(error) } 
+    //alert("PESQUISANDO VENDAS RECENTES");
+    //PESQUISANDO VENDAS RECENTES ACIMA   e   NOTIFICANDO NA TELA PRINCIPAL
+    /****************************************************************************************************************************************/
+    /****************************************************************************************************************************************/
+
+
+
+    VARIAVEL_GLOBAL.PROPOSTAS_RECEBIDAS = array_propostas_recentes_recebidas.length;
+    VARIAVEL_GLOBAL.PROPOSTAS_ENVIADAS  = array_propostas_recentes_enviadas.length;
+    VARIAVEL_GLOBAL.PROPOSTAS_ACEITAS   = array_propostas_recentes_aceitas.length;
+    VARIAVEL_GLOBAL.VENDAS_RECENTES     = array_venda_recentes_requisitadas.length;
+
+
+
+    
+    setSomatorio_notificacao_numero(
+                  array_propostas_recentes_recebidas.length +
+                  array_propostas_recentes_enviadas.length  +
+                  array_propostas_recentes_aceitas.length   +
+                  array_venda_recentes_requisitadas.length
+      
+                );
+
+
+    // alert(   array_propostas_recentes_recebidas.length  +"  |  "+ 
+    //          array_propostas_recentes_enviadas.length   +"  |  "+ 
+    //          array_propostas_recentes_aceitas.length );
+
+
+
+    VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = false;
 
 
   }
+
 
 
 
@@ -1639,7 +1531,7 @@ export default function AppTest() {
     setLabelOuPesquisar(true);
 
 
-    alert(array_propostas_recentes_recebidas);
+    // alert(array_propostas_recentes_recebidas);
 
     PUXAR_PRODUTOS_DAS_NOTIFICACOES(array_propostas_recentes_recebidas);
     setMenu_aviso_visivel_or_invisivel(false);
@@ -1994,6 +1886,25 @@ export default function AppTest() {
 
 
   }
+
+
+
+
+
+
+
+  useEffect(() => {
+
+    // if (VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO) {
+
+      BUSCANDO_NOTIFICACOES_2();
+
+    // }
+
+  // }, [VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO]);
+  }, []);
+  // somatorio_notificacao_numero
+
 
 
 
