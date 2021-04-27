@@ -182,7 +182,7 @@ const [ objetosCategoria, setobjetosCategoria ] = useState(categorias_Objetos);
                             onPress={useCallback(() => {
 
                                 // setcorMacho(oldState => !oldState); 
-                                setcorMacho(oldState => !oldState ? categorias_Objetos.Obj_Macho = "Macho" : categorias_Objetos.Obj_Macho = ""  );
+                                setcorMacho(oldState => !oldState ? categorias_Objetos.Obj_Macho = "Machos" : categorias_Objetos.Obj_Macho = ""  );
                                 // alert(categorias_Objetos.Obj_Macho);
 
                             }, [])}

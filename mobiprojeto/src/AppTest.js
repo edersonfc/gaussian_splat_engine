@@ -330,9 +330,6 @@ export default function AppTest() {
   const [exibe_suas_postagens, setExibe_suas_postagens] = useState(false);
   const [corIconeFiltro, setCorIconeFiltro] = useState(false);
 
-  // useEffect(() => {
-  //   const data = api.get('http://localhost:333/produtos').then(resposta => setProdutos(resposta.data)) 
-  // },[])
 
 
   ////DECLARAÇÃO DE STATES ACIMA
@@ -396,6 +393,7 @@ export default function AppTest() {
 
     let VARIAVEL_DA_FUNCAO_TIMER = setInterval(function contagem_tempo() {
 
+
       //BLOCO DE METODOS DOS OUVINTES QUE BUSCA INFORMAÇÃO NO BANCO DE DADOS SEJA OFF-LINE ou ON-LINE ABAIXO
       if (filtro_ativado_sim_ou_nao === false) {
 
@@ -437,7 +435,10 @@ export default function AppTest() {
                         VARIAVEL_GLOBAL.CONEXAO_DO_APP = "ON-LINE";
                         //console.log("INICIO => " + hora_e_segundo_completo());
                         // await BUSCANDO_NOTIFICACOES();
+                        await BUSCANDO_NOTIFICACOES_2();
                         //console.log("TERMINO => " + hora_e_segundo_completo());
+
+                        console.log(contador_iii + " => " + hora_e_segundo_completo())
 
                       })
 
@@ -472,6 +473,7 @@ export default function AppTest() {
       //BLOCO DE METODOS DOS OUVINTES QUE BUSCA INFORMAÇÃO NO BANCO DE DADOS SEJA OFF-LINE ou ON-LINE ACIMA
 
 
+
     }, 1000);//function final do timer
 
 
@@ -491,10 +493,13 @@ export default function AppTest() {
     //NOTIFICAÇÃO GERAL DO SINO ACIMA 
 
 
+
     //use effect cleanup to set flag false, if unmounted
     return () => clearInterval(VARIAVEL_DA_FUNCAO_TIMER);
     //FUNCIONANDO QUASE PERFEITAMENTE ACIMA
     //VERIFICANDO SE TEM CONEXÃO COM INTERNET ACIMA  
+
+
 
   }, [somatorio_notificacao_numero]);
   //useEffect de ATUALIZAÇÃO DA TELA PRINCIPAL ONDE APARECE TODOS PRODUTOS ACIMA
@@ -738,12 +743,19 @@ export default function AppTest() {
 
           if (VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO.includes("Proposta-Recebida-Recente")) {
 
+
             VARIAVEL_GLOBAL.PROPOSTAS_RECEBIDAS = parseInt(VARIAVEL_GLOBAL.PROPOSTAS_RECEBIDAS) + 1;
             //alert("Foi Recebida uma Proposta Recente");
+            //alert(msg_parametro+"  Proposta-Recebida-Recente  ");
             setQtde_propostas_recebidas_nao_vista(VARIAVEL_GLOBAL.PROPOSTAS_RECEBIDAS);
+
+
             setNotificacao_visivel_true_false(true);
             VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
             //alert(qtde_propostas_recebidas_nao_vista);
+
+
+            // VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = true;//1@
 
             //console.log(msg_parametro);
 
@@ -813,37 +825,6 @@ export default function AppTest() {
   }, [VARIAVEL_GLOBAL.TELEFONE]);//OBSERVER PARECE QUE ESTÁ DANDO LOOP ESSA VARIÁVEL AI
   //}, [ VARIAVEL_GLOBAL.TELEFONE ]);
   //PEGAR NUMERO NO CELULAR NO CARREGAMENTO ACIMA
-
-
-  //PROVISÓRIO MAS FUNCIONANDO  PRODUTO OFF LINE ABAIXO
-  /*
-  //EXECUTANDO METODO QUE PUXA DADOS ARMAZENADO NO AsyncStorage() ABAIXO
-  useEffect(() => {
- 
-     ADICIONAR_PRODUTOS_por_ARRAY();
- 
-  }, [ADICIONAR_PRODUTOS_por_ARRAY]);
-  //EXECUTANDO METODO QUE PUXA DADOS ARMAZENADO NO AsyncStorage() ACIMA
- 
- 
- 
-  //BUSCANDO INFORMAÇÕES NO BANCO DE DADOS ABAIXO
-  useEffect(() => {
- 
-    //CONECTANDO_AO_BANCO_DE_DADOS();
- 
-  }, []);
-  //BUSCANDO INFORMAÇÕES NO BANCO DE DADOS ACIMA
- 
-//PROVISÓRIO MAS FUNCIONANDO  PRODUTO OFF LINE ACIMA
-*/
-
-
-  //alert( JSON.stringify(produtosS) );
-  //alert(ARRAY_PRIMEIRAS_URL_IMAGENS_2);
-  //alert(ARRAY_PRIMEIRAS_URL_VIDEOS_2);
-  //alert(LATITUDE_USUARIO+"   "+LONGITUDE_USUARIO);
-  //alert(DADOS_TELEFONE);
 
 
 
@@ -1576,13 +1557,77 @@ export default function AppTest() {
         VARIAVEL_GLOBAL.VENDAS_RECENTES));
 
 
+      VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = false;
+
       console.log("DESATIVANDO A BUSCA DE NOTIFICAÇÃO => " + hora_e_segundo_completo());
       console.log(VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO);
 
 
     }//IF BUSCA NOTIFICACAO PELA PRIMEIRA VEZ
-
+    // ZXCVBN
   }//BUSCANDO NOTIFICAÇÕES PELA PRIMEIRA VEZ ACIMA
+
+
+
+
+
+
+  async function BUSCANDO_NOTIFICACOES_2() {
+
+
+    // var numero_telefone_vendedor = DADOS_TELEFONE;
+    // alert(VARIAVEL_GLOBAL.TELEFONE)
+
+
+    var todas_as_propostas_Recebidas_Enviadas_Aceitas;
+
+    todas_as_propostas_Recebidas_Enviadas_Aceitas = await Axios.get(IP_DO_SERVIDOR + 'pesquisar_propostas_Recebidas_Enviadas_Aceitas', {
+
+      // params: { numero_telefone_J: numero_telefone_vendedor }
+      params: { numero_telefone_J: VARIAVEL_GLOBAL.TELEFONE }
+
+    });
+
+    const DADOS = await todas_as_propostas_Recebidas_Enviadas_Aceitas.data;
+
+    // // alert(retorrno);
+    
+
+    const propostas_recebidas = DADOS.filter(DADO => DADO.numero_telefone_vendedor  == VARIAVEL_GLOBAL.TELEFONE )
+    var   propostas_enviadas  = DADOS.filter(DADO => DADO.numero_telefone_comprador == VARIAVEL_GLOBAL.TELEFONE
+          & DADO.proposta_aceita.includes("nao")
+      )
+          // propostas_enviadas  = DADOS.filter(DADO => DADO.proposta_aceita == "nao" )
+
+    const propostas_aceitas   = DADOS.filter(DADO => DADO.proposta_aceita == "sim" )
+    // console.log( newDADOS )
+    // alert( JSON.stringify(newDADOS) )
+
+
+   var propostas_recebidas_id_postagem = propostas_recebidas.map(newDADO => newDADO.id_postagem)
+   var propostas_enviadas_id_postagem  = propostas_enviadas.map(newDADO => newDADO.id_postagem)
+   var propostas_aceitas_id_postagem  = propostas_aceitas.map(newDADO => newDADO.id_postagem)
+    // console.log(newDADOS_2)
+    
+    
+    setQtde_propostas_recebidas_nao_vista(  propostas_recebidas_id_postagem.length );
+    setQtde_propostas_enviadas_nao_vista( propostas_enviadas_id_postagem.length );
+    setQtde_propostas_aceitas_nao_vista(  propostas_aceitas_id_postagem.length );
+    
+
+    setSomatorio_notificacao_numero(  propostas_recebidas_id_postagem.length +  
+                                      propostas_enviadas_id_postagem.length  );
+    
+    // alert(   propostas_recebidas_id_postagem.length  +"  |  "+ propostas_enviadas_id_postagem.length   +"  |  "+ propostas_aceitas_id_postagem.length );
+
+
+
+
+  }
+
+
+
+
 
 
   //PUXAR LISTA DE PRODUTOS DAS NOTIFICACOES NO BANCO DE DADOS ACIMA
@@ -1593,13 +1638,16 @@ export default function AppTest() {
   function PROPOSTAS_RECEBIDAS_RECENTES() {
     setLabelOuPesquisar(true);
 
-    //alert(array_propostas_recentes_recebidas);
+
+    alert(array_propostas_recentes_recebidas);
+
     PUXAR_PRODUTOS_DAS_NOTIFICACOES(array_propostas_recentes_recebidas);
     setMenu_aviso_visivel_or_invisivel(false);
     setFaixa_submenu_e_filtro(false);
     setTexto_filtro_notificacao("Propostas Recebidas");
 
   }
+
 
 
 
@@ -1795,52 +1843,69 @@ export default function AppTest() {
 
 
 
-  //CONTROLE DE TIMER ABAIXO
-  useEffect(() => {
 
 
 
-    var contador_j = 60;
-
-    let VARIAVEL_DA_FUNCAO_BUSCAR_NOTIFICACAO_TIMER = setInterval(function buscar_notificacao_timer() {
-
-      if (contador_j === 60) {
-        contador_j = 0;
-
-        //Bloqueando o Timer aqui com comando na linha Abaixo
-        clearInterval(VARIAVEL_DA_FUNCAO_BUSCAR_NOTIFICACAO_TIMER);//BLOQUEAR O PROCESSO COM TIMER clearInterval
-
-        //TAREFAZ AQUI ABAIXO
 
 
-
-        //console.log("INICIO => " + hora_e_segundo_completo());
-        if (VARIAVEL_GLOBAL.CONEXAO_DO_APP == "ON-LINE") {
-          // console.log("EXECUTAR TAREFA => "+hora_e_segundo_completo());
-          VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = true;
-          console.log("ATIVANDO A BUSCA DE NOTIFICAÇÃO => " + hora_e_segundo_completo());
-          BUSCANDO_NOTIFICACOES();
-        }//IF
-
-        //TAREFAZ AQUI ACIMA
-
-        //Desbloqueando o Timer aqui com comando na linha abaixo
-        VARIAVEL_DA_FUNCAO_BUSCAR_NOTIFICACAO_TIMER = setInterval(buscar_notificacao_timer, 1000);//INCIAR NOVAMENTE O PROCESSO COM TIMER setInterval
-
-      }//Condição de Bloqueio   
-
-      contador_j++;
-
-    }, 1000);//function final do timer
+  // //FOI DESATIVADO OBSERVER 26/04/2021  TALVEZ ATIVAR DEPOIS
+  //   //CONTROLE DE TIMER ABAIXO
+  //   useEffect(() => {
 
 
-    //use effect cleanup to set flag false, if unmounted
-    return () => clearInterval(VARIAVEL_DA_FUNCAO_BUSCAR_NOTIFICACAO_TIMER);
+  //     var contador_j = 60;
+
+  //     let VARIAVEL_DA_FUNCAO_BUSCAR_NOTIFICACAO_TIMER = setInterval(function buscar_notificacao_timer() {//1@#
+
+  //       if (contador_j === 60) {
+
+  //             contador_j = 0;
+
+  //             //Bloqueando o Timer aqui com comando na linha Abaixo
+  //             clearInterval(VARIAVEL_DA_FUNCAO_BUSCAR_NOTIFICACAO_TIMER);//BLOQUEAR O PROCESSO COM TIMER clearInterval  //2@#
+
+  //             //TAREFAZ AQUI ABAIXO
+
+  //                   //console.log("INICIO => " + hora_e_segundo_completo());
+  //                   if (VARIAVEL_GLOBAL.CONEXAO_DO_APP == "ON-LINE") {
+  //                     // console.log("EXECUTAR TAREFA => "+hora_e_segundo_completo());
+  //                     VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = true;
+  //                     console.log("ATIVANDO A BUSCA DE NOTIFICAÇÃO => " + hora_e_segundo_completo());
+  //                     BUSCANDO_NOTIFICACOES();
+  //                   }//IF
+
+  //             //TAREFAZ AQUI ACIMA
+
+  //             //Desbloqueando o Timer aqui com comando na linha abaixo
+  //             VARIAVEL_DA_FUNCAO_BUSCAR_NOTIFICACAO_TIMER = setInterval(buscar_notificacao_timer, 1000);//INCIAR NOVAMENTE O PROCESSO COM TIMER setInterval //3@#
+
+  //       }//Condição de Bloqueio   
+  //       contador_j++;
 
 
 
-  }, []);
-  //CONTROLE DE TIMER ACIMA
+  //     }, 1000);//function buscar_notificacao_timer final do timer //4@#
+
+
+  //     //use effect cleanup to set flag false, if unmounted
+  //     return () => clearInterval(VARIAVEL_DA_FUNCAO_BUSCAR_NOTIFICACAO_TIMER);//5@#
+
+
+
+  //   }, []);
+  //   //CONTROLE DE TIMER ACIMA
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1866,9 +1931,9 @@ export default function AppTest() {
         // id_J: id_J,
         numero_telefone_usuario: VARIAVEL_GLOBAL.TELEFONE,
         DADOS_P_FULLTEXT_SEARCH: variavelDaPesquisa,
-        PARAMETRO:"TELA_PRINCIPAL",
-        DATA_INICIAL:"vazia",
-        DATA_FINAL:"vazia",
+        PARAMETRO: "TELA_PRINCIPAL",
+        DATA_INICIAL: "vazia",
+        DATA_FINAL: "vazia",
         ComprasVendas_J: "vazia"
       }
       //} , {signal: abortCont.signal} );

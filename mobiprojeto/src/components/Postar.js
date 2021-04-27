@@ -851,8 +851,8 @@ export default function Postar(props) {
                                 onPress={() => {
 
                                     // setcorMacho(oldState => !oldState);
-                                    setcorMacho(oldState => !oldState ? categorias_Objetos.Obj_Macho = "Macho" : categorias_Objetos.Obj_Macho = "" );
-                                    alert(categorias_Objetos.Obj_Macho);
+                                    setcorMacho(oldState => !oldState ? categorias_Objetos.Obj_Macho = "Machos" : categorias_Objetos.Obj_Macho = "" );
+                                    // alert(categorias_Objetos.Obj_Macho);
 
  
                                 }}
@@ -1153,27 +1153,13 @@ export default function Postar(props) {
 
                             onPress={async () => {
 
-                                /*
-                                //APAGAR DEPOIS SETANDO DADOS NOS CAMPOS ABAIXO      
-                                outrasErasAnterior = "333";
-                                outrasErasPosterior = "777";
 
-                                descricoesGerais = "Ederson Feliciano Corsatto";
-                                precoSugerido = "1.750,89";
-                                quantidadeCabecasOuPesos = "999";
-                                //APAGAR DEPOIS SETANDO DADOS NOS CAMPOS ACIMA
-                                */
 
-                                //alert('TINHA QUE DAR RETORNO');
-
-                                //PEGANDO O NUMERO DE TELEFONE DO USUÁRIO CASO ELE NÃO TENHA POSTO ABAIXO
 
                                 PEGAR_NUMERO_DO_CELL();
                                 // navigation.goBack(null);
 
-
-                                //const data = await AsyncStorage.getItem('NUMERO_CELL');
-                                //PEGANDO O NUMERO DE TELEFONE DO USUÁRIO CASO ELE NÃO TENHA POSTO ACIMA
+                               
 
 
 
