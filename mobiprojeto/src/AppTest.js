@@ -270,7 +270,6 @@ export default function AppTest() {
 
   const [notificacao_visivel_true_false, setNotificacao_visivel_true_false] = useState(false);
 
-
   const [qtde_propostas_recebidas_nao_vista, setQtde_propostas_recebidas_nao_vista] = useState('0');
 
   const [qtde_propostas_enviadas_nao_vista, setQtde_propostas_enviadas_nao_vista] = useState('0');
@@ -279,8 +278,6 @@ export default function AppTest() {
 
   const [qtde_venda_recentes_nao_vista, setQtde_venda_recentes_nao_vista] = useState('0');
 
-
-  //var [ somatorio_notificacao_numero, setSomatorio_notificacao_numero ] = useState('0');
   const [somatorio_notificacao_numero, setSomatorio_notificacao_numero] = useState(0);
 
   var [imprimirContadorTemporizador, setImprimirContadorTemporizador] = useState(0);
@@ -434,9 +431,9 @@ export default function AppTest() {
                         //ARMAZENAR_ESTATUS_SE_TA_ONLINE_OU_OFFLINE('ON-LINE');
                         VARIAVEL_GLOBAL.CONEXAO_DO_APP = "ON-LINE";
                         //console.log("INICIO => " + hora_e_segundo_completo());
-                        
-                        await BUSCANDO_NOTIFICACOES_2();
-                       
+
+                        // await BUSCANDO_NOTIFICACOES_2();
+
                         console.log(contador_iii + " => " + hora_e_segundo_completo())
 
                       })
@@ -475,21 +472,6 @@ export default function AppTest() {
 
     }, 1000);//function final do timer
 
-
-
-    //NOTIFICAÇÃO GERAL DO SINO ABAIXO  teste 4
-    if (VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO) {
-
-      //alert(somatorio_notificacao_numero);
-      if (somatorio_notificacao_numero > 0) {
-        setNotificacao_visivel_true_false(true);
-        setSomatorio_notificacao_numero(somatorio_notificacao_numero);
-      } else if (somatorio_notificacao_numero === 0) {
-        setNotificacao_visivel_true_false(false)
-      }
-      //VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = false;
-    }
-    //NOTIFICAÇÃO GERAL DO SINO ACIMA 
 
 
 
@@ -735,6 +717,9 @@ export default function AppTest() {
       //socket.on("edersonfc99371235187", msg => {
       socket.on(VARIAVEL_GLOBAL.TELEFONE, msg => {
 
+        VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = true;
+        BUSCANDO_NOTIFICACOES_2();
+
         //alert(msg);
         async function FUNCAO_NOTIFICACAO_PAI(msg_parametro) {
 
@@ -742,11 +727,7 @@ export default function AppTest() {
 
           if (VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO.includes("Proposta-Recebida-Recente")) {
 
-            // VARIAVEL_GLOBAL.PROPOSTAS_RECEBIDAS = parseInt(VARIAVEL_GLOBAL.PROPOSTAS_RECEBIDAS) + 1;
-            // //alert("Foi Recebida uma Proposta Recente");
-            // //alert(msg_parametro+"  Proposta-Recebida-Recente  ");
-            // setQtde_propostas_recebidas_nao_vista(VARIAVEL_GLOBAL.PROPOSTAS_RECEBIDAS);
-            setNotificacao_visivel_true_false(true);
+            // setNotificacao_visivel_true_false(true);
             VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
             //console.log(msg_parametro);
 
@@ -771,7 +752,7 @@ export default function AppTest() {
             //alert("Compraram Algum Produto Seu.");
             // VARIAVEL_GLOBAL.VENDAS_RECENTES = parseInt(VARIAVEL_GLOBAL.VENDAS_RECENTES) + 1;
             // setQtde_venda_recentes_nao_vista(VARIAVEL_GLOBAL.VENDAS_RECENTES);
-            setNotificacao_visivel_true_false(true);
+
             //VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "NENHUMA_NOTIFICACAO_AGORA";
 
           }
@@ -783,7 +764,11 @@ export default function AppTest() {
           }
 
           VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = true;
-          BUSCANDO_NOTIFICACOES_2();
+          // BUSCANDO_NOTIFICACOES_2();
+
+
+          // setNotificacao_visivel_true_false(true);
+
 
 
         }//IF  FUNCAO_NOTIFICACAO_PAI
@@ -793,6 +778,8 @@ export default function AppTest() {
           setSomatorio_notificacao_numero(VARIAVEL_GLOBAL.PROPOSTAS_RECEBIDAS + VARIAVEL_GLOBAL.PROPOSTAS_ENVIADAS + VARIAVEL_GLOBAL.PROPOSTAS_ACEITAS + VARIAVEL_GLOBAL.VENDAS_RECENTES);
 
         });
+
+
 
       });
       //IN CONSTRUCTION HERE SOCKET IO ACIMA
@@ -1357,28 +1344,6 @@ export default function AppTest() {
 
 
 
-  //PUXAR LISTA DE PRODUTOS DAS NOTIFICACOES NO BANCO DE DADOS ABAIXO
-  //BUSCANDO NOTIFICAÇÕES PELA PRIMEIRA VEZ ABAIXO
-  async function BUSCANDO_NOTIFICACOES() {
-
-
-
-    if (VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO === true) {
-
-
-      VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = false;
-
-      console.log("DESATIVANDO A BUSCA DE NOTIFICAÇÃO => " + hora_e_segundo_completo());
-      console.log(VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO);
-
-
-    }//IF BUSCA NOTIFICACAO PELA PRIMEIRA VEZ
-    // ZXCVBN
-  }//BUSCANDO NOTIFICAÇÕES PELA PRIMEIRA VEZ ACIMA
-
-
-
-
 
 
 
@@ -1390,128 +1355,123 @@ export default function AppTest() {
 
   async function BUSCANDO_NOTIFICACOES_2() {
 
-    //In this party I become array empty bellow line
-    array_propostas_recentes_recebidas.length = 0;
-    array_propostas_recentes_enviadas.length = 0;
-    array_propostas_recentes_aceitas.length = 0;
+    // if (VARIAVEL_GLOBAL.TELEFONE == "SEM_TELEFONE_USUARIO") { alert("NUMERO DE TELEFONE NÃO FOI ENCONTTRADO") } // usado somente para teste
 
-
-    // var numero_telefone_vendedor = DADOS_TELEFONE;
-    // alert(VARIAVEL_GLOBAL.TELEFONE)
-
-
-    var todas_as_propostas_Recebidas_Enviadas_Aceitas;
-
-    todas_as_propostas_Recebidas_Enviadas_Aceitas = await Axios.get(IP_DO_SERVIDOR + 'pesquisar_propostas_Recebidas_Enviadas_Aceitas', {
-
-      // params: { numero_telefone_J: numero_telefone_vendedor }
-      params: { numero_telefone_J: VARIAVEL_GLOBAL.TELEFONE }
-
-    });
-
-    const DADOS = await todas_as_propostas_Recebidas_Enviadas_Aceitas.data;
-
-    // // alert(retorrno);
-
-    const propostas_recebidas = DADOS.filter(DADO => DADO.numero_telefone_vendedor == VARIAVEL_GLOBAL.TELEFONE && DADO.proposta_aceita == "nao")
-    const propostas_enviadas = DADOS.filter(DADO => DADO.numero_telefone_comprador == VARIAVEL_GLOBAL.TELEFONE && DADO.proposta_aceita == "nao")
-    const propostas_aceitas = DADOS.filter(DADO => DADO.proposta_aceita == "sim")
-    // console.log( newDADOS )
-    // alert( JSON.stringify(newDADOS) )
-
-
-    array_propostas_recentes_recebidas = propostas_recebidas.map(newDADO => newDADO.id_postagem)
-    array_propostas_recentes_enviadas = propostas_enviadas.map(newDADO => newDADO.id_postagem)
-    array_propostas_recentes_aceitas = propostas_aceitas.map(newDADO => newDADO.id_postagem)
-
-
-    setQtde_propostas_recebidas_nao_vista(array_propostas_recentes_recebidas.length);
-    setQtde_propostas_enviadas_nao_vista(array_propostas_recentes_enviadas.length);
-    setQtde_propostas_aceitas_nao_vista(array_propostas_recentes_aceitas.length);
-
-
-
-
-    /***************************************************************************************************************************************/
-    /****************************************************************************************************************************************/
-    var qtd_vendas_nao_vista_pelo_vendedor
     try {
-    
-      array_venda_recentes_requisitadas.length = 0;
-      qtd_vendas_nao_vista_pelo_vendedor = await Axios.get(IP_DO_SERVIDOR + 'pesquisar_vendas_recentes', {
 
+      //In this party I become array empty bellow line
+      array_propostas_recentes_recebidas.length = 0;
+      array_propostas_recentes_enviadas.length = 0;
+      array_propostas_recentes_aceitas.length = 0;
+
+
+      // var numero_telefone_vendedor = DADOS_TELEFONE;
+      // alert(VARIAVEL_GLOBAL.TELEFONE)
+
+
+      var todas_as_propostas_Recebidas_Enviadas_Aceitas;
+
+      todas_as_propostas_Recebidas_Enviadas_Aceitas = await Axios.get(IP_DO_SERVIDOR + 'pesquisar_propostas_Recebidas_Enviadas_Aceitas', {
+
+        // params: { numero_telefone_J: numero_telefone_vendedor }
         params: { numero_telefone_J: VARIAVEL_GLOBAL.TELEFONE }
 
       });
 
-      const retorrno = await qtd_vendas_nao_vista_pelo_vendedor.data;
-      
-    //  const DADOS = await qtd_vendas_nao_vista_pelo_vendedor.data;
-    //  const vendas_recentes = DADOS.filter(DADO => DADO.id_J != DADO.id_J )
-    //  array_venda_recentes_requisitadas = vendas_recentes.map(newDADO => newDADO.id_J)
+      const DADOS = await todas_as_propostas_Recebidas_Enviadas_Aceitas.data;
+
+      // // alert(retorrno);
+
+      const propostas_recebidas = DADOS.filter(DADO => DADO.numero_telefone_vendedor == VARIAVEL_GLOBAL.TELEFONE && DADO.proposta_aceita == "nao")
+      const propostas_enviadas = DADOS.filter(DADO => DADO.numero_telefone_comprador == VARIAVEL_GLOBAL.TELEFONE && DADO.proposta_aceita == "nao")
+      const propostas_aceitas = DADOS.filter(DADO => DADO.proposta_aceita == "sim")
+      // console.log( newDADOS )
+      // alert( JSON.stringify(newDADOS) )
+
+
+      array_propostas_recentes_recebidas = propostas_recebidas.map(newDADO => newDADO.id_postagem)
+      array_propostas_recentes_enviadas = propostas_enviadas.map(newDADO => newDADO.id_postagem)
+      array_propostas_recentes_aceitas = propostas_aceitas.map(newDADO => newDADO.id_postagem)
+
+
+      setQtde_propostas_recebidas_nao_vista(array_propostas_recentes_recebidas.length);
+      setQtde_propostas_enviadas_nao_vista(array_propostas_recentes_enviadas.length);
+      setQtde_propostas_aceitas_nao_vista(array_propostas_recentes_aceitas.length);
 
 
 
-      //  alert(retorrno[0].id_J);
 
-      if (retorrno.length > 0) {
+      /***************************************************************************************************************************************/
+      /****************************************************************************************************************************************/
+      var qtd_vendas_nao_vista_pelo_vendedor
+      try {
 
-        var ARRAY_PROVISORIO_ITENS_DUPLICADOS = []
-        for (var i = 0; i < retorrno.length; i++) {
-           // [ RowDataPacket { id_J: '10420211534524107   ' } ]
-          //  alert(retorrno[i].id_J);
-          ARRAY_PROVISORIO_ITENS_DUPLICADOS.push(retorrno[i].id_J);
-          // DADOS.filter(DADO => DADO.array_venda_recentes_requisitadas[i] ==  DADO.array_venda_recentes_requisitadas[i] )
-        }//FOR
-        //alert( array_propostas_recentes_recebidas );
+        array_venda_recentes_requisitadas.length = 0;
+        qtd_vendas_nao_vista_pelo_vendedor = await Axios.get(IP_DO_SERVIDOR + 'pesquisar_vendas_recentes', {
+
+          params: { numero_telefone_J: VARIAVEL_GLOBAL.TELEFONE }
+
+        });
+
+        const retorrno = await qtd_vendas_nao_vista_pelo_vendedor.data;
 
 
-      //REMOVENDO ELEMENTOS DUPLICADOS
-        array_venda_recentes_requisitadas = ARRAY_PROVISORIO_ITENS_DUPLICADOS.filter((el, i, arr) => arr.indexOf(el) == i);
-        // console.log(unique); // ["a", "b", "c"]
+        if (retorrno.length > 0) {
+
+          var ARRAY_PROVISORIO_ITENS_DUPLICADOS = []
+          for (var i = 0; i < retorrno.length; i++) {
+            // [ RowDataPacket { id_J: '10420211534524107   ' } ]
+            //  alert(retorrno[i].id_J);
+            ARRAY_PROVISORIO_ITENS_DUPLICADOS.push(retorrno[i].id_J);
+            // DADOS.filter(DADO => DADO.array_venda_recentes_requisitadas[i] ==  DADO.array_venda_recentes_requisitadas[i] )
+          }//FOR
+          //alert( array_propostas_recentes_recebidas );
+
+          //REMOVENDO ELEMENTOS DUPLICADOS
+          array_venda_recentes_requisitadas = ARRAY_PROVISORIO_ITENS_DUPLICADOS.filter((el, i, arr) => arr.indexOf(el) == i);
+          // console.log(unique); // ["a", "b", "c"]
+
+        }//IF
 
         setQtde_venda_recentes_nao_vista(array_venda_recentes_requisitadas.length);
-        
-
-      }//IF
 
 
-     
-
-    
- 
-    } catch (error) { alert(error) } 
-    //alert("PESQUISANDO VENDAS RECENTES");
-    //PESQUISANDO VENDAS RECENTES ACIMA   e   NOTIFICANDO NA TELA PRINCIPAL
-    /****************************************************************************************************************************************/
-    /****************************************************************************************************************************************/
+      } catch (error) { alert(error) }
+      //alert("PESQUISANDO VENDAS RECENTES");
+      //PESQUISANDO VENDAS RECENTES ACIMA   e   NOTIFICANDO NA TELA PRINCIPAL
+      /****************************************************************************************************************************************/
+      /****************************************************************************************************************************************/
 
 
 
-    VARIAVEL_GLOBAL.PROPOSTAS_RECEBIDAS = array_propostas_recentes_recebidas.length;
-    VARIAVEL_GLOBAL.PROPOSTAS_ENVIADAS  = array_propostas_recentes_enviadas.length;
-    VARIAVEL_GLOBAL.PROPOSTAS_ACEITAS   = array_propostas_recentes_aceitas.length;
-    VARIAVEL_GLOBAL.VENDAS_RECENTES     = array_venda_recentes_requisitadas.length;
+      VARIAVEL_GLOBAL.PROPOSTAS_RECEBIDAS = array_propostas_recentes_recebidas.length;
+      VARIAVEL_GLOBAL.PROPOSTAS_ENVIADAS = array_propostas_recentes_enviadas.length;
+      VARIAVEL_GLOBAL.PROPOSTAS_ACEITAS = array_propostas_recentes_aceitas.length;
+      VARIAVEL_GLOBAL.VENDAS_RECENTES = array_venda_recentes_requisitadas.length;
 
 
 
-    
-    setSomatorio_notificacao_numero(
-                  array_propostas_recentes_recebidas.length +
-                  array_propostas_recentes_enviadas.length  +
-                  array_propostas_recentes_aceitas.length   +
-                  array_venda_recentes_requisitadas.length
-      
-                );
+      setSomatorio_notificacao_numero(
+        array_propostas_recentes_recebidas.length +
+        array_propostas_recentes_enviadas.length +
+        array_propostas_recentes_aceitas.length +
+        array_venda_recentes_requisitadas.length
+      );
 
 
-    // alert(   array_propostas_recentes_recebidas.length  +"  |  "+ 
-    //          array_propostas_recentes_enviadas.length   +"  |  "+ 
-    //          array_propostas_recentes_aceitas.length );
+      // alert(   array_propostas_recentes_recebidas.length  +"  |  "+ 
+      //          array_propostas_recentes_enviadas.length   +"  |  "+ 
+      //          array_propostas_recentes_aceitas.length );
 
 
 
-    VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = false;
+      VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = false;
+
+
+      // alert("ESTÁ EXECUTANDO BUSCA DE NOTIFICAÇÃO NESSA AUDITORIA")
+
+
+    } catch (erro) { alert(erro + " => wdcf$387") }
 
 
   }
@@ -1853,6 +1813,7 @@ export default function AppTest() {
         //alert(URLs_JSON.length);
         var PRIMEIRA_URL_IMAGEM_INDEXOF;
         var PRIMEIRA_URL_VIDEO_INDEXOF;
+
         for (var i = 0; i < URLs_JSON.length; i++) {
 
           //TRATAMENTO COM IMAGENS ABAIXO
@@ -1892,18 +1853,43 @@ export default function AppTest() {
 
 
 
+  
+  useEffect(() => {
+
+    // setNotificacao_visivel_true_false(true);
+    async function CHAMANDO_NF() {
+      await PEGAR_NUMERO_DO_CELL_NO_CARREGAMENTO()
+      await BUSCANDO_NOTIFICACOES_2()
+      // .then(() => { });
+
+    }
+
+    if (VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO) {
+      CHAMANDO_NF();
+    }//IF
+
+  }, []);
+
+
+
+
+
 
   useEffect(() => {
 
-    // if (VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO) {
+    if (somatorio_notificacao_numero > 0) {
+      setNotificacao_visivel_true_false(true);
 
-      BUSCANDO_NOTIFICACOES_2();
+    } else if (somatorio_notificacao_numero === 0) {
+      setNotificacao_visivel_true_false(false)
+    }
 
-    // }
+  }, [array_propostas_recentes_recebidas, array_propostas_recentes_enviadas, array_propostas_recentes_aceitas, array_venda_recentes_requisitadas, somatorio_notificacao_numero]);
 
-  // }, [VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO]);
-  }, []);
-  // somatorio_notificacao_numero
+
+
+
+
 
 
 
@@ -1966,12 +1952,23 @@ export default function AppTest() {
 
               onPress={() => {
 
-                const LARTITUDE = userPosition.latitude;
-                const LORNGITUDE = userPosition.longitude;
-                //alert(userPosition.latitude+"   |    "+ userPosition.longitude);
 
-                //navigation.navigate("MAPA");
-                navigation.navigate("MapaGoogle", { LARTITUDE, LORNGITUDE });
+                // const LARTITUDE = userPosition.latitude;
+                // const LORNGITUDE = userPosition.longitude;
+                // //alert(userPosition.latitude+"   |    "+ userPosition.longitude);
+                // //navigation.navigate("MAPA");
+                // navigation.navigate("MapaGoogle", { LARTITUDE, LORNGITUDE });
+
+
+                alert(
+                  array_propostas_recentes_recebidas.length + "  <= recebidas  " +
+                  array_propostas_recentes_enviadas.length + "   <= enviadas  " +
+                  array_propostas_recentes_aceitas.length + "    <= aceitas   " +
+                  array_venda_recentes_requisitadas.length + "    <= vendas requeridas   " +
+                  somatorio_notificacao_numero + " <= SOMATÓRIO TOTAL  "
+                )
+
+
               }}
             >
               <Icon name='map-marker' style={[Estilo.icones_grande]} />
