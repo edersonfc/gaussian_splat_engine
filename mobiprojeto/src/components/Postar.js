@@ -1191,26 +1191,23 @@ export default function Postar(props) {
                                         if ((TIPOS_DE_GADOS_MACHOS) !== "" || (TIPOS_DE_GADOS_FEMEAS) !== "") {
 
                                             if (
-                                                MACHO !== "" && TIPOS_DE_GADOS_MACHOS !== "" && FEMEA !== "" && TIPOS_DE_GADOS_FEMEAS !== ""
-
+                                                   MACHO !== "" && TIPOS_DE_GADOS_MACHOS !== "" && FEMEA !== "" && TIPOS_DE_GADOS_FEMEAS !== ""
                                                 || MACHO !== "" && TIPOS_DE_GADOS_MACHOS !== "" && FEMEA === "" && TIPOS_DE_GADOS_FEMEAS === ""
-
                                                 || MACHO === "" && TIPOS_DE_GADOS_MACHOS === "" && FEMEA !== "" && TIPOS_DE_GADOS_FEMEAS !== ""
 
                                             ) {
 
-
-                                                if (descricoesGerais != "") {
+                                               if (descricoesGerais != "") {
 
                                                     if (precoSugerido != "") {
 
                                                         if (quantidadeCabecasOuPesos != "") {
 
-                                                            alert("TODAS AS ETAPAS ESTÃO OK");
-                                                            // PEGAR_NUMERO_DO_CELL();
+                                                            //alert("TODAS AS ETAPAS ESTÃO OK");
+                                                            PEGAR_NUMERO_DO_CELL();
                                                             // // navigation.goBack(null);
 
-                                                        } else { alert("Quantidade de Cabeças Não prenchido !") }
+                                                        } else { alert("Quantidade de Cabeças Não Preenchido !") }
 
                                                     } else { alert("Preço Sugerido Não foi Preenchido !") }
 

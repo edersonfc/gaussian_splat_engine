@@ -295,6 +295,16 @@ export default function AppTest() {
 
   var [labelOuPesquisar, setLabelOuPesquisar] = useState(true);
 
+  const [botoePropostas, setBotoePropostas] = useState(false);
+  const [botoePropostasRecebidas, setbotoePropostasRecebidas] = useState(true);
+  const [botoePropostasEnviadas, setbotoePropostasEnviadas] = useState(false);
+  const [botoePropostasAceitas, setbotoePropostasAceitas] = useState(false);
+
+
+
+
+
+
   //////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////
   //REMOVENDO TUDO DAQUI ATÉ ANTES DO RETURN ABAIXO
@@ -1273,6 +1283,9 @@ export default function AppTest() {
   async function FILTRAR_MEUS_FAVORITOS() {
 
     // alert(numero_CelularUsuario);
+    setExibeMenu(false);
+    setMuda_cor(true);
+    filtro_ativado_sim_ou_nao = true;
 
     var datos = "";
 
@@ -1487,16 +1500,33 @@ export default function AppTest() {
 
 
   //MOSTRAR ITENS DAS NOTIFICAÇÕES QUANDO SOLICITADO ABAIXO
-  function PROPOSTAS_RECEBIDAS_RECENTES() {
-    setLabelOuPesquisar(true);
+  function PROPOSTAS_RECEBIDAS_RECENTES(parametro) {
 
 
-    // alert(array_propostas_recentes_recebidas);
 
-    PUXAR_PRODUTOS_DAS_NOTIFICACOES(array_propostas_recentes_recebidas);
-    setMenu_aviso_visivel_or_invisivel(false);
-    setFaixa_submenu_e_filtro(false);
-    setTexto_filtro_notificacao("Propostas Recebidas");
+    if (parametro === false) {
+      setBotoePropostas(false);
+      setLabelOuPesquisar(true);
+    } else {
+
+      setLabelOuPesquisar(false);
+      setBotoePropostas(true);
+      setExibeMenu(false)
+
+    }
+
+    if (array_propostas_recentes_recebidas.length > 0) {
+      // alert(array_propostas_recentes_recebidas);
+
+      PUXAR_PRODUTOS_DAS_NOTIFICACOES(array_propostas_recentes_recebidas);
+      setMenu_aviso_visivel_or_invisivel(false);
+      setFaixa_submenu_e_filtro(false);
+      setTexto_filtro_notificacao("Propostas Recebidas");
+
+      return true;
+
+    } else { alert("Não Tem Propostas Recebidas !"); return false; }
+
 
   }
 
@@ -1504,33 +1534,50 @@ export default function AppTest() {
 
 
   function PROPOSTAS_RESPONDIDAS_RECENTES() {
-    setLabelOuPesquisar(true);
 
-    //alert(array_propostas_recentes_enviadas); 
-    PUXAR_PRODUTOS_DAS_NOTIFICACOES(array_propostas_recentes_enviadas);
-    setMenu_aviso_visivel_or_invisivel(false);
-    setFaixa_submenu_e_filtro(false);
-    setTexto_filtro_notificacao("Propostas Enviadas");
+    if (array_propostas_recentes_enviadas.length > 0) {
+
+      setLabelOuPesquisar(true);
+      //alert(array_propostas_recentes_enviadas); 
+      PUXAR_PRODUTOS_DAS_NOTIFICACOES(array_propostas_recentes_enviadas);
+      setMenu_aviso_visivel_or_invisivel(false);
+      setFaixa_submenu_e_filtro(false);
+      setTexto_filtro_notificacao("Propostas Enviadas");
+
+      return true;
+
+    } else { alert("Não Tem Propostas Enviadas !"); return false; }
 
   }
 
 
 
   function PROPOSTAS_ACEITAS_RECENTES() {
-    setLabelOuPesquisar(true);
 
-    //alert(array_propostas_recentes_aceitas);
-    PUXAR_PRODUTOS_DAS_NOTIFICACOES(array_propostas_recentes_aceitas);
-    setMenu_aviso_visivel_or_invisivel(false);
-    setFaixa_submenu_e_filtro(false);
-    setTexto_filtro_notificacao("Propostas Aceitas");
+
+
+    if (array_propostas_recentes_aceitas.length > 0) {
+
+      setLabelOuPesquisar(true);
+      //alert(array_propostas_recentes_aceitas);
+      PUXAR_PRODUTOS_DAS_NOTIFICACOES(array_propostas_recentes_aceitas);
+      setMenu_aviso_visivel_or_invisivel(false);
+      setFaixa_submenu_e_filtro(false);
+      setTexto_filtro_notificacao("Propostas Aceitas");
+
+      return true;
+
+    } else { alert("Não Tem Propostas Aceitas !"); return false; }
+
+
   }
 
 
 
   function VENDAS_RECENTES() {
-    setLabelOuPesquisar(true);
 
+
+    setLabelOuPesquisar(true);
     //alert(array_venda_recentes_requisitadas);
     PUXAR_PRODUTOS_DAS_NOTIFICACOES(array_venda_recentes_requisitadas)
     setMenu_aviso_visivel_or_invisivel(false);
@@ -1853,7 +1900,7 @@ export default function AppTest() {
 
 
 
-  
+
   useEffect(() => {
 
     // setNotificacao_visivel_true_false(true);
@@ -1885,7 +1932,6 @@ export default function AppTest() {
     }
 
   }, [array_propostas_recentes_recebidas, array_propostas_recentes_enviadas, array_propostas_recentes_aceitas, array_venda_recentes_requisitadas, somatorio_notificacao_numero]);
-
 
 
 
@@ -1953,20 +1999,20 @@ export default function AppTest() {
               onPress={() => {
 
 
-                // const LARTITUDE = userPosition.latitude;
-                // const LORNGITUDE = userPosition.longitude;
-                // //alert(userPosition.latitude+"   |    "+ userPosition.longitude);
-                // //navigation.navigate("MAPA");
-                // navigation.navigate("MapaGoogle", { LARTITUDE, LORNGITUDE });
+                const LARTITUDE = userPosition.latitude;
+                const LORNGITUDE = userPosition.longitude;
+                //alert(userPosition.latitude+"   |    "+ userPosition.longitude);
+                //navigation.navigate("MAPA");
+                navigation.navigate("MapaGoogle", { LARTITUDE, LORNGITUDE });
 
 
-                alert(
-                  array_propostas_recentes_recebidas.length + "  <= recebidas  " +
-                  array_propostas_recentes_enviadas.length + "   <= enviadas  " +
-                  array_propostas_recentes_aceitas.length + "    <= aceitas   " +
-                  array_venda_recentes_requisitadas.length + "    <= vendas requeridas   " +
-                  somatorio_notificacao_numero + " <= SOMATÓRIO TOTAL  "
-                )
+                // alert(
+                //   array_propostas_recentes_recebidas.length + "  <= recebidas  " +
+                //   array_propostas_recentes_enviadas.length + "   <= enviadas  " +
+                //   array_propostas_recentes_aceitas.length + "    <= aceitas   " +
+                //   array_venda_recentes_requisitadas.length + "    <= vendas requeridas   " +
+                //   somatorio_notificacao_numero + " <= SOMATÓRIO TOTAL  "
+                // )
 
 
               }}
@@ -2188,11 +2234,11 @@ export default function AppTest() {
 
                     : <Icon name='heart' style={[Estilo.icones_medio]}
                       onPress={() => {
-                        setMuda_cor(oldState => !oldState)
+                        // setMuda_cor(oldState => !oldState)
                         //MOSTRAR_NUMERO_CELULAR();
                         //REMOVER_ITEM_DO_JSON();
                         FILTRAR_MEUS_FAVORITOS();
-                        filtro_ativado_sim_ou_nao = true;
+                        // filtro_ativado_sim_ou_nao = true;
                       }}
                     />
                   }
@@ -2215,6 +2261,9 @@ export default function AppTest() {
 
           <TouchableOpacity style={{ width: '20%', alignItems: 'center', justifyContent: 'center', borderWidth: 0 }}
             onPress={() => {
+
+              setBotoePropostas(false);
+
               setFaixa_submenu_e_filtro(true);
               CONECTANDO_AO_BANCO_DE_DADOS();
               ADICIONAR_PRODUTOS_por_ARRAY(true);
@@ -2225,31 +2274,106 @@ export default function AppTest() {
               style={{ fontSize: 25, color: '#fff' }} />
           </TouchableOpacity>
 
-          {/* LABEL DA NOTIFICACÃO ABAIXO */}
-          {labelOuPesquisar ?
-
+          {botoePropostas ?
             <View style={{ width: '80%', alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0 }}>
-              <Text style={{ fontSize: 25, color: '#fff' }}>
-                {texto_filtro_notificacao}
-              </Text>
+
+              <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }} >
+
+                <TouchableOpacity style={{ width: '30%', height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderRadius: 20, borderColor: botoePropostasRecebidas ? '#25E7DB' : 'white' }}
+
+                  onPress={() => {
+                    // alert("PROPOSTAS RECEBIDAS AQUI")
+
+                    var RETORNO_BOOLEAN = PROPOSTAS_RECEBIDAS_RECENTES(true);
+
+                    if (RETORNO_BOOLEAN) {
+                      setbotoePropostasRecebidas(true);
+                      setbotoePropostasEnviadas(false);
+                      setbotoePropostasAceitas(false);
+                    }
+
+
+                  }}
+
+                >
+                  <Text style={[Estilo.fontePequena, style = { alignItems: 'center', color: botoePropostasRecebidas ? '#25E7DB' : 'white', }]} >Recebidas</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={{ width: '30%', height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderRadius: 20, borderColor: botoePropostasEnviadas ? '#25E7DB' : 'white' }}
+
+                  onPress={() => {
+                    // alert("PROPOSTAS ENVIADAS AQUI")
+                    var RETORNO_BOOLEAN = PROPOSTAS_RESPONDIDAS_RECENTES();
+
+                    if (RETORNO_BOOLEAN) {
+                      setbotoePropostasRecebidas(false);
+                      setbotoePropostasEnviadas(true);
+                      setbotoePropostasAceitas(false);
+                    }
+
+
+                  }}
+
+                >
+                  <Text style={[Estilo.fontePequena, style = { alignItems: 'center', color: botoePropostasEnviadas ? '#25E7DB' : 'white' }]} >Enviadas</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={{ width: '30%', height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderRadius: 20, borderColor: botoePropostasAceitas ? '#25E7DB' : 'white' }}
+
+                  onPress={() => {
+                    // alert("PROPOSTAS ACEITAS AQUI")
+                    var RETORNO_BOOLEAN = PROPOSTAS_ACEITAS_RECENTES();
+
+                    // alert(RETORNO_BOOLEAN);
+                    if (RETORNO_BOOLEAN) {
+                      setbotoePropostasRecebidas(false);
+                      setbotoePropostasEnviadas(false);
+                      setbotoePropostasAceitas(true);
+                    }
+
+                  }}
+
+                >
+                  <Text style={[Estilo.fontePequena, style = { alignItems: 'center', color: botoePropostasAceitas ? '#25E7DB' : 'white' }]} >Aceitas</Text>
+                </TouchableOpacity>
+
+                <View style={{ width: '1%' }} />
+
+              </View>
+
+
             </View>
-            // {/* LABEL DA NOTIFICACÃO ACIMA */}
             :
-            <View style={{ flexDirection: 'row', width: '80%', height: 'auto', alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0 }}>
+            <View style={{ width: '80%', alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0 }}>
 
-              <TextInput style={{ width: '78%', height: 'auto', backgroundColor: 'white', borderRadius: 8 }} onChangeText={pesquisarGadoF} textAlign={'center'} placeholder={'Digite a Pesquisa'} />
+              {/* LABEL DA NOTIFICACÃO ABAIXO */}
+              {labelOuPesquisar ?
 
-              <TouchableOpacity style={{ width: '20%', height: '100%', alignItems: 'center', justifyContent: 'center', borderWidth: 0 }}
-                onPress={() => {
-                  Keyboard.dismiss(); /*alert("DAPESQUISA " + pesquisarGado)*/ PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH(pesquisarGado);
-                }}
-              >
-                <Icon name='search' style={{ fontSize: 25, color: '#fff' }} />
-              </TouchableOpacity>
+                <View style={{ width: '80%', alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0 }}>
+                  <Text style={{ fontSize: 25, color: '#fff' }}>
+                    {texto_filtro_notificacao}
+                  </Text>
+                </View>
+                // {/* LABEL DA NOTIFICACÃO ACIMA */}
+                :
+                <View style={{ flexDirection: 'row', width: '80%', height: 'auto', alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0 }}>
+
+                  <TextInput style={{ width: '78%', height: 'auto', backgroundColor: 'white', borderRadius: 8 }} onChangeText={pesquisarGadoF} textAlign={'center'} placeholder={'Digite a Pesquisa'} />
+
+                  <TouchableOpacity style={{ width: '20%', height: '100%', alignItems: 'center', justifyContent: 'center', borderWidth: 0 }}
+                    onPress={() => {
+                      Keyboard.dismiss(); /*alert("DAPESQUISA " + pesquisarGado)*/ PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH(pesquisarGado);
+                    }}
+                  >
+                    <Icon name='search' style={{ fontSize: 25, color: '#fff' }} />
+                  </TouchableOpacity>
+
+                </View>
+              }{/*labelOuPesquisar*/}
 
             </View>
-          }{/*labelOuPesquisar*/}
 
+          }
 
         </View>
       }
@@ -2392,7 +2516,12 @@ export default function AppTest() {
       {/*PAINEL DE ROLAGEM VERTICAL ACIMA */}
 
 
-      {exibeMenu && (<MENU_LATERAL LARTITUDE={userPosition.latitude} LORNGITUDE={userPosition.longitude} />)}
+      {exibeMenu && (<MENU_LATERAL LARTITUDE={userPosition.latitude} LORNGITUDE={userPosition.longitude}
+        remoto_PROPOSTAS_RECEBIDAS_RECENTES={PROPOSTAS_RECEBIDAS_RECENTES}
+        remote_FILTRAR_MEUS_FAVORITOS={FILTRAR_MEUS_FAVORITOS}
+      />)}
+
+
 
       {/* {exibeFiltroCategoria && (<FILTRO_CATEGORIA />)} */}
 
@@ -2432,7 +2561,7 @@ export default function AppTest() {
 
           {/*1º FAIXA ITEM DO MENU ABAIXO */}
           <TouchableOpacity style={{ width: '100%', height: 40, backgroundColor: '#778187', justifyContent: 'center' }}
-            onPress={() => { PROPOSTAS_RECEBIDAS_RECENTES(); }}
+            onPress={() => { PROPOSTAS_RECEBIDAS_RECENTES(false); }}
           >
 
             <View flexDirection='row' style={{ width: '100%', height: 30, paddingLeft: 15 }}>
