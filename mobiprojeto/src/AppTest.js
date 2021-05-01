@@ -1500,9 +1500,9 @@ export default function AppTest() {
 
 
   //MOSTRAR ITENS DAS NOTIFICAÇÕES QUANDO SOLICITADO ABAIXO
-  function PROPOSTAS_RECEBIDAS_RECENTES(parametro) {
+  function PROPOSTAS_RECEBIDAS_RECENTES(parametro, fonte) {
 
-
+    // alert(fonte);
 
     if (parametro === false) {
       setBotoePropostas(false);
@@ -1525,15 +1525,26 @@ export default function AppTest() {
 
       return true;
 
-    } else { alert("Não Tem Propostas Recebidas !"); return false; }
+    } else {
+
+      if (fonte === "menuLateral") {
+        setbotoePropostasRecebidas(false);
+        setbotoePropostasEnviadas(true);
+        PROPOSTAS_RESPONDIDAS_RECENTES("menuLateral");
+        return false;
+      } else {
+        alert("Não Tem Propostas Recebidas !");
+      }
+
+
+    }
 
 
   }
 
 
 
-
-  function PROPOSTAS_RESPONDIDAS_RECENTES() {
+  function PROPOSTAS_RESPONDIDAS_RECENTES(fonte) {
 
     if (array_propostas_recentes_enviadas.length > 0) {
 
@@ -1546,7 +1557,25 @@ export default function AppTest() {
 
       return true;
 
-    } else { alert("Não Tem Propostas Enviadas !"); return false; }
+    } else {
+
+
+      // alert("Não Tem Propostas Enviadas !"); return false; 
+
+      if (fonte === "menuLateral") {
+        setbotoePropostasRecebidas(false);
+        setbotoePropostasEnviadas(false);
+        setbotoePropostasAceitas(true);
+        PROPOSTAS_ACEITAS_RECENTES();
+        return false;
+      } else {
+        alert("Não Tem Propostas Enviadas !");
+      }
+
+
+
+
+    }
 
   }
 
@@ -2284,7 +2313,7 @@ export default function AppTest() {
                   onPress={() => {
                     // alert("PROPOSTAS RECEBIDAS AQUI")
 
-                    var RETORNO_BOOLEAN = PROPOSTAS_RECEBIDAS_RECENTES(true);
+                    var RETORNO_BOOLEAN = PROPOSTAS_RECEBIDAS_RECENTES(true, "menuTopo");
 
                     if (RETORNO_BOOLEAN) {
                       setbotoePropostasRecebidas(true);
@@ -2303,7 +2332,7 @@ export default function AppTest() {
 
                   onPress={() => {
                     // alert("PROPOSTAS ENVIADAS AQUI")
-                    var RETORNO_BOOLEAN = PROPOSTAS_RESPONDIDAS_RECENTES();
+                    var RETORNO_BOOLEAN = PROPOSTAS_RESPONDIDAS_RECENTES("menuTopo");
 
                     if (RETORNO_BOOLEAN) {
                       setbotoePropostasRecebidas(false);
@@ -2561,7 +2590,7 @@ export default function AppTest() {
 
           {/*1º FAIXA ITEM DO MENU ABAIXO */}
           <TouchableOpacity style={{ width: '100%', height: 40, backgroundColor: '#778187', justifyContent: 'center' }}
-            onPress={() => { PROPOSTAS_RECEBIDAS_RECENTES(false); }}
+            onPress={() => { PROPOSTAS_RECEBIDAS_RECENTES(false, "menuFlutuante"); }}
           >
 
             <View flexDirection='row' style={{ width: '100%', height: 30, paddingLeft: 15 }}>
@@ -2584,7 +2613,7 @@ export default function AppTest() {
 
           {/*2º FAIXA ITEM DO MENU ABAIXO */}
           <TouchableOpacity style={{ width: '100%', height: 40, backgroundColor: '#778187', justifyContent: 'center' }}
-            onPress={() => { PROPOSTAS_RESPONDIDAS_RECENTES(); }}
+            onPress={() => { PROPOSTAS_RESPONDIDAS_RECENTES("menuFlutuante"); }}
           >
 
             <View flexDirection='row' style={{ width: '100%', height: 30, paddingLeft: 15 }}>
