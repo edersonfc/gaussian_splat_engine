@@ -147,7 +147,7 @@ export default function DetalhesProdutos(props) {
     if (produtos.corMacho_J === true || produtos.corMacho_J === "true") { SEXO_DO_GADO = " Macho  "; }//IF
     if (produtos.corFemea_J === true || produtos.corFemea_J === "true") { SEXO_DO_GADO += " Fêmea  "; }//IF
     */
-    SEXO_DO_GADO = produtos.corMacho_J +" "+ produtos.corFemea_J;
+    SEXO_DO_GADO = produtos.corMacho_J + " " + produtos.corFemea_J;
 
 
     //ERAS DO GADO
@@ -158,7 +158,7 @@ export default function DetalhesProdutos(props) {
     if (produtos.cor_24_36_J === true || produtos.cor_24_36_J === "true") { ERAS_IDADES += "  24 à 36 "; }//IF
     if (produtos.corAcima_36_J === true || produtos.corAcima_36_J === "true") { ERAS_IDADES += "  Acima 36 "; }//IF
     */
-    ERAS_IDADES = produtos.cor_0_12_J +" "+ produtos.cor_12_24_J +" "+ produtos.cor_24_36_J +" "+ produtos.corAcima_36_J;
+    ERAS_IDADES = produtos.cor_0_12_J + " " + produtos.cor_12_24_J + " " + produtos.cor_24_36_J + " " + produtos.corAcima_36_J;
 
     if (produtos.outrasErasAnterior_J != "" && produtos.outrasErasPosterior_J != "") { ERAS_IDADES += "  " + produtos.outrasErasAnterior_J + " à " + produtos.outrasErasPosterior_J }//IF
 
@@ -180,13 +180,13 @@ export default function DetalhesProdutos(props) {
     if (produtos.corVacasPrenhas_J === true || produtos.corVacasPrenhas_J === "true") { TIPOS_DE_GADOS += "  Vacas Prenhas  "; }//IF
     if (produtos.corVacasParidas_J === true || produtos.corVacasParidas_J === "true") { TIPOS_DE_GADOS += "  Vacas Paridas  "; }//IF
     */
-    TIPOS_DE_GADOS = produtos.corBezerros_J +" "+ produtos.corGarrotes_J +" "+ produtos.corTourunos_J +" "+ produtos.corBois_J  +" "+ produtos.corBoisGordos_J  +" "+ produtos.corBezerras_J   +" "+   produtos.corNovilhas_J   +" "+ 
-                     produtos.corVacasBoiadeiras_J +" "+ produtos.corVacas_J +" "+ produtos.corVacasGordas_J +" "+ produtos.corVacasPrenhas_J +" "+ produtos.corVacasParidas_J; 
+    TIPOS_DE_GADOS = produtos.corBezerros_J + " " + produtos.corGarrotes_J + " " + produtos.corTourunos_J + " " + produtos.corBois_J + " " + produtos.corBoisGordos_J + " " + produtos.corBezerras_J + " " + produtos.corNovilhas_J + " " +
+        produtos.corVacasBoiadeiras_J + " " + produtos.corVacas_J + " " + produtos.corVacasGordas_J + " " + produtos.corVacasPrenhas_J + " " + produtos.corVacasParidas_J;
 
     // alert(SEXO_DO_GADO);
-     //alert(SEXO_DO_GADO);
-     //alert(ERAS_IDADES);
-     //alert( TIPOS_DE_GADOS );
+    //alert(SEXO_DO_GADO);
+    //alert(ERAS_IDADES);
+    //alert( TIPOS_DE_GADOS );
 
 
 
@@ -353,7 +353,7 @@ export default function DetalhesProdutos(props) {
                         onPress={async () => {
 
 
-                            if (VARIAVEL_GLOBAL.TELA_TERCEIRA == "nenhuma" || VARIAVEL_GLOBAL.TELA_ORIGEM == "Principal" ) {
+                            if (VARIAVEL_GLOBAL.TELA_TERCEIRA == "nenhuma" || VARIAVEL_GLOBAL.TELA_ORIGEM == "Principal") {
                                 // if (tela_pra_voltar.includes('Principal')) {
 
                                 VARIAVEL_GLOBAL.TELA_ATUAL = "Principal";
@@ -365,7 +365,7 @@ export default function DetalhesProdutos(props) {
 
                             }
 
-                          else if (VARIAVEL_GLOBAL.TELA_TERCEIRA == "ComprasVendas"  ||  VARIAVEL_GLOBAL.TELA_ORIGEM == "ComprasVendas" ) {
+                            else if (VARIAVEL_GLOBAL.TELA_TERCEIRA == "ComprasVendas" || VARIAVEL_GLOBAL.TELA_ORIGEM == "ComprasVendas") {
 
 
                                 VARIAVEL_GLOBAL.TELA_ATUAL = "ComprasVendas";
@@ -437,6 +437,7 @@ export default function DetalhesProdutos(props) {
                             : <Icon name='heart' style={[Estilo.icones_grande]}
                                 onPress={async () => {
 
+                                    if (VARIAVEL_GLOBAL.LICENCA_USO === "liberado" || VARIAVEL_GLOBAL.TELEFONE === "SEM_TELEFONE_USUARIO") {
                                     //setMuda_cor(oldState => !oldState)
                                     //alert("NÃO É FAVORITO");
                                     //alert(favoritos_numeros_de_cells);
@@ -466,6 +467,14 @@ export default function DetalhesProdutos(props) {
                                         } catch (error) { setMuda_cor(false); alert("FALHA AO FAVORITAR"); }
 
                                     }//IF
+
+
+                                } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
+
+                                    alert("Amigo Pecuarista, \n  Não Constamos o Pagamento da Mensalidade ! \n Entre em Contato pelo Fone: \n (67) 99324-422630");
+                  
+                                  }
+
 
                                 }
                                 } />
@@ -510,7 +519,19 @@ export default function DetalhesProdutos(props) {
                         :
 
                         <TouchableOpacity style={{ width: '26%', borderWidth: 0, height: 55, padding: 4, alignItems: 'center', justifyContent: 'flex-end' }}
-                            onPress={() => { DELETAR_POSTAGEM_NO_BANCO_DE_DADOS(); }}
+                            onPress={() => {
+
+                                if (VARIAVEL_GLOBAL.LICENCA_USO === "liberado" || VARIAVEL_GLOBAL.TELEFONE === "SEM_TELEFONE_USUARIO") {
+
+                                    DELETAR_POSTAGEM_NO_BANCO_DE_DADOS();
+
+                                } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
+
+                                    alert("Amigo Pecuarista, \n  Não Constamos o Pagamento da Mensalidade ! \n Entre em Contato pelo Fone: \n (67) 99324-422630");
+
+                                }
+
+                            }}
                         >
                             <Icon name='trash-o' style={Estilo.icones_grande} />
 
@@ -558,11 +579,11 @@ export default function DetalhesProdutos(props) {
                                     var ARRY_URL_IMAGENS = URL_IMAGENS;
                                     var IMAGENS = ARRAY_DE_IMAGENS_E_VIDEOS[index];
                                     var index_id = index;
-             
+
 
                                     navigation.navigate("navegacaoFotos", { ARRY_URL_IMAGENS, IMAGENS, index_id }) //ATIVAR DEPOIS
                                     // alert(VARIAVEL_GLOBAL.TELA_ATUAL+" | "+VARIAVEL_GLOBAL.TELA_ORIGEM+" | "+VARIAVEL_GLOBAL.TELA_TERCEIRA)
-                                    
+
 
                                 } else {
 
@@ -636,60 +657,71 @@ export default function DetalhesProdutos(props) {
                         onPress={async () => {
 
 
-                            if (comprador_ou_vendedor == true) {
-                                //var index = parseInt(INDICE_PRINCIPAL_JSON);
-                                var numero_telefone = produtos.numero_telefone_J;
-                                var id_da_postagem = produtos.id_J;
-                                var numero_telefone_comprador = '{"NUMERO_CELL_J":"' + NUMERO_CELL_DO_USUARIO + '"}';//ESTA LINHA CONCERTA A FORMATAÇÃO DO Nº DO CELULAR PONDO DENTRO OBJETO JSON NESSE FORMATO PARA NÃO DAR ERRO NA GRAVAÇÃO DO BANCO DE DADOS
-                                // alert("VAI COMPRAR DIRETO");
-                                //alert( index+"   "+numero_telefone+"   "+id_da_postagem );
-                                var numero_telefone_J = numero_telefone;
-                                var id_J = id_da_postagem;
-                                try {
-
-
-                                    if (NUMERO_CELL_DO_USUARIO != "" && comprar_ou_deletar != "Comprado" && comprar_ou_deletar != "Vendido") {
-
-                                        //alert(numero_telefone_comprador);
-
-                                        await Axios.get(IP_DO_SERVIDOR + 'comprar_direto', {
-                                            params: {
-                                                numero_telefone_J: numero_telefone_J,
-                                                id_J: id_J,
-                                                comprador_J: numero_telefone_comprador
-                                            }
-
-                                        }, alert("Compra Realizada... Entraremos em Contato !"));
+                            if (VARIAVEL_GLOBAL.LICENCA_USO === "liberado" || VARIAVEL_GLOBAL.TELEFONE === "SEM_TELEFONE_USUARIO") {
 
 
 
-                                    } else {
-                                        //alert("Cadastre o Telefone pra poder Comprar ou Vender !");
-                                        if (NUMERO_CELL_DO_USUARIO == "" && comprar_ou_deletar != "Comprado" && comprar_ou_deletar != "Vendido") {
-                                            setColocar_celular_visivel_or_invisivel(true);
+                                if (comprador_ou_vendedor == true) {
+                                    //var index = parseInt(INDICE_PRINCIPAL_JSON);
+                                    var numero_telefone = produtos.numero_telefone_J;
+                                    var id_da_postagem = produtos.id_J;
+                                    var numero_telefone_comprador = '{"NUMERO_CELL_J":"' + NUMERO_CELL_DO_USUARIO + '"}';//ESTA LINHA CONCERTA A FORMATAÇÃO DO Nº DO CELULAR PONDO DENTRO OBJETO JSON NESSE FORMATO PARA NÃO DAR ERRO NA GRAVAÇÃO DO BANCO DE DADOS
+                                    // alert("VAI COMPRAR DIRETO");
+                                    //alert( index+"   "+numero_telefone+"   "+id_da_postagem );
+                                    var numero_telefone_J = numero_telefone;
+                                    var id_J = id_da_postagem;
+                                    try {
+
+
+                                        if (NUMERO_CELL_DO_USUARIO != "" && comprar_ou_deletar != "Comprado" && comprar_ou_deletar != "Vendido") {
+
+                                            //alert(numero_telefone_comprador);
+
+                                            await Axios.get(IP_DO_SERVIDOR + 'comprar_direto', {
+                                                params: {
+                                                    numero_telefone_J: numero_telefone_J,
+                                                    id_J: id_J,
+                                                    comprador_J: numero_telefone_comprador
+                                                }
+
+                                            }, alert("Compra Realizada... Entraremos em Contato !"));
+
+
+
                                         } else {
+                                            //alert("Cadastre o Telefone pra poder Comprar ou Vender !");
+                                            if (NUMERO_CELL_DO_USUARIO == "" && comprar_ou_deletar != "Comprado" && comprar_ou_deletar != "Vendido") {
+                                                setColocar_celular_visivel_or_invisivel(true);
+                                            } else {
 
-                                            CANCELAMENTO_DE_COMPRA_E_VENDA();
+                                                CANCELAMENTO_DE_COMPRA_E_VENDA();
 
+                                            }
                                         }
-                                    }
 
-                                } catch (error) { "493@g#=> " + error }
-
-                            } else {
-
-                                if (comprar_ou_deletar == "Comprado" || comprar_ou_deletar == "Vendido") {
-
-                                    //alert("Deseja Realmente Cancelar essa Compra e Venda !!! ");
-                                    CANCELAMENTO_DE_COMPRA_E_VENDA();
+                                    } catch (error) { "493@g#=> " + error }
 
                                 } else {
 
-                                    DELETAR_POSTAGEM_NO_BANCO_DE_DADOS();
+                                    if (comprar_ou_deletar == "Comprado" || comprar_ou_deletar == "Vendido") {
 
-                                }
+                                        //alert("Deseja Realmente Cancelar essa Compra e Venda !!! ");
+                                        CANCELAMENTO_DE_COMPRA_E_VENDA();
 
-                            }//ELSE IF
+                                    } else {
+
+                                        DELETAR_POSTAGEM_NO_BANCO_DE_DADOS();
+
+                                    }
+
+                                }//ELSE IF
+
+
+                            } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
+
+                                alert("Amigo Pecuarista, \n  Não Constamos o Pagamento da Mensalidade ! \n Entre em Contato pelo Fone: \n (67) 99324-422630");
+
+                            }
 
 
                         }}
@@ -700,17 +732,29 @@ export default function DetalhesProdutos(props) {
                     <TouchableHighlight style={{ width: '42%', height: 40, alignItems: 'center', paddingTop: 10, borderWidth: 1, borderRadius: 10, borderColor: 'white' }}
                         onPress={() => {
 
-                            var index = parseInt(INDICE_PRINCIPAL_JSON);
-                            var numero_telefone = produtos.numero_telefone_J;
-                            var id_da_postagem = produtos.id_J;
-                            var numero_telefone_comprador = '{"NUMERO_CELL_J":"' + NUMERO_CELL_DO_USUARIO + '"}';//ESTA LINHA CONCERTA A FORMATAÇÃO DO Nº DO CELULAR PONDO DENTRO OBJETO JSON NESSE FORMATO PARA NÃO DAR ERRO NA GRAVAÇÃO DO BANCO DE DADOS
-                            VARIAVEL_GLOBAL.FAZER_PROPOSTA = fazer_ou_ver_proposta;
 
-                            if (VARIAVEL_GLOBAL.TELEFONE != "SEM_TELEFONE_USUARIO" || VARIAVEL_GLOBAL.TELEFONE != "") {
-                                VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta"; //OBSERVER
+                            if (VARIAVEL_GLOBAL.LICENCA_USO === "liberado" || VARIAVEL_GLOBAL.TELEFONE === "SEM_TELEFONE_USUARIO") {
+
+                                var index = parseInt(INDICE_PRINCIPAL_JSON);
+                                var numero_telefone = produtos.numero_telefone_J;
+                                var id_da_postagem = produtos.id_J;
+                                var numero_telefone_comprador = '{"NUMERO_CELL_J":"' + NUMERO_CELL_DO_USUARIO + '"}';//ESTA LINHA CONCERTA A FORMATAÇÃO DO Nº DO CELULAR PONDO DENTRO OBJETO JSON NESSE FORMATO PARA NÃO DAR ERRO NA GRAVAÇÃO DO BANCO DE DADOS
+                                VARIAVEL_GLOBAL.FAZER_PROPOSTA = fazer_ou_ver_proposta;
+
+                                if (VARIAVEL_GLOBAL.TELEFONE != "SEM_TELEFONE_USUARIO" || VARIAVEL_GLOBAL.TELEFONE != "") {
+                                    VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta"; //OBSERVER
+                                }
+
+                                navigation.navigate("EnvioPropostasCompras", { index, numero_telefone, id_da_postagem, numero_telefone_comprador });
+
+
+                            } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
+
+                                alert("Amigo Pecuarista, \n  Não Constamos o Pagamento da Mensalidade ! \n Entre em Contato pelo Fone: \n (67) 99324-422630");
+
                             }
 
-                            navigation.navigate("EnvioPropostasCompras", { index, numero_telefone, id_da_postagem, numero_telefone_comprador });
+
 
 
                         }}

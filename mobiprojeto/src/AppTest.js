@@ -504,6 +504,7 @@ export default function AppTest() {
 
               }//IF
               console.log("ESTÁ ON-LINE");
+              BUSCAR_LICENCA_DE_USO();
 
               /***********TAREFAZ AQUI ACIMA******************** */
 
@@ -1709,7 +1710,7 @@ export default function AppTest() {
 
       return true;
 
-    } else { alert("Não Tem Propostas Aceitas !"); return false; }
+    } else { alert("Não Tem Propostas Aceitas !");   setLabelOuPesquisar(false); setBotoePropostas(false); return false; }
 
 
   }
@@ -2082,6 +2083,28 @@ export default function AppTest() {
 
 
 
+  async function BUSCAR_LICENCA_DE_USO() {
+
+
+    const response = await Axios.get(IP_DO_SERVIDOR + 'buscar_licenca', {
+      params: {
+        telefoneDoUsuario: VARIAVEL_GLOBAL.TELEFONE[0]
+      }
+    });
+
+    VARIAVEL_GLOBAL.LICENCA_USO = await response.data;
+
+    console.log(VARIAVEL_GLOBAL.LICENCA_USO)
+
+
+  }
+
+
+
+
+
+
+
 
 
 
@@ -2107,7 +2130,21 @@ export default function AppTest() {
           <View style={{ flex: 1, flexDirection: 'row', height: 30, borderWidth: 0, borderColor: 'pink', padding: 1 }}>
 
             <TouchableOpacity style={[Estilo.borda_geral, style = { width: '25%', borderWidth: 0, alignItems: 'center' }]}
-              onPress={() => setExibeMenu(oldState => !oldState)}
+              onPress={() => {
+
+
+                if (VARIAVEL_GLOBAL.LICENCA_USO === "liberado" || VARIAVEL_GLOBAL.TELEFONE === "SEM_TELEFONE_USUARIO") {
+
+                  setExibeMenu(oldState => !oldState);
+
+                } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
+
+                  alert("Amigo Pecuarista, \n  Não Constamos o Pagamento da Mensalidade ! \n Entre em Contato pelo Fone: \n (67) 99324-422630");
+
+                }
+
+
+              }}
             >
               {exibeMenu
                 ? <Icon name='bars'
@@ -2175,18 +2212,23 @@ export default function AppTest() {
 
                 // } else {   }
 
+                if (VARIAVEL_GLOBAL.LICENCA_USO === "liberado" || VARIAVEL_GLOBAL.TELEFONE === "SEM_TELEFONE_USUARIO") {
 
-                VARIAVEL_GLOBAL.TELA_ATUAL = "Postar";
-                VARIAVEL_GLOBAL.TELA_ORIGEM = "Principal";
-                VARIAVEL_GLOBAL.TELA_TERCEIRA = "nenhuma";
+                  VARIAVEL_GLOBAL.TELA_ATUAL = "Postar";
+                  VARIAVEL_GLOBAL.TELA_ORIGEM = "Principal";
+                  VARIAVEL_GLOBAL.TELA_TERCEIRA = "nenhuma";
 
-                VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length = 0;
-                VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT.length = 0;
+                  VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length = 0;
+                  VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT.length = 0;
 
-                //navigation.navigate("Postar",{URL})
-                navigation.navigate("Postar", { URL_FOTOS, URL_VIDEOS, })
+                  //navigation.navigate("Postar",{URL})
+                  navigation.navigate("Postar", { URL_FOTOS, URL_VIDEOS, })
 
+                } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
 
+                  alert("Amigo Pecuarista, \n  Não Constamos o Pagamento da Mensalidade ! \n Entre em Contato pelo Fone: \n (67) 99324-422630");
+
+                }
 
               }}
             >

@@ -1159,77 +1159,77 @@ export default function Postar(props) {
                             onPress={async () => {
 
 
-                                var MACHO = "";
-                                var FEMEA = "";
-                                var IDADE_DO_GADO = "";
-                                var TIPOS_DE_GADOS_MACHOS = "";
-                                var TIPOS_DE_GADOS_FEMEAS = "";
+                                // var MACHO = "";
+                                // var FEMEA = "";
+                                // var IDADE_DO_GADO = "";
+                                // var TIPOS_DE_GADOS_MACHOS = "";
+                                // var TIPOS_DE_GADOS_FEMEAS = "";
 
-                                var ARRAY_KEYS = Object.keys(categorias_Objetos)
+                                // var ARRAY_KEYS = Object.keys(categorias_Objetos)
 
-                                ARRAY_KEYS.map((empty, index) => {
+                                // ARRAY_KEYS.map((empty, index) => {
 
-                                    if (index == 0) {
-                                        MACHO = JSON.stringify(categorias_Objetos[ARRAY_KEYS[0]]).replace(/['"]+/g, '')
-                                    }
-                                    if (index == 1) {
-                                        FEMEA = JSON.stringify(categorias_Objetos[ARRAY_KEYS[1]]).replace(/['"]+/g, '')
-                                    }
-                                    if (index >= 2 && index <= 5) {
-                                        IDADE_DO_GADO += JSON.stringify(categorias_Objetos[ARRAY_KEYS[index]]).replace(/['"]+/g, '')
-                                    }
-                                    if (index >= 6 && index <= 10) {
-                                        TIPOS_DE_GADOS_MACHOS += JSON.stringify(categorias_Objetos[ARRAY_KEYS[index]]).replace(/['"]+/g, '')
-                                    }
-                                    if (index >= 11 && index <= 17) {
-                                        TIPOS_DE_GADOS_FEMEAS += JSON.stringify(categorias_Objetos[ARRAY_KEYS[index]]).replace(/['"]+/g, '')
-                                    }
+                                //     if (index == 0) {
+                                //         MACHO = JSON.stringify(categorias_Objetos[ARRAY_KEYS[0]]).replace(/['"]+/g, '')
+                                //     }
+                                //     if (index == 1) {
+                                //         FEMEA = JSON.stringify(categorias_Objetos[ARRAY_KEYS[1]]).replace(/['"]+/g, '')
+                                //     }
+                                //     if (index >= 2 && index <= 5) {
+                                //         IDADE_DO_GADO += JSON.stringify(categorias_Objetos[ARRAY_KEYS[index]]).replace(/['"]+/g, '')
+                                //     }
+                                //     if (index >= 6 && index <= 10) {
+                                //         TIPOS_DE_GADOS_MACHOS += JSON.stringify(categorias_Objetos[ARRAY_KEYS[index]]).replace(/['"]+/g, '')
+                                //     }
+                                //     if (index >= 11 && index <= 17) {
+                                //         TIPOS_DE_GADOS_FEMEAS += JSON.stringify(categorias_Objetos[ARRAY_KEYS[index]]).replace(/['"]+/g, '')
+                                //     }
 
-                                });
+                                // });
 
-                                // console.log(MACHO + "  " + FEMEA + "  " + IDADE_DO_GADO + "  " + TIPOS_DE_GADOS_MACHOS + "  " + TIPOS_DE_GADOS_FEMEAS);
+                                // // console.log(MACHO + "  " + FEMEA + "  " + IDADE_DO_GADO + "  " + TIPOS_DE_GADOS_MACHOS + "  " + TIPOS_DE_GADOS_FEMEAS);
 
-                                if (MACHO + FEMEA !== "") {
+                                // if (MACHO + FEMEA !== "") {
 
-                                    if ((IDADE_DO_GADO + outrasErasAnterior + outrasErasPosterior) !== "") {
+                                //     if ((IDADE_DO_GADO + outrasErasAnterior + outrasErasPosterior) !== "") {
 
-                                        if ((TIPOS_DE_GADOS_MACHOS) !== "" || (TIPOS_DE_GADOS_FEMEAS) !== "") {
+                                //         if ((TIPOS_DE_GADOS_MACHOS) !== "" || (TIPOS_DE_GADOS_FEMEAS) !== "") {
 
-                                            if (
-                                                   MACHO !== "" && TIPOS_DE_GADOS_MACHOS !== "" && FEMEA !== "" && TIPOS_DE_GADOS_FEMEAS !== ""
-                                                || MACHO !== "" && TIPOS_DE_GADOS_MACHOS !== "" && FEMEA === "" && TIPOS_DE_GADOS_FEMEAS === ""
-                                                || MACHO === "" && TIPOS_DE_GADOS_MACHOS === "" && FEMEA !== "" && TIPOS_DE_GADOS_FEMEAS !== ""
+                                //             if (
+                                //                    MACHO !== "" && TIPOS_DE_GADOS_MACHOS !== "" && FEMEA !== "" && TIPOS_DE_GADOS_FEMEAS !== ""
+                                //                 || MACHO !== "" && TIPOS_DE_GADOS_MACHOS !== "" && FEMEA === "" && TIPOS_DE_GADOS_FEMEAS === ""
+                                //                 || MACHO === "" && TIPOS_DE_GADOS_MACHOS === "" && FEMEA !== "" && TIPOS_DE_GADOS_FEMEAS !== ""
 
-                                            ) {
+                                //             ) {
 
-                                               if (descricoesGerais != "") {
+                                //                if (descricoesGerais != "") {
 
-                                                    if (precoSugerido != "") {
+                                //                     if (precoSugerido != "") {
 
-                                                        if (quantidadeCabecasOuPesos != "") {
+                                //                         if (quantidadeCabecasOuPesos != "") {
 
-                                                            //alert("TODAS AS ETAPAS ESTÃO OK");
-                                                            PEGAR_NUMERO_DO_CELL();
-                                                            // // navigation.goBack(null);
+                                //                             //alert("TODAS AS ETAPAS ESTÃO OK");
+                                //                             PEGAR_NUMERO_DO_CELL();
+                                //                             // // navigation.goBack(null);
 
-                                                        } else { alert("Quantidade de Cabeças Não Preenchido !") }
+                                //                         } else { alert("Quantidade de Cabeças Não Preenchido !") }
 
-                                                    } else { alert("Preço Sugerido Não foi Preenchido !") }
+                                //                     } else { alert("Preço Sugerido Não foi Preenchido !") }
 
-                                                } else { alert("Descrição Não foi Preenchido !") }
+                                //                 } else { alert("Descrição Não foi Preenchido !") }
 
-                                            } else { alert("Sexo do Gado Incompativo com os Tipos de Gado !") }
+                                //             } else { alert("Sexo do Gado Incompativo com os Tipos de Gado !") }
 
-                                        } else { alert("Falta Escolher Tipo de Gado !") }
+                                //         } else { alert("Falta Escolher Tipo de Gado !") }
 
-                                    } else { alert("Falta Escolher Idade do Gado !") }
+                                //     } else { alert("Falta Escolher Idade do Gado !") }
 
-                                } else { alert("Falta Escolher o Sexo do Gado !") }
+                                // } else { alert("Falta Escolher o Sexo do Gado !") }
 
 
 
-                                // //DESATIVAR ESSA LINHA DEPOIS
-                                // PEGAR_NUMERO_DO_CELL();
+                                //DESATIVAR ESSA LINHA DEPOIS
+                                PEGAR_NUMERO_DO_CELL();
 
 
                             }}
