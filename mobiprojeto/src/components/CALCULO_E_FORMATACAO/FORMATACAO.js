@@ -523,25 +523,43 @@ function MOEDA_P_DOUBLE_OU_FLOAT(valor_moeda) {
 
 
 function DOUBLE_OU_FLOAT_P_MOEDA(value, str_cifrao) {
-// function currencyFormatted(value, str_cifrao) {
- 
-        return str_cifrao + ' ' + value.formatMoney(2, ',', '.');
-    }
-    
-    Number.prototype.formatMoney = function (c, d, t) {
-        var n = this,
-            c = isNaN(c = Math.abs(c)) ? 2 : c,
-            d = d == undefined ? "." : d,
-            t = t == undefined ? "," : t,
-            s = n < 0 ? "-" : "",
-            i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
-            j = (j = i.length) > 3 ? j % 3 : 0;
-        return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
-    };
+    // function currencyFormatted(value, str_cifrao) {
+
+    return str_cifrao + ' ' + value.formatMoney(2, ',', '.');
+}
+
+Number.prototype.formatMoney = function (c, d, t) {
+    var n = this,
+        c = isNaN(c = Math.abs(c)) ? 2 : c,
+        d = d == undefined ? "." : d,
+        t = t == undefined ? "," : t,
+        s = n < 0 ? "-" : "",
+        i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
+        j = (j = i.length) > 3 ? j % 3 : 0;
+    return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
+};
 
 
+function VALIDAR_CPF(strCPF) {
+    var Soma;
+    var Resto;
+    Soma = 0;
+    if (strCPF == "00000000000") return false;
 
+    for (i = 1; i <= 9; i++) Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (11 - i);
+    Resto = (Soma * 10) % 11;
 
+    if ((Resto == 10) || (Resto == 11)) Resto = 0;
+    if (Resto != parseInt(strCPF.substring(9, 10))) return false;
+
+    Soma = 0;
+    for (i = 1; i <= 10; i++) Soma = Soma + parseInt(strCPF.substring(i - 1, i)) * (12 - i);
+    Resto = (Soma * 10) % 11;
+
+    if ((Resto == 10) || (Resto == 11)) Resto = 0;
+    if (Resto != parseInt(strCPF.substring(10, 11))) return false;
+    return true;
+}
 
 
 
@@ -550,7 +568,8 @@ export {
     arrayUnique, arrayUnique_2, pegar_somente_valores_de_JSON, pegar_somente_nome_dos_campos_de_JSON, converter_Array_para_JSON,
     data_hora_e_segundo_completo, data_completa, hora_e_segundo_completo, data_hora_e_segundo_completo_ingles, data_hora_e_segundo_sem_separador, FORMATAR_AO_DIGITAR_USANDO_MASCARA,
     Distancia_entre_2_geolocalizacao, TRANFORMAR_P_CAMINHO_ABSOLUTO, REMOVER_ITENS_NULOS_DO_ARRAY, extrair_nome_de_Arquivo_da_url, Badge, FORMATAR_PARA_MOEDA_DEFINITIVO_AO_DIGITAR,
-    data_completa_ingles, EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES, EXTRAIR_DATA_PORTUGUES_E_CONVERTER_P_INGLES, MOEDA_P_DOUBLE_OU_FLOAT, DOUBLE_OU_FLOAT_P_MOEDA
+    data_completa_ingles, EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES, EXTRAIR_DATA_PORTUGUES_E_CONVERTER_P_INGLES, MOEDA_P_DOUBLE_OU_FLOAT, DOUBLE_OU_FLOAT_P_MOEDA,
+    VALIDAR_CPF
 }
 
 

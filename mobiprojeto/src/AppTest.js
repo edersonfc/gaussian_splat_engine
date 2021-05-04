@@ -64,6 +64,8 @@ var IP_DO_SERVIDOR_IO = "http://192.168.0.102:3001/";
 
 var TELA_DE_ORIGEM_E_SITUACAO = 'Tela_AppTest_POSTAGEM_SOMENTE';
 
+var contador_iii = 10;
+
 
 var TODOSSDADOSJSON = "";
 
@@ -383,9 +385,38 @@ export default function AppTest() {
 
 
   //CONTADOR REGRESSIVO AQUI ABAIXO
-  var segundos = 10;
+  var segundos = 60;
   var RETORNO_JSON = "";
   var RETORNO_STRING = "";
+
+
+
+
+
+  ////METODO EXTERNO QUE VERIFICA SE TEM CONEXÃO COM  O SERVIDOR ABAIXO
+  async function isAvailable() {
+
+    const CONEXAO = IP_DO_SERVIDOR + 'ping_no_servidor';
+
+    const timeout = new Promise((resolve, reject) => {
+      setTimeout(reject, 3000, 'Request timed out');
+    });
+
+    // const request = fetch('https://httpbin.org/delay/5');
+    const request = fetch(CONEXAO);
+
+    try {
+      const response = await Promise
+        .race([timeout, request]);
+      VARIAVEL_GLOBAL.CONEXAO_DO_APP = "ON-LINE";
+    } catch (error) {
+      VARIAVEL_GLOBAL.CONEXAO_DO_APP = "OFF-LINE";
+    }
+  }
+
+
+  // ////METODO EXTERNO QUE VERIFICA SE TEM CONEXÃO COM O SERVIDOR ACIMA
+
 
 
 
@@ -394,78 +425,155 @@ export default function AppTest() {
   //VERIFICANDO SE TEM CONEXÃO COM INTERNET ABAIXO
   //FUNCIONANDO QUASE PERFEITAMENTE ABAIXO 
   //useEffect de ATUALIZAÇÃO DA TELA PRINCIPAL ONDE APARECE TODOS PRODUTOS ABAIXO
+
   useEffect(() => {
 
-    var contador_iii = 60;
 
-    let VARIAVEL_DA_FUNCAO_TIMER = setInterval(function contagem_tempo() {
 
+    let VARIAVEL_DA_FUNCAO_TIMER = setInterval(async function contagem_tempo() {
 
       //BLOCO DE METODOS DOS OUVINTES QUE BUSCA INFORMAÇÃO NO BANCO DE DADOS SEJA OFF-LINE ou ON-LINE ABAIXO
       if (filtro_ativado_sim_ou_nao === false) {
 
-        if (contador_iii === 60) {
-          contador_iii = 0;
+        // if (contador_iii === 10) {
+        if (VARIAVEL_GLOBAL.CONTADOR_GLOBAL === 60) {
+          VARIAVEL_GLOBAL.CONTADOR_GLOBAL = 0;
+
           clearInterval(VARIAVEL_DA_FUNCAO_TIMER);//IBLOQUEAR O PROCESSO COM TIMER clearInterval
+
+
 
           //Executando alguma tarefa assincrona aqui ABAIXO com o timer bloqueado  no caso a promisse
 
-          //PROMISSE PARA VERIFICAR CONEXÃO COM SERVIDOR ABAIXO
-          function timeout(ms, promise) {
-            return new Promise(function (resolve, reject) {
-              setTimeout(function () {
-                reject(new Error("timeout"))
-              }, ms)
-              promise.then(resolve, reject)
-            })
-          }
-          //PROMISSE PARA VERIFICAR CONEXÃO COM SERVIDOR ACIMA
+
+
+          // //PROMISSE PARA VERIFICAR CONEXÃO COM SERVIDOR ABAIXO   TENTATIVA NUMERO 1 ABAIXO     
+
+          // console.log(hora_e_segundo_completo())
 
           const CONEXAO = IP_DO_SERVIDOR + 'ping_no_servidor';
-          //alert(CONEXAO);
 
-          //timeout(1000, fetch(CONEXAO)) //FOI DESATIVADO ESSA PROMISSE COM TEMPO DE TIMER DETERMINADO
-          fetch(CONEXAO)//SEM TIMER DE TEMPO DETERMINADO
-            .then(function (response) {
+          async function fetchWithTimeout(resource, options) {
+            const { timeout = 8000 } = options;
+
+            const controller = new AbortController();
+            const id = setTimeout(() => controller.abort(), timeout);
+
+            const response = await fetch(resource, {
+              ...options,
+              signal: controller.signal
+            });
+            clearTimeout(id);
+
+            return response;
+          }
+
+
+
+
+          async function VERIFICANDO_ESTATUS_DE_CONEXAO_COM_SERVIDOR() {
+            try {
+              const response = await fetchWithTimeout(CONEXAO, {
+                timeout: 5000,
+                headers: {
+                  'Cache-Control': 'no-cache, no-store, must-revalidate',
+                  'Pragma': 'no-cache',
+                  'Expires': 0
+                }
+              }
+              );
+              const respostaJSON = await response.json();
+              // return respostaJSON;
+
+              /***********TAREFAZ AQUI ABAIXO****************** */
 
               if (filtro_ativado_sim_ou_nao === false) {
-
                 //process response
                 CONECTANDO_AO_BANCO_DE_DADOS()
                   .then(() => {
-
                     ADICIONAR_PRODUTOS_por_ARRAY(true)
-                      .then(async () => {
-
+                      .then(() => {
                         //alert(busca_de_tempo_em_tempo+" CONECTADO");
                         //ARMAZENAR_ESTATUS_SE_TA_ONLINE_OU_OFFLINE('ON-LINE');
                         VARIAVEL_GLOBAL.CONEXAO_DO_APP = "ON-LINE";
                         //console.log("INICIO => " + hora_e_segundo_completo());
-
                         // await BUSCANDO_NOTIFICACOES_2();
-
-                        console.log(contador_iii + " => " + hora_e_segundo_completo())
-
+                        console.log(VARIAVEL_GLOBAL.CONTADOR_GLOBAL + " => " + hora_e_segundo_completo())
                       })
-
                   })
-                /**/
 
               }//IF
-              //alert('ON-LINE');
+              console.log("ESTÁ ON-LINE");
 
-            }).catch(function (error) {
-              //alert(error)
-              console.log("ERRO => " + error);
-              console.log(IP_DO_SERVIDOR);
-              CONECTANDO_AO_BANCO_DE_DADOS();//DESATIVADO PQ É Só se tiver On-Line
-              ADICIONAR_PRODUTOS_por_ARRAY(false);
-              ARMAZENAR_ESTATUS_SE_TA_ONLINE_OU_OFFLINE('OFF-LINE');
+              /***********TAREFAZ AQUI ACIMA******************** */
+
+
+            } catch (error) {
+              // Timeouts if the request takes
+              // longer than 6 seconds
+              // console.log(error.name === 'AbortError');
+              console.log("ESTÁ OFF-LINE");
               VARIAVEL_GLOBAL.CONEXAO_DO_APP = "OFF-LINE";
-              //alert('OFF-LINE');
+            }
+          }
 
-            });
-          ////PROMISSE PARA VERIFICAR CONEXÃO COM SERVIDOR ACIMA
+
+          await VERIFICANDO_ESTATUS_DE_CONEXAO_COM_SERVIDOR();
+
+          // console.log(hora_e_segundo_completo())
+
+          // ////PROMISSE PARA VERIFICAR CONEXÃO COM SERVIDOR ACIMA       TENTATIVA NUMERO 1 ACIMA
+
+
+
+
+
+
+
+
+          // // //PROMISSE PARA VERIFICAR CONEXÃO COM SERVIDOR ABAIXO    TENTATIVA NUMERO 2 ABAIXO  
+
+          // console.log(hora_e_segundo_completo())
+
+
+          // const CONEXAO = IP_DO_SERVIDOR + 'ping_no_servidor';
+
+          // // loadProducts = async () => {
+          // async function VERIFICANDO_ESTATUS_DE_CONEXAO_COM_SERVIDOR() {
+          //   try {
+          //     const response = await Axios.get(CONEXAO);
+
+          //     var RESPOSTA = await response.data;
+
+          //     // console.log(RESPOSTA);
+          //     console.log("ON-LINE !");
+
+          //   } catch (err) {
+          //     // TODO
+          //     // adicionar tratamento da exceção
+          //     // console.error(err);
+          //     console.log("OFF-LINE !");
+          //   }
+          // };
+
+
+          // await VERIFICANDO_ESTATUS_DE_CONEXAO_COM_SERVIDOR();
+
+          // console.log(hora_e_segundo_completo())
+
+          // // //PROMISSE PARA VERIFICAR CONEXÃO COM SERVIDOR ACIMA     TENTATIVA NUMERO 2 ACIMA
+
+
+
+          // //PROMISSE PARA VERIFICAR CONEXÃO COM SERVIDOR ABAIXO   TENTATIVA NUMERO 3 ABAIXO  
+
+          // var RETORNNO = await isAvailable();
+          // console.log(RETORNNO);
+
+          // ////PROMISSE PARA VERIFICAR CONEXÃO COM SERVIDOR ACIMA       TENTATIVA NUMERO 3 ACIMA
+
+
+
 
           //Desbloqueando o timer aqui com comando na linha abaixo
           VARIAVEL_DA_FUNCAO_TIMER = setInterval(contagem_tempo, 1000);//INCIAR NOVAMENTE O PROCESSO COM TIMER setInterval
@@ -473,15 +581,16 @@ export default function AppTest() {
         }//Condição de Bloqueio
 
         // setImprimirContadorTemporizador(contador_iii++);//OBSERVER 2
-
+        VARIAVEL_GLOBAL.BUSCAR_POSTAGENS = "NAO"
 
       }//FALSE
       //BLOCO DE METODOS DOS OUVINTES QUE BUSCA INFORMAÇÃO NO BANCO DE DADOS SEJA OFF-LINE ou ON-LINE ACIMA
 
+      VARIAVEL_GLOBAL.CONTADOR_GLOBAL++;
 
+      // console.log(VARIAVEL_GLOBAL.CONTADOR_GLOBAL)
 
     }, 1000);//function final do timer
-
 
 
 
@@ -492,7 +601,8 @@ export default function AppTest() {
 
 
 
-  }, [somatorio_notificacao_numero]);
+    // }, [somatorio_notificacao_numero, VARIAVEL_GLOBAL.BUSCAR_POSTAGENS, produtosEtiquetasExibir]);
+  }, [somatorio_notificacao_numero, VARIAVEL_GLOBAL.TODOS_OS_PRODUTOS]);
   //useEffect de ATUALIZAÇÃO DA TELA PRINCIPAL ONDE APARECE TODOS PRODUTOS ACIMA
 
 
@@ -508,29 +618,23 @@ export default function AppTest() {
         //alert(estado_da_conecao);    NUMERO_CELL_J
 
         //BUSCANDO POSTAGENS NA INTERNET ABAIXO
-        DADOS_TELEFONE = await AsyncStorage.getItem('NUMERO_CELL');
-        var DADOS_TELEFONE_VALOR = "";
-        try {
-          //var numero_telefone_J = obj_JSON[i].numero_telefone_J;
-          //alert(typeof DADOS_TELEFONE);
-          var DADOS_TELEFONE_JSON = JSON.parse(DADOS_TELEFONE);
-          //alert(Object.values(DADOS_TELEFONE_JSON));
-          DADOS_TELEFONE_VALOR = String(Object.values(DADOS_TELEFONE_JSON));
-          //alert(DADOS_TELEFONE_VALOR);
-
-        } catch (error) { /* alert("#3547wer " + error); */ }
-
-        //console.log(IP_DO_SERVIDOR+'obtendo_postagens_online');
 
 
-        //response = await Axios.get(IP_DO_SERVIDOR+'obtendo_postagens_online', {
+        // //FOI DESATIVADO O ASYNKSTORAGE ABAIXO
+        // DADOS_TELEFONE = await AsyncStorage.getItem('NUMERO_CELL');
+        // var DADOS_TELEFONE_VALOR = "";
+        // try {
+        //   //var numero_telefone_J = obj_JSON[i].numero_telefone_J;
+        //   //alert(typeof DADOS_TELEFONE);
+        //   var DADOS_TELEFONE_JSON = JSON.parse(DADOS_TELEFONE);
+        //   // alert(Object.values(DADOS_TELEFONE_JSON));
+        //   DADOS_TELEFONE_VALOR = String(Object.values(DADOS_TELEFONE_JSON));
+        //   //alert(DADOS_TELEFONE_VALOR);
 
-        /*
-              params: {
-                //numero_telefone_J: DADOS_TELEFONE_VALOR,
-                DADOS_TELEFONE_VALOR
-              }
-         */
+        // } catch (error) { /* alert("#3547wer " + error); */ }
+        //  //FOI DESATIVADO O ASYNKSTORAGE ACIMA
+
+
 
         var response = "";
 
@@ -540,7 +644,8 @@ export default function AppTest() {
           //response = await Axios.get('http://192.168.0.102:3000/obtendo_postagens_online', {
           response = await Axios.get(IP_DO_SERVIDOR + "obtendo_postagens_online", {
 
-            params: { numero_telefone: DADOS_TELEFONE_VALOR }
+            // params: { numero_telefone: DADOS_TELEFONE_VALOR }
+            params: { numero_telefone: VARIAVEL_GLOBAL.TELEFONE }
           });
 
         } catch (exception) { alert(exception.message)/**/ }
@@ -573,8 +678,7 @@ export default function AppTest() {
         //console.log(datos);
       }
 
-
-      //alert(datos);
+      // alert(datos);
 
       var URLs_JSON;
 
@@ -624,7 +728,10 @@ export default function AppTest() {
       setProdutos(datos);
       //alert(produtosS);
       VARIAVEL_GLOBAL.TODOS_OS_PRODUTOS = datos;
-      setProdutosEtiquetasExibir(true);
+      if (datos.length > 2) {
+        setProdutosEtiquetasExibir(true);
+      } else { setProdutosEtiquetasExibir(false); }
+      console.log("ESTADO => " + produtosEtiquetasExibir + "  " + datos.length);
 
 
     } catch (error) { /*  alert("#9514797 " + error);  */ }
@@ -772,6 +879,11 @@ export default function AppTest() {
             //alert("Foi Apagado uma Proposta Sua");
             VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
           }
+
+          if (VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO.includes("Postagem de Bovinos")) {
+            // alert("Postagem de Bovinos");
+          }
+
 
           VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = true;
           // BUSCANDO_NOTIFICACOES_2();
@@ -981,7 +1093,8 @@ export default function AppTest() {
   async function CONECTANDO_AO_BANCO_DE_DADOS() {
 
     try {
-      INSERINDO_NO_BANCO_DE_DADOS_POSTAGENS_OFF_LINE();
+      await INSERINDO_NO_BANCO_DE_DADOS_POSTAGENS_OFF_LINE();
+      // VARIAVEL_GLOBAL.CONTADOR_GLOBAL = 55;
     } catch (error) { alert(error) }
 
   }//function CONECTANDO_AO_BANCO_DE_DADOS()
@@ -1687,7 +1800,7 @@ export default function AppTest() {
         //alert(produtosS);
         setProdutosEtiquetasExibir(true);
 
-      } else { setProdutosEtiquetasExibir(false); }
+      } else { setProdutosEtiquetasExibir(false); }//OBBBSERVER03052021
       /*******************************************/
       /*******************************************/
 
@@ -1798,7 +1911,7 @@ export default function AppTest() {
   //                   if (VARIAVEL_GLOBAL.CONEXAO_DO_APP == "ON-LINE") {
   //                     // console.log("EXECUTAR TAREFA => "+hora_e_segundo_completo());
   //                     VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = true;
-  //                     console.log("ATIVANDO A BUSCA DE NOTIFICAÇÃO => " + hora_e_segundo_completo());
+  // console.log("ATIVANDO A BUSCA DE NOTIFICAÇÃO => " + hora_e_segundo_completo());
   //                     BUSCANDO_NOTIFICACOES();
   //                   }//IF
 
@@ -2051,7 +2164,16 @@ export default function AppTest() {
             </TouchableOpacity>
 
             <TouchableOpacity style={[Estilo.borda_geral, style = { width: '25%', alignItems: 'center', borderWidth: 0 }]}
-              onPress={() => {
+              onPress={async () => {
+
+
+                // await isAvailable();
+
+                // if (VARIAVEL_GLOBAL.CONEXAO_DO_APP === "OFF-LINE") {
+
+                //   alert("Erro de Conexão, Sem Internet !");
+
+                // } else {   }
 
 
                 VARIAVEL_GLOBAL.TELA_ATUAL = "Postar";
@@ -2063,6 +2185,9 @@ export default function AppTest() {
 
                 //navigation.navigate("Postar",{URL})
                 navigation.navigate("Postar", { URL_FOTOS, URL_VIDEOS, })
+
+
+
               }}
             >
               <Icon name='plus-circle' style={[Estilo.icones_grande]} />

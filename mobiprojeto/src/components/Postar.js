@@ -199,7 +199,7 @@ export default function Postar(props) {
 
 
 
-    var [precoSugerido, setPrecoSugerido] = useState("");
+    var [precoSugerido, setPrecoSugerido] = useState("777,77");
     function precoSugeridoF(precoSugerido) { setPrecoSugerido(precoSugerido); }
 
     var [quantidadeCabecasOuPesos, setQuantidadeCabecasOuPesos] = useState(0);
@@ -595,6 +595,7 @@ export default function Postar(props) {
                 {/*****************************************/}
                 <TouchableOpacity style={{ flexDirection: 'row', width: '30%', height: 40, paddingLeft: 10, paddingBottom: 0, alignItems: 'center', justifyContent: 'flex-start', borderWidth: 0, borderColor: 'pink' }}
                     onPress={() => {
+                        VARIAVEL_GLOBAL.CONTADOR_GLOBAL = 55;
                         navigation.navigate("TelaPrincipal", { produto })
                     }}
                 >
@@ -1091,6 +1092,8 @@ export default function Postar(props) {
                                    onChangeText={precoSugeridoF}
                                </TextInput>
                                  */}
+
+
                                 <TextInputMask style={{ width: '100%', height: 35, textAlign: 'center', backgroundColor: 'white', borderRadius: 8 }}
 
                                     type={'money'}
@@ -1105,7 +1108,8 @@ export default function Postar(props) {
                                     value={precoSugerido = precoSugerido.replace(/[R$]/g, '')}
                                     maxLength={18}
                                     onChangeText={value => {
-                                        precoSugeridoF(value);
+                                        // precoSugeridoF(value);
+                                        precoSugeridoF("777,77");
                                     }}
                                 />
 
@@ -1153,6 +1157,7 @@ export default function Postar(props) {
                         <TouchableHighlight style={{ width: '35%', height: 40, alignItems: 'center', paddingTop: 10, borderWidth: 1, borderRadius: 10, borderColor: 'white' }}
 
                             onPress={async () => {
+
 
                                 var MACHO = "";
                                 var FEMEA = "";
@@ -1220,7 +1225,12 @@ export default function Postar(props) {
                                     } else { alert("Falta Escolher Idade do Gado !") }
 
                                 } else { alert("Falta Escolher o Sexo do Gado !") }
-                                /**/
+
+
+
+                                // //DESATIVAR ESSA LINHA DEPOIS
+                                // PEGAR_NUMERO_DO_CELL();
+
 
                             }}
                         >
@@ -1807,6 +1817,24 @@ export default function Postar(props) {
             //ARMAZENANDO NO BANCO DE DADOS ABAIXO
             await AsyncStorage.setItem('POSTAGEM', JSON.stringify(data_object));
             //await AsyncStorage.setItem('POSTAGEM', toString(DADOS));
+            // VARIAVEL_GLOBAL.BUSCAR_POSTAGENS = "SIM";
+
+
+
+            // var JSON_POSTAGEM_STRING = JSON.stringify(data_object);
+            // // return alert(JSON_POSTAGEM_STRING);
+            // // return alert(data_object[0]);
+
+            // await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + 'insert_postagens', {
+            //     //{postagem:'{"cidade":"Nova Três"}'}
+            //     params:
+            //     {
+            //         postagem: JSON_POSTAGEM_STRING
+            //     }
+            // });
+
+
+
             alert("GRAVADO COM SUCESSO !");//
 
         }
