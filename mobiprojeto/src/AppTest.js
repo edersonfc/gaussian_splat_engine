@@ -52,6 +52,10 @@ let io = require('socket.io-client');
 
 import FILTRO_PESQUISA_CATEGORIA from './components/FILTRO_PESQUISA_CATEGORIAS';
 
+import LicencaExpirada from './components/LicencaExpirada';
+
+// LicencaExpirada
+
 //VARIAVÉIS GLOBAIS ABAIXO
 
 
@@ -333,13 +337,11 @@ export default function AppTest() {
   const [valorMaior, setValorMaior] = useState(300)
 
 
-  const [muda_cor_checkado_macho, setMuda_cor_checkado_macho] = useState(false)
-  const [muda_cor_checkado_femea, setMuda_cor_checkado_femea] = useState(false)
-
   const [exibe_suas_postagens, setExibe_suas_postagens] = useState(false);
   const [corIconeFiltro, setCorIconeFiltro] = useState(false);
 
 
+  const [licencaExpiradaFalseOrTrue, setLicencaExpiradaFalseOrTrue] = useState(false);
 
   ////DECLARAÇÃO DE STATES ACIMA
 
@@ -1710,7 +1712,7 @@ export default function AppTest() {
 
       return true;
 
-    } else { alert("Não Tem Propostas Aceitas !");   setLabelOuPesquisar(false); setBotoePropostas(false); return false; }
+    } else { alert("Não Tem Propostas Aceitas !"); setLabelOuPesquisar(false); setBotoePropostas(false); return false; }
 
 
   }
@@ -2103,6 +2105,12 @@ export default function AppTest() {
 
 
 
+  function MOSTRAR_TELA_EXPIRACAO_LICENCA() {
+
+    setLicencaExpiradaFalseOrTrue(false);
+
+  }
+
 
 
 
@@ -2139,8 +2147,8 @@ export default function AppTest() {
 
                 } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
 
-                  alert("Amigo Pecuarista, \n  Não Constamos o Pagamento da Mensalidade ! \n Entre em Contato pelo Fone: \n (67) 99324-422630");
-
+                  // alert("Amigo Pecuarista, \n  Não Constamos o Pagamento da Mensalidade ! \n Entre em Contato pelo Fone: \n (67) 99324-4226");
+                  setLicencaExpiradaFalseOrTrue(true);
                 }
 
 
@@ -2226,7 +2234,8 @@ export default function AppTest() {
 
                 } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
 
-                  alert("Amigo Pecuarista, \n  Não Constamos o Pagamento da Mensalidade ! \n Entre em Contato pelo Fone: \n (67) 99324-422630");
+                  // alert("Amigo Pecuarista, \n  Não Constamos o Pagamento da Mensalidade ! \n Entre em Contato pelo Fone: \n (67) 99324-422630");
+                  setLicencaExpiradaFalseOrTrue(true);
 
                 }
 
@@ -2864,6 +2873,10 @@ export default function AppTest() {
         setExibeFiltroCategori={setExibeFiltroCategoria}
         PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH_REMOTO={PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH}
       />)}
+
+
+      {licencaExpiradaFalseOrTrue && (<LicencaExpirada REMOTO_MOSTRAR_TELA_EXPIRACAO_LICENCA={MOSTRAR_TELA_EXPIRACAO_LICENCA} />)}
+
 
 
 

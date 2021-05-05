@@ -1,4 +1,8 @@
 import React, { createContext, useState } from 'react';
+import { Dimensions } from 'react-native';
+
+// const screenWidth  = Math.round(Dimensions.get('window').width);//=>PEGANDO A LARGURA DA TELA
+// const screenHeight = Math.round(Dimensions.get('window').height);
 
 //TODOS PARAMETROS IMPORTANTES RELACIONADO A SITUAÇÃO DOS PRODUTOS ABAIXO
 var OBJETOS_JSON =
@@ -32,7 +36,10 @@ var OBJETOS_JSON =
 
      CONTADOR_GLOBAL:60,
 
-     LICENCA_USO:"SEM_CADASTRO"
+     LICENCA_USO:"SEM_CADASTRO",
+
+     LARGURA_DA_TELA: Math.round(Dimensions.get('window').width),
+     ALTURA_DA_TELA:  Math.round(Dimensions.get('window').height)
 };
 /**/
 //TODOS PARAMETROS IMPORTANTES RELACIONADO A SITUAÇÃO DOS PRODUTOS ACIMA

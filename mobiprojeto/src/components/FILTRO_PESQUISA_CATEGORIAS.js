@@ -136,12 +136,12 @@ const [ objetosCategoria, setobjetosCategoria ] = useState(categorias_Objetos);
     return (
 
 
-        <View style={{ alignItems: 'center', justifyContent: 'flex-start', height: 600, position: 'absolute', paddingTop: '17%' }}>
+        <View style={{ alignItems: 'center', justifyContent: 'center',  width: '100%', height: VARIAVEL_GLOBAL.ALTURA_DA_TELA, position: 'absolute', backgroundColor:'rgba(0,0,0,0.5)' }}>
 
 
             <View style={{
                 width: '97%',
-                height: '100%',
+                height: '85%',
                 backgroundColor: '#2A3E4A',
                 borderRadius: 15,
                 borderColor: '#fff',
