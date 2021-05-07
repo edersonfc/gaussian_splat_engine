@@ -27,7 +27,7 @@ export default function Celular_colocar(params) {
 
             ///////////////////////////////////////////////////////////////////  
             var DEU_ERRO_SIM_OU_NAO = "NAO";
-            Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + 'insert_cadastro_pessoal', {
+           await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + 'insert_cadastro_pessoal', {
 
                 params:
                 {
@@ -52,9 +52,10 @@ export default function Celular_colocar(params) {
 
                 //ARMAZENANDO NO STORAGE DE DADOS ABAIXO
                 await AsyncStorage.setItem('NUMERO_CELL', JSON.stringify(data_object))
-                    .then(res => {
+                    .then( async res => {
 
-                        VARIAVEL_GLOBAL.TELEFONE = data_object.NUMERO_CELL_J;
+                        VARIAVEL_GLOBAL.TELEFONE = await data_object.NUMERO_CELL_J;
+                        VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
                         alert("TELEFONE GRAVADO = " + VARIAVEL_GLOBAL.TELEFONE);
 
                     });
@@ -66,11 +67,13 @@ export default function Celular_colocar(params) {
 
 
         if (STORAGE_SOMENTE == true) {
+            VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
             //ARMAZENANDO NO STORAGE DE DADOS ABAIXO
             await AsyncStorage.setItem('NUMERO_CELL', JSON.stringify(data_object))
                 .then(res => {
 
                     VARIAVEL_GLOBAL.TELEFONE = data_object.NUMERO_CELL_J;
+                    VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
                     alert("TELEFONE GRAVADO = " + VARIAVEL_GLOBAL.TELEFONE);
                 });
 
@@ -208,8 +211,9 @@ export default function Celular_colocar(params) {
                                             //alert("Gravar TeleFone e Ocultar a Caixa de Dialogo pra Mostrar Tela Proposta.");
                                             var telefone = { NUMERO_CELL_J: variavelTelefone.replace(/\"/g, '') }
                                             //alert( JSON.stringify( telefone ) );
-                                            GRAVAR_NUMERO_DO_CELL(telefone, false);
-                                            params.OCULTAR_TELA_TELEFONE_PROPOSTA_remoto();
+                                           await GRAVAR_NUMERO_DO_CELL(telefone, false);
+                                           VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
+                                           params.OCULTAR_TELA_TELEFONE_PROPOSTA_remoto();
 
                                             // ENVIAR_SMS(telefone);
 
@@ -241,6 +245,7 @@ export default function Celular_colocar(params) {
                                             var telefone = { NUMERO_CELL_J: variavelTelefone.replace(/\"/g, '') }
                                             //alert( JSON.stringify( telefone ) );
                                             GRAVAR_NUMERO_DO_CELL(telefone, false);
+                                            VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
                                             params.OCULTAR_TELA_TELEFONE_PROPOSTA_remoto();
 
                                         }//else INTERNO
@@ -267,6 +272,7 @@ export default function Celular_colocar(params) {
                                     params.OCULTAR_TELA_TELEFONE_PROPOSTA_remoto();
                                     navigation.goBack(null);
                                 } else if (TELA_QUE_CHAMOU == "tela_DetalhesProdutos") {
+                                    VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
                                     params.OCULTAR_TELA_TELEFONE_FUNCAO_REMOTA();
                                 }
 
@@ -322,7 +328,7 @@ export default function Celular_colocar(params) {
 
                                     <View style={{ width: '50%', justifyContent: 'center' }} >
                                         <TouchableHighlight style={{ width: '100%', height: 35, borderRadius: 25, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: 'white' }}
-                                            onPress={() => {
+                                            onPress={ async () => {
                                                 //alert("RECUPERAR SENHA");
 
 
@@ -333,6 +339,7 @@ export default function Celular_colocar(params) {
                                                     // GerarEnviarCodigo = "Enviar Código";
                                                     setGerarEnviarCodigo("Enviar Código Segurança");
                                                     setOcultarMostrarCaixaTexto(true);
+                                                    VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
                                                     alert("Foi Enviado um Código de Verificação para " + variavelTelefone);
 
                                                 } else if (gerarEnviarCodigo.includes("Enviar Código")) {
@@ -352,12 +359,14 @@ export default function Celular_colocar(params) {
                                                     //IMPLEMENTAR GRAVAÇÃO DO TELEFONE NO CELULAR PARA USAR O APLICATIVO
                                                     // alert(variavelTelefone);
                                                     var telefone = { NUMERO_CELL_J: variavelTelefone.replace(/\"/g, '') }
-                                                    GRAVAR_NUMERO_DO_CELL(telefone, true);
+                                                    await GRAVAR_NUMERO_DO_CELL(telefone, true);
                                                     var TELA_QUE_CHAMOU = params.tela_chamada;
                                                     if (TELA_QUE_CHAMOU == "tela_proposta") {
+                                                        VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
                                                         params.OCULTAR_TELA_TELEFONE_PROPOSTA_remoto();
                                                         navigation.goBack(null);
                                                     } else if (TELA_QUE_CHAMOU == "tela_DetalhesProdutos") {
+                                                        VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
                                                         params.OCULTAR_TELA_TELEFONE_FUNCAO_REMOTA();
                                                     }
                                                     //DEPOIS DA LIBERAÇÃO DO USO DO APLICATIVO FAZER ISSO ACIMA

@@ -506,7 +506,8 @@ export default function AppTest() {
 
               }//IF
               console.log("ESTÁ ON-LINE");
-              BUSCAR_LICENCA_DE_USO();
+              // BUSCAR_LICENCA_DE_USO();
+              VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
 
               /***********TAREFAZ AQUI ACIMA******************** */
 
@@ -517,6 +518,7 @@ export default function AppTest() {
               // console.log(error.name === 'AbortError');
               console.log("ESTÁ OFF-LINE");
               VARIAVEL_GLOBAL.CONEXAO_DO_APP = "OFF-LINE";
+              VARIAVEL_GLOBAL.BUSCAR_LICENCA = false;
             }
           }
 
@@ -2088,16 +2090,32 @@ export default function AppTest() {
   async function BUSCAR_LICENCA_DE_USO() {
 
 
-    const response = await Axios.get(IP_DO_SERVIDOR + 'buscar_licenca', {
-      params: {
-        telefoneDoUsuario: VARIAVEL_GLOBAL.TELEFONE[0]
-      }
-    });
+    if (VARIAVEL_GLOBAL.BUSCAR_LICENCA === true) {
 
-    VARIAVEL_GLOBAL.LICENCA_USO = await response.data;
+      VARIAVEL_GLOBAL.BUSCAR_LICENCA = false;
 
-    console.log(VARIAVEL_GLOBAL.LICENCA_USO)
 
+      var TELEFONE_PARAMETRO = ""
+      TELEFONE_PARAMETRO = VARIAVEL_GLOBAL.TELEFONE.toString();
+
+      // alert(TELEFONE_PARAMETRO);
+
+
+      const response = await Axios.get(IP_DO_SERVIDOR + 'buscar_licenca', {
+        params: {
+          telefoneDoUsuario: TELEFONE_PARAMETRO
+        }
+      });
+
+      VARIAVEL_GLOBAL.LICENCA_USO = await response.data;
+
+      //Dentro da Condicional Imprime somente quando For ==> 
+      console.log(VARIAVEL_GLOBAL.LICENCA_USO)
+
+    }//IF
+
+    //Fora da Condicional Imprime de 1 em 1 Segundo
+    // console.log(VARIAVEL_GLOBAL.LICENCA_USO)
 
   }
 
@@ -2110,6 +2128,17 @@ export default function AppTest() {
     setLicencaExpiradaFalseOrTrue(false);
 
   }
+
+
+
+  useEffect(() => {
+
+    // BUSCAR_LICENCA_DE_USO();
+    setInterval(BUSCAR_LICENCA_DE_USO, 1000);
+
+
+  }, []);
+
 
 
 
@@ -2147,7 +2176,7 @@ export default function AppTest() {
 
                 } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
 
-                          setLicencaExpiradaFalseOrTrue(true);
+                  setLicencaExpiradaFalseOrTrue(true);
                 }
 
 
@@ -2233,7 +2262,7 @@ export default function AppTest() {
 
                 } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
 
-                        setLicencaExpiradaFalseOrTrue(true);
+                  setLicencaExpiradaFalseOrTrue(true);
 
                 }
 

@@ -1411,7 +1411,7 @@ export default function Postar(props) {
 
                                         <View style={{ width: '50%', justifyContent: 'center' }} >
                                             <TouchableHighlight style={{ width: '100%', height: 35, borderRadius: 25, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: 'white' }}
-                                                onPress={() => {
+                                                onPress={ async () => {
                                                     //alert("RECUPERAR SENHA");
 
 
@@ -1422,6 +1422,7 @@ export default function Postar(props) {
                                                         // GerarEnviarCodigo = "Enviar Código";
                                                         setGerarEnviarCodigo("Enviar Código Segurança");
                                                         setOcultarMostrarCaixaTexto(true);
+                                                        VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
                                                         alert("Foi Enviado um Código de Verificação para " + variavelTelefone);
 
                                                     } else if (gerarEnviarCodigo.includes("Enviar Código")) {
@@ -1441,13 +1442,15 @@ export default function Postar(props) {
                                                         //IMPLEMENTAR GRAVAÇÃO DO TELEFONE NO CELULAR PARA USAR O APLICATIVO
                                                         // alert(variavelTelefone);
                                                         var telefone = { NUMERO_CELL_J: variavelTelefone.replace(/\"/g, '') }
-                                                        GRAVAR_NUMERO_DO_CELL(telefone, true);
+                                                        await GRAVAR_NUMERO_DO_CELL(telefone, true);
                                                         var TELA_QUE_CHAMOU = props.tela_chamada;
                                                         if (TELA_QUE_CHAMOU == "tela_proposta") {
-                                                            props.OCULTAR_TELA_TELEFONE_PROPOSTA_remoto();
+                                                           await props.OCULTAR_TELA_TELEFONE_PROPOSTA_remoto();
+                                                           VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
                                                             navigation.goBack(null);
                                                         } else if (TELA_QUE_CHAMOU == "tela_DetalhesProdutos") {
-                                                            props.OCULTAR_TELA_TELEFONE_FUNCAO_REMOTA();
+                                                            await props.OCULTAR_TELA_TELEFONE_FUNCAO_REMOTA();
+                                                            VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
                                                         }
                                                         //DEPOIS DA LIBERAÇÃO DO USO DO APLICATIVO FAZER ISSO ACIMA
 
@@ -1558,6 +1561,7 @@ export default function Postar(props) {
                 await AsyncStorage.setItem('NUMERO_CELL', JSON.stringify(data_object))
                     .then(res => {
                         VARIAVEL_GLOBAL.TELEFONE = data_object.NUMERO_CELL_J;
+                        VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
                         alert("TELEFONE GRAVADO = " + VARIAVEL_GLOBAL.TELEFONE);
                     });
 
