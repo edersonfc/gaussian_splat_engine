@@ -479,7 +479,6 @@ export default function DetalhesProdutos(props) {
 
                                     } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
 
-                                        // alert("Amigo Pecuarista, \n  Não Constamos o Pagamento da Mensalidade ! \n Entre em Contato pelo Fone: \n (67) 99324-4226");
                                         setLicencaExpiradaFalseOrTrue(true);
 
                                     }
@@ -522,8 +521,7 @@ export default function DetalhesProdutos(props) {
 
                                 } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
 
-                                    // alert("Amigo Pecuarista, \n  Não Constamos o Pagamento da Mensalidade ! \n Entre em Contato pelo Fone: \n (67) 99324-422630");
-                                    setLicencaExpiradaFalseOrTrue(true);
+                                        setLicencaExpiradaFalseOrTrue(true);
 
                                 }
 
@@ -545,8 +543,7 @@ export default function DetalhesProdutos(props) {
 
                                 } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
 
-                                    // alert("Amigo Pecuarista, \n  Não Constamos o Pagamento da Mensalidade ! \n Entre em Contato pelo Fone: \n (67) 99324-422630");
-                                    setLicencaExpiradaFalseOrTrue(true);
+                                        setLicencaExpiradaFalseOrTrue(true);
                                 }
 
                             }}
@@ -737,8 +734,7 @@ export default function DetalhesProdutos(props) {
 
                             } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
 
-                                // alert("Amigo Pecuarista, \n  Não Constamos o Pagamento da Mensalidade ! \n Entre em Contato pelo Fone: \n (67) 99324-4226");
-                                setLicencaExpiradaFalseOrTrue(true);
+                                  setLicencaExpiradaFalseOrTrue(true);
 
                             }
 
@@ -769,7 +765,6 @@ export default function DetalhesProdutos(props) {
 
                             } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
 
-                                // alert("Amigo Pecuarista, \n  Não Constamos o Pagamento da Mensalidade ! \n Entre em Contato pelo Fone: \n (67) 99324-4226");
                                 setLicencaExpiradaFalseOrTrue(true);
 
                             }

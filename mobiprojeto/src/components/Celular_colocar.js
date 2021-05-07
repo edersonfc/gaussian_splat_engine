@@ -52,12 +52,12 @@ export default function Celular_colocar(params) {
 
                 //ARMAZENANDO NO STORAGE DE DADOS ABAIXO
                 await AsyncStorage.setItem('NUMERO_CELL', JSON.stringify(data_object))
-                .then( res => {
+                    .then(res => {
 
-                    VARIAVEL_GLOBAL.TELEFONE = data_object.NUMERO_CELL_J;
-                    alert("TELEFONE GRAVADO = "+ VARIAVEL_GLOBAL.TELEFONE);
-                    
-                });
+                        VARIAVEL_GLOBAL.TELEFONE = data_object.NUMERO_CELL_J;
+                        alert("TELEFONE GRAVADO = " + VARIAVEL_GLOBAL.TELEFONE);
+
+                    });
 
             }
             /////////////////////////////////////////////////////////////////  
@@ -68,11 +68,11 @@ export default function Celular_colocar(params) {
         if (STORAGE_SOMENTE == true) {
             //ARMAZENANDO NO STORAGE DE DADOS ABAIXO
             await AsyncStorage.setItem('NUMERO_CELL', JSON.stringify(data_object))
-            .then( res => {
+                .then(res => {
 
-                VARIAVEL_GLOBAL.TELEFONE = data_object.NUMERO_CELL_J;
-                alert("TELEFONE GRAVADO = "+ VARIAVEL_GLOBAL.TELEFONE);
-            });
+                    VARIAVEL_GLOBAL.TELEFONE = data_object.NUMERO_CELL_J;
+                    alert("TELEFONE GRAVADO = " + VARIAVEL_GLOBAL.TELEFONE);
+                });
 
         }
 
@@ -172,77 +172,86 @@ export default function Celular_colocar(params) {
                         <TouchableHighlight style={{ width: '35%', height: 35, color: 'white', fontSize: 35, borderRadius: 25, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: 'white' }}
                             onPress={async () => {
 
-                                var telefone = { NUMERO_CELL_J: variavelTelefone }
+                                var regex = new RegExp(/\(\d{2}\)\s\d{5,5}-?\d{4}/g);//REGEX PARA TELEFONE CELULAR
+                                var VALIDAR_CELULAR = variavelTelefone.match(regex);
 
-                                var TELA_QUE_CHAMOU = params.tela_chamada;
-                                if (TELA_QUE_CHAMOU == "tela_proposta") {
+                                if (VALIDAR_CELULAR !== null) {
 
-                                    //alert(TELA_QUE_CHAMOU);
+                                    var telefone = { NUMERO_CELL_J: variavelTelefone }
 
-                                    //alert( JSON.stringify( telefone.NUMERO_CELL_J ));
-                                    telefone = JSON.stringify(telefone.NUMERO_CELL_J);
+                                    var TELA_QUE_CHAMOU = params.tela_chamada;
+                                    if (TELA_QUE_CHAMOU == "tela_proposta") {
 
-                                    //alert(telefone);
+                                        //alert(TELA_QUE_CHAMOU);
 
+                                        //alert( JSON.stringify( telefone.NUMERO_CELL_J ));
+                                        telefone = JSON.stringify(telefone.NUMERO_CELL_J);
 
-                                    var retorno = await VERIFICAR_SE_CELULAR_JA_ESTA_CADASTRADO_NO_BANCO_DE_DADOS(telefone)
-                                    //    var DADO_RETORNO_STRING = "";
-                                    var DADO_RETORNO_STRING = JSON.stringify(retorno.data);
-
-
-                                    if (DADO_RETORNO_STRING != "[]" && VARIAVEL_GLOBAL.LIBERAR_GRAVACAO_TELEFONE_SEM_NUMERO == false) {
-
-                                        //alert("Ja kjjk => ! "+DADO_RETORNO_STRING);
-                                        alert("Já Existe um Usuário Cadastrado com Esse numero ! " + telefone);
-                                        // ENVIAR_SMS(telefone);
-
-                                    } else {
-
-                                        // alert("=> "+DADO_RETORNO_STRING+"  "+telefone);
-                                        //alert("NÃO EXISTE VAI GRAVAR O NUMERO");
-                                        //alert("Gravar TeleFone e Ocultar a Caixa de Dialogo pra Mostrar Tela Proposta.");
-                                        var telefone = { NUMERO_CELL_J: variavelTelefone.replace(/\"/g, '') }
-                                        //alert( JSON.stringify( telefone ) );
-                                        GRAVAR_NUMERO_DO_CELL(telefone, false);
-                                        params.OCULTAR_TELA_TELEFONE_PROPOSTA_remoto();
-
-                                        // ENVIAR_SMS(telefone);
-
-                                    }//else INTERNO
-
-                                }
-                                /*********************************************************************/
-
-                                else if (TELA_QUE_CHAMOU == "tela_DetalhesProdutos") {
-
-                                    //alert(TELA_QUE_CHAMOU);
-
-                                    //alert( JSON.stringify( telefone.NUMERO_CELL_J ));
-                                    telefone = JSON.stringify(telefone.NUMERO_CELL_J);
-
-                                    var retorno = await VERIFICAR_SE_CELULAR_JA_ESTA_CADASTRADO_NO_BANCO_DE_DADOS(telefone)
+                                        //alert(telefone);
 
 
-                                    var DADO_RETORNO_STRING = JSON.stringify(retorno.data);
-                                    if (DADO_RETORNO_STRING != "[]" && VARIAVEL_GLOBAL.LIBERAR_GRAVACAO_TELEFONE_SEM_NUMERO == false) {
-
-                                        alert("Já Existe um Usuário Cadastrado com Esse numero ! ");
-                                        ENVIAR_SMS(telefone);
-
-                                    } else {
-
-                                        //alert("NÃO EXISTE VAI GRAVAR O NUMERO");
-                                        //alert("Gravar TeleFone e Ocultar a Caixa de Dialogo pra Mostrar Tela Proposta.");
-                                        var telefone = { NUMERO_CELL_J: variavelTelefone.replace(/\"/g, '') }
-                                        //alert( JSON.stringify( telefone ) );
-                                        GRAVAR_NUMERO_DO_CELL(telefone,false);
-                                        params.OCULTAR_TELA_TELEFONE_PROPOSTA_remoto();
-
-                                    }//else INTERNO
+                                        var retorno = await VERIFICAR_SE_CELULAR_JA_ESTA_CADASTRADO_NO_BANCO_DE_DADOS(telefone)
+                                        //    var DADO_RETORNO_STRING = "";
+                                        var DADO_RETORNO_STRING = JSON.stringify(retorno.data);
 
 
-                                }//else if
-                                // /**********************************************************************/
+                                        if (DADO_RETORNO_STRING != "[]" && VARIAVEL_GLOBAL.LIBERAR_GRAVACAO_TELEFONE_SEM_NUMERO == false) {
+
+                                            //alert("Ja kjjk => ! "+DADO_RETORNO_STRING);
+                                            alert("Já Existe um Usuário Cadastrado com Esse numero ! " + telefone);
+                                            // ENVIAR_SMS(telefone);
+
+                                        } else {
+
+                                            // alert("=> "+DADO_RETORNO_STRING+"  "+telefone);
+                                            //alert("NÃO EXISTE VAI GRAVAR O NUMERO");
+                                            //alert("Gravar TeleFone e Ocultar a Caixa de Dialogo pra Mostrar Tela Proposta.");
+                                            var telefone = { NUMERO_CELL_J: variavelTelefone.replace(/\"/g, '') }
+                                            //alert( JSON.stringify( telefone ) );
+                                            GRAVAR_NUMERO_DO_CELL(telefone, false);
+                                            params.OCULTAR_TELA_TELEFONE_PROPOSTA_remoto();
+
+                                            // ENVIAR_SMS(telefone);
+
+                                        }//else INTERNO
+
+                                    }
+                                    /*********************************************************************/
+
+                                    else if (TELA_QUE_CHAMOU == "tela_DetalhesProdutos") {
+
+                                        //alert(TELA_QUE_CHAMOU);
+
+                                        //alert( JSON.stringify( telefone.NUMERO_CELL_J ));
+                                        telefone = JSON.stringify(telefone.NUMERO_CELL_J);
+
+                                        var retorno = await VERIFICAR_SE_CELULAR_JA_ESTA_CADASTRADO_NO_BANCO_DE_DADOS(telefone)
+
+
+                                        var DADO_RETORNO_STRING = JSON.stringify(retorno.data);
+                                        if (DADO_RETORNO_STRING != "[]" && VARIAVEL_GLOBAL.LIBERAR_GRAVACAO_TELEFONE_SEM_NUMERO == false) {
+
+                                            alert("Já Existe um Usuário Cadastrado com Esse numero ! ");
+                                            ENVIAR_SMS(telefone);
+
+                                        } else {
+
+                                            //alert("NÃO EXISTE VAI GRAVAR O NUMERO");
+                                            //alert("Gravar TeleFone e Ocultar a Caixa de Dialogo pra Mostrar Tela Proposta.");
+                                            var telefone = { NUMERO_CELL_J: variavelTelefone.replace(/\"/g, '') }
+                                            //alert( JSON.stringify( telefone ) );
+                                            GRAVAR_NUMERO_DO_CELL(telefone, false);
+                                            params.OCULTAR_TELA_TELEFONE_PROPOSTA_remoto();
+
+                                        }//else INTERNO
+
+
+                                    }//else if
+                                    // /**********************************************************************/
+
+
+                                } else { alert("Formato Inválido de Celular !"); }
+
 
 
                             }}
@@ -343,7 +352,7 @@ export default function Celular_colocar(params) {
                                                     //IMPLEMENTAR GRAVAÇÃO DO TELEFONE NO CELULAR PARA USAR O APLICATIVO
                                                     // alert(variavelTelefone);
                                                     var telefone = { NUMERO_CELL_J: variavelTelefone.replace(/\"/g, '') }
-                                                    GRAVAR_NUMERO_DO_CELL(telefone,true);
+                                                    GRAVAR_NUMERO_DO_CELL(telefone, true);
                                                     var TELA_QUE_CHAMOU = params.tela_chamada;
                                                     if (TELA_QUE_CHAMOU == "tela_proposta") {
                                                         params.OCULTAR_TELA_TELEFONE_PROPOSTA_remoto();

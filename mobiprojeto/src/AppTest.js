@@ -2147,8 +2147,7 @@ export default function AppTest() {
 
                 } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
 
-                  // alert("Amigo Pecuarista, \n  Não Constamos o Pagamento da Mensalidade ! \n Entre em Contato pelo Fone: \n (67) 99324-4226");
-                  setLicencaExpiradaFalseOrTrue(true);
+                          setLicencaExpiradaFalseOrTrue(true);
                 }
 
 
@@ -2234,8 +2233,7 @@ export default function AppTest() {
 
                 } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
 
-                  // alert("Amigo Pecuarista, \n  Não Constamos o Pagamento da Mensalidade ! \n Entre em Contato pelo Fone: \n (67) 99324-422630");
-                  setLicencaExpiradaFalseOrTrue(true);
+                        setLicencaExpiradaFalseOrTrue(true);
 
                 }
 
@@ -2554,14 +2552,14 @@ export default function AppTest() {
               {/* LABEL DA NOTIFICACÃO ABAIXO */}
               {labelOuPesquisar ?
 
-                <View style={{ width: '80%', alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0 }}>
+                <View style={{ width: '100%', alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0 }}>
                   <Text style={{ fontSize: 25, color: '#fff' }}>
                     {texto_filtro_notificacao}
                   </Text>
                 </View>
                 // {/* LABEL DA NOTIFICACÃO ACIMA */}
                 :
-                <View style={{ flexDirection: 'row', width: '80%', height: 'auto', alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0 }}>
+                <View style={{ flexDirection: 'row', width: '98%', height: 'auto', alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0 }}>
 
                   <TextInput style={{ width: '78%', height: 'auto', backgroundColor: 'white', borderRadius: 8 }} onChangeText={pesquisarGadoF} textAlign={'center'} placeholder={'Digite a Pesquisa'} />
 
@@ -2702,6 +2700,7 @@ export default function AppTest() {
           <ProdutosEtiquetas
             product={produtosS} ARRAY_PRIMEIRAS_URL_IMAGENSS={ARRAY_PRIMEIRAS_URL_IMAGENS_2} ARRAY_PRIMEIRAS_URL_VIDEOSS={ARRAY_PRIMEIRAS_URL_VIDEOS_2}
             LARTITUDE={userPosition.latitude} LORNGITUDE={userPosition.longitude} numero_telefone_usuario={DADOS_TELEFONE} TELA_DE_ORIGEM_E_SITUACA={TELA_DE_ORIGEM_E_SITUACAO}
+            remoto_setLicencaExpiradaFalseOrTrue={setLicencaExpiradaFalseOrTrue}
           />
           :
           <View></View>

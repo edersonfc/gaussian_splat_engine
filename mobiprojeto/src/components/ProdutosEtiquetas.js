@@ -575,22 +575,22 @@ export default function ProdutosEtiquetas(param) {
                   VARIAVEL_GLOBAL.TELA_ORIGEM = "Principal";
                   VARIAVEL_GLOBAL.TELA_TERCEIRA = "nenhum";
 
-               
-                }else
 
-                if (VARIAVEL_GLOBAL.TELA_ATUAL == "ComprasVendas") {
+                } else
 
-                  // alert("DA TELA COMRA E VENDA")
+                  if (VARIAVEL_GLOBAL.TELA_ATUAL == "ComprasVendas") {
 
-                  VARIAVEL_GLOBAL.TELA_ATUAL = "ProdDetalhes";
-                  VARIAVEL_GLOBAL.TELA_ORIGEM = "ComprasVendas";
-                  VARIAVEL_GLOBAL.TELA_TERCEIRA = "MenuDaTelaPrincipal";
-                  
+                    // alert("DA TELA COMRA E VENDA")
 
-                }
+                    VARIAVEL_GLOBAL.TELA_ATUAL = "ProdDetalhes";
+                    VARIAVEL_GLOBAL.TELA_ORIGEM = "ComprasVendas";
+                    VARIAVEL_GLOBAL.TELA_TERCEIRA = "MenuDaTelaPrincipal";
 
 
-              navigation.navigate("ProdDetalhes", { produtos, INDICE_PRINCIPAL_JSON, DISTANCIA, NUMERO_CELL_DO_USUARIO, TELA_DE_ORIGEM_E_SITUACAO });
+                  }
+
+
+                navigation.navigate("ProdDetalhes", { produtos, INDICE_PRINCIPAL_JSON, DISTANCIA, NUMERO_CELL_DO_USUARIO, TELA_DE_ORIGEM_E_SITUACAO });
                 /* */
 
                 //AUDITING
@@ -686,22 +686,32 @@ DESATIVAR DEPOIS ACIMA */
                     style={[Estilo.icones_medio_cinza, Estilo.pra_cima]}
 
                     onPress={(e) => {
-                      //funcaoClickBotao('Mostrar Esse Texto');
-                      //setMuda_cor_comprar(oldState => !oldState)
 
-                      // var numero_telefone = produtos.numero_telefone_J; trocado pela linha de baixo
-                      var numero_telefone = produtos.numero_telefone_J;
-                      // var id_da_postagem = produtos.id_J; trocado pela linha de baixo
-                      var id_da_postagem = produtos.id_J;
-                      var numero_telefone_comprador = numero_telefone_usuario;
-                      VARIAVEL_GLOBAL.TELA_ORIGEM = "TelaPrincipal";
-                      VARIAVEL_GLOBAL.FAZER_PROPOSTA = "Fazer";
 
-                      //alert(index+"  #  "+numero_telefone +"  #  "+  id_da_postagem +"  #  "+  numero_telefone_comprador)
-                      navigation.navigate("EnvioPropostasCompras", { index, numero_telefone, id_da_postagem, numero_telefone_comprador });
+                      if (VARIAVEL_GLOBAL.LICENCA_USO === "liberado" || VARIAVEL_GLOBAL.TELEFONE === "SEM_TELEFONE_USUARIO") {
 
-                    }
-                    }
+
+                        //funcaoClickBotao('Mostrar Esse Texto');
+                        //setMuda_cor_comprar(oldState => !oldState)
+                        // var numero_telefone = produtos.numero_telefone_J; trocado pela linha de baixo
+                        var numero_telefone = produtos.numero_telefone_J;
+                        // var id_da_postagem = produtos.id_J; trocado pela linha de baixo
+                        var id_da_postagem = produtos.id_J;
+                        var numero_telefone_comprador = numero_telefone_usuario;
+                        VARIAVEL_GLOBAL.TELA_ORIGEM = "TelaPrincipal";
+                        VARIAVEL_GLOBAL.FAZER_PROPOSTA = "Fazer";
+                        //alert(index+"  #  "+numero_telefone +"  #  "+  id_da_postagem +"  #  "+  numero_telefone_comprador)
+                        navigation.navigate("EnvioPropostasCompras", { index, numero_telefone, id_da_postagem, numero_telefone_comprador });
+
+
+                      } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
+
+                        param.remoto_setLicencaExpiradaFalseOrTrue(true);
+
+                      }
+
+
+                    }}
                   />
 
                   :
@@ -710,14 +720,9 @@ DESATIVAR DEPOIS ACIMA */
 
                     onPress={() => {
 
+                      if (VARIAVEL_GLOBAL.LICENCA_USO === "liberado" || VARIAVEL_GLOBAL.TELEFONE === "SEM_TELEFONE_USUARIO") {
                       //alert(DESCRICAO_ARRAY);
-
-
-
                       //alert ( JSON.stringify( produtos )  );
-
-
-
                       /* */
                       //alert("Deseja Cancelar esta "+compra_ou_venda);
                       ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -725,7 +730,6 @@ DESATIVAR DEPOIS ACIMA */
                       var CELULAR_COMPRADOR_OU_VENDEDOR = produtos.numero_telefone_J;
                       var ID_DA_POSTAGEM = produtos.id_J;
                       var USUARIO_DO_TELEFONE = numero_telefone_usuario;
-
 
                       //const twoOptionAlertHandler = () => {
                       Alert.alert(
@@ -765,9 +769,14 @@ DESATIVAR DEPOIS ACIMA */
                       ///////////////////////////////////////////////////////////////////////////////////////////////////
                       ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+                    } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
+
+                      param.remoto_setLicencaExpiradaFalseOrTrue(true);
 
                     }
-                    }
+
+
+                    }}
                   />
                 }
 
@@ -878,6 +887,8 @@ DESATIVAR DEPOIS ACIMA */
 
 
 
+
+
   return (
 
     <>
@@ -898,6 +909,8 @@ DESATIVAR DEPOIS ACIMA */
       {/*PAINEL DOS PRODUTOS INSERIDO AUTOMATICO ACIMA usando FLATLIST ACIMA*/}
 
       {exibeDetalheProdutos && (<DETALHES />)}
+
+
 
     </>
 

@@ -1316,6 +1316,13 @@ export default function Postar(props) {
                             <TouchableHighlight style={{ width: '35%', height: 35, color: 'white', fontSize: 35, borderRadius: 25, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: 'white' }}
                                 onPress={async () => {
 
+                                    
+                                    var regex = new RegExp(/\(\d{2}\)\s\d{5,5}-?\d{4}/g);//REGEX PARA TELEFONE CELULAR
+                                    var VALIDAR_CELULAR = variavelTelefone.match(regex);
+    
+                                    if (VALIDAR_CELULAR !== null) {
+                                    
+                                    
                                     // var telefone = { NUMERO_CELL_J: variavelTelefone }
 
                                     /*********************************************************************************************************************/
@@ -1343,6 +1350,9 @@ export default function Postar(props) {
                                     // GRAVAR_NUMERO_DO_CELL(telefone);
                                     // setCaixaNumeroCelularVisivel(false);
                                     // ARMAZENAR_POSTAGEM_PRIMEIRA_ETAPA();
+                                }else{  alert("Formato Inválido de Celular !"); }
+
+                                
                                 }}
                             >
                                 <Text style={{ fontSize: 15, color: '#fff' }} >OK</Text>

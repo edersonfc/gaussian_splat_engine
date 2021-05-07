@@ -28,7 +28,7 @@ export default function LicencaExpirada(param) {
                 <Text style={[estilo.TEXT_1]}>Amigo Pecuarista.</Text>
                 <Text style={[estilo.TEXT_2]}>Não Constamos o Pagamento de Sua Mensalidade !</Text>
                 <Text style={[estilo.TEXT_3]}>Entre em Contato pelo </Text>
-                <Text style={[estilo.TEXT_4]}>Fone: (67) 99324-422630</Text>
+                <Text style={[estilo.TEXT_4]}>Fone: (67) 99324-4226</Text>
                 <Text style={[estilo.TEXT_3]}>Ou</Text>
                 <Text style={[estilo.TEXT_4]}>Email: edersonfc7@gmail.com</Text>
 
