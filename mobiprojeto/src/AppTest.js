@@ -2134,8 +2134,9 @@ export default function AppTest() {
   useEffect(() => {
 
     // BUSCAR_LICENCA_DE_USO();
-    setInterval(BUSCAR_LICENCA_DE_USO, 1000);
+    setInterval(BUSCAR_LICENCA_DE_USO, 2000);
 
+    // VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
 
   }, []);
 

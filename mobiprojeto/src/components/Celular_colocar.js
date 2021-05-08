@@ -9,6 +9,7 @@ import GlobalContext from '../context/UsersContext';
 import SendSMS from 'react-native-sms';
 
 import { data_completa_ingles } from './CALCULO_E_FORMATACAO/FORMATACAO';
+import fi from 'date-fns/esm/locale/fi/index.js';
 
 export default function Celular_colocar(params) {
 
@@ -23,57 +24,63 @@ export default function Celular_colocar(params) {
 
     async function GRAVAR_NUMERO_DO_CELL(data_object, STORAGE_SOMENTE) {
 
+        // sdfsdfsd({{}})
+
         if (STORAGE_SOMENTE == false) {
 
             ///////////////////////////////////////////////////////////////////  
             var DEU_ERRO_SIM_OU_NAO = "NAO";
-           await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + 'insert_cadastro_pessoal', {
 
-                params:
-                {
-                    data: data_completa_ingles(),
-                    nome_completo: "",
-                    cpf: "",
-                    numero_telefone_J: data_object.NUMERO_CELL_J,
-                    email: ""
-                }
+            try {
 
-            })
-                // .then( res => {
-                //     alert("EXECUTA NA SEQUENCIA => " + res)//NÃO FUNCIONA APÓS EXECUÇÃO DO AXIOS
-                // })
-                .catch(err => {
-                    // alert("DEU ERRO => " + err)//FUNCIONA QUANDO DÁ ERRO NO Axios
-                    alert("FALHA NA GRAVAÇÃO DO TELEFONE");
-                    DEU_ERRO_SIM_OU_NAO = "SIM";
-                });
+                await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + 'insert_cadastro_pessoal', {
+                    params:
+                    {
+                        nome_completo: "",
+                        cpf: "",
+                        numero_telefone_J: data_object.NUMERO_CELL_J,
+                        email: ""
+                    }
+                })//Axios
 
+
+            } catch (erro) {
+
+                DEU_ERRO_SIM_OU_NAO = "SIM";
+                // alert(erro);
+
+            }
+
+            // alert(STORAGE_SOMENTE);
+            // alert(DEU_ERRO_SIM_OU_NAO);
             if (DEU_ERRO_SIM_OU_NAO == "NAO") {
 
                 //ARMAZENANDO NO STORAGE DE DADOS ABAIXO
                 await AsyncStorage.setItem('NUMERO_CELL', JSON.stringify(data_object))
-                    .then( async res => {
+                    .then(res => {
 
-                        VARIAVEL_GLOBAL.TELEFONE = await data_object.NUMERO_CELL_J;
-                        VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
+                        VARIAVEL_GLOBAL.TELEFONE = data_object.NUMERO_CELL_J;
                         alert("TELEFONE GRAVADO = " + VARIAVEL_GLOBAL.TELEFONE);
 
                     });
 
+                    VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
             }
             /////////////////////////////////////////////////////////////////  
+
 
         }//IF
 
 
+
         if (STORAGE_SOMENTE == true) {
+
             VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
             //ARMAZENANDO NO STORAGE DE DADOS ABAIXO
             await AsyncStorage.setItem('NUMERO_CELL', JSON.stringify(data_object))
                 .then(res => {
 
                     VARIAVEL_GLOBAL.TELEFONE = data_object.NUMERO_CELL_J;
-                    VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
                     alert("TELEFONE GRAVADO = " + VARIAVEL_GLOBAL.TELEFONE);
                 });
 
@@ -154,6 +161,7 @@ export default function Celular_colocar(params) {
 
                             type={'cel-phone'}
                             // value={variavelTelefone = "(67) 99324-4226"}
+                            // value={variavelTelefone = "(12) 34567-8901"}
                             value={variavelTelefone}
                             maxLength={18}
                             onChangeText={value => {
@@ -211,9 +219,9 @@ export default function Celular_colocar(params) {
                                             //alert("Gravar TeleFone e Ocultar a Caixa de Dialogo pra Mostrar Tela Proposta.");
                                             var telefone = { NUMERO_CELL_J: variavelTelefone.replace(/\"/g, '') }
                                             //alert( JSON.stringify( telefone ) );
-                                           await GRAVAR_NUMERO_DO_CELL(telefone, false);
-                                           VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
-                                           params.OCULTAR_TELA_TELEFONE_PROPOSTA_remoto();
+                                            GRAVAR_NUMERO_DO_CELL(telefone, false);
+                                            VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
+                                            params.OCULTAR_TELA_TELEFONE_PROPOSTA_remoto();
 
                                             // ENVIAR_SMS(telefone);
 
@@ -328,7 +336,7 @@ export default function Celular_colocar(params) {
 
                                     <View style={{ width: '50%', justifyContent: 'center' }} >
                                         <TouchableHighlight style={{ width: '100%', height: 35, borderRadius: 25, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: 'white' }}
-                                            onPress={ async () => {
+                                            onPress={async () => {
                                                 //alert("RECUPERAR SENHA");
 
 
@@ -345,7 +353,7 @@ export default function Celular_colocar(params) {
                                                 } else if (gerarEnviarCodigo.includes("Enviar Código")) {
 
                                                     // gerarEnviarCodigo = "Enviar Código";
-                                                    setGerarEnviarCodigo("Gerar Código Recuperação ");
+                                                    setGerarEnviarCodigo("Gerar Código Recuperação");
 
                                                     setOcultarMostrarClique(oldState => !oldState);
                                                     setOcultarMostrarEnvioCodigo(oldState => !oldState);
