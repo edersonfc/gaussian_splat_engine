@@ -496,6 +496,7 @@ export default function MensagensPropostas(param) {
         param.funcao_resposta_da_proposta(ID_PROPOSTAS, RESPOSTAS, VENDEDOR, COMPRADOR);
 
         VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
+       
 
     }
 

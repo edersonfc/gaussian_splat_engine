@@ -499,8 +499,7 @@ export default function AppTest() {
                         //ARMAZENAR_ESTATUS_SE_TA_ONLINE_OU_OFFLINE('ON-LINE');
                         VARIAVEL_GLOBAL.CONEXAO_DO_APP = "ON-LINE";
                         //console.log("INICIO => " + hora_e_segundo_completo());
-                        // await BUSCANDO_NOTIFICACOES_2();
-                        console.log(VARIAVEL_GLOBAL.CONTADOR_GLOBAL + " => " + hora_e_segundo_completo())
+                          console.log(VARIAVEL_GLOBAL.CONTADOR_GLOBAL + " => " + hora_e_segundo_completo())
                       })
                   })
 
@@ -837,10 +836,12 @@ export default function AppTest() {
 
       //RECEBENDO MENSAGEM
       //socket.on("edersonfc99371235187", msg => {
-      socket.on(VARIAVEL_GLOBAL.TELEFONE, msg => {
+     socket.on(VARIAVEL_GLOBAL.TELEFONE, async msg  =>  {
+
+// alert("RECEBIDO@#%8");
 
         VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = true;
-        BUSCANDO_NOTIFICACOES_2();
+        await BUSCANDO_NOTIFICACOES_2();
 
         //alert(msg);
         async function FUNCAO_NOTIFICACAO_PAI(msg_parametro) {

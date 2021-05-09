@@ -281,38 +281,50 @@ export default function EnvioPropostasCompras(props) {
         } else { telefone_destino = VENDEDOR_R; }
 
 
-        //Axios.get(IP_DO_SERVIDOR + 'insert_propostas', {
-        await Axios.get(IP_DO_SERVIDOR + 'update_propostas', {
-
-            params: {
-                id_resposta_proposta_J: id_resposta_proposta,
-                resposta_da_proposta_J: resposta_da_proposta,
-                telefone_do_usuario: VARIAVEL_GLOBAL.TELEFONE,
-                telefone_destino: telefone_destino
-            }, //UPDATE_PROPOSTAS()
+        var DEU_ERRO_SIM_NAO_TALVEZ = "TALVEZ";
 
 
-        },
+        try {
+            //Axios.get(IP_DO_SERVIDOR + 'insert_propostas', {
+            await Axios.get(IP_DO_SERVIDOR + 'update_propostas', {
 
-            VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta"
+                params: {
+                    id_resposta_proposta_J: id_resposta_proposta,
+                    resposta_da_proposta_J: resposta_da_proposta,
+                    telefone_do_usuario: VARIAVEL_GLOBAL.TELEFONE,
+                    telefone_destino: telefone_destino
+                }
+            })
 
-        )
+        } catch (error) {
 
-            // .then( () => {
+            alert(error)
+            // alert("Já foi enviado a Resposta da Proposta");
+            DEU_ERRO_SIM_NAO_TALVEZ = "SIM"
 
-            //     alert("Já foi enviado a Resposta da Proposta");
+        } finally {
 
-            // })        
-            .catch((err) => {
-                alert(err)
-            });
+            // if (DEU_ERRO_SIM_NAO_TALVEZ === "NAO") {
 
-        VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
+                VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
+                VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = true;
+
+            // }
+
+            // alert("RESPONDENDO ABAIXO");
+
+        }
 
     }//function RESPOSTA_DE_PROPOSTAS()
 
     //RESPONDER AS PROPOSTAS ACIMA
 
+
+
+    // .catch((err) => {
+    //     alert(err)
+    //     // alert("Já foi enviado a Resposta da Proposta");
+    // });
 
 
     ////////ENVIAR PROPOSTA ABAIXO
