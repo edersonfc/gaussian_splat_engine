@@ -79,6 +79,7 @@ import com.android.build.OutputFile
 
 project.ext.react = [
     enableHermes: false,  // clean and rebuild if changing
+    bundleInDebug: true // <-- add this line  10052021
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
@@ -121,6 +122,13 @@ def jscFlavor = 'org.webkit:android-jsc:+'
 def enableHermes = project.ext.react.get("enableHermes", false);
 
 android {
+
+/*Adicionado em 10052021 Abaixo*/
+  sourceSets { 
+    main {assets.srcDirs = ['src / main / assets', '../../html']} 
+  }
+  /*Adicionado em 10052021 Acima*/
+
     compileSdkVersion rootProject.ext.compileSdkVersion
 
     compileOptions {

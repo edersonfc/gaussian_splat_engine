@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState, useContext } from 'react'
 import { View, Text, SafeAreaView, TouchableOpacity, Alert, TextInput, ScrollView, PermissionsAndroid, TouchableHighlight, Keyboard } from 'react-native'
 
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Estilo from './components/estilo'
@@ -53,6 +54,13 @@ let io = require('socket.io-client');
 import FILTRO_PESQUISA_CATEGORIA from './components/FILTRO_PESQUISA_CATEGORIAS';
 
 import LicencaExpirada from './components/LicencaExpirada';
+
+
+
+// import TelaWeb from './components/arquivosHtml/TelaWeb';
+import TelaSplash from './components/TelaSplash';
+
+
 
 // LicencaExpirada
 
@@ -499,7 +507,7 @@ export default function AppTest() {
                         //ARMAZENAR_ESTATUS_SE_TA_ONLINE_OU_OFFLINE('ON-LINE');
                         VARIAVEL_GLOBAL.CONEXAO_DO_APP = "ON-LINE";
                         //console.log("INICIO => " + hora_e_segundo_completo());
-                          console.log(VARIAVEL_GLOBAL.CONTADOR_GLOBAL + " => " + hora_e_segundo_completo())
+                        console.log(VARIAVEL_GLOBAL.CONTADOR_GLOBAL + " => " + hora_e_segundo_completo())
                       })
                   })
 
@@ -836,9 +844,9 @@ export default function AppTest() {
 
       //RECEBENDO MENSAGEM
       //socket.on("edersonfc99371235187", msg => {
-     socket.on(VARIAVEL_GLOBAL.TELEFONE, async msg  =>  {
+      socket.on(VARIAVEL_GLOBAL.TELEFONE, async msg => {
 
-// alert("RECEBIDO@#%8");
+        // alert("RECEBIDO@#%8");
 
         VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = true;
         await BUSCANDO_NOTIFICACOES_2();
@@ -2908,6 +2916,9 @@ export default function AppTest() {
       {licencaExpiradaFalseOrTrue && (<LicencaExpirada REMOTO_MOSTRAR_TELA_EXPIRACAO_LICENCA={MOSTRAR_TELA_EXPIRACAO_LICENCA} />)}
 
 
+
+
+      <TelaSplash />
 
 
     </SafeAreaView   >
