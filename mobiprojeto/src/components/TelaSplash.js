@@ -7,6 +7,7 @@ import { color } from 'react-native-reanimated';
 
 // import Estilo from './estilo'
 
+
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 // import { WebView } from 'react-native-webview';
@@ -33,17 +34,9 @@ const grama_img = require('./arquivosHtml/clipart_2.png');
 
 export default function TelaSplash(param) {
 
-
     const largura = Math.round(Dimensions.get('window').width);
 
-
-
-
-
-
     var spinValue = new Animated.Value(0);
-
-    // useEffect(() => {
 
     // First set up animation 
     Animated.loop(
@@ -65,16 +58,14 @@ export default function TelaSplash(param) {
     })
 
 
-    // }, [])
-
 
 
 
 
     return (
 
-        <ContainerPrincipal>
 
+        <ContainerPrincipal>
 
 
             <Image source={logo_do_app} style={{
@@ -83,15 +74,15 @@ export default function TelaSplash(param) {
             }} />
 
 
-            <View style={{ justifyContent: 'center', borderWidth: 0, width: '100%', height: 110  }} >
+            <View style={{ justifyContent: 'center', alignItems: 'center', borderWidth: 0, width: '100%', height: 110 }} >
 
 
-                <Image source={grama_img} style={{ width: '100%', height: 65 }} />
+                {/* <Image source={grama_img} style={{ width: '100%', height: 65 }} /> */}
 
 
-                <View style={{ flexDirection: 'row', width: '100%', height: 100, position:'absolute' }} >
+                <View style={{ flexDirection: 'row', width: 'auto', height: 100, position: 'absolute', borderWidth: 0 }} >
 
-                    <Texto>GAD</Texto>
+                    <Text style={estilo.FONTT} >GAD</Text>
 
                     <IconeContainerRoda >
 
@@ -111,12 +102,7 @@ export default function TelaSplash(param) {
             </View>
 
 
-
-
         </ContainerPrincipal>
-
-
-
 
 
     )
@@ -126,20 +112,30 @@ export default function TelaSplash(param) {
 
 
 
-// const estilo = StyleSheet.create({
+const estilo = StyleSheet.create({
 
-//     VIEW_1: {
+    VIEW_1: {
 
-//         width: '100%',
-//         height: Math.round(Dimensions.get('window').height),
-//         backgroundColor: 'rgba(0,0,0,0.5)',
-//         backgroundColor: 'rgb(255,255,25)',
-//         alignItems: 'center',
-//         justifyContent: 'center',
-//         position: 'absolute',
-//         top: 0
+        width: '100%',
+        height: Math.round(Dimensions.get('window').height),
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        backgroundColor: 'rgb(255,255,25)',
+        alignItems: 'center',
+        justifyContent: 'center',
+        position: 'absolute',
+        top: 0
 
-//     }
+    },
+
+    FONTT: {
+
+        fontSize: 64,
+        // fontFamily:'AlfaSlabOne-Regular',
+        fontFamily: 'coolveticarg',
+        alignItems: 'center',
+        color: 'rgba(183,185,18,1)'
+
+    }
 
 
-// });
+});

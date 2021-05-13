@@ -1,13 +1,16 @@
 import styled from 'styled-components/native';
 // import styled, { keyframes } from 'styled-components';
 
-
-import { Dimensions } from 'react-native'
+import { Dimensions } from 'react-native';
 
 
 var ALTURA =  Math.round(Dimensions.get('window').height);
-// var ALTURA = 500;
+
 ////////////////////////////////////////////////////////////////////////////
+
+// assets: ['./android/app/src/main/assets/fonts/']
+
+
 
 export const ContainerPrincipal = styled.View`
 
@@ -18,6 +21,7 @@ export const ContainerPrincipal = styled.View`
         justify-content: center;
         position: absolute;
         top: 0;
+        /* opacity: 0.7; */
 
 `;
 
@@ -25,14 +29,17 @@ export const ContainerPrincipal = styled.View`
 export const Texto = styled.Text`
 
         font-size:64px;
-        border-width:1px;
-        font-family: arial black;
+        border-width:0px;
+        font-family: 'Roboto-Medium';
         font-weight: bold;
-        color:'rgba(255,255,255,1)';
+        color:'rgba(183,185,184,1)';
         background:#2A3E4A;
-        opacity: 1;
-        
-           
+        opacity: 1; 
+
+        /*
+        font-family: arial black;
+        */
+                     
 `;
 
 export const IconeContainerRoda = styled.Text`
@@ -40,8 +47,7 @@ export const IconeContainerRoda = styled.Text`
         align-items: center;
         justify-content: center;
         background:#2A3E4A;
-        
-
+ 
 `;
 
 
