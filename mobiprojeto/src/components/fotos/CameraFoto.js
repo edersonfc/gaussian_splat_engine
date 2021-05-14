@@ -369,7 +369,7 @@ export default function CameraFoto(props) {
                                             URL_FOTOS += VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[i] + '|';
                                         }
                                         navigation.navigate("Postar", { URL_FOTOS })
-                                        //alert(URL_FOTOS)
+                                        // alert(URL_FOTOS)
                                         //ESSE METODO ACIMA COMENTADO FOI TROCADO PELO METODO ABAIXO  */
 
                                         /* 

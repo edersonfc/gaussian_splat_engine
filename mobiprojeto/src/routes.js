@@ -7,7 +7,10 @@ const AppStack = createStackNavigator();
 //import Incidents from "./pages/Incidents";
 //import Detail from "./pages/Detail";
 
+import AppFONT from '../AppFONT'
+// import TelaSplash from './components/TelaSplash'
 import TelaPrincipal from './AppTest'
+
 import EtiquetaProdutos from './components/ProdutosEtiquetas'
 import ProdDetalhes from './components/DetalhesProdutos'
 import ComprasVendas from './components/ComprasVendas'
@@ -36,6 +39,11 @@ export default function Routes() {
         <AppStack.Screen name="Detail" component={Detail} />
          */}
         
+
+        {/* <AppStack.Screen name="AppFONT" component={AppFONT} /> */}
+
+        {/* <AppStack.Screen name="TelaSplash" component={TelaSplash} /> */}
+
          <AppStack.Screen name="TelaPrincipal" component={TelaPrincipal} />
         {/* <AppStack.Screen name="EtiquetaProdutos" component={EtiquetaProdutos} />*/}
         <AppStack.Screen name="ProdDetalhes" component={ProdDetalhes} />

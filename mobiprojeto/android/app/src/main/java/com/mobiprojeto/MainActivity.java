@@ -1,5 +1,9 @@
 package com.mobiprojeto;
 
+//13052021
+import android.os.Bundle; // here
+import org.devio.rn.splashscreen.SplashScreen; // here
+
 import com.facebook.react.ReactActivity;
 
 //08102020
@@ -22,6 +26,7 @@ public class MainActivity extends ReactActivity {
   @Override
   protected String getMainComponentName() {
     return "mobiprojeto";
+    // return "TelaSplash";
   }
 
 //08102020

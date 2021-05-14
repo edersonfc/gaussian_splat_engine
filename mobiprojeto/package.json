@@ -44,6 +44,7 @@
     "react-native-screens": "^2.11.0",
     "react-native-sms": "^1.11.0",
     "react-native-socket.io-client": "^1.4.8",
+    "react-native-splash-screen": "^3.2.0",
     "react-native-svg": "^12.1.0",
     "react-native-thumbnail-video": "^0.1.2",
     "react-native-ui-xg": "0.0.6",
@@ -71,5 +72,10 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "rnpm": {
+    "assets": [
+      "./assets/fonts/"
+    ]
   }
 }

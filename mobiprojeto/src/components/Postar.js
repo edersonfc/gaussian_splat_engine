@@ -271,7 +271,10 @@ export default function Postar(props) {
     /* PEGANDO RETORNO DA VARIAVEL PELA CHAMADA DE TELA ABAIXO */
     var { URL_FOTOS } = props.route.params; // utilizar a {} para desestruturar a variável pesquisarCompras que está dentro de params 
     //alert(typeof(URL))
-    // alert(URL_FOTOS)
+    //alert(URL_FOTOS)
+
+    //  LISTAIMAGENS_CONTEXT
+    // alert(VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT)
 
     // var URL_FOTOS_2;
 
@@ -476,7 +479,7 @@ export default function Postar(props) {
 
 
         // if (ARRY_URL_IMAGENS.length > 1 || ARRY_URL_VIDEOS.length > 1) {
-        if (VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length > 1 || ARRY_URL_VIDEOS.length > 1) {
+        if (VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length > 0 || ARRY_URL_VIDEOS.length > 0) {
 
             //alert('EXECUTADO NO INICIO DA EXECUÇÃO'+ ARRY_URL_IMAGENS.length);
 

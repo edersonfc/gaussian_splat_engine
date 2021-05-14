@@ -16,7 +16,7 @@ import styled from 'styled-components';
 
 // import styled from 'styled-components/native';
 
-import { ContainerPrincipal, Texto, IconeContainerRoda } from './styledComponents';
+import { ContainerPrincipal, Texto, IconeContainerRoda, IconeContainerRodaInterno } from './styledComponents';
 
 
 // import "./arquivosHtml/style.css";
@@ -82,15 +82,19 @@ export default function TelaSplash(param) {
 
                 <View style={{ flexDirection: 'row', width: 'auto', height: 100, position: 'absolute', borderWidth: 0 }} >
 
-                    <Text style={estilo.FONTT} >GAD</Text>
+                    <Text style={{ fontSize: 60, fontFamily: 'AlfaSlabOne-Regular' }} >GAD</Text>
 
                     <IconeContainerRoda >
 
-                        <Animated.View style={{ transform: [{ rotate: spin }] }} >
+                        <IconeContainerRodaInterno>
 
-                            <Image source={roda} style={{ width: 100, height: 100 }} />
+                            <Animated.View style={{ transform: [{ rotate: spin }] }} >
 
-                        </Animated.View>
+                                <Image source={roda} style={{ width: 100, height: 100 }} />
+
+                            </Animated.View>
+
+                        </IconeContainerRodaInterno>
 
                     </IconeContainerRoda>
 
@@ -112,30 +116,30 @@ export default function TelaSplash(param) {
 
 
 
-const estilo = StyleSheet.create({
+// const estilo = StyleSheet.create({
 
-    VIEW_1: {
+//     VIEW_1: {
 
-        width: '100%',
-        height: Math.round(Dimensions.get('window').height),
-        backgroundColor: 'rgba(0,0,0,0.5)',
-        backgroundColor: 'rgb(255,255,25)',
-        alignItems: 'center',
-        justifyContent: 'center',
-        position: 'absolute',
-        top: 0
+//         width: '100%',
+//         height: Math.round(Dimensions.get('window').height),
+//         backgroundColor: 'rgba(0,0,0,0.5)',
+//         backgroundColor: 'rgb(255,255,25)',
+//         alignItems: 'center',
+//         justifyContent: 'center',
+//         position: 'absolute',
+//         top: 0
 
-    },
+//     },
 
-    FONTT: {
+//     FONTT: {
 
-        fontSize: 64,
-        // fontFamily:'AlfaSlabOne-Regular',
-        fontFamily: 'coolveticarg',
-        alignItems: 'center',
-        color: 'rgba(183,185,18,1)'
+//         fontSize: 64,
+//         fontFamily:'AlfaSlabOne-Regular',
+//         // fontFamily: 'coolveticarg',
+//         alignItems: 'center',
+//         color: 'rgba(183,185,18,1)'
 
-    }
+//     }
 
 
-});
+// });

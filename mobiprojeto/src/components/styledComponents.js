@@ -30,7 +30,7 @@ export const Texto = styled.Text`
 
         font-size:64px;
         border-width:0px;
-        font-family: 'Roboto-Medium';
+      /*  font-family: 'Roboto-Medium'; */
         font-weight: bold;
         color:'rgba(183,185,184,1)';
         background:#2A3E4A;
@@ -42,13 +42,29 @@ export const Texto = styled.Text`
                      
 `;
 
-export const IconeContainerRoda = styled.Text`
+export const IconeContainerRoda = styled.View`
 
+        border-width:0px;
         align-items: center;
         justify-content: center;
         background:#2A3E4A;
  
 `;
+
+
+
+
+export const IconeContainerRodaInterno = styled.View`
+
+        height:50px;
+        border-color:red;
+        border-width:0px;
+        align-items: center;
+        justify-content: center;
+        background:#2A3E4A;
+ 
+`;
+
 
 
 

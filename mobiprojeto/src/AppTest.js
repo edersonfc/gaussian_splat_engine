@@ -67,11 +67,11 @@ import TelaSplash from './components/TelaSplash';
 //VARIAVÉIS GLOBAIS ABAIXO
 
 
-// var IP_DO_SERVIDOR = "http://192.168.0.102:3000/";
-// var IP_DO_SERVIDOR_IO = "http://192.168.0.102:3001/";
-
-var IP_DO_SERVIDOR = "http://192.168.0.102:3000/";
+var IP_DO_SERVIDOR    = "http://192.168.0.102:3000/";
 var IP_DO_SERVIDOR_IO = "http://192.168.0.102:3001/";
+
+// var IP_DO_SERVIDOR    = "http://192.168.56.1:3000/";
+// var IP_DO_SERVIDOR_IO = "http://192.168.56.1:3001/";
 
 
 var TELA_DE_ORIGEM_E_SITUACAO = 'Tela_AppTest_POSTAGEM_SOMENTE';
@@ -2917,8 +2917,14 @@ export default function AppTest() {
 
 
 
+      {/* <View style={{ height: '100%', width: '100%', alignItems: 'center', justifyContent: 'center',position:'absolute' }}>
 
-      <TelaSplash />
+        <Text style={{ fontSize: 40, fontFamily: 'AlfaSlabOne-Regular' }}  >FONT DO TEXTO</Text>
+
+      </View> */}
+
+
+      {/* <TelaSplash /> */}
 
 
     </SafeAreaView   >

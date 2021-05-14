@@ -10,10 +10,6 @@
          @drawable/background_splash
          </item>
 
-         <!-- <item name="android:statusBarcolor">
-           @color/primary
-         </item> -->
-
-    </style>
+      </style>
 
 </resources>

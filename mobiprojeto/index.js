@@ -5,8 +5,9 @@
 import {AppRegistry} from 'react-native';
 
 import App from './src/App';//TELA QUE CHAMA AS TELAS
+// import App from './src/AppTest';
+// import App from './AppFONT';
 
-//import App from './src/AppTest';
 //import App from './src/components/ProdutosEtiquetas';
 //import App from './src/components/Menu';
 //import App from './src/components/Categorias'

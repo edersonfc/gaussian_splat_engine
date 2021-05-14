@@ -35,6 +35,10 @@
 		1B1D4C77D3CD44A28138CE34 /* AlfaSlabOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 079EAE0369F941DD9B86CCF3 /* AlfaSlabOne-Regular.ttf */; };
 		3E52EBC6E97C45F38D913FB4 /* coolveticarg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6D335527A85F4AEB92218D87 /* coolveticarg.ttf */; };
 		B7BE6B37351644A38C8CDE2F /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 10B08FAEBC114A89AEB7229E /* Roboto-Medium.ttf */; };
+		7272FC531AF54E02B687860E /* AlfaSlabOne-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 76BA929499D1459DBEBFD19C /* AlfaSlabOne-Regular.ttf */; };
+		5468D452646C4A799F6D8559 /* coolveticarg.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FE16E5B3B4544BE8959A4915 /* coolveticarg.ttf */; };
+		E312DBF95A614D3B96871DE7 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 41000163395F4436BE97A7C0 /* Roboto-Medium.ttf */; };
+		9783704F399545458C85E42C /* Pacifico-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2B0B1A50DF21426EA963045E /* Pacifico-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +93,10 @@
 		079EAE0369F941DD9B86CCF3 /* AlfaSlabOne-Regular.ttf */ = {isa = PBXFileReference; name = "AlfaSlabOne-Regular.ttf"; path = "../src/assets/fonts/AlfaSlabOne-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		6D335527A85F4AEB92218D87 /* coolveticarg.ttf */ = {isa = PBXFileReference; name = "coolveticarg.ttf"; path = "../src/assets/fonts/coolveticarg.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 		10B08FAEBC114A89AEB7229E /* Roboto-Medium.ttf */ = {isa = PBXFileReference; name = "Roboto-Medium.ttf"; path = "../src/assets/fonts/Roboto-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		76BA929499D1459DBEBFD19C /* AlfaSlabOne-Regular.ttf */ = {isa = PBXFileReference; name = "AlfaSlabOne-Regular.ttf"; path = "../assets/fonts/AlfaSlabOne-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		FE16E5B3B4544BE8959A4915 /* coolveticarg.ttf */ = {isa = PBXFileReference; name = "coolveticarg.ttf"; path = "../assets/fonts/coolveticarg.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		41000163395F4436BE97A7C0 /* Roboto-Medium.ttf */ = {isa = PBXFileReference; name = "Roboto-Medium.ttf"; path = "../assets/fonts/Roboto-Medium.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		2B0B1A50DF21426EA963045E /* Pacifico-Regular.ttf */ = {isa = PBXFileReference; name = "Pacifico-Regular.ttf"; path = "../assets/fonts/Pacifico-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -218,6 +226,10 @@
 				079EAE0369F941DD9B86CCF3 /* AlfaSlabOne-Regular.ttf */,
 				6D335527A85F4AEB92218D87 /* coolveticarg.ttf */,
 				10B08FAEBC114A89AEB7229E /* Roboto-Medium.ttf */,
+				76BA929499D1459DBEBFD19C /* AlfaSlabOne-Regular.ttf */,
+				FE16E5B3B4544BE8959A4915 /* coolveticarg.ttf */,
+				41000163395F4436BE97A7C0 /* Roboto-Medium.ttf */,
+				2B0B1A50DF21426EA963045E /* Pacifico-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -380,6 +392,10 @@
 				1B1D4C77D3CD44A28138CE34 /* AlfaSlabOne-Regular.ttf in Resources */,
 				3E52EBC6E97C45F38D913FB4 /* coolveticarg.ttf in Resources */,
 				B7BE6B37351644A38C8CDE2F /* Roboto-Medium.ttf in Resources */,
+				7272FC531AF54E02B687860E /* AlfaSlabOne-Regular.ttf in Resources */,
+				5468D452646C4A799F6D8559 /* coolveticarg.ttf in Resources */,
+				E312DBF95A614D3B96871DE7 /* Roboto-Medium.ttf in Resources */,
+				9783704F399545458C85E42C /* Pacifico-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
