@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect, useCallback, useContext } from 'react';
-import { View, Text, SafeAreaView, FlatList, Alert, Image, TouchableOpacity, Dimensions, RefreshControl, StyleSheet, StatusBar } from 'react-native';
+import { View, Text, SafeAreaView, FlatList, Alert, Image, TouchableOpacity, Dimensions, RefreshControl, StyleSheet, StatusBar, Animated, Easing } from 'react-native';
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';//, Image, Animated, Easing
 
 import Estilo from './estilo';
 
@@ -531,361 +531,402 @@ export default function ProdutosEtiquetas(param) {
 
   }
 
+  const SPACING = 15;
+  const AVATAR_GADO_SIZE = 140;
+  const ITEM_SIZE = AVATAR_GADO_SIZE + SPACING * 1.7;
+
   //PRIMEIRA PARTE PARA O FLATLIST
   //TODOS OS RENDES DA ETIQUETA DOS PRODUTOS FEITO AQUI ABAIXO
-  const Item = ({ item: produtos, index, onPress, backgroundColor, textColor }) => (
-
-    /**********************************************************************************/
-    /**********************************************************************************/
-    <>
+  const Item = ({ item: produtos, index, onPress, backgroundColor, textColor }) => {
 
 
-      {etiqueta_visivel_true_false_array[index] && (
+    const inputRange = [
+      -1,
+      0,
+      ITEM_SIZE * index,
+      ITEM_SIZE * (index + 2)
+    ]
 
-        <View name={"PAI" + index} key={"PAI" + index} style={[style = { flexDirection: 'row', width: '100%', height: 150, borderWidth: 5, borderColor: '#fff', borderRadius: 20, backgroundColor: 'white', marginBottom: 10 }]}>
+    const scale = scrollY.interpolate({
+      inputRange,
+      outputRange: [1, 1, 1, 0]
 
-          <View style={[style = { width: '40%', padding: 0, borderWidth: 0, borderRadius: 20 }]} >
-
-            <TouchableOpacity style={[style = { width: '100%', height: '100%', borderWidth: 0, borderColor: 'red', borderRadius: 20 }, Estilo.centralizar_horizontalmente]}
-              onPress={() => {
-                //  alert("CLIQUE ESTÁ FUNCIONANDO " + index);
-
-
-                var URL_ENVIADA = ARRAY_QUE_VAI_MOSTRAR_AS_MINIATURAS[index];
-                // alert(URL_ENVIADA)
-
-
-                var INDICE_PRINCIPAL_JSON = index;
-                var DISTANCIA = DISTANCIA_ARRAY[index];
-
-                try { numero_telefone_usuario = JSON.parse(numero_telefone_usuario); } catch (e) { numero_telefone_usuario = ""; }
-                var NUMERO_CELL_DO_USUARIO = "";
-                try { NUMERO_CELL_DO_USUARIO = Object.values(numero_telefone_usuario) } catch (e) { NUMERO_CELL_DO_USUARIO = ""; }
-
-                //alert(index+"  #  "+numero_telefone +"  #  "+  id_da_postagem +"  #  "+  NUMERO_CELL_DO_USUARIO)
-                //alert("FOI CLICADO NA IMAGEM e DEPOIS NÃO FUNCIONA A COMPRA DIRETA");
-                VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE = produtos;   //PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE
-                TELA_DE_ORIGEM_E_SITUACAO = "Tela_ProdDetalhes_visualizacao";
-
-                if (VARIAVEL_GLOBAL.TELA_ATUAL == "Principal") {
-
-                  // alert("DA TELA PRINCIPAL")
-
-                  VARIAVEL_GLOBAL.TELA_ATUAL = "ProdDetalhes";
-                  VARIAVEL_GLOBAL.TELA_ORIGEM = "Principal";
-                  VARIAVEL_GLOBAL.TELA_TERCEIRA = "nenhum";
+    })
 
 
-                } else
+    return (
+      /**********************************************************************************/
+      /**********************************************************************************/
+      // <> {
 
-                  if (VARIAVEL_GLOBAL.TELA_ATUAL == "ComprasVendas") {
+        etiqueta_visivel_true_false_array[index] && (
 
-                    // alert("DA TELA COMRA E VENDA")
+
+          <Animated.View name={"PAI" + index} key={"PAI" + index} style={[style = {
+            flexDirection: 'row', width: '100%', height: 150, borderWidth: 5, borderColor: '#fff', borderRadius: 20, backgroundColor: 'white', marginBottom: SPACING, 
+           }
+
+
+            , style = {
+              shadowColor: '#000',
+              shadowOffset: {
+                width: 0,
+                height: 5
+              },
+              shadowOpacity: 0.3,
+              shadowRadius: 20,
+              transform: [{ scale }]
+            }
+
+
+          ]}>
+
+            <View style={[style = { width: '40%', padding: 0, borderWidth: 0, borderRadius: 20 }]} >
+
+              <TouchableOpacity style={[style = { width: '100%', height: '100%', borderWidth: 0, borderColor: 'red', borderRadius: 20 }, Estilo.centralizar_horizontalmente]}
+                onPress={() => {
+                  //  alert("CLIQUE ESTÁ FUNCIONANDO " + index);
+
+
+                  var URL_ENVIADA = ARRAY_QUE_VAI_MOSTRAR_AS_MINIATURAS[index];
+                  // alert(URL_ENVIADA)
+
+
+                  var INDICE_PRINCIPAL_JSON = index;
+                  var DISTANCIA = DISTANCIA_ARRAY[index];
+
+                  try { numero_telefone_usuario = JSON.parse(numero_telefone_usuario); } catch (e) { numero_telefone_usuario = ""; }
+                  var NUMERO_CELL_DO_USUARIO = "";
+                  try { NUMERO_CELL_DO_USUARIO = Object.values(numero_telefone_usuario) } catch (e) { NUMERO_CELL_DO_USUARIO = ""; }
+
+                  //alert(index+"  #  "+numero_telefone +"  #  "+  id_da_postagem +"  #  "+  NUMERO_CELL_DO_USUARIO)
+                  //alert("FOI CLICADO NA IMAGEM e DEPOIS NÃO FUNCIONA A COMPRA DIRETA");
+                  VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE = produtos;   //PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE
+                  TELA_DE_ORIGEM_E_SITUACAO = "Tela_ProdDetalhes_visualizacao";
+
+                  if (VARIAVEL_GLOBAL.TELA_ATUAL == "Principal") {
+
+                    // alert("DA TELA PRINCIPAL")
 
                     VARIAVEL_GLOBAL.TELA_ATUAL = "ProdDetalhes";
-                    VARIAVEL_GLOBAL.TELA_ORIGEM = "ComprasVendas";
-                    VARIAVEL_GLOBAL.TELA_TERCEIRA = "MenuDaTelaPrincipal";
+                    VARIAVEL_GLOBAL.TELA_ORIGEM = "Principal";
+                    VARIAVEL_GLOBAL.TELA_TERCEIRA = "nenhum";
 
 
-                  }
+                  } else
+
+                    if (VARIAVEL_GLOBAL.TELA_ATUAL == "ComprasVendas") {
+
+                      // alert("DA TELA COMRA E VENDA")
+
+                      VARIAVEL_GLOBAL.TELA_ATUAL = "ProdDetalhes";
+                      VARIAVEL_GLOBAL.TELA_ORIGEM = "ComprasVendas";
+                      VARIAVEL_GLOBAL.TELA_TERCEIRA = "MenuDaTelaPrincipal";
 
 
-                navigation.navigate("ProdDetalhes", { produtos, INDICE_PRINCIPAL_JSON, DISTANCIA, NUMERO_CELL_DO_USUARIO, TELA_DE_ORIGEM_E_SITUACAO });
-                /* */
-
-                //AUDITING
-                //alert( URL_ENVIADA );
-                //console.log(URL_ENVIADA);
-                //alert( ARRAY_PRIMEIRAS_URL_IMAGENS_RECEBIDO[index] );
-                //console.log( ARRAY_PRIMEIRAS_URL_IMAGENS_RECEBIDO[index] );
-
-              }}
-
-              //EXECUTANDO JAVASCRIPT DENTRO DE QUALQUER LUGAR DOS COMPONENTES ABAIXO  ARRAY_PRIMEIRAS_URL_IMAGENS_RECEBIDO
-              {...(() => {
-                var valor = "";
-                try { valor = ARRAY_QUE_VAI_MOSTRAR_AS_MINIATURAS[index] } catch (error) { URL_IMAGEM = ""; }
-                if (valor === undefined) { valor = "" }
-                //alert(valor);
-                if (valor.includes(".JPEG") || valor.includes(".png")) {
-                  //setContainer_foto_video(true);
-                  container_foto_video = true;
-                  //alert("IMAGEM");
-                } else {
-                  //setContainer_foto_video(false);  
-                  container_foto_video = false;
-                  //alert("VIDEO");
-                }//IF
+                    }
 
 
-              })()}
-            ///EXECUTANDO JAVASCRIPT DENTRO DE QUALQUER LUGAR DOS COMPONENTES ACIMA  
-            /**/
+                  navigation.navigate("ProdDetalhes", { produtos, INDICE_PRINCIPAL_JSON, DISTANCIA, NUMERO_CELL_DO_USUARIO, TELA_DE_ORIGEM_E_SITUACAO });
+                  /* */
 
-            >
+                  //AUDITING
+                  //alert( URL_ENVIADA );
+                  //console.log(URL_ENVIADA);
+                  //alert( ARRAY_PRIMEIRAS_URL_IMAGENS_RECEBIDO[index] );
+                  //console.log( ARRAY_PRIMEIRAS_URL_IMAGENS_RECEBIDO[index] );
+
+                }}
+
+                //EXECUTANDO JAVASCRIPT DENTRO DE QUALQUER LUGAR DOS COMPONENTES ABAIXO  ARRAY_PRIMEIRAS_URL_IMAGENS_RECEBIDO
+                {...(() => {
+                  var valor = "";
+                  try { valor = ARRAY_QUE_VAI_MOSTRAR_AS_MINIATURAS[index] } catch (error) { URL_IMAGEM = ""; }
+                  if (valor === undefined) { valor = "" }
+                  //alert(valor);
+                  if (valor.includes(".JPEG") || valor.includes(".png")) {
+                    //setContainer_foto_video(true);
+                    container_foto_video = true;
+                    //alert("IMAGEM");
+                  } else {
+                    //setContainer_foto_video(false);  
+                    container_foto_video = false;
+                    //alert("VIDEO");
+                  }//IF
 
 
-              {
-                /* ATIVAR DEPOIS PORQUE ESTÁ FUNCIONANDO ABAIXO */ //  source={{ uri: ARRAY_PRIMEIRAS_URL_IMAGENS_RECEBIDO[index] }}
-                container_foto_video ?
-                  <Image
-                    key={index}
-                    style={{ width: '99%', height: '99%', borderRadius: 10, resizeMode: 'cover' }}
-                    source={{ uri: ARRAY_PRIMEIRAS_URL_IMAGENS_RECEBIDO[index] }}
+                })()}
+              ///EXECUTANDO JAVASCRIPT DENTRO DE QUALQUER LUGAR DOS COMPONENTES ACIMA  
+              /**/
 
-                    TELA_DE_ORIGEM_E_SITUACA={TELA_DE_ORIGEM_E_SITUACAO}
-
-                  />
-                  :
-                  <Video key={index}
-                    style={{ width: '100%', height: '100%', borderRadius: 10 }}
-                    source={{ uri: ARRAY_PRIMEIRAS_URL_VIDEOS_RECEBIDO[index] }}
-                  />
-                /* ATIVAR DEPOIS PORQUE ESTÁ FUNCIONANDO ACIMA */
-              }
+              >
 
 
+                {
+                  /* ATIVAR DEPOIS PORQUE ESTÁ FUNCIONANDO ABAIXO */ //  source={{ uri: ARRAY_PRIMEIRAS_URL_IMAGENS_RECEBIDO[index] }}
+                  container_foto_video ?
+                    <Image
+                      key={index}
+                      // style={{ width: '99%', height: '99%', borderRadius: 10, resizeMode: 'cover' }}
+                      style={{ width: AVATAR_GADO_SIZE, height: AVATAR_GADO_SIZE, borderRadius: 10, resizeMode: 'cover' }}
+                      source={{ uri: ARRAY_PRIMEIRAS_URL_IMAGENS_RECEBIDO[index] }}
+
+                      TELA_DE_ORIGEM_E_SITUACA={TELA_DE_ORIGEM_E_SITUACAO}
+
+                    />
+                    :
+                    <Video key={index}
+                      style={{ width: '100%', height: '100%', borderRadius: 10 }}
+                      source={{ uri: ARRAY_PRIMEIRAS_URL_VIDEOS_RECEBIDO[index] }}
+                    />
+                  /* ATIVAR DEPOIS PORQUE ESTÁ FUNCIONANDO ACIMA */
+                }
 
 
-              {/* DESATIVAR DEPOIS ABAIXO     
+
+
+                {/* DESATIVAR DEPOIS ABAIXO     
 <Image key={index + Math.random() * (10000 - 100) + 100}   //Image   Video
 style={{ width: '100%', height: '100%', borderRadius:10}}
 source={{ uri: ARRAY_QUE_VAI_MOSTRAR_AS_MINIATURAS[index] }}  //REF 5483
 />
 DESATIVAR DEPOIS ACIMA */
-              }
-
-
-
-
-
-            </TouchableOpacity>
-            {/* ARRAY_PRIMEIRAS_URL_IMAGENS_RECEBIDO */}
-          </View>
-
-
-          <View style={[Estilo.borda_geral, style = { width: '60%', padding: 5, height: 120, borderWidth: 1, borderColor: 'red' }, Estilo.borda_geral]}>
-
-
-            <View style={[Estilo.borda_geral, style = { height: 28, flexDirection: 'row', width: '100%' }]} >
-
-              <View style={[Estilo.borda_geral, style = { height: 28, width: '70%' }]} >
-                {/* <Text style={[Estilo.fontePequena_produto_titulos, style = { borderWidth: 0 }]} >Avista</Text> */}
-                <Text style={[Estilo.fontePequena_produto_titulos, style = { borderWidth: 0 }]} >Preços</Text>
-              </View>
-
-              <TouchableOpacity style={[Estilo.borda_geral, Estilo.pra_esquerda, Estilo.pra_cima, style = { width: '15%' }]} >
-
-                {VERIFICA_SE_A_POSTAGEM_E_DO_PROPRIO_USUARIO(index) ?
-                  // {compra_venda_cancelar ?
-
-                  <Icon
-                    name={
-                      muda_cor_comprar ? 'shopping-cart' : 'shopping-cart'
-                    }
-                    style={[Estilo.icones_medio_cinza, Estilo.pra_cima]}
-
-                    onPress={(e) => {
-
-
-                      if (VARIAVEL_GLOBAL.LICENCA_USO === "liberado" || VARIAVEL_GLOBAL.TELEFONE === "SEM_TELEFONE_USUARIO") {
-
-
-                        //funcaoClickBotao('Mostrar Esse Texto');
-                        //setMuda_cor_comprar(oldState => !oldState)
-                        // var numero_telefone = produtos.numero_telefone_J; trocado pela linha de baixo
-                        var numero_telefone = produtos.numero_telefone_J;
-                        // var id_da_postagem = produtos.id_J; trocado pela linha de baixo
-                        var id_da_postagem = produtos.id_J;
-                        var numero_telefone_comprador = numero_telefone_usuario;
-                        VARIAVEL_GLOBAL.TELA_ORIGEM = "TelaPrincipal";
-                        VARIAVEL_GLOBAL.FAZER_PROPOSTA = "Fazer";
-                        //alert(index+"  #  "+numero_telefone +"  #  "+  id_da_postagem +"  #  "+  numero_telefone_comprador)
-                        navigation.navigate("EnvioPropostasCompras", { index, numero_telefone, id_da_postagem, numero_telefone_comprador });
-
-
-                      } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
-
-                        param.remoto_setLicencaExpiradaFalseOrTrue(true);
-
-                      }
-
-
-                    }}
-                  />
-
-                  :
-                  <Icon name='trash-o'
-                    style={[Estilo.icones_medio_vermelho, Estilo.pra_cima]}
-
-                    onPress={() => {
-
-                      if (VARIAVEL_GLOBAL.LICENCA_USO === "liberado" || VARIAVEL_GLOBAL.TELEFONE === "SEM_TELEFONE_USUARIO") {
-                      //alert(DESCRICAO_ARRAY);
-                      //alert ( JSON.stringify( produtos )  );
-                      /* */
-                      //alert("Deseja Cancelar esta "+compra_ou_venda);
-                      ////////////////////////////////////////////////////////////////////////////////////////////////////
-                      ////////////////////////////////////////////////////////////////////////////////////////////////////
-                      var CELULAR_COMPRADOR_OU_VENDEDOR = produtos.numero_telefone_J;
-                      var ID_DA_POSTAGEM = produtos.id_J;
-                      var USUARIO_DO_TELEFONE = numero_telefone_usuario;
-
-                      //const twoOptionAlertHandler = () => {
-                      Alert.alert(
-                        //title
-                        'Atenção !',
-                        //body
-                        //'I am two option alert. Do you want to cancel me ?',
-                        'Deseja Cancelar esta ' + compra_ou_venda + ' !',
-                        [
-                          {
-                            text: 'Sim',
-                            onPress: () => {//console.log('Yes Pressed'), alert("Você Cancelou  "),
-                              //atualizar_json(produtos, index, DESCRICAO_ARRAY, DISTANCIA_ARRAY)
-
-
-
-                              // if(deletar_postagem == false){
-
-                              alernarTrueFalse2(index),
-                                CANCELAR_VENDA_OU_COMPRA(IP_DO_SERVIDOR, compra_ou_venda, CELULAR_COMPRADOR_OU_VENDEDOR, ID_DA_POSTAGEM, USUARIO_DO_TELEFONE)
-
-                              // }else if(deletar_postagem == true){    }     
-
-
-                            }
-                          },
-                          {
-                            text: 'Não',
-                            onPress: () => console.log('No Pressed'),
-                            style: 'cancel'
-                          },
-                        ],
-                        { cancelable: false },
-                        //clicking out side of alert will not cancel
-                      );
-                      //};
-                      ///////////////////////////////////////////////////////////////////////////////////////////////////
-                      ///////////////////////////////////////////////////////////////////////////////////////////////////
-
-                    } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
-
-                      param.remoto_setLicencaExpiradaFalseOrTrue(true);
-
-                    }
-
-
-                    }}
-                  />
                 }
 
 
 
 
 
-
-                {/*******/}
               </TouchableOpacity>
-
-              <TouchableOpacity style={[Estilo.borda_geral, Estilo.pra_direita, Estilo.pra_cima, style = { width: '15%', borderColor: 'red', borderWidth: 0 }]} >
-
-                <Icon name='share-alt' style={[Estilo.icones_medio_cinza, style = { color: estado_array[index] ? "#BEBEBE" : "#696969" }]}
-                  onPress={() => {
-
-                    //alernarTrueFalse(index);
-
-                    let IMAGEM = ARRAY_PRIMEIRAS_URL_IMAGENS_RECEBIDO[index];
-                    let VIDEO = ARRAY_PRIMEIRAS_URL_VIDEOS_RECEBIDO[index];
-
-                    if (IMAGEM != "") {
-
-                      alert(IMAGEM);
-                      //alert("IMAGEM ESTE LINK");
-
-                    }//IF
-
-                    if (VIDEO != "") {
-
-                      alert(VIDEO);
-                      //alert("VIDEO ESTE LINK");
-
-                    }//IF
+              {/* ARRAY_PRIMEIRAS_URL_IMAGENS_RECEBIDO */}
+            </View>
 
 
+            <View style={[Estilo.borda_geral, style = { width: '60%', padding: 5, height: 120, borderWidth: 1, borderColor: 'red' }, Estilo.borda_geral]}>
+
+
+              <View style={[Estilo.borda_geral, style = { height: 28, flexDirection: 'row', width: '100%' }]} >
+
+                <View style={[Estilo.borda_geral, style = { height: 28, width: '70%' }]} >
+                  {/* <Text style={[Estilo.fontePequena_produto_titulos, style = { borderWidth: 0 }]} >Avista</Text> */}
+                  <Text style={[Estilo.fontePequena_produto_titulos, style = { borderWidth: 0 }]} >Preços</Text>
+                </View>
+
+                <TouchableOpacity style={[Estilo.borda_geral, Estilo.pra_esquerda, Estilo.pra_cima, style = { width: '15%' }]} >
+
+                  {VERIFICA_SE_A_POSTAGEM_E_DO_PROPRIO_USUARIO(index) ?
+                    // {compra_venda_cancelar ?
+
+                    <Icon
+                      name={
+                        muda_cor_comprar ? 'shopping-cart' : 'shopping-cart'
+                      }
+                      style={[Estilo.icones_medio_cinza, Estilo.pra_cima]}
+
+                      onPress={(e) => {
+
+
+                        if (VARIAVEL_GLOBAL.LICENCA_USO === "liberado" || VARIAVEL_GLOBAL.TELEFONE === "SEM_TELEFONE_USUARIO") {
+
+
+                          //funcaoClickBotao('Mostrar Esse Texto');
+                          //setMuda_cor_comprar(oldState => !oldState)
+                          // var numero_telefone = produtos.numero_telefone_J; trocado pela linha de baixo
+                          var numero_telefone = produtos.numero_telefone_J;
+                          // var id_da_postagem = produtos.id_J; trocado pela linha de baixo
+                          var id_da_postagem = produtos.id_J;
+                          var numero_telefone_comprador = numero_telefone_usuario;
+                          VARIAVEL_GLOBAL.TELA_ORIGEM = "TelaPrincipal";
+                          VARIAVEL_GLOBAL.FAZER_PROPOSTA = "Fazer";
+                          //alert(index+"  #  "+numero_telefone +"  #  "+  id_da_postagem +"  #  "+  numero_telefone_comprador)
+                          navigation.navigate("EnvioPropostasCompras", { index, numero_telefone, id_da_postagem, numero_telefone_comprador });
+
+
+                        } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
+
+                          param.remoto_setLicencaExpiradaFalseOrTrue(true);
+
+                        }
+
+
+                      }}
+                    />
+
+                    :
+                    <Icon name='trash-o'
+                      style={[Estilo.icones_medio_vermelho, Estilo.pra_cima]}
+
+                      onPress={() => {
+
+                        if (VARIAVEL_GLOBAL.LICENCA_USO === "liberado" || VARIAVEL_GLOBAL.TELEFONE === "SEM_TELEFONE_USUARIO") {
+                          //alert(DESCRICAO_ARRAY);
+                          //alert ( JSON.stringify( produtos )  );
+                          /* */
+                          //alert("Deseja Cancelar esta "+compra_ou_venda);
+                          ////////////////////////////////////////////////////////////////////////////////////////////////////
+                          ////////////////////////////////////////////////////////////////////////////////////////////////////
+                          var CELULAR_COMPRADOR_OU_VENDEDOR = produtos.numero_telefone_J;
+                          var ID_DA_POSTAGEM = produtos.id_J;
+                          var USUARIO_DO_TELEFONE = numero_telefone_usuario;
+
+                          //const twoOptionAlertHandler = () => {
+                          Alert.alert(
+                            //title
+                            'Atenção !',
+                            //body
+                            //'I am two option alert. Do you want to cancel me ?',
+                            'Deseja Cancelar esta ' + compra_ou_venda + ' !',
+                            [
+                              {
+                                text: 'Sim',
+                                onPress: () => {//console.log('Yes Pressed'), alert("Você Cancelou  "),
+                                  //atualizar_json(produtos, index, DESCRICAO_ARRAY, DISTANCIA_ARRAY)
 
 
 
+                                  // if(deletar_postagem == false){
+
+                                  alernarTrueFalse2(index),
+                                    CANCELAR_VENDA_OU_COMPRA(IP_DO_SERVIDOR, compra_ou_venda, CELULAR_COMPRADOR_OU_VENDEDOR, ID_DA_POSTAGEM, USUARIO_DO_TELEFONE)
+
+                                  // }else if(deletar_postagem == true){    }     
+
+
+                                }
+                              },
+                              {
+                                text: 'Não',
+                                onPress: () => console.log('No Pressed'),
+                                style: 'cancel'
+                              },
+                            ],
+                            { cancelable: false },
+                            //clicking out side of alert will not cancel
+                          );
+                          //};
+                          ///////////////////////////////////////////////////////////////////////////////////////////////////
+                          ///////////////////////////////////////////////////////////////////////////////////////////////////
+
+                        } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
+
+                          param.remoto_setLicencaExpiradaFalseOrTrue(true);
+
+                        }
+
+
+                      }}
+                    />
                   }
-                  } />
 
 
-              </TouchableOpacity>
-
-            </View>
-
-            <View style={{ borderWidth: 0 }}>
-              <Text style={[Estilo.fontePequena_produto]} >{produtos.precoSugerido_J} / UNIDADE </Text>
-            </View>
-
-            <View style={{ flexDirection: 'row', borderWidth: 0 }}>
-
-              <View style={{ flexDirection: 'row', width: '35%', borderWidth: 0 }} >
-                <Text style={[style = { color: 'black' }]}  >Quant: </Text>
-                <Text style={[Estilo.fontePequena_produto]}  >{produtos.quantidadeCabecasOuPesos_J}</Text>
-              </View>
-
-              <View style={{ flexDirection: 'row', width: '65%', borderWidth: 0, paddingLeft: '3%' }} >
-                <Text style={[style = { color: 'black' }]}  >Total</Text>
-                <Text style={[Estilo.fontePequena_produto]}  >{QUANTIDADES_VEZES_PRECOS(produtos.quantidadeCabecasOuPesos_J, produtos.precoSugerido_J)}</Text>
-              </View>
-
-            </View>
-
-            <View style={{ borderWidth: 0 }}>
-              <Text style={[Estilo.fontePequena_produto_titulos]} >Descrição</Text>
-            </View>
-
-            <View style={{ borderWidth: 0 }}>
-
-              {/* <Text style={[Estilo.fontePequena_produto]} >{DESCRICAO_ARRAY[index]}</Text>  */}
-              <Text style={[Estilo.fontePequena_produto]} >{COLOCAR_TRES_PONTOS_EM_TEXTO_GRANDE(index)}</Text>
-              {/* {<Text style={[Estilo.fontePequena_produto]} >{produtos.descricoesGerais_J}</Text>} */}
-
-            </View>
 
 
-            {/* Encapamento de View Abaixo */}
-            <View style={{ flexDirection: 'row', width: '100%', borderWidth: 0, borderColor: 'orange' }}>
 
-              <View style={[Estilo.centralizar_horizontalmente, style = { flexDirection: 'row', width: '15%', borderWidth: 0, borderColor: 'orange' }]} >
-                <Icon name='map-marker' style={[Estilo.fontePequena_produto, style = { borderWidth: 0 }]} />
-              </View>
 
-              <View style={{ flexDirection: 'row', width: '85%', borderWidth: 0, borderColor: 'orange' }}>
-                <Text style={[Estilo.fontePequena_produto_titulos]} >{DISTANCIA_ARRAY[index]} KM</Text>
+                  {/*******/}
+                </TouchableOpacity>
+
+                <TouchableOpacity style={[Estilo.borda_geral, Estilo.pra_direita, Estilo.pra_cima, style = { width: '15%', borderColor: 'red', borderWidth: 0 }]} >
+
+                  <Icon name='share-alt' style={[Estilo.icones_medio_cinza, style = { color: estado_array[index] ? "#BEBEBE" : "#696969" }]}
+                    onPress={() => {
+
+                      //alernarTrueFalse(index);
+
+                      let IMAGEM = ARRAY_PRIMEIRAS_URL_IMAGENS_RECEBIDO[index];
+                      let VIDEO = ARRAY_PRIMEIRAS_URL_VIDEOS_RECEBIDO[index];
+
+                      if (IMAGEM != "") {
+
+                        alert(IMAGEM);
+                        //alert("IMAGEM ESTE LINK");
+
+                      }//IF
+
+                      if (VIDEO != "") {
+
+                        alert(VIDEO);
+                        //alert("VIDEO ESTE LINK");
+
+                      }//IF
+
+
+
+
+
+                    }
+                    } />
+
+
+                </TouchableOpacity>
 
               </View>
 
+              <View style={{ borderWidth: 0 }}>
+                <Text style={[Estilo.fontePequena_produto]} >{produtos.precoSugerido_J} / UNIDADE </Text>
+              </View>
+
+              <View style={{ flexDirection: 'row', borderWidth: 0 }}>
+
+                <View style={{ flexDirection: 'row', width: '35%', borderWidth: 0 }} >
+                  <Text style={[style = { color: 'black' }]}  >Quant: </Text>
+                  <Text style={[Estilo.fontePequena_produto]}  >{produtos.quantidadeCabecasOuPesos_J}</Text>
+                </View>
+
+                <View style={{ flexDirection: 'row', width: '65%', borderWidth: 0, paddingLeft: '3%' }} >
+                  <Text style={[style = { color: 'black' }]}  >Total</Text>
+                  <Text style={[Estilo.fontePequena_produto]}  >{QUANTIDADES_VEZES_PRECOS(produtos.quantidadeCabecasOuPesos_J, produtos.precoSugerido_J)}</Text>
+                </View>
+
+              </View>
+
+              <View style={{ borderWidth: 0 }}>
+                <Text style={[Estilo.fontePequena_produto_titulos]} >Descrição</Text>
+              </View>
+
+              <View style={{ borderWidth: 0 }}>
+
+                {/* <Text style={[Estilo.fontePequena_produto]} >{DESCRICAO_ARRAY[index]}</Text>  */}
+                <Text style={[Estilo.fontePequena_produto]} >{COLOCAR_TRES_PONTOS_EM_TEXTO_GRANDE(index)}</Text>
+                {/* {<Text style={[Estilo.fontePequena_produto]} >{produtos.descricoesGerais_J}</Text>} */}
+
+              </View>
+
+
+              {/* Encapamento de View Abaixo */}
+              <View style={{ flexDirection: 'row', width: '100%', borderWidth: 0, borderColor: 'orange' }}>
+
+                <View style={[Estilo.centralizar_horizontalmente, style = { flexDirection: 'row', width: '15%', borderWidth: 0, borderColor: 'orange' }]} >
+                  <Icon name='map-marker' style={[Estilo.fontePequena_produto, style = { borderWidth: 0 }]} />
+                </View>
+
+                <View style={{ flexDirection: 'row', width: '85%', borderWidth: 0, borderColor: 'orange' }}>
+                  <Text style={[Estilo.fontePequena_produto_titulos]} >{DISTANCIA_ARRAY[index]} KM</Text>
+
+                </View>
+
+              </View>
+              {/* Encapamento de View Acima  {produtos.LATITUDE_J} */}
+
             </View>
-            {/* Encapamento de View Acima  {produtos.LATITUDE_J} */}
 
-          </View>
+          </Animated.View>
 
-        </View>
 
-      )}
+        )
+        
 
-    </>
-    /**********************************************************************************/
-    /**********************************************************************************/
+      // } </>
+      /**********************************************************************************/
+      /**********************************************************************************/
 
-  );
+    )
+  };
   //TODOS OS RENDERS DA ETIQUETA DOS PRODUTOS FEITO AQUI ACIMA
 
 
 
-
+  const scrollY = React.useRef(new Animated.Value(0)).current;
 
 
 
@@ -895,7 +936,20 @@ DESATIVAR DEPOIS ACIMA */
 
       {/*PAINEL DOS PRODUTOS INSERIDO AUTOMATICO ACIMA usando FLATLIST ABAIXO*/}
 
-      <FlatList style={{ flex: 1 }}
+      {/* <Image source={{ url: 'https://endrazine.com/images/filecry-thumbnail3.jpeg' }}
+        style={{ height: 'auto', width: '100%' }}
+      /> */}
+
+      <Animated.FlatList style={{ flex: 1, 
+           paddingTop:SPACING,
+          
+          }}
+
+        onScroll={Animated.event(
+          [{ nativeEvent: { contentOffset: { y: scrollY } } }],
+          { useNativeDriver: false }
+        )}
+
         // horizontal
         // data={DATA}
         data={produtosss}
