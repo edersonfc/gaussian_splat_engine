@@ -668,7 +668,7 @@ export default function ProdutosEtiquetas(param) {
                     <Image
                       key={index}
                       // style={{ width: '99%', height: '99%', borderRadius: 10, resizeMode: 'cover' }}
-                      style={{ width: AVATAR_GADO_SIZE, height: AVATAR_GADO_SIZE, borderRadius: 10, resizeMode: 'cover' }}
+                      style={{ width: '99%', height: AVATAR_GADO_SIZE, borderRadius: 10, resizeMode: 'cover' }}
                       source={{ uri: ARRAY_PRIMEIRAS_URL_IMAGENS_RECEBIDO[index] }}
 
                       TELA_DE_ORIGEM_E_SITUACA={TELA_DE_ORIGEM_E_SITUACAO}
@@ -947,7 +947,7 @@ DESATIVAR DEPOIS ACIMA */
 
         onScroll={Animated.event(
           [{ nativeEvent: { contentOffset: { y: scrollY } } }],
-          { useNativeDriver: false }
+          { useNativeDriver: true }
         )}
 
         // horizontal

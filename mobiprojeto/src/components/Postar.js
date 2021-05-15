@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, useMemo, useContext } from 'react'
-import { View, Text, SafeAreaView, Alert, Image, TouchableOpacity, StyleSheet, ScrollView, Button, TouchableHighlight, CheckBox, PermissionsAndroid } from 'react-native'
+import { View, Text, SafeAreaView, Alert, Image, TouchableOpacity, StyleSheet, ScrollView, Button, TouchableHighlight, CheckBox, PermissionsAndroid, Dimensions, Animated   } from 'react-native'
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -572,11 +572,64 @@ export default function Postar(props) {
 
 
 
+//COLOCANDO EFEITOS DE ANIMAÇÃO ABAIXO
+
+
+
+    // //UseState do Amimated
+    // const [largura, setLargura] = useState(new Animated.Value(0));
+    // const [altura, setAltura] = useState(new Animated.Value(0));
+
+
+    // var Largura_total_da_tela = Math.round(Dimensions.get('window').width);
+    // var largura_cem_porcento = ((Largura_total_da_tela * 100) / 100);
+    // // console.log(largura_sesenta_e_sete_porcento);
+
+
+    // var Altura__total_da_tela = Math.round(Dimensions.get('window').height);
+    // var altura_cem_porcento = ((Altura__total_da_tela * 100) / 100);
+
+
+    // useEffect(() => {
+
+    // Animated.sequence([
+
+    //     Animated.timing(
+    //         largura,
+    //         {
+    //             toValue: largura_cem_porcento,
+    //             duration: 1000,
+    //             useNativeDriver: false
+    //         }
+    //     ),
+    //     Animated.timing(
+    //         altura,
+    //         {
+    //             toValue: altura_cem_porcento,
+    //             duration: 300,
+    //             useNativeDriver: false
+    //         }
+    //     )
+
+    // ]).start();
+
+
+// }, []);
+
+//COLOCANDO EFEITOS DE ANIMAÇÃO ACIMA
+
+
+
+
     return (
 
 
 
-        <SafeAreaView style={[Estilo.App]}>
+        <SafeAreaView style={[Estilo.App ]}    >
+        
+
+        
+     
             {/*<SafeAreaView >*/}
 
 
@@ -589,6 +642,7 @@ export default function Postar(props) {
             />
             {/* MUDANDO A ORIENTAÇÃO DA TELA PRA PAISAGEM ACIMA colocar dentro da View principal que fica dentro do return  */}
 
+            {/* <Animated.View style={{ width:largura, height:altura_cem_porcento }} > */}
 
             {/* <ScrollView style={{ flex: 1, width: '100%', height:'100%' }} >    */}
 
@@ -1485,13 +1539,15 @@ export default function Postar(props) {
 
                 </View>
             )}
+
+            
             {/*CAIXA DO  NUMERO DO CELULAR ACIMA */}
 
 
 
+            {/* </Animated.View> */}
 
-
-        </SafeAreaView   >
+        </SafeAreaView>
     )
 
 

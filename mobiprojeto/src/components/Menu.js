@@ -1,5 +1,5 @@
 import React, { useRef, useState, useContext } from 'react'
-import { View, Text, SafeAreaView, TouchableOpacity, Alert } from 'react-native'
+import { View, Text, SafeAreaView, TouchableOpacity, Animated, Dimensions, Alert } from 'react-native'
 
 import Estilo from './estilo'
 
@@ -54,7 +54,58 @@ export default function Menu(param) {
 
     const [muda_cor_compartulhar, setMuda_cor_compartulhar] = useState(false)
 
+
+    //UseState do Amimated
+    const [largura, setLargura] = useState(new Animated.Value(0));
+
     ////DECLARAÇÃO DE STATES ACIMA
+
+
+
+
+
+
+    var Largura_total_da_tela = Math.round(Dimensions.get('window').width);
+    var largura_sesenta_e_sete_porcento = ((Largura_total_da_tela * 67) / 100);
+    // console.log(largura_sesenta_e_sete_porcento);
+
+
+    var Altura__total_da_tela = Math.round(Dimensions.get('window').height);
+    const [ altura, setAltura] = useState(new Animated.Value(30));
+
+    Animated.timing(
+        largura,
+        {
+            toValue:largura_sesenta_e_sete_porcento,
+            duration: 900,
+            useNativeDriver: false 
+        }
+    ).start();
+
+
+    // Animated.sequence([
+
+    //     Animated.timing(
+    //         largura,
+    //         {
+    //             toValue: largura_sesenta_e_sete_porcento,
+    //             duration: 900,
+    //             useNativeDriver: false
+    //         }
+    //     ),
+    //     Animated.timing(
+    //         altura,
+    //         {
+    //             toValue: Altura__total_da_tela,
+    //             duration: 300,
+    //             useNativeDriver: false
+    //         }
+    //     )
+
+    // ]).start();
+
+
+
 
 
 
@@ -63,14 +114,14 @@ export default function Menu(param) {
 
         <View key={'MenuLateral'} style={{
             width: '100%', height: '150%',
-            backgroundColor: 'rgb(255,255,255,0)',
+            backgroundColor: 'rgb(255,255,255,0.5)',
             position: 'absolute',
             top: 50, bottom: 0, left: 0, right: 0,
 
         }}>
 
             {/* <View style={[ Estilo.menuPai ]}> */}
-            <View style={{ width: '67%', height: '100%', backgroundColor: '#2A3E4A', borderWidth: 0, borderColor: 'yellow', paddingLeft: 10, }} >
+            <Animated.View style={{ width: largura /*'67%'*/, height: Altura__total_da_tela /*'100%'*/, backgroundColor: '#2A3E4A', borderWidth: 0, borderColor: 'yellow', paddingLeft: 10, }} >
                 <><Text style={[Estilo.fontePequena]}>MENU GERAL</Text></>
                 <View>
 
@@ -88,7 +139,7 @@ export default function Menu(param) {
 
                         onPress={() => {
 
-                            param.remoto_PROPOSTAS_RECEBIDAS_RECENTES(true,"menuLateral");
+                            param.remoto_PROPOSTAS_RECEBIDAS_RECENTES(true, "menuLateral");
                             //alert("CLICADO EM MINHAS POSTAGENS");
                         }}
 
@@ -182,14 +233,14 @@ export default function Menu(param) {
                     </View>
 
                     {/**************************************************/}
-                    <TouchableOpacity style={{ flexDirection: 'row', width: '100%' }} 
-                    
-                    onPress={() =>{
+                    <TouchableOpacity style={{ flexDirection: 'row', width: '100%' }}
 
-                    param.remote_FILTRAR_MEUS_FAVORITOS();
+                        onPress={() => {
 
-                    }}
-                    
+                            param.remote_FILTRAR_MEUS_FAVORITOS();
+
+                        }}
+
                     >
 
                         {muda_cor
@@ -467,7 +518,7 @@ export default function Menu(param) {
 
                 </View>
 
-            </View>
+            </Animated.View>
 
         </View>
 

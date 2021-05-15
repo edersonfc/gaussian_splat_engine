@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback, useContext } from 'react'
-import { View, Text, SafeAreaView, Alert, TextInput, TouchableOpacity, TouchableHighlight } from 'react-native'
+import { View, Text, SafeAreaView, Alert, TextInput, TouchableOpacity, TouchableHighlight, Dimensions, Animated } from 'react-native'
 
 import Estilo from './estilo'
 
@@ -43,7 +43,7 @@ export default function FILTRO_PESQUISA_CATEGORIAS(props) {
     const { VARIAVEL_GLOBAL } = useContext(GlobalContext);
 
 
-const [ objetosCategoria, setobjetosCategoria ] = useState(categorias_Objetos);
+    const [objetosCategoria, setobjetosCategoria] = useState(categorias_Objetos);
 
 
     var [corMacho, setcorMacho] = useState(false);
@@ -125,27 +125,66 @@ const [ objetosCategoria, setobjetosCategoria ] = useState(categorias_Objetos);
 
 
 
-    // useEffect(() => {
 
-    //     alert("ESTA EXECUTANDO");
 
-    // }, [categorias_Objetos])
+    //UseState do Amimated
+    const [largura, setLargura] = useState(new Animated.Value(0));
+    const [altura, setAltura] = useState(new Animated.Value(0));
+
+
+    var Largura_total_da_tela = Math.round(Dimensions.get('window').width);
+    var largura_noventa_e_sete_porcento = ((Largura_total_da_tela * 97) / 100);
+    // console.log(largura_sesenta_e_sete_porcento);
+
+
+    var Altura__total_da_tela = Math.round(Dimensions.get('window').height);
+    var altura_oitenta_e_cinco_porcento = ((Altura__total_da_tela * 85) / 100);
+
+
+    useEffect(() => {
+
+    Animated.sequence([
+
+        Animated.timing(
+            largura,
+            {
+                toValue: largura_noventa_e_sete_porcento,
+                duration: 900,
+                useNativeDriver: false
+            }
+        ),
+        Animated.timing(
+            altura,
+            {
+                toValue: altura_oitenta_e_cinco_porcento,
+                duration: 300,
+                useNativeDriver: false
+            }
+        )
+
+    ]).start();
+
+
+}, []);
+
+
 
 
 
     return (
 
 
-        <View style={{ alignItems: 'center', justifyContent: 'center',  width: '100%', height: VARIAVEL_GLOBAL.ALTURA_DA_TELA, position: 'absolute', backgroundColor:'rgba(0,0,0,0.5)' }}>
+        <View style={{ alignItems: 'center', justifyContent: 'center', width: '100%', height: Altura__total_da_tela/*VARIAVEL_GLOBAL.ALTURA_DA_TELA*/, position: 'absolute', backgroundColor: 'rgba(0,0,0,0.5)' }}>
 
 
-            <View style={{
-                width: '97%',
-                height: '85%',
+            <Animated.View style={{
                 backgroundColor: '#2A3E4A',
                 borderRadius: 15,
                 borderColor: '#fff',
                 borderWidth: 1,
+                width: largura/*'97%'*/,
+                height: altura_oitenta_e_cinco_porcento/*'85%'*/,
+                position: 'absolute'
 
             }} >
 
@@ -182,7 +221,7 @@ const [ objetosCategoria, setobjetosCategoria ] = useState(categorias_Objetos);
                             onPress={useCallback(() => {
 
                                 // setcorMacho(oldState => !oldState); 
-                                setcorMacho(oldState => !oldState ? categorias_Objetos.Obj_Macho = "Machos" : categorias_Objetos.Obj_Macho = ""  );
+                                setcorMacho(oldState => !oldState ? categorias_Objetos.Obj_Macho = "Machos" : categorias_Objetos.Obj_Macho = "");
                                 // alert(categorias_Objetos.Obj_Macho);
 
                             }, [])}
@@ -396,39 +435,39 @@ const [ objetosCategoria, setobjetosCategoria ] = useState(categorias_Objetos);
                         onPress={() => {
 
                             var DADOS_DOS_FILTROS_FULLTEXT_SEARCH =
-                                            categorias_Objetos.Obj_Macho +" "+
-                                            categorias_Objetos.Obj_Femea +" "+
-                                            categorias_Objetos.Obj__0_12 +" "+
-                                            categorias_Objetos.Obj__12_24 +" "+
-                                            categorias_Objetos.Obj__24_36 +" "+
-                                            categorias_Objetos.Obj_Acima_36 +" "+
-                                            categorias_Objetos.Obj_Bezerros +" "+
-                                            categorias_Objetos.Obj_Garrotes +" "+
-                                            categorias_Objetos.Obj_Tourunos +" "+
-                                            categorias_Objetos.Obj_Bois +" "+
-                                            categorias_Objetos.Obj_BoisGordos +" "+
-                                            categorias_Objetos.Obj_Bezerras +" "+
-                                            categorias_Objetos.Obj_Novilhas +" "+
-                                            categorias_Objetos.Obj_VacasBoiadeiras +" "+
-                                            categorias_Objetos.Obj_Vacas +" "+
-                                            categorias_Objetos.Obj_VacasGordas +" "+
-                                            categorias_Objetos.Obj_VacasPrenhas +" "+
-                                            categorias_Objetos.Obj_VacasParidas;
-                  
+                                categorias_Objetos.Obj_Macho + " " +
+                                categorias_Objetos.Obj_Femea + " " +
+                                categorias_Objetos.Obj__0_12 + " " +
+                                categorias_Objetos.Obj__12_24 + " " +
+                                categorias_Objetos.Obj__24_36 + " " +
+                                categorias_Objetos.Obj_Acima_36 + " " +
+                                categorias_Objetos.Obj_Bezerros + " " +
+                                categorias_Objetos.Obj_Garrotes + " " +
+                                categorias_Objetos.Obj_Tourunos + " " +
+                                categorias_Objetos.Obj_Bois + " " +
+                                categorias_Objetos.Obj_BoisGordos + " " +
+                                categorias_Objetos.Obj_Bezerras + " " +
+                                categorias_Objetos.Obj_Novilhas + " " +
+                                categorias_Objetos.Obj_VacasBoiadeiras + " " +
+                                categorias_Objetos.Obj_Vacas + " " +
+                                categorias_Objetos.Obj_VacasGordas + " " +
+                                categorias_Objetos.Obj_VacasPrenhas + " " +
+                                categorias_Objetos.Obj_VacasParidas;
 
-                        if(VARIAVEL_GLOBAL.TELA_ATUAL == "Principal"){
 
-                            // alert("FILTRO NA TELA PRINCIPAL");
-                             props.PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH_REMOTO(DADOS_DOS_FILTROS_FULLTEXT_SEARCH);
-                                            
+                            if (VARIAVEL_GLOBAL.TELA_ATUAL == "Principal") {
 
-                        }else if(VARIAVEL_GLOBAL.TELA_ATUAL == "ComprasVendas"){
-                            // alert("FILTRO NA TELA COMPRA E VENDA");
-                              props.PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH_REMOTO_2(DADOS_DOS_FILTROS_FULLTEXT_SEARCH);
-                       
-                        }
+                                // alert("FILTRO NA TELA PRINCIPAL");
+                                props.PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH_REMOTO(DADOS_DOS_FILTROS_FULLTEXT_SEARCH);
 
-                         props.setExibeFiltroCategori(false);
+
+                            } else if (VARIAVEL_GLOBAL.TELA_ATUAL == "ComprasVendas") {
+                                // alert("FILTRO NA TELA COMPRA E VENDA");
+                                props.PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH_REMOTO_2(DADOS_DOS_FILTROS_FULLTEXT_SEARCH);
+
+                            }
+
+                            props.setExibeFiltroCategori(false);
 
 
                         }}
@@ -438,7 +477,7 @@ const [ objetosCategoria, setobjetosCategoria ] = useState(categorias_Objetos);
 
                 </View>
 
-            </View>
+            </Animated.View>
 
 
         </View>

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useContext } from 'react'
-import { View, Text, SafeAreaView, TouchableOpacity, Alert, TextInput, ScrollView, PermissionsAndroid, TouchableHighlight, Keyboard } from 'react-native'
+import { View, Text, SafeAreaView, TouchableOpacity, Alert, TextInput, ScrollView, PermissionsAndroid, TouchableHighlight, Keyboard, Dimensions, Animated } from 'react-native'
 
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -67,7 +67,7 @@ import TelaSplash from './components/TelaSplash';
 //VARIAVÉIS GLOBAIS ABAIXO
 
 
-var IP_DO_SERVIDOR    = "http://192.168.0.102:3000/";
+var IP_DO_SERVIDOR = "http://192.168.0.102:3000/";
 var IP_DO_SERVIDOR_IO = "http://192.168.0.102:3001/";
 
 // var IP_DO_SERVIDOR    = "http://192.168.56.1:3000/";
@@ -512,7 +512,7 @@ export default function AppTest() {
                   })
 
               }//IF
-              console.log("ESTÁ ON-LINE");
+              // console.log("ESTÁ ON-LINE");
               // BUSCAR_LICENCA_DE_USO();
               VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
 
@@ -523,7 +523,7 @@ export default function AppTest() {
               // Timeouts if the request takes
               // longer than 6 seconds
               // console.log(error.name === 'AbortError');
-              console.log("ESTÁ OFF-LINE");
+              // console.log("ESTÁ OFF-LINE");
               VARIAVEL_GLOBAL.CONEXAO_DO_APP = "OFF-LINE";
               VARIAVEL_GLOBAL.BUSCAR_LICENCA = false;
             }
@@ -743,7 +743,7 @@ export default function AppTest() {
       if (datos.length > 2) {
         setProdutosEtiquetasExibir(true);
       } else { setProdutosEtiquetasExibir(false); }
-      console.log("ESTADO => " + produtosEtiquetasExibir + "  " + datos.length);
+      // console.log("ESTADO => " + produtosEtiquetasExibir + "  " + datos.length);
 
 
     } catch (error) { /*  alert("#9514797 " + error);  */ }
@@ -2150,6 +2150,31 @@ export default function AppTest() {
   }, []);
 
 
+  var Largura_total_da_tela = Math.round(Dimensions.get('window').width);
+
+  var PORCENTAGEM_INTEIRO = 0;
+  var SETENTA_PORCENTO_LARGURA_TELA = 80;
+
+  const [largura_tela_notificacao, setLargura_tela_notificacao] = useState(new Animated.Value(0));
+
+  var SETENTA_PORCENTO_LARGURA_TELA = ((Largura_total_da_tela * 80) / 100);
+
+
+  useEffect(() => {
+
+    
+    Animated.timing(
+      largura_tela_notificacao,
+      {
+        toValue: SETENTA_PORCENTO_LARGURA_TELA,
+        duration: 500,
+        useNativeDriver: false
+      }
+    ).start();
+
+
+  }, [menu_aviso_visivel_or_invisivel,largura_tela_notificacao]);
+
 
 
 
@@ -2406,6 +2431,7 @@ export default function AppTest() {
                   setLabelOuPesquisar(false);
                   setFaixa_submenu_e_filtro(false);
                   // alert("PESQUISAR POSTAGENS DE GADO ");
+                  setLargura_tela_notificacao(new Animated.Value(0));
 
                 }}
               >
@@ -2434,6 +2460,7 @@ export default function AppTest() {
                   if (somatorio_notificacao_numero == 0) {
                     alert("Nenhuma Notificação !");
                   } else {
+                    setLargura_tela_notificacao(new Animated.Value(0));
                     setMenu_aviso_visivel_or_invisivel(true)
                   }//else if
 
@@ -2586,7 +2613,7 @@ export default function AppTest() {
 
             </View>
             :
-            <View style={{ width: '80%', alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0 }}>
+            <Animated.View style={{ alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0, width: largura_tela_notificacao /*'80%'*/ }}>
 
               {/* LABEL DA NOTIFICACÃO ABAIXO */}
               {labelOuPesquisar ?
@@ -2613,7 +2640,7 @@ export default function AppTest() {
                 </View>
               }{/*labelOuPesquisar*/}
 
-            </View>
+            </Animated.View>
 
           }
 
@@ -2775,7 +2802,10 @@ export default function AppTest() {
 
       {/*MENU DE AVISOS ABAIXO*/}
       {menu_aviso_visivel_or_invisivel && (
-        <View style={{ width: '70%', height: 'auto', position: 'absolute', top: 60, zIndex: 0, backgroundColor: 'pink', borderWidth: 5, borderColor: '#778187', borderRadius: 10 }} >
+        <Animated.View style={{
+          position: 'absolute', top: 60, zIndex: 0, backgroundColor: 'pink', borderWidth: 5, borderColor: '#778187', borderRadius: 10,
+          width: largura_tela_notificacao  /*'70%'*/, height: 'auto'
+        }} >
 
 
           <View style={{ flexDirection: "row", width: "100%", height: 60, backgroundColor: "#666", alignItems: "center", justifyContent: "center" }} >
@@ -2902,13 +2932,15 @@ export default function AppTest() {
 
 
 
-        </View>
+        </Animated.View>
       )}
       {/*MENU DE AVISOS ACIMA*/}
 
 
       {exibeFiltroCategoria && (<FILTRO_PESQUISA_CATEGORIA
         setExibeFiltroCategori={setExibeFiltroCategoria}
+       
+
         PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH_REMOTO={PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH}
       />)}
 
