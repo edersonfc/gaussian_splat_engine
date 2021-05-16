@@ -33,7 +33,7 @@ export default function MAPA() {
                 PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
             );
             if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-                console.log('permissão concedida');
+                // console.log('permissão concedida');
                 setHasLocationPermission(true);
             } else {
                 console.error('permissão negada');

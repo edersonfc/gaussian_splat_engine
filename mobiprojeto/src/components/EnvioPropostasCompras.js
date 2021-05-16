@@ -129,7 +129,7 @@ export default function EnvioPropostasCompras(props) {
             //CONTAINER_DA_FUNCAO = async function PESQUISAR_PROPOSTAS_INTERNA() {
             if (VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO == "Atualizar-Tela-Proposta") {
                 //alert("ESTA CHAMANDO");
-                console.log(VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO);
+                // console.log(VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO);
 
                 clearInterval(INTERVALO_PESQUISA_PROPOSTAS);//IBLOQUEAR O PROCESSO COM TIMER clearInterval
 
@@ -156,7 +156,7 @@ export default function EnvioPropostasCompras(props) {
                 setPropostas(propostasss);//ESTÁ CAUSANDO LOOP INFINITO
                 //.then( () => {
 
-                console.log("MOSTRAR PROPOSTA SOMENTE QUANDO SOLICITADO" + " 185#_NUMERO LINHA");
+                // console.log("MOSTRAR PROPOSTA SOMENTE QUANDO SOLICITADO" + " 185#_NUMERO LINHA");
                 VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "NENHUMA_NOTIFICACAO_AGORA";
                 //Desbloqueando o timer aqui com comando na linha abaixo
                 INTERVALO_PESQUISA_PROPOSTAS = setInterval(PESQUISAR_PROPOSTAS, 100);//INCIAR NOVAMENTE O PROCESSO COM TIMER setInterval

@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, useMemo, useContext } from 'react'
-import { View, Text, SafeAreaView, Alert, Image, TouchableOpacity, StyleSheet, ScrollView, Button, TouchableHighlight, CheckBox, PermissionsAndroid, Dimensions, Animated   } from 'react-native'
+import { View, Text, SafeAreaView, Alert, Image, TouchableOpacity, StyleSheet, ScrollView, Button, TouchableHighlight, CheckBox, PermissionsAndroid, Dimensions, Animated } from 'react-native'
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -186,10 +186,10 @@ export default function Postar(props) {
 
 
     //VARIAVEL DE DADOS ABAIXO  set
-    var [outrasErasAnterior, setOutrasErasAnterior] = useState("");
+    var [outrasErasAnterior, setOutrasErasAnterior] = useState(0);
     function outrasErasAnteriorF(outrasErasAnterior) { setOutrasErasAnterior(outrasErasAnterior); }
 
-    var [outrasErasPosterior, setOutrasErasPosterior] = useState("");
+    var [outrasErasPosterior, setOutrasErasPosterior] = useState(0);
     function outrasErasPosteriorF(outrasErasPosterior) { setOutrasErasPosterior(outrasErasPosterior); }
 
 
@@ -199,7 +199,7 @@ export default function Postar(props) {
 
 
 
-    var [precoSugerido, setPrecoSugerido] = useState("777,77");
+    var [precoSugerido, setPrecoSugerido] = useState("");
     function precoSugeridoF(precoSugerido) { setPrecoSugerido(precoSugerido); }
 
     var [quantidadeCabecasOuPesos, setQuantidadeCabecasOuPesos] = useState(0);
@@ -343,7 +343,7 @@ export default function Postar(props) {
                 PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
             );
             if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-                console.log('permissão concedida');
+                // console.log('permissão concedida');
                 setHasLocationPermission(true);
             } else {
                 console.error('permissão negada');
@@ -572,7 +572,7 @@ export default function Postar(props) {
 
 
 
-//COLOCANDO EFEITOS DE ANIMAÇÃO ABAIXO
+    //COLOCANDO EFEITOS DE ANIMAÇÃO ABAIXO
 
 
 
@@ -614,9 +614,9 @@ export default function Postar(props) {
     // ]).start();
 
 
-// }, []);
+    // }, []);
 
-//COLOCANDO EFEITOS DE ANIMAÇÃO ACIMA
+    //COLOCANDO EFEITOS DE ANIMAÇÃO ACIMA
 
 
 
@@ -625,11 +625,11 @@ export default function Postar(props) {
 
 
 
-        <SafeAreaView style={[Estilo.App ]}    >
-        
+        <SafeAreaView style={[Estilo.App]}    >
 
-        
-     
+
+
+
             {/*<SafeAreaView >*/}
 
 
@@ -987,9 +987,43 @@ export default function Postar(props) {
                         <View style={{ flexDirection: 'row', width: '100%', height: 40, paddingTop: 5, borderWidth: 0, borderColor: 'white' }}>
 
                             <View style={{ width: '5%' }} />
-                            <TextInput style={{ width: '40%', backgroundColor: 'white', borderRadius: 8 }} onChangeText={outrasErasAnteriorF} />
+                            <TextInputMask style={{ width: '40%', backgroundColor: 'white', borderRadius: 8, textAlign:'center' }} /*onChangeText={outrasErasAnteriorF}*/
+
+                                type={'only-numbers'}
+                                value={outrasErasAnterior}
+                                maxLength={18}
+                                onChangeText={value => {
+                                    outrasErasAnteriorF(value);
+                                    //value = value.replace('R$', '');
+                                    value = value.replace('.', '');
+                                    value = value.replace(',', '.');
+                                    outrasErasAnteriorF(Number(value));
+
+                                }}
+
+                            />
+
+
                             <Text style={{ borderWidth: 0, borderColor: 'blue', fontSize: 16, color: 'white', width: '10%', textAlign: 'center' }} > à  </Text>
-                            <TextInput style={{ width: '40%', backgroundColor: 'white', borderRadius: 8 }} onChangeText={outrasErasPosteriorF} />
+
+
+                            <TextInputMask style={{ width: '40%', backgroundColor: 'white', borderRadius: 8, textAlign:'center'  }} onChangeText={outrasErasPosteriorF}
+
+                                type={'only-numbers'}
+                                value={outrasErasPosterior}
+                                maxLength={18}
+                                onChangeText={value => {
+                                    outrasErasPosteriorF(value);
+                                    //value = value.replace('R$', '');
+                                    value = value.replace('.', '');
+                                    value = value.replace(',', '.');
+                                    outrasErasPosteriorF(Number(value));
+
+                                }}
+
+                            />
+
+
                             <View style={{ width: '5%' }} />
 
                         </View>
@@ -1165,8 +1199,8 @@ export default function Postar(props) {
                                     value={precoSugerido = precoSugerido.replace(/[R$]/g, '')}
                                     maxLength={18}
                                     onChangeText={value => {
-                                        // precoSugeridoF(value);
-                                        precoSugeridoF("777,77");
+                                        precoSugeridoF(value);
+                                        // precoSugeridoF("777,77");
                                     }}
                                 />
 
@@ -1253,13 +1287,13 @@ export default function Postar(props) {
                                         if ((TIPOS_DE_GADOS_MACHOS) !== "" || (TIPOS_DE_GADOS_FEMEAS) !== "") {
 
                                             if (
-                                                   MACHO !== "" && TIPOS_DE_GADOS_MACHOS !== "" && FEMEA !== "" && TIPOS_DE_GADOS_FEMEAS !== ""
+                                                MACHO !== "" && TIPOS_DE_GADOS_MACHOS !== "" && FEMEA !== "" && TIPOS_DE_GADOS_FEMEAS !== ""
                                                 || MACHO !== "" && TIPOS_DE_GADOS_MACHOS !== "" && FEMEA === "" && TIPOS_DE_GADOS_FEMEAS === ""
                                                 || MACHO === "" && TIPOS_DE_GADOS_MACHOS === "" && FEMEA !== "" && TIPOS_DE_GADOS_FEMEAS !== ""
 
                                             ) {
 
-                                               if (descricoesGerais != "") {
+                                                if (descricoesGerais != "") {
 
                                                     if (precoSugerido != "") {
 
@@ -1373,44 +1407,44 @@ export default function Postar(props) {
                             <TouchableHighlight style={{ width: '35%', height: 35, color: 'white', fontSize: 35, borderRadius: 25, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: 'white' }}
                                 onPress={async () => {
 
-                                    
+
                                     var regex = new RegExp(/\(\d{2}\)\s\d{5,5}-?\d{4}/g);//REGEX PARA TELEFONE CELULAR
                                     var VALIDAR_CELULAR = variavelTelefone.match(regex);
-    
+
                                     if (VALIDAR_CELULAR !== null) {
-                                    
-                                    
-                                    // var telefone = { NUMERO_CELL_J: variavelTelefone }
 
-                                    /*********************************************************************************************************************/
-                                    //alert( JSON.stringify( telefone.NUMERO_CELL_J ));
-                                    // telefone = JSON.stringify(telefone.NUMERO_CELL_J);
-                                    var retorno = await VERIFICAR_SE_CELULAR_JA_ESTA_CADASTRADO_NO_BANCO_DE_DADOS(variavelTelefone)
-                                    // //[{"numero_telefone_J":"(12) 34567-8901"}]
 
-                                    var DADO_RETORNO_STRING = JSON.stringify(retorno.data);
-                                    if (DADO_RETORNO_STRING != "[]" && VARIAVEL_GLOBAL.LIBERAR_GRAVACAO_TELEFONE_SEM_NUMERO == false) {
+                                        // var telefone = { NUMERO_CELL_J: variavelTelefone }
 
-                                        alert("Já Existe um Usuário Cadastrado com Esse numero ! ");
+                                        /*********************************************************************************************************************/
+                                        //alert( JSON.stringify( telefone.NUMERO_CELL_J ));
+                                        // telefone = JSON.stringify(telefone.NUMERO_CELL_J);
+                                        var retorno = await VERIFICAR_SE_CELULAR_JA_ESTA_CADASTRADO_NO_BANCO_DE_DADOS(variavelTelefone)
+                                        // //[{"numero_telefone_J":"(12) 34567-8901"}]
 
-                                    } else {
+                                        var DADO_RETORNO_STRING = JSON.stringify(retorno.data);
+                                        if (DADO_RETORNO_STRING != "[]" && VARIAVEL_GLOBAL.LIBERAR_GRAVACAO_TELEFONE_SEM_NUMERO == false) {
 
-                                        var telefone = { NUMERO_CELL_J: variavelTelefone }
-                                        await GRAVAR_NUMERO_DO_CELL(telefone, false);
-                                        await ARMAZENAR_POSTAGEM_PRIMEIRA_ETAPA();
-                                        setCaixaNumeroCelularVisivel(false);
-                                        VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
+                                            alert("Já Existe um Usuário Cadastrado com Esse numero ! ");
 
-                                    }//else INTERNO	
-                                    /*********************************************************************************************************************/
+                                        } else {
 
-                                    // var telefone = { NUMERO_CELL_J: variavelTelefone }
-                                    // GRAVAR_NUMERO_DO_CELL(telefone);
-                                    // setCaixaNumeroCelularVisivel(false);
-                                    // ARMAZENAR_POSTAGEM_PRIMEIRA_ETAPA();
-                                }else{  alert("Formato Inválido de Celular !"); }
+                                            var telefone = { NUMERO_CELL_J: variavelTelefone }
+                                            await GRAVAR_NUMERO_DO_CELL(telefone, false);
+                                            await ARMAZENAR_POSTAGEM_PRIMEIRA_ETAPA();
+                                            setCaixaNumeroCelularVisivel(false);
+                                            VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
 
-                                
+                                        }//else INTERNO	
+                                        /*********************************************************************************************************************/
+
+                                        // var telefone = { NUMERO_CELL_J: variavelTelefone }
+                                        // GRAVAR_NUMERO_DO_CELL(telefone);
+                                        // setCaixaNumeroCelularVisivel(false);
+                                        // ARMAZENAR_POSTAGEM_PRIMEIRA_ETAPA();
+                                    } else { alert("Formato Inválido de Celular !"); }
+
+
                                 }}
                             >
                                 <Text style={{ fontSize: 15, color: '#fff' }} >OK</Text>
@@ -1469,7 +1503,7 @@ export default function Postar(props) {
 
                                         <View style={{ width: '50%', justifyContent: 'center' }} >
                                             <TouchableHighlight style={{ width: '100%', height: 35, borderRadius: 25, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: 'white' }}
-                                                onPress={ async () => {
+                                                onPress={async () => {
                                                     //alert("RECUPERAR SENHA");
 
 
@@ -1503,8 +1537,8 @@ export default function Postar(props) {
                                                         await GRAVAR_NUMERO_DO_CELL(telefone, true);
                                                         var TELA_QUE_CHAMOU = props.tela_chamada;
                                                         if (TELA_QUE_CHAMOU == "tela_proposta") {
-                                                           await props.OCULTAR_TELA_TELEFONE_PROPOSTA_remoto();
-                                                           VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
+                                                            await props.OCULTAR_TELA_TELEFONE_PROPOSTA_remoto();
+                                                            VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
                                                             navigation.goBack(null);
                                                         } else if (TELA_QUE_CHAMOU == "tela_DetalhesProdutos") {
                                                             await props.OCULTAR_TELA_TELEFONE_FUNCAO_REMOTA();
@@ -1540,7 +1574,7 @@ export default function Postar(props) {
                 </View>
             )}
 
-            
+
             {/*CAIXA DO  NUMERO DO CELULAR ACIMA */}
 
 

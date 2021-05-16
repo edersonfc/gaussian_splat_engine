@@ -511,7 +511,7 @@ export default function AppTest() {
                         //ARMAZENAR_ESTATUS_SE_TA_ONLINE_OU_OFFLINE('ON-LINE');
                         VARIAVEL_GLOBAL.CONEXAO_DO_APP = "ON-LINE";
                         //console.log("INICIO => " + hora_e_segundo_completo());
-                        console.log(VARIAVEL_GLOBAL.CONTADOR_GLOBAL + " => " + hora_e_segundo_completo())
+                        // console.log(VARIAVEL_GLOBAL.CONTADOR_GLOBAL + " => " + hora_e_segundo_completo())
                       })
                   })
 
@@ -773,7 +773,7 @@ export default function AppTest() {
         PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
       );
       if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log('permissão concedida');
+        // console.log('permissão concedida');
         setHasLocationPermission(true);
       } else {
         console.error('permissão negada');
@@ -1633,6 +1633,7 @@ export default function AppTest() {
   //MOSTRAR ITENS DAS NOTIFICAÇÕES QUANDO SOLICITADO ABAIXO
   function PROPOSTAS_RECEBIDAS_RECENTES(parametro, fonte) {
 
+
     // alert(fonte);
 
     if (parametro === false) {
@@ -1661,7 +1662,10 @@ export default function AppTest() {
       if (fonte === "menuLateral") {
         setbotoePropostasRecebidas(false);
         setbotoePropostasEnviadas(true);
+        setLargura_tela_notificacao(new Animated.Value(0));
         PROPOSTAS_RESPONDIDAS_RECENTES("menuLateral");
+        
+
         return false;
       } else {
         alert("Não Tem Propostas Recebidas !");
@@ -1670,7 +1674,7 @@ export default function AppTest() {
 
     }
 
-
+   
   }
 
 
@@ -1697,6 +1701,7 @@ export default function AppTest() {
         setbotoePropostasRecebidas(false);
         setbotoePropostasEnviadas(false);
         setbotoePropostasAceitas(true);
+        setLargura_tela_notificacao(new Animated.Value(0));
         PROPOSTAS_ACEITAS_RECENTES();
         return false;
       } else {
@@ -2123,7 +2128,7 @@ export default function AppTest() {
       VARIAVEL_GLOBAL.LICENCA_USO = await response.data;
 
       //Dentro da Condicional Imprime somente quando For ==> 
-      console.log(VARIAVEL_GLOBAL.LICENCA_USO)
+      // console.log(VARIAVEL_GLOBAL.LICENCA_USO)
 
     }//IF
 
@@ -2556,7 +2561,7 @@ export default function AppTest() {
           </TouchableOpacity>
 
           {botoePropostas ?
-            <View style={{ width: '80%', alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0 }}>
+            <Animated.View style={{ width: largura_tela_notificacao /*'80%'*/, alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0 }}>
 
               <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }} >
 
@@ -2571,6 +2576,7 @@ export default function AppTest() {
                       setbotoePropostasRecebidas(true);
                       setbotoePropostasEnviadas(false);
                       setbotoePropostasAceitas(false);
+                     
                     }
 
 
@@ -2590,6 +2596,7 @@ export default function AppTest() {
                       setbotoePropostasRecebidas(false);
                       setbotoePropostasEnviadas(true);
                       setbotoePropostasAceitas(false);
+                      
                     }
 
 
@@ -2610,6 +2617,7 @@ export default function AppTest() {
                       setbotoePropostasRecebidas(false);
                       setbotoePropostasEnviadas(false);
                       setbotoePropostasAceitas(true);
+                      setLargura_tela_notificacao(new Animated.Value(0));
                     }
 
                   }}
@@ -2623,7 +2631,7 @@ export default function AppTest() {
               </View>
 
 
-            </View>
+            </Animated.View>
             :
             <Animated.View style={{ alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0, width: largura_tela_notificacao /*'80%'*/ }}>
 
@@ -2963,7 +2971,7 @@ export default function AppTest() {
 
       {proprietarioFalseOrTrue && (<PROPRIETARIO REMOTO_MOSTRAR_MOSTRAR_TELA_PROPRIETARIO={MOSTRAR_TELA_PROPRIETARIO} />)}
 
-   
+
 
 
       {/* <View style={{ height: '100%', width: '100%', alignItems: 'center', justifyContent: 'center',position:'absolute' }}>
