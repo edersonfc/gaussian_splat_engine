@@ -72,6 +72,11 @@ export default function PROPRIETARIO(param) {
 
             <View style={{ height: '5%' }} />
 
+            <Text style={{ fontSize: 40, color: 'white' }}  >Consultor Técnico</Text>
+            <Text style={{ fontSize: 20, color: 'white' }}  >Gabriel Henrique Santos</Text>
+
+            <View style={{ height: '5%' }} />
+
             <Text style={{ fontSize: 40, color: 'white', fontFamily: 'Roboto-Medium' }}  >Contato:</Text>
             <Text style={{ fontSize: 22, color: 'white' }}  >Fone: (67) 99324-4226</Text>
             <Text style={{ fontSize: 22, color: 'white' }}  >E-mail: edersonfc7@gmail.com</Text>
@@ -80,7 +85,7 @@ export default function PROPRIETARIO(param) {
 
             <Text style={{ fontSize: 22, color: 'white', fontFamily: 'Roboto-Medium' }}  >Versão do App: 1.0.0.0.0</Text>
 
-            <View style={{ height: '10%' }} />
+            <View style={{ height: '5%' }} />
 
             <TouchableOpacity style={[estilo.BOTAO_1]}
               onPress={() => {
