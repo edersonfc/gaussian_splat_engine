@@ -61,6 +61,8 @@ import LicencaExpirada from './components/LicencaExpirada';
 import TelaSplash from './components/TelaSplash';
 
 
+import PROPRIETARIO from './components/PROPRIETARIO'
+
 
 // LicencaExpirada
 
@@ -350,6 +352,8 @@ export default function AppTest() {
 
 
   const [licencaExpiradaFalseOrTrue, setLicencaExpiradaFalseOrTrue] = useState(false);
+
+  const [proprietarioFalseOrTrue, setProprietarioFalseOrTrue] = useState(false);
 
   ////DECLARAÇÃO DE STATES ACIMA
 
@@ -2139,6 +2143,14 @@ export default function AppTest() {
   }
 
 
+  function MOSTRAR_TELA_PROPRIETARIO(parametro) {
+
+    setProprietarioFalseOrTrue(parametro);
+    // alert("sjjg sdhfhf");
+
+  }
+
+
 
   useEffect(() => {
 
@@ -2162,7 +2174,7 @@ export default function AppTest() {
 
   useEffect(() => {
 
-    
+
     Animated.timing(
       largura_tela_notificacao,
       {
@@ -2173,7 +2185,7 @@ export default function AppTest() {
     ).start();
 
 
-  }, [menu_aviso_visivel_or_invisivel,largura_tela_notificacao]);
+  }, [menu_aviso_visivel_or_invisivel, largura_tela_notificacao]);
 
 
 
@@ -2789,6 +2801,7 @@ export default function AppTest() {
       {exibeMenu && (<MENU_LATERAL LARTITUDE={userPosition.latitude} LORNGITUDE={userPosition.longitude}
         remoto_PROPOSTAS_RECEBIDAS_RECENTES={PROPOSTAS_RECEBIDAS_RECENTES}
         remote_FILTRAR_MEUS_FAVORITOS={FILTRAR_MEUS_FAVORITOS}
+        REMOTO_MOSTRAR_MOSTRAR_TELA_PROPRIETARIO={MOSTRAR_TELA_PROPRIETARIO}
       />)}
 
 
@@ -2939,7 +2952,7 @@ export default function AppTest() {
 
       {exibeFiltroCategoria && (<FILTRO_PESQUISA_CATEGORIA
         setExibeFiltroCategori={setExibeFiltroCategoria}
-       
+
 
         PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH_REMOTO={PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH}
       />)}
@@ -2947,6 +2960,10 @@ export default function AppTest() {
 
       {licencaExpiradaFalseOrTrue && (<LicencaExpirada REMOTO_MOSTRAR_TELA_EXPIRACAO_LICENCA={MOSTRAR_TELA_EXPIRACAO_LICENCA} />)}
 
+
+      {proprietarioFalseOrTrue && (<PROPRIETARIO REMOTO_MOSTRAR_MOSTRAR_TELA_PROPRIETARIO={MOSTRAR_TELA_PROPRIETARIO} />)}
+
+   
 
 
       {/* <View style={{ height: '100%', width: '100%', alignItems: 'center', justifyContent: 'center',position:'absolute' }}>

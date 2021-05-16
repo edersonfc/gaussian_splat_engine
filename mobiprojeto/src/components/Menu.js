@@ -71,14 +71,14 @@ export default function Menu(param) {
 
 
     var Altura__total_da_tela = Math.round(Dimensions.get('window').height);
-    const [ altura, setAltura] = useState(new Animated.Value(30));
+    const [altura, setAltura] = useState(new Animated.Value(30));
 
     Animated.timing(
         largura,
         {
-            toValue:largura_sesenta_e_sete_porcento,
+            toValue: largura_sesenta_e_sete_porcento,
             duration: 900,
-            useNativeDriver: false 
+            useNativeDriver: false
         }
     ).start();
 
@@ -475,22 +475,32 @@ export default function Menu(param) {
                     </View>
 
                     {/**************************************************/}
-                    <TouchableOpacity style={{ flexDirection: 'row', width: '100%' }} >
+                    <TouchableOpacity style={{ flexDirection: 'row', width: '100%' }}
+
+                        onPress={() => {
+                            param.REMOTO_MOSTRAR_MOSTRAR_TELA_PROPRIETARIO(true);
+                        }}
+
+                    >
                         {muda_cor
                             ? <Icon name='cogs' nativeID='Favorito'
+                            // ? <Icon name='ils' nativeID='Favorito'
                                 style={[Estilo.icones_grande, Estilo.icones_clicado, style = { width: '20%' }]}
                                 onPress={() => {
 
                                     setMuda_cor(oldState => !oldState)
+                                    param.REMOTO_MOSTRAR_MOSTRAR_TELA_PROPRIETARIO(true);
+
 
                                 }
                                 } />
 
-                            : <Icon name='cogs' style={[Estilo.icones_grande, style = { width: '20%' }]}
+                            // : <Icon name='cogs' style={[Estilo.icones_grande, style = { width: '20%' }]}
+                            : <Icon name='ils' style={[Estilo.icones_grande, style = { width: '20%' }]}
                                 onPress={() => {
 
                                     setMuda_cor(oldState => !oldState)
-
+                                    param.REMOTO_MOSTRAR_MOSTRAR_TELA_PROPRIETARIO(true);
 
                                 }
                                 } />
@@ -498,7 +508,7 @@ export default function Menu(param) {
                         }
 
                         <Text style={{ fontSize: 18, color: 'white', borderWidth: 0, width: '85%', textAlignVertical: 'center', padding: 2 }} >
-                            Gerên. Preferências
+                            Sobre
 </Text>
 
                     </TouchableOpacity>
