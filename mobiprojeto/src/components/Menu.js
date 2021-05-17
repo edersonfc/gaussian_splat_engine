@@ -139,7 +139,8 @@ export default function Menu(param) {
 
                         onPress={() => {
 
-                            param.remoto_PROPOSTAS_RECEBIDAS_RECENTES(true, "menuLateral");
+                            // param.remoto_PROPOSTAS_RECEBIDAS_RECENTES(true, "menuLateral");
+                            param.remoto_ANIMAR_ANTES_DE_CHAMAR_MINHAS_PROPOSTAS(true, "menuLateral");
                             //alert("CLICADO EM MINHAS POSTAGENS");
                         }}
 

@@ -1620,13 +1620,21 @@ export default function AppTest() {
 
   }
 
-
-
-
-
-
-
   //PUXAR LISTA DE PRODUTOS DAS NOTIFICACOES NO BANCO DE DADOS ACIMA
+
+
+
+
+  async function ANIMAR_ANTES_DE_CHAMAR_MINHAS_PROPOSTAS(parametro, fonte) {
+    setLargura_tela_botoes(new Animated.Value(0));
+    await PROPOSTAS_RECEBIDAS_RECENTES(parametro, fonte);
+    setLargura_tela_botoes(new Animated.Value(0));
+
+
+  }
+
+
+
 
 
 
@@ -1662,9 +1670,8 @@ export default function AppTest() {
       if (fonte === "menuLateral") {
         setbotoePropostasRecebidas(false);
         setbotoePropostasEnviadas(true);
-        setLargura_tela_notificacao(new Animated.Value(0));
         PROPOSTAS_RESPONDIDAS_RECENTES("menuLateral");
-        
+
 
         return false;
       } else {
@@ -1674,7 +1681,7 @@ export default function AppTest() {
 
     }
 
-   
+
   }
 
 
@@ -1701,7 +1708,6 @@ export default function AppTest() {
         setbotoePropostasRecebidas(false);
         setbotoePropostasEnviadas(false);
         setbotoePropostasAceitas(true);
-        setLargura_tela_notificacao(new Animated.Value(0));
         PROPOSTAS_ACEITAS_RECENTES();
         return false;
       } else {
@@ -2168,10 +2174,10 @@ export default function AppTest() {
 
 
   var Largura_total_da_tela = Math.round(Dimensions.get('window').width);
-
-  var PORCENTAGEM_INTEIRO = 0;
   var SETENTA_PORCENTO_LARGURA_TELA = 80;
 
+
+  //ANIMAÇÕES COM ANIMATED ABAIXO
   const [largura_tela_notificacao, setLargura_tela_notificacao] = useState(new Animated.Value(0));
 
   var SETENTA_PORCENTO_LARGURA_TELA = ((Largura_total_da_tela * 80) / 100);
@@ -2191,7 +2197,36 @@ export default function AppTest() {
 
 
   }, [menu_aviso_visivel_or_invisivel, largura_tela_notificacao]);
+  //ANIMAÇÕES COM ANIMATED ACIMA
 
+
+
+
+
+  //ANIMAÇÕES COM ANIMATED ABAIXO
+  const [largura_tela_botoes, setLargura_tela_botoes] = useState(new Animated.Value(0));
+
+  useEffect(() => {
+
+
+      Animated.timing(
+        largura_tela_botoes,
+        {
+          toValue: SETENTA_PORCENTO_LARGURA_TELA,
+          duration: 1500,
+          useNativeDriver: false
+        }
+      )
+      .start()
+    //   .start(({ finished }) => {
+
+
+
+    // });
+
+
+  }, [largura_tela_botoes]);
+  //ANIMAÇÕES COM ANIMATED ACIMA
 
 
 
@@ -2561,7 +2596,7 @@ export default function AppTest() {
           </TouchableOpacity>
 
           {botoePropostas ?
-            <Animated.View style={{ width: largura_tela_notificacao /*'80%'*/, alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0 }}>
+            <Animated.View style={{ width: largura_tela_botoes /*'80%'*/, alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0 }}>
 
               <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }} >
 
@@ -2576,7 +2611,7 @@ export default function AppTest() {
                       setbotoePropostasRecebidas(true);
                       setbotoePropostasEnviadas(false);
                       setbotoePropostasAceitas(false);
-                     
+
                     }
 
 
@@ -2596,7 +2631,7 @@ export default function AppTest() {
                       setbotoePropostasRecebidas(false);
                       setbotoePropostasEnviadas(true);
                       setbotoePropostasAceitas(false);
-                      
+
                     }
 
 
@@ -2638,11 +2673,11 @@ export default function AppTest() {
               {/* LABEL DA NOTIFICACÃO ABAIXO */}
               {labelOuPesquisar ?
 
-                <View style={{ width: '100%', alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0 }}>
+                <Animated.View style={{ width: largura_tela_botoes/*'100%'*/, alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0 }}>
                   <Text style={{ fontSize: 25, color: '#fff' }}>
                     {texto_filtro_notificacao}
                   </Text>
-                </View>
+                </Animated.View>
                 // {/* LABEL DA NOTIFICACÃO ACIMA */}
                 :
                 <View style={{ flexDirection: 'row', width: '98%', height: 'auto', alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0 }}>
@@ -2807,7 +2842,8 @@ export default function AppTest() {
 
 
       {exibeMenu && (<MENU_LATERAL LARTITUDE={userPosition.latitude} LORNGITUDE={userPosition.longitude}
-        remoto_PROPOSTAS_RECEBIDAS_RECENTES={PROPOSTAS_RECEBIDAS_RECENTES}
+        // remoto_PROPOSTAS_RECEBIDAS_RECENTES={PROPOSTAS_RECEBIDAS_RECENTES}
+        remoto_ANIMAR_ANTES_DE_CHAMAR_MINHAS_PROPOSTAS={ANIMAR_ANTES_DE_CHAMAR_MINHAS_PROPOSTAS}
         remote_FILTRAR_MEUS_FAVORITOS={FILTRAR_MEUS_FAVORITOS}
         REMOTO_MOSTRAR_MOSTRAR_TELA_PROPRIETARIO={MOSTRAR_TELA_PROPRIETARIO}
       />)}
@@ -2855,7 +2891,7 @@ export default function AppTest() {
 
           {/*1º FAIXA ITEM DO MENU ABAIXO */}
           <TouchableOpacity style={{ width: '100%', height: 40, backgroundColor: '#778187', justifyContent: 'center' }}
-            onPress={() => { PROPOSTAS_RECEBIDAS_RECENTES(false, "menuFlutuante"); }}
+            onPress={() => { PROPOSTAS_RECEBIDAS_RECENTES(false, "menuFlutuante"); setLargura_tela_botoes(new Animated.Value(0)); }}
           >
 
             <View flexDirection='row' style={{ width: '100%', height: 30, paddingLeft: 15 }}>
@@ -2878,7 +2914,7 @@ export default function AppTest() {
 
           {/*2º FAIXA ITEM DO MENU ABAIXO */}
           <TouchableOpacity style={{ width: '100%', height: 40, backgroundColor: '#778187', justifyContent: 'center' }}
-            onPress={() => { PROPOSTAS_RESPONDIDAS_RECENTES("menuFlutuante"); }}
+            onPress={() => { PROPOSTAS_RESPONDIDAS_RECENTES("menuFlutuante"); setLargura_tela_botoes(new Animated.Value(0)); }}
           >
 
             <View flexDirection='row' style={{ width: '100%', height: 30, paddingLeft: 15 }}>
@@ -2901,7 +2937,7 @@ export default function AppTest() {
 
           {/*3º FAIXA ITEM DO MENU ABAIXO */}
           <TouchableOpacity style={{ width: '100%', height: 40, backgroundColor: '#778187', justifyContent: 'center' }}
-            onPress={() => { PROPOSTAS_ACEITAS_RECENTES(); }}
+            onPress={() => { PROPOSTAS_ACEITAS_RECENTES(); setLargura_tela_botoes(new Animated.Value(0)); }}
           >
 
             <View flexDirection='row' style={{ width: '100%', height: 30, paddingLeft: 15 }}>
@@ -2931,7 +2967,7 @@ export default function AppTest() {
 
           {/*5º FAIXA ITEM DO MENU ABAIXO */}
           <TouchableOpacity style={{ width: '100%', height: 40, backgroundColor: '#778187', justifyContent: 'center' }}
-            onPress={() => { VENDAS_RECENTES(); }}
+            onPress={() => { VENDAS_RECENTES(); setLargura_tela_botoes(new Animated.Value(0)); }}
           >
 
             <View flexDirection='row' style={{ width: '100%', height: 30, paddingLeft: 15 }}>
