@@ -987,7 +987,7 @@ export default function Postar(props) {
                         <View style={{ flexDirection: 'row', width: '100%', height: 40, paddingTop: 5, borderWidth: 0, borderColor: 'white' }}>
 
                             <View style={{ width: '5%' }} />
-                            <TextInputMask style={{ width: '40%', backgroundColor: 'white', borderRadius: 8, textAlign:'center' }} /*onChangeText={outrasErasAnteriorF}*/
+                            <TextInputMask style={{ width: '40%', backgroundColor: 'white', borderRadius: 8, textAlign: 'center' }} /*onChangeText={outrasErasAnteriorF}*/
 
                                 type={'only-numbers'}
                                 value={outrasErasAnterior}
@@ -1007,7 +1007,7 @@ export default function Postar(props) {
                             <Text style={{ borderWidth: 0, borderColor: 'blue', fontSize: 16, color: 'white', width: '10%', textAlign: 'center' }} > à  </Text>
 
 
-                            <TextInputMask style={{ width: '40%', backgroundColor: 'white', borderRadius: 8, textAlign:'center'  }} onChangeText={outrasErasPosteriorF}
+                            <TextInputMask style={{ width: '40%', backgroundColor: 'white', borderRadius: 8, textAlign: 'center' }} onChangeText={outrasErasPosteriorF}
 
                                 type={'only-numbers'}
                                 value={outrasErasPosterior}
@@ -1282,7 +1282,15 @@ export default function Postar(props) {
 
                                 if (MACHO + FEMEA !== "") {
 
-                                    if ((IDADE_DO_GADO + outrasErasAnterior + outrasErasPosterior) !== "") {
+                                    //LIMPAR VARIAVEIS QUE SÓ TEM VALOR ZERO ABAIXO
+                                    if (outrasErasAnterior == '0') { outrasErasAnterior = ""; }
+                                    if (outrasErasPosterior == '0') { outrasErasPosterior = ""; }
+                                    if (quantidadeCabecasOuPesos == '0') { quantidadeCabecasOuPesos = ""; }
+                                    //LIMPAR VARIAVEIS QUE SÓ TEM VALOR ZERO ACIMA
+
+
+                                   
+                                    if (  ((IDADE_DO_GADO + outrasErasAnterior + outrasErasPosterior) !== "")   ) {
 
                                         if ((TIPOS_DE_GADOS_MACHOS) !== "" || (TIPOS_DE_GADOS_FEMEAS) !== "") {
 
@@ -1300,7 +1308,7 @@ export default function Postar(props) {
                                                         if (quantidadeCabecasOuPesos != "") {
 
                                                             //alert("TODAS AS ETAPAS ESTÃO OK");
-                                                            PEGAR_NUMERO_DO_CELL();
+                                                PEGAR_NUMERO_DO_CELL();
                                                             // // navigation.goBack(null);
 
                                                         } else { alert("Quantidade de Cabeças Não Preenchido !") }
