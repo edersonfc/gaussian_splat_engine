@@ -43,6 +43,7 @@ export default function Celular_colocar(params) {
                     }
                 })//Axios
 
+                await AsyncStorage.setItem('NUMERO_CELL', JSON.stringify(data_object));
 
             } catch (erro) {
 
@@ -82,6 +83,7 @@ export default function Celular_colocar(params) {
 
                     VARIAVEL_GLOBAL.TELEFONE = data_object.NUMERO_CELL_J;
                     alert("TELEFONE GRAVADO = " + VARIAVEL_GLOBAL.TELEFONE);
+
                 });
 
         }

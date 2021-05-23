@@ -284,6 +284,11 @@ export default function EnvioPropostasCompras(props) {
         var DEU_ERRO_SIM_NAO_TALVEZ = "TALVEZ";
 
 
+        var telefone_do_usuario_txt = VARIAVEL_GLOBAL.TELEFONE.toString();
+        telefone_do_usuario_txt = telefone_do_usuario_txt.replace(/([\[])|([\]])/g,'');
+
+
+
         try {
             //Axios.get(IP_DO_SERVIDOR + 'insert_propostas', {
             await Axios.get(IP_DO_SERVIDOR + 'update_propostas', {
@@ -291,7 +296,7 @@ export default function EnvioPropostasCompras(props) {
                 params: {
                     id_resposta_proposta_J: id_resposta_proposta,
                     resposta_da_proposta_J: resposta_da_proposta,
-                    telefone_do_usuario: VARIAVEL_GLOBAL.TELEFONE,
+                    telefone_do_usuario: telefone_do_usuario_txt,
                     telefone_destino: telefone_destino
                 }
             })
@@ -330,6 +335,9 @@ export default function EnvioPropostasCompras(props) {
     ////////ENVIAR PROPOSTA ABAIXO
     function ENVIAR_PROPOSTA(funcao_remota_enivar_proposta) {
 
+
+        
+
         VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = true;
 
         //obreserve
@@ -358,9 +366,20 @@ export default function EnvioPropostasCompras(props) {
         var postagem_vista_comprador = "1";
         //AQUI VAI AS VARIAVEIS QUE VAI COMPOR O JSON ACIMA
 
+        // alert(numero_telefone_comprador+" AUSDIT")
+
         var VENDEDOR = numero_telefone;
-        var COMPRADOR = JSON.parse(numero_telefone_comprador);
-        COMPRADOR = COMPRADOR.NUMERO_CELL_J;
+
+        // var COMPRADOR = JSON.parse(numero_telefone_comprador);
+        // COMPRADOR = COMPRADOR.NUMERO_CELL_J;
+
+
+        ////AUSDIT 23/05/2021 SUBSTITUIU AS 2 LINHAS ACIMA
+        var COMPRADOR = VARIAVEL_GLOBAL.TELEFONE.toString();
+        COMPRADOR = COMPRADOR.replace(/([\[])|([\]])/g,'');
+        numero_CelularUsuario = VARIAVEL_GLOBAL.TELEFONE.toString();
+        COMPRADOR = COMPRADOR.replace(/([\[])|([\]])/g,'');
+
 
         /**/
         var comprador_ou_vendedor = "";
@@ -381,7 +400,7 @@ export default function EnvioPropostasCompras(props) {
 
                 }//IF
         //alert(  comprador_ou_vendedor  );
-
+        //alert(VARIAVEL_GLOBAL.TELEFONE)
 
         /* SEGUNDA TENTATIVA QUE TAMBÉM FUNCIONA ABAIXO */
         Axios.get(IP_DO_SERVIDOR + 'insert_propostas', {
@@ -390,7 +409,8 @@ export default function EnvioPropostasCompras(props) {
                 id_da_postagem_J: id_da_postagem,
                 id_proposta_J: id_proposta,
                 numero_telefone_J: numero_telefone,
-                numero_telefone_comprador_J: numero_telefone_comprador,
+                // numero_telefone_comprador_J: numero_telefone_comprador,
+                numero_telefone_comprador_J: VARIAVEL_GLOBAL.TELEFONE, //AUSDIT  23/05/2021 DESATIVADO LINHA ACIMA
                 conteudoDaProposta_J: conteudoDaProposta,
                 postagem_vista_vendedor_J: postagem_vista_vendedor,
                 postagem_vista_comprador_J: postagem_vista_comprador,

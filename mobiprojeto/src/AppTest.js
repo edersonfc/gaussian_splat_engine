@@ -69,14 +69,16 @@ import PROPRIETARIO from './components/PROPRIETARIO'
 //VARIAVÉIS GLOBAIS ABAIXO
 
 
-// var IP_DO_SERVIDOR = "http://192.168.0.102:3000/";
-// var IP_DO_SERVIDOR_IO = "http://192.168.0.102:3001/";
+var IP_DO_SERVIDOR    = "http://192.168.0.102:3000/";
+var IP_DO_SERVIDOR_IO = "http://192.168.0.102:3001/";
+
 
 // var IP_DO_SERVIDOR    = "http://192.168.56.1:3000/";
 // var IP_DO_SERVIDOR_IO = "http://192.168.56.1:3001/";
 
-var IP_DO_SERVIDOR    = "http://13.58.9.246:3000/";
-var IP_DO_SERVIDOR_IO = "http://13.58.9.246:3001/";
+
+// var IP_DO_SERVIDOR    = "http://18.221.55.248:3000/";
+// var IP_DO_SERVIDOR_IO = "http://18.221.55.248:3001/";
 
 
 var TELA_DE_ORIGEM_E_SITUACAO = 'Tela_AppTest_POSTAGEM_SOMENTE';
@@ -904,6 +906,16 @@ export default function AppTest() {
           if (VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO.includes("Postagem de Bovinos")) {
             // alert("Postagem de Bovinos");
           }
+
+          if (VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO.includes("Proposta_No_Primeiro_cadastro")) {
+
+              //  VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
+               //alert("FOI ENVIADO A PROPOSTA DO PRIMEIRO CADASTRO");
+
+          }  
+
+
+
 
 
           VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = true;
