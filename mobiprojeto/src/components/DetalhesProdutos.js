@@ -525,6 +525,8 @@ export default function DetalhesProdutos(props) {
 
                                 }
 
+                                VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
+
                             }}
                         >
                             <Icon name='cart-arrow-down' style={Estilo.icones_grande} />

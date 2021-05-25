@@ -544,7 +544,7 @@ export default function MensagensPropostas(param) {
 
         }
 
-    });
+    }, [ containerProposta_Visivel_Invisivel, visivel_true_false ]);
 
 
 
@@ -705,8 +705,8 @@ export default function MensagensPropostas(param) {
                         vendedor_ou_comprador[index] = "Comprador",
                         //vendedor_ou_comprador.push(FUNCAO_QUE_IDENTIFICA_SE_E_VENDEDOR_OU_COMPRADOR(propostasss[index].numero_telefone_vendedor, propostasss[index].numero_telefone_comprador)),
 
-                        // visivel_true_false && (
-                        containerProposta_Visivel_Invisivel && (
+                        visivel_true_false && (
+                        // containerProposta_Visivel_Invisivel && (
 
                             <View key={propostasss[index].id_proposta + index} style={{ width: '100%', height: 'auto', backgroundColor: '#2A3E49', padding: 5, position: 'relative', top: 5, bottom: 0, left: 0, right: 0 }} >
 
