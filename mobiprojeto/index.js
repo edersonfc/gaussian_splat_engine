@@ -4,7 +4,11 @@
 
 import {AppRegistry} from 'react-native';
 
-import App from './src/App';//TELA QUE CHAMA AS TELAS
+
+import App from './src/App';//TELA QUE CHAMA AS TELAS  ATIVAR DEPOIS
+
+//import App from './src/components/fotos/navegacaoFotos'
+
 // import App from './src/AppTest';
 // import App from './AppFONT';
 

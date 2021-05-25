@@ -1,5 +1,5 @@
 import React, { PureComponent, useState, useEffect, useContext } from 'react';
-import { AppRegistry, StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
+import { AppRegistry, StyleSheet, Text, TouchableOpacity, View, Image, Dimensions } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 
 import { useNavigation } from "@react-navigation/native";
@@ -193,6 +193,21 @@ export default function CameraFoto(props) {
 
 
 
+    const [ largura_tela,      setLargura_tela  ] = useState(Dimensions.get('window').width);
+    const [ altura_tela,       setAltura_tela   ] = useState(Dimensions.get('window').height);
+
+    const [ altura_20_porcento, setAltura_20_porcento  ] = useState(0);
+
+        useEffect(() => {
+
+            setAltura_20_porcento( ((largura_tela * 20) / 100) );
+
+        });   
+
+
+
+
+
     return (
 
 
@@ -204,8 +219,8 @@ export default function CameraFoto(props) {
             <ScreenOrientation
               orientation={LANDSCAPE_LEFT}
                 // orientation={PORTRAIT}
-                onChange={orientation => console.log('onChange', orientation)}
-                onDeviceChange={orientation => console.log('onDeviceChange', orientation)}
+                // onChange={orientation => console.log('onChange', orientation)}
+                // onDeviceChange={orientation => console.log('onDeviceChange', orientation)}
             />
             {/* MUDANDO A ORIENTAÇÃO DA TELA PRA PAISAGEM ACIMA   coloca dentro da View principal que fica dentro do return */}
 
@@ -216,8 +231,6 @@ export default function CameraFoto(props) {
                     style={[styles.preview, style = { backgroundColor: 'orange' }]}
 
                     //style={Platform.OS === "ios" ? createPostStyle.previewIOS : createPostStyle.previewAndroid}
-                    //pictureSize
-                    // ratio='1:0' // FOI DESATIVADO ESSA LINHA POIS ESTÁ DISTORCENDO TOTALMENTE A IMAGEM
                     type={RNCamera.Constants.Type.back}
                     flashMode={RNCamera.Constants.FlashMode.on}
                     androidCameraPermissionOptions={{
@@ -237,7 +250,7 @@ export default function CameraFoto(props) {
                         if (status !== 'READY') return <PendingView />;
                         return (
 
-                            <View style={{ width: '100%', backgroundColor: 'rgba(0,0,0,0.3)' }} >
+                            <View style={{ width: '100%', height:'auto' , backgroundColor: 'rgba(0,0,0,0.5)' }} >
 
                                 <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
                                     <TouchableOpacity
@@ -279,8 +292,8 @@ export default function CameraFoto(props) {
 
 
                     {/*BOTÕES CONTROLE ABAIXO*/}
-                    <View style={{ width: '100%', height: '100%', backgroundColor: 'rgba(230,200,50,0)', position: 'absolute', paddingBottom: '0%', paddingTop: '43%' }} >
-                        <View style={{ width: '100%', height: '100%', alignItems: 'center', alignContent: 'center', backgroundColor: 'rgba(0,0,0,0.3)' }}>
+                    <View style={{ justifyContent: 'flex-end', width: '100%', height: '100%', backgroundColor: 'rgba(230,200,50,0)', position: 'absolute', paddingBottom: '0%' }} >
+                        <View style={{ width: '100%', height: altura_20_porcento, alignItems: 'center', alignContent: 'center', backgroundColor: 'rgba(0,0,0,0.3)' }}>
                             <View style={{ flexDirection: 'row', height: '100%', alignItems: 'center', alignContent: 'center', backgroundColor: 'rgba(0,72,204,0.0)' }} >
 
 

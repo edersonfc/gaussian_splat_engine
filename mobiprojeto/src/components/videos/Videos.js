@@ -337,13 +337,13 @@ export default class CameraScreen extends React.Component { //LINHA TROCADO PELA
     };
     return (
 
-      <View style={{ width: '100%', height: '100%', borderWidth: 3, borderColor: 'yellow' }}>
+      <View style={{ width: '100%', height: '100%', borderWidth: 0, borderColor: 'yellow' }}>
 
         {/* MUDANDO A ORIENTAÇÃO DA TELA PRA PAISAGEM ABAIXO  coloca dentro da View principal que fica dentro do return*/}
         <ScreenOrientation
           orientation={LANDSCAPE_LEFT}
-          onChange={orientation => console.log('onChange', orientation)}
-          onDeviceChange={orientation => console.log('onDeviceChange', orientation)}
+          // onChange={orientation => console.log('onChange', orientation)}
+          // onDeviceChange={orientation => console.log('onDeviceChange', orientation)}
         />
         {/* MUDANDO A ORIENTAÇÃO DA TELA PRA PAISAGEM ACIMA   coloca dentro da View principal que fica dentro do return */}
 
@@ -471,14 +471,14 @@ export default class CameraScreen extends React.Component { //LINHA TROCADO PELA
 
 
             {/* BOTÕES DE ZOOM E FOCUS ABAIXO */}
-            <View style={{ width: '100%', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+            <View style={{  flexDirection: 'row', justifyContent:'center', width: '100%', backgroundColor: 'rgba(0,0,0,0.5)' }}>
               <View
                 style={{
-                  width: '60%',
-                  height: 56,
-                  backgroundColor: 'transparent',
                   flexDirection: 'row',
-                  alignSelf: 'center',
+                  width: '100%',
+                  // height: 100,
+                  // alignSelf: 'center',
+                  justifyContent:'center',
                   alignItems: 'center',
                   alignContent: 'center',
                   borderWidth: 0,

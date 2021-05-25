@@ -637,8 +637,8 @@ export default function Postar(props) {
             <ScreenOrientation
                 // orientation={LANDSCAPE_LEFT}
                 orientation={PORTRAIT}
-                onChange={orientation => console.log('onChange', orientation)}
-                onDeviceChange={orientation => console.log('onDeviceChange', orientation)}
+                // onChange={orientation => console.log('onChange', orientation)}
+                // onDeviceChange={orientation => console.log('onDeviceChange', orientation)}
             />
             {/* MUDANDO A ORIENTAÇÃO DA TELA PRA PAISAGEM ACIMA colocar dentro da View principal que fica dentro do return  */}
 

@@ -69,16 +69,16 @@ import PROPRIETARIO from './components/PROPRIETARIO'
 //VARIAVÉIS GLOBAIS ABAIXO
 
 
-var IP_DO_SERVIDOR    = "http://192.168.0.102:3000/";
-var IP_DO_SERVIDOR_IO = "http://192.168.0.102:3001/";
+// var IP_DO_SERVIDOR    = "http://192.168.0.102:3000/";
+// var IP_DO_SERVIDOR_IO = "http://192.168.0.102:3001/";
 
 
 // var IP_DO_SERVIDOR    = "http://192.168.56.1:3000/";
 // var IP_DO_SERVIDOR_IO = "http://192.168.56.1:3001/";
 
 
-// var IP_DO_SERVIDOR    = "http://18.221.55.248:3000/";
-// var IP_DO_SERVIDOR_IO = "http://18.221.55.248:3001/";
+var IP_DO_SERVIDOR    = "http://18.221.55.248:3000/";
+var IP_DO_SERVIDOR_IO = "http://18.221.55.248:3001/";
 
 
 var TELA_DE_ORIGEM_E_SITUACAO = 'Tela_AppTest_POSTAGEM_SOMENTE';
@@ -2256,8 +2256,8 @@ export default function AppTest() {
       {/* MUDANDO A ORIENTAÇÃO DA TELA PRA PAISAGEM ABAIXO colocar dentro da View principal que fica dentro do return */}
       <ScreenOrientation
         orientation={PORTRAIT}
-        onChange={orientation => console.log('onChange', orientation)}
-        onDeviceChange={orientation => console.log('onDeviceChange', orientation)}
+        // onChange={orientation => console.log('onChange', orientation)}
+        // onDeviceChange={orientation => console.log('onDeviceChange', orientation)}
       />
       {/* MUDANDO A ORIENTAÇÃO DA TELA PRA PAISAGEM ACIMA colocar dentro da View principal que fica dentro do return  */}
 
@@ -2301,8 +2301,10 @@ export default function AppTest() {
 
               onPress={() => {
 
-                MOSTRAR_POSTAGENS();
+                //MOSTRAR_POSTAGENS();
                 //PEGAR_TODAS_CHAVES_DO_ASYNC_STORAGE();
+                // navigation.navigate("TelaPrincipal", { produto })
+                navigation.navigate("TelaPrincipal",null);
 
               }}
 

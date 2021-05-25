@@ -43,8 +43,8 @@ export default function NavegarVideos(props) {
             {/* MUDANDO A ORIENTAÇÃO DA TELA PRA PAISAGEM ABAIXO  coloca dentro da View principal que fica dentro do return*/}
             <ScreenOrientation
                 orientation={PORTRAIT}
-                onChange={orientation => console.log('onChange', orientation)}
-                onDeviceChange={orientation => console.log('onDeviceChange', orientation)}
+                // onChange={orientation => console.log('onChange', orientation)}
+                // onDeviceChange={orientation => console.log('onDeviceChange', orientation)}
             />
             {/* MUDANDO A ORIENTAÇÃO DA TELA PRA PAISAGEM ACIMA   coloca dentro da View principal que fica dentro do return */}
 

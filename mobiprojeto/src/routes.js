@@ -4,19 +4,18 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 const AppStack = createStackNavigator();
 
-//import Incidents from "./pages/Incidents";
-//import Detail from "./pages/Detail";
 
+//import Incidents from "./pages/Incidents";
+//import Detail    from "./pages/Detail";
 import AppFONT from '../AppFONT'
 // import TelaSplash from './components/TelaSplash'
 import TelaPrincipal from './AppTest'
-
 import EtiquetaProdutos from './components/ProdutosEtiquetas'
 import ProdDetalhes from './components/DetalhesProdutos'
 import ComprasVendas from './components/ComprasVendas'
 import Postar from './components/Postar'
 import EnvioPropostasCompras from './components/EnvioPropostasCompras'
-import CameraFoto from './components/fotos/CameraFoto'
+import CameraFoto from './components/fotos/CameraFoto' 
 import navegacaoFotos from './components/fotos/navegacaoFotos'
 import Videos from './components/videos/Videos'
 import NavegarVideos from './components/videos/NavegarVideos'
@@ -51,6 +50,7 @@ export default function Routes() {
         <AppStack.Screen name="Postar" component={Postar} />
         <AppStack.Screen name="EnvioPropostasCompras" component={EnvioPropostasCompras} />
         <AppStack.Screen name="CameraFoto" component={CameraFoto} />
+        {/*  Voltar CameraFoto    Aqui Depois  */}
         <AppStack.Screen name="navegacaoFotos" component={navegacaoFotos} />
         <AppStack.Screen name="Videos" component={Videos} />
 

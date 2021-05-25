@@ -1,5 +1,5 @@
 import React, { PureComponent, useState, useEffect, useContext } from 'react';
-import { AppRegistry, StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
+import { AppRegistry, StyleSheet, Text, TouchableOpacity, View, Image, Dimensions } from 'react-native';
 import { RNCamera } from 'react-native-camera';
 
 import { useNavigation } from "@react-navigation/native";
@@ -72,13 +72,27 @@ export default function navegacaoFotos(props) {
 
         setAndar(index_id);
 
-        setUrl_strings(IMAGENS)
+        setUrl_strings(IMAGENS);
+
 
     }, []);
     //RESPONSÁVEL POR CARREGAR PRIMEIRO TODAS DAS FUNÇÕES DO APLICATIVO ACIMA
 
 
 
+
+    const [ largura_tela,      setLargura_tela  ] = useState(Dimensions.get('window').width);
+    const [ altura_tela,       setAltura_tela   ] = useState(Dimensions.get('window').height);
+
+    const [ altura_20_porcento, setAltura_20_porcento  ] = useState(0);
+
+        useEffect(() => {
+
+            setAltura_20_porcento( ((largura_tela * 20) / 100) );
+
+        });
+
+ 
 
 
 
@@ -94,13 +108,15 @@ export default function navegacaoFotos(props) {
             <ScreenOrientation
                 orientation={LANDSCAPE_LEFT}
                 // orientation={PORTRAIT}
-                onChange={orientation => console.log('onChange', orientation)}
-                onDeviceChange={orientation => console.log('onDeviceChange', orientation)}
+                // onChange={orientation => console.log('onChange', orientation)}
+                // onDeviceChange={orientation => console.log('onDeviceChange', orientation) }
+           
             />
             {/* MUDANDO A ORIENTAÇÃO DA TELA PRA PAISAGEM ACIMA   coloca dentro da View principal que fica dentro do return */}
 
 
-
+            {/* { SETAR_ALTURA_DA_FAIXA_DE_NAVEGACAO() } */}
+       
 
 
             {/*NAVEGADOR DAS FOTOS ABAIXO*/}
@@ -119,8 +135,8 @@ export default function navegacaoFotos(props) {
 
                 {/* paddingTop: '142%' => POSIÇÃO RETRATO */}
                 {/*BOTÕES CONTROLE ABAIXO  rgba(230,200,50,0)  */}
-                <View style={{ width: '100%', height: '100%', backgroundColor: 'rgba(230,200,50,0)', position: 'absolute', paddingBottom: '0%', paddingTop: '41%' }} >
-                    <View style={{ width: '100%', height: '100%', alignItems: 'center', alignContent: 'center', backgroundColor: 'rgba(0,0,0,0.4)' }}>
+                <View style={{ justifyContent: 'flex-end',  width: '100%', height: '100%', backgroundColor: 'rgba(230,200,50,0)', position: 'absolute', paddingBottom: '0%' /*, paddingTop: '41%'*/ }} >
+                    <View style={{ width: '100%', height: altura_20_porcento, alignItems: 'center', alignContent: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
                         <View style={{ flexDirection: 'row', height: '100%', alignItems: 'center', alignContent: 'center', backgroundColor: 'rgba(0,72,204,0.0)' }} >
 
 
