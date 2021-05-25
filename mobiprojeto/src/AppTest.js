@@ -16,8 +16,7 @@ import { metodo_remoto } from './components/funcao_teste'
 
 import ProdutosEtiquetas from './components/ProdutosEtiquetas'
 
-import FlatlistTeste from './components/FlatlistTeste';
-
+//import FlatlistTeste from './components/FlatlistTeste';
 
 import MENU_LATERAL from './components/Menu'
 

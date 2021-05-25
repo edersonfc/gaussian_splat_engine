@@ -42,6 +42,8 @@ export default function PROPRIETARIO(param) {
 
 
 
+  
+
 
   return (
 

@@ -39,7 +39,7 @@ var propostasss =
 //VARIAVEL GLOBAL FORA DO METODO EXPORT PRINCIPA DA TELA ACIMA
 
 
-var COR_FUNDO_MENSAGEN = "34,43,53"; //COR MAIS ESCURA
+var COR_FUNDO_MENSAGEN = "34,43,54"; //COR MAIS ESCURA
 //var COR_FUNDO_MENSAGEN =  "43,68,74"; //COR MAIS CLARA
 
 
@@ -496,7 +496,7 @@ export default function MensagensPropostas(param) {
         param.funcao_resposta_da_proposta(ID_PROPOSTAS, RESPOSTAS, VENDEDOR, COMPRADOR);
 
         VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
-       
+
 
     }
 
@@ -519,6 +519,34 @@ export default function MensagensPropostas(param) {
         });
 
     }, []);
+
+
+
+
+
+
+
+    const [containerProposta_Visivel_Invisivel, setContainerProposta_Visivel_Invisivel] = useState(false);
+
+    // visivel_true_false 
+
+    useEffect(() => {
+
+        if (propostasss.length == 0) {
+
+            setContainerProposta_Visivel_Invisivel(false);
+            // alert("INVISIVEL");
+
+        } else {
+
+            setContainerProposta_Visivel_Invisivel(true);
+            // alert("VISIVEL");
+
+        }
+
+    });
+
+
 
 
 
@@ -677,307 +705,309 @@ export default function MensagensPropostas(param) {
                         vendedor_ou_comprador[index] = "Comprador",
                         //vendedor_ou_comprador.push(FUNCAO_QUE_IDENTIFICA_SE_E_VENDEDOR_OU_COMPRADOR(propostasss[index].numero_telefone_vendedor, propostasss[index].numero_telefone_comprador)),
 
+                        // visivel_true_false && (
+                        containerProposta_Visivel_Invisivel && (
+
+                            <View key={propostasss[index].id_proposta + index} style={{ width: '100%', height: 'auto', backgroundColor: '#2A3E49', padding: 5, position: 'relative', top: 5, bottom: 0, left: 0, right: 0 }} >
+
+                                {/* CONTAINER DA ETIQUETA DA MENSAGEM ABAIXO  Pressable */}
+                                <TouchableOpacity style={{ padding: 5, width: '100%', height: 'auto', alignItems: 'center', backgroundColor: 'rgb(' + COR_FUNDO_MENSAGEN + ')', borderWidth: 0, borderColor: 'RGB(' + COR_FUNDO_MENSAGEN + ')', borderRadius: 15 }}
+
+                                    {...(async () => {
+                                        //FOI DESATIVADO E TROCADO PELO CÓDIGO COM MARCAÇÃO  SUPLANTADO765  
+                                        /*
+                                       VENDEDOR        = propostasss[index].numero_telefone_vendedor;
+                                       COMPRADOR       = propostasss[index].numero_telefone_comprador;
+                                       USUARIO_CELL    = numero_CelularUsuario;
+                                       VENDA_OU_COMPRA = propostasss[index].comprador_ou_vendedor;
+                                       //alert( propostasss[index].numero_telefone_vendedor +" | "+ propostasss[index].numero_telefone_comprador );
+    
+                                       //alert(VENDA_OU_COMPRA);
+                                      
+                                       // useEffect(() => {
+                                       if (VENDEDOR === USUARIO_CELL && COMPRADOR === USUARIO_CELL && VENDA_OU_COMPRA === "VENDEDOR") {
+    
+                                           vendedor_ou_comprador[index] = "Você é VENDEDOR";
+    
+                                       } else if (VENDEDOR !== USUARIO_CELL && COMPRADOR === USUARIO_CELL && VENDA_OU_COMPRA === "COMPRADOR") {
+    
+                                           vendedor_ou_comprador[index] = "Você é COMPRADOR";
+    
+                                       } else if (VENDEDOR !== USUARIO_CELL && COMPRADOR !== USUARIO_CELL && VENDA_OU_COMPRA === "VENDEDOR") {
+    
+                                           vendedor_ou_comprador[index] = "Vendedor";
+    
+    
+                                       } else if (VENDEDOR !== USUARIO_CELL && COMPRADOR !== USUARIO_CELL && VENDA_OU_COMPRA === "COMPRADOR") {
+    
+                                           vendedor_ou_comprador[index] = "Outro Comprador";
+    
+                                       }//else if
+                                       // }, []);
+                                     
+    
+                                      
+                                       if (VENDEDOR === USUARIO_CELL){
+    
+                                           //vendedor_ou_comprador[index] = "VEND---EDOR";
+    
+                                       }if (COMPRADOR === USUARIO_CELL){
+    
+                                           //vendedor_ou_comprador[index] = "COM---PRADOR";
+    
+                                       }
+                                       
+                                       //propostasss[index].conteudo_da_proposta
+                                       //alert(propostasss[index].conteudo_da_proposta);
+                                       
+                                         */
+
+                                    })()}
 
 
-                        <View key={propostasss[index].id_proposta + index} style={{ width: '100%', height: 'auto', backgroundColor: '#2A3E49', padding: 5, position: 'relative', top: 5, bottom: 0, left: 0, right: 0 }} >
+                                    //FECHAR CAIXA RESPONDER SE TIVER ABERTO ABAIXO
+                                    onPress={(e) => {
 
-                            {/* CONTAINER DA ETIQUETA DA MENSAGEM ABAIXO  Pressable */}
-                            <TouchableOpacity style={{ padding: 5, width: '100%', height: 'auto', alignItems: 'center', backgroundColor: 'rgb(' + COR_FUNDO_MENSAGEN + ')', borderWidth: 0, borderColor: 'RGB(' + COR_FUNDO_MENSAGEN + ')', borderRadius: 15 }}
-
-                                {...(async () => {
-                                    //FOI DESATIVADO E TROCADO PELO CÓDIGO COM MARCAÇÃO  SUPLANTADO765  
-                                    /*
-                                   VENDEDOR        = propostasss[index].numero_telefone_vendedor;
-                                   COMPRADOR       = propostasss[index].numero_telefone_comprador;
-                                   USUARIO_CELL    = numero_CelularUsuario;
-                                   VENDA_OU_COMPRA = propostasss[index].comprador_ou_vendedor;
-                                   //alert( propostasss[index].numero_telefone_vendedor +" | "+ propostasss[index].numero_telefone_comprador );
-
-                                   //alert(VENDA_OU_COMPRA);
-                                  
-                                   // useEffect(() => {
-                                   if (VENDEDOR === USUARIO_CELL && COMPRADOR === USUARIO_CELL && VENDA_OU_COMPRA === "VENDEDOR") {
-
-                                       vendedor_ou_comprador[index] = "Você é VENDEDOR";
-
-                                   } else if (VENDEDOR !== USUARIO_CELL && COMPRADOR === USUARIO_CELL && VENDA_OU_COMPRA === "COMPRADOR") {
-
-                                       vendedor_ou_comprador[index] = "Você é COMPRADOR";
-
-                                   } else if (VENDEDOR !== USUARIO_CELL && COMPRADOR !== USUARIO_CELL && VENDA_OU_COMPRA === "VENDEDOR") {
-
-                                       vendedor_ou_comprador[index] = "Vendedor";
+                                        if (responderTaTrue_or_False == true) {
 
 
-                                   } else if (VENDEDOR !== USUARIO_CELL && COMPRADOR !== USUARIO_CELL && VENDA_OU_COMPRA === "COMPRADOR") {
+                                            //alert("FOI PRESSIONADO NO CONTAINE DA MENSAGEM !");
+                                            setFormulario_enviar_proposta_true_false(oldState => !oldState)
+                                            setVoltar_enviar_proposta_true_false(oldState => !oldState)
 
-                                       vendedor_ou_comprador[index] = "Outro Comprador";
+                                            //alert(INDICE_GLOBAL_RESPOSTA);
+                                            alernarTrueFalseCaixaResponderF(INDICE_GLOBAL_RESPOSTA);
+                                            alernarTrueFalseBotaoResponderF(INDICE_GLOBAL_RESPOSTA);
 
-                                   }//else if
-                                   // }, []);
-                                 
-
-                                  
-                                   if (VENDEDOR === USUARIO_CELL){
-
-                                       //vendedor_ou_comprador[index] = "VEND---EDOR";
-
-                                   }if (COMPRADOR === USUARIO_CELL){
-
-                                       //vendedor_ou_comprador[index] = "COM---PRADOR";
-
-                                   }
-                                   
-                                   //propostasss[index].conteudo_da_proposta
-                                   //alert(propostasss[index].conteudo_da_proposta);
-                                   
-                                     */
-
-                                })()}
+                                            setResponderTaTrue_or_False(false);
 
 
-                                //FECHAR CAIXA RESPONDER SE TIVER ABERTO ABAIXO
-                                onPress={(e) => {
-
-                                    if (responderTaTrue_or_False == true) {
-
-
-                                        //alert("FOI PRESSIONADO NO CONTAINE DA MENSAGEM !");
-                                        setFormulario_enviar_proposta_true_false(oldState => !oldState)
-                                        setVoltar_enviar_proposta_true_false(oldState => !oldState)
-
-                                        //alert(INDICE_GLOBAL_RESPOSTA);
-                                        alernarTrueFalseCaixaResponderF(INDICE_GLOBAL_RESPOSTA);
-                                        alernarTrueFalseBotaoResponderF(INDICE_GLOBAL_RESPOSTA);
-
-                                        setResponderTaTrue_or_False(false);
+                                        }//IF            
+                                    }}
+                                    //FECHAR CAIXA RESPONDER SE TIVER ABERTO ACIMA
 
 
-                                    }//IF            
-                                }}
-                                //FECHAR CAIXA RESPONDER SE TIVER ABERTO ACIMA
+                                    onLongPress={(e) => {
+
+                                        //alert("FOI MANTIDO PRESSIONADO");
+                                        Alert.alert(
+                                            //title
+                                            'Atenção !',
+                                            //body
+                                            //'I am two option alert. Do you want to cancel me ?',
+                                            'Deseja Apagar essa Mensagem ?',
+                                            [
+                                                {
+                                                    text: 'Sim',
+                                                    onPress: () => {
+                                                        /*
+                                                         //console.log('Yes Pressed'), alert("Você Cancelou  "),
+                                                         //atualizar_json(produtos, index, DESCRICAO_ARRAY, DISTANCIA_ARRAY)
+                                                         alernarTrueFalse2(index),
+                                                         CANCELAR_VENDA_OU_COMPRA(IP_DO_SERVIDOR, compra_ou_venda, CELULAR_COMPRADOR_OU_VENDEDOR, ID_DA_POSTAGEM, USUARIO_DO_TELEFONE)
+                                                         */
+
+                                                        //alert("VOCÊ ESCOLHEU APAGAR ESSA MENSAGEM !");
+                                                        //alert(propostas.cod_automatico);
+                                                        param.funcao_remota_deletar_proposta(propostas.cod_automatico, propostas.numero_telefone_vendedor, propostas.numero_telefone_comprador);
+
+                                                        VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
+
+                                                    }
+                                                },
+                                                {
+                                                    text: 'Não',
+                                                    onPress: () => console.log('No Pressed'),
+                                                    style: 'cancel'
+                                                },
+                                            ],
+                                            { cancelable: false },
+                                            //clicking out side of alert will not cancel
+                                        );
+
+                                    }}
 
 
-                                onLongPress={(e) => {
-
-                                    //alert("FOI MANTIDO PRESSIONADO");
-                                    Alert.alert(
-                                        //title
-                                        'Atenção !',
-                                        //body
-                                        //'I am two option alert. Do you want to cancel me ?',
-                                        'Deseja Apagar essa Mensagem ?',
-                                        [
-                                            {
-                                                text: 'Sim',
-                                                onPress: () => {
-                                                    /*
-                                                     //console.log('Yes Pressed'), alert("Você Cancelou  "),
-                                                     //atualizar_json(produtos, index, DESCRICAO_ARRAY, DISTANCIA_ARRAY)
-                                                     alernarTrueFalse2(index),
-                                                     CANCELAR_VENDA_OU_COMPRA(IP_DO_SERVIDOR, compra_ou_venda, CELULAR_COMPRADOR_OU_VENDEDOR, ID_DA_POSTAGEM, USUARIO_DO_TELEFONE)
-                                                     */
-
-                                                    //alert("VOCÊ ESCOLHEU APAGAR ESSA MENSAGEM !");
-                                                    //alert(propostas.cod_automatico);
-                                                    param.funcao_remota_deletar_proposta(propostas.cod_automatico, propostas.numero_telefone_vendedor, propostas.numero_telefone_comprador);
-
-                                                    VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
-
-                                                }
-                                            },
-                                            {
-                                                text: 'Não',
-                                                onPress: () => console.log('No Pressed'),
-                                                style: 'cancel'
-                                            },
-                                        ],
-                                        { cancelable: false },
-                                        //clicking out side of alert will not cancel
-                                    );
-
-                                }}
+                                >
 
 
-                            >
-
-
-                                <View style={{ width: '85%', height: 'auto', backgroundColor: 'rgb(' + COR_FUNDO_MENSAGEN + ')', borderWidth: 0, borderColor: 'yellow' }} >
+                                    <View style={{ width: '85%', height: 'auto', backgroundColor: 'rgb(' + COR_FUNDO_MENSAGEN + ')', borderWidth: 0, borderColor: 'yellow' }} >
 
 
 
 
-                                    <Text style={htmlStyles.cabecalho} > {vendedor_ou_comprador[index] + "   " + (EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(data_hora_e_segundo_completo_ingles()))} </Text>
+                                        <Text style={htmlStyles.cabecalho} > {vendedor_ou_comprador[index] + "   " + (EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(data_hora_e_segundo_completo_ingles()))} </Text>
+
+                                        <View style={{ height: 5 }} />
+
+
+                                        {/*  <Text style={{ color: '#FFF' }} > {propostasss[index].conteudo_da_proposta} </Text>  */}
+
+                                        <HTMLView
+                                            key={index}
+                                            stylesheet={htmlStyles}
+                                            textComponentProps={{ style: { color: 'white' } }}
+                                            addLineBreaks={false}//REMOVE A GRANDE DISTANCIA ENTRE AS LINHAS QUE É DESNECESSÁRIO
+                                            value={
+                                                //propostasss[index].conteudo_da_proposta
+                                                DATA_CHEIA_INGLES
+                                            }
+                                        />
+
+
+                                    </View>
+
+                                    <View style={{ height: 15 }} />
+
+
+
+                                    <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgb(' + COR_FUNDO_MENSAGEN + ')' }}>
+
+                                        {aceitar_proposta_true_false[index] && (
+                                            <TouchableOpacity style={{ width: '47%', backgroundColor: 'rgb(' + COR_FUNDO_MENSAGEN + ')', borderColor: 'white', borderWidth: 0, borderRadius: 15, backgroundColor: 'grey' }}
+
+                                                onPress={(e) => {
+
+                                                    //param.funcao_remota_aceitar_proposta(propostasss[index].cod_automatico);
+                                                    ACEITAR_PROPOSTA_FUNCAO(index);
+
+                                                }}
+
+                                            >
+                                                <View style={{ width: '100%', height: 30, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderWidth: 0 }} >
+                                                    <Text style={{ padding: 5, color: 'white', fontSize: 12 }} >Aceitar Proposta</Text>
+                                                    <Icon style={{ padding: 5, color: 'white', fontSize: 15 }} name='thumbs-o-up' />
+                                                </View>
+                                            </TouchableOpacity>
+                                        )}
+
+                                        <View style={{ width: '3%' }} />
+
+                                        {responder_proposta_true_false[index] && (
+                                            <TouchableOpacity style={{ width: '47%', backgroundColor: 'rgb(' + COR_FUNDO_MENSAGEN + ')', borderColor: 'white', borderWidth: 0, borderRadius: 15, backgroundColor: 'grey' }}
+
+                                                onPress={(e) => {
+
+                                                    //RESETAR se tiver CAIXA RESPONDER PROPOSTA ABERTA ABAIXO ///////////////////////////////////////
+                                                    if (responderTaTrue_or_False == true) {
+
+                                                        //alert("FOI PRESSIONADO NO CONTAINE DA MENSAGEM !");
+                                                        setFormulario_enviar_proposta_true_false(oldState => !oldState)
+                                                        setVoltar_enviar_proposta_true_false(oldState => !oldState)
+                                                        //alert(INDICE_GLOBAL_RESPOSTA);
+                                                        alernarTrueFalseCaixaResponderF(INDICE_GLOBAL_RESPOSTA);
+                                                        alernarTrueFalseBotaoResponderF(INDICE_GLOBAL_RESPOSTA);
+
+                                                        setResponderTaTrue_or_False(false);
+
+                                                    }//IF  
+                                                    //RESETAR se tiver CAIXA RESPONDER PROPOSTA ACIMA ///////////////////////////////////////
+
+
+                                                    //handleClickOcultarFormulario(e);
+                                                    setFormulario_enviar_proposta_true_false(oldState => !oldState)
+                                                    alernarTrueFalseCaixaResponderF(index);
+                                                    alernarTrueFalseBotaoResponderF(index);
+                                                    setVoltar_enviar_proposta_true_false(oldState => !oldState);
+
+                                                    setINDICE_GLOBAL_RESPOSTA(index);
+                                                    //alert(INDICE_GLOBAL_RESPOSTA);
+
+                                                    setResponderTaTrue_or_False(true);
+
+
+                                                }}
+                                            >
+                                                <View style={{ width: '100%', height: 30, padding: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderWidth: 0 }} >
+                                                    <Text style={{ padding: 5, color: 'white', fontSize: 12 }} >Responder</Text>
+                                                    <Icon style={{ padding: 5, color: 'white', fontSize: 15 }} name='comment' />
+                                                </View>
+
+                                            </TouchableOpacity>
+                                        )}
+
+                                    </View>
 
                                     <View style={{ height: 5 }} />
 
 
-                                    {/*  <Text style={{ color: '#FFF' }} > {propostasss[index].conteudo_da_proposta} </Text>  */}
+                                    {caixa_responder_proposta_true_false[index] && (
+                                        <View style={{ paddingStart: 7, width: '100%', height: 'auto', flexDirection: 'row', borderWidth: 0, borderColor: 'yellow' }} >
 
-                                    <HTMLView
-                                        key={index}
-                                        stylesheet={htmlStyles}
-                                        textComponentProps={{ style: { color: 'white' } }}
-                                        addLineBreaks={false}//REMOVE A GRANDE DISTANCIA ENTRE AS LINHAS QUE É DESNECESSÁRIO
-                                        value={
-                                            //propostasss[index].conteudo_da_proposta
-                                            DATA_CHEIA_INGLES
-                                        }
-                                    />
-
-
-                                </View>
-
-                                <View style={{ height: 15 }} />
-
-
-
-                                <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgb(' + COR_FUNDO_MENSAGEN + ')' }}>
-
-                                    {aceitar_proposta_true_false[index] && (
-                                        <TouchableOpacity style={{ width: '47%', backgroundColor: 'rgb(' + COR_FUNDO_MENSAGEN + ')', borderColor: 'white', borderWidth: 0, borderRadius: 15, backgroundColor: 'grey' }}
-
-                                            onPress={(e) => {
-
-                                                //param.funcao_remota_aceitar_proposta(propostasss[index].cod_automatico);
-                                                ACEITAR_PROPOSTA_FUNCAO(index);
-
-                                            }}
-
-                                        >
-                                            <View style={{ width: '100%', height: 30, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderWidth: 0 }} >
-                                                <Text style={{ padding: 5, color: 'white', fontSize: 12 }} >Aceitar Proposta</Text>
-                                                <Icon style={{ padding: 5, color: 'white', fontSize: 15 }} name='thumbs-o-up' />
-                                            </View>
-                                        </TouchableOpacity>
-                                    )}
-
-                                    <View style={{ width: '3%' }} />
-
-                                    {responder_proposta_true_false[index] && (
-                                        <TouchableOpacity style={{ width: '47%', backgroundColor: 'rgb(' + COR_FUNDO_MENSAGEN + ')', borderColor: 'white', borderWidth: 0, borderRadius: 15, backgroundColor: 'grey' }}
-
-                                            onPress={(e) => {
-
-                                                //RESETAR se tiver CAIXA RESPONDER PROPOSTA ABERTA ABAIXO ///////////////////////////////////////
-                                                if (responderTaTrue_or_False == true) {
-
-                                                    //alert("FOI PRESSIONADO NO CONTAINE DA MENSAGEM !");
-                                                    setFormulario_enviar_proposta_true_false(oldState => !oldState)
-                                                    setVoltar_enviar_proposta_true_false(oldState => !oldState)
-                                                    //alert(INDICE_GLOBAL_RESPOSTA);
-                                                    alernarTrueFalseCaixaResponderF(INDICE_GLOBAL_RESPOSTA);
-                                                    alernarTrueFalseBotaoResponderF(INDICE_GLOBAL_RESPOSTA);
-
-                                                    setResponderTaTrue_or_False(false);
-
-                                                }//IF  
-                                                //RESETAR se tiver CAIXA RESPONDER PROPOSTA ACIMA ///////////////////////////////////////
-
-
-                                                //handleClickOcultarFormulario(e);
-                                                setFormulario_enviar_proposta_true_false(oldState => !oldState)
-                                                alernarTrueFalseCaixaResponderF(index);
-                                                alernarTrueFalseBotaoResponderF(index);
-                                                setVoltar_enviar_proposta_true_false(oldState => !oldState);
-
-                                                setINDICE_GLOBAL_RESPOSTA(index);
-                                                //alert(INDICE_GLOBAL_RESPOSTA);
-
-                                                setResponderTaTrue_or_False(true);
-
-
-                                            }}
-                                        >
-                                            <View style={{ width: '100%', height: 30, padding: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderWidth: 0 }} >
-                                                <Text style={{ padding: 5, color: 'white', fontSize: 12 }} >Responder</Text>
-                                                <Icon style={{ padding: 5, color: 'white', fontSize: 15 }} name='comment' />
-                                            </View>
-
-                                        </TouchableOpacity>
-                                    )}
-
-                                </View>
-
-                                <View style={{ height: 5 }} />
-
-
-                                {caixa_responder_proposta_true_false[index] && (
-                                    <View style={{ paddingStart: 7, width: '100%', height: 'auto', flexDirection: 'row', borderWidth: 0, borderColor: 'yellow' }} >
-
-                                        <TextInput
-                                            multiline={true} flexWrap='wrap' textAlign={'center'} placeholder={'Digite Aqui Sua Resposta !'} size={15} onChangeText={conteudoDaRespostaF}
-                                            style={{ width: '85%', height: 'auto', alignItems: 'center', backgroundColor: '#fff', borderWidth: 0, borderRadius: 15 }}
-                                        >
-                                        </TextInput>
-
-                                        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-
-                                            <TouchableOpacity style={{ width: 40, height: 40, backgroundColor: '#25E7DB', alignItems: 'center', justifyContent: 'center', borderRadius: 50 }}
-
-                                                onPress={async () => {
-
-                                                    Keyboard.dismiss();
-                                                    alernarTrueFalseCaixaResponderF(index);
-                                                    alernarTrueFalseBotaoResponderF(index);
-                                                    //param.funcao_resposta_da_proposta(0);
-                                                    //param.funcao_resposta_da_proposta();
-
-                                                    // alert( propostasss[index].cod_automatico+"\n"+  propostasss[index].conteudo_da_proposta+"\n"+ vendedor_ou_comprador[index] +"  "+data_hora_e_segundo_completo_ingles() +"\n"+conteudoDaResposta );
-
-                                                    var ID_PROPOSTAS = propostasss[index].cod_automatico;
-
-                                                    var PRIMEIRA_PROPOSTA = propostasss[index].conteudo_da_proposta;
-
-                                                    var topo_html = '<html><body>';
-                                                    var bottom_html = '</body></html>';
-
-                                                    var RESPOSTAS = '';
-
-
-                                                    //DEFININDO SE É COMPRADOR OU VENDEDOR NA HORA DE RESPONDER ABAIXO
-                                                    VENDEDOR = propostasss[index].numero_telefone_vendedor;
-                                                    COMPRADOR = propostasss[index].numero_telefone_comprador;
-                                                    vendedor_ou_comprador[index] =
-                                                        FUNCAO_QUE_IDENTIFICA_SE_E_VENDEDOR_OU_COMPRADOR(propostasss[index].numero_telefone_vendedor, propostasss[index].numero_telefone_comprador)
-                                                    //DEFININDO SE É COMPRADOR OU VENDEDOR NA HORA DE RESPONDER ACIMA
-
-
-                                                    //SEM HTML ABAIXO
-                                                    RESPOSTAS =
-                                                        propostasss[index].conteudo_da_proposta +
-                                                        "\n" +
-                                                        '<cabecalho>' + vendedor_ou_comprador[index] + "  " + data_hora_e_segundo_completo_ingles() + '</cabecalho>' +
-                                                        conteudoDaResposta +
-                                                        "\n";
-                                                    //SEM HTML ACIMA
-                                                    /**/
-
-                                                    //alert(RESPOSTAS);
-                                                    param.funcao_resposta_da_proposta(ID_PROPOSTAS, RESPOSTAS, VENDEDOR, COMPRADOR);
-
-                                                    VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
-
-                                                }}//do onPress()    
+                                            <TextInput
+                                                multiline={true} flexWrap='wrap' textAlign={'center'} placeholder={'Digite Aqui Sua Resposta !'} size={15} onChangeText={conteudoDaRespostaF}
+                                                style={{ width: '85%', height: 'auto', alignItems: 'center', backgroundColor: '#fff', borderWidth: 0, borderRadius: 15 }}
                                             >
-                                                <Icon style={{ color: 'white', fontSize: 17 }} name='send' />
-                                            </TouchableOpacity>
+                                            </TextInput>
+
+                                            <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+
+                                                <TouchableOpacity style={{ width: 40, height: 40, backgroundColor: '#25E7DB', alignItems: 'center', justifyContent: 'center', borderRadius: 50 }}
+
+                                                    onPress={async () => {
+
+                                                        Keyboard.dismiss();
+                                                        alernarTrueFalseCaixaResponderF(index);
+                                                        alernarTrueFalseBotaoResponderF(index);
+                                                        //param.funcao_resposta_da_proposta(0);
+                                                        //param.funcao_resposta_da_proposta();
+
+                                                        // alert( propostasss[index].cod_automatico+"\n"+  propostasss[index].conteudo_da_proposta+"\n"+ vendedor_ou_comprador[index] +"  "+data_hora_e_segundo_completo_ingles() +"\n"+conteudoDaResposta );
+
+                                                        var ID_PROPOSTAS = propostasss[index].cod_automatico;
+
+                                                        var PRIMEIRA_PROPOSTA = propostasss[index].conteudo_da_proposta;
+
+                                                        var topo_html = '<html><body>';
+                                                        var bottom_html = '</body></html>';
+
+                                                        var RESPOSTAS = '';
+
+
+                                                        //DEFININDO SE É COMPRADOR OU VENDEDOR NA HORA DE RESPONDER ABAIXO
+                                                        VENDEDOR = propostasss[index].numero_telefone_vendedor;
+                                                        COMPRADOR = propostasss[index].numero_telefone_comprador;
+                                                        vendedor_ou_comprador[index] =
+                                                            FUNCAO_QUE_IDENTIFICA_SE_E_VENDEDOR_OU_COMPRADOR(propostasss[index].numero_telefone_vendedor, propostasss[index].numero_telefone_comprador)
+                                                        //DEFININDO SE É COMPRADOR OU VENDEDOR NA HORA DE RESPONDER ACIMA
+
+
+                                                        //SEM HTML ABAIXO
+                                                        RESPOSTAS =
+                                                            propostasss[index].conteudo_da_proposta +
+                                                            "\n" +
+                                                            '<cabecalho>' + vendedor_ou_comprador[index] + "  " + data_hora_e_segundo_completo_ingles() + '</cabecalho>' +
+                                                            conteudoDaResposta +
+                                                            "\n";
+                                                        //SEM HTML ACIMA
+                                                        /**/
+
+                                                        //alert(RESPOSTAS);
+                                                        param.funcao_resposta_da_proposta(ID_PROPOSTAS, RESPOSTAS, VENDEDOR, COMPRADOR);
+
+                                                        VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
+
+                                                    }}//do onPress()    
+                                                >
+                                                    <Icon style={{ color: 'white', fontSize: 17 }} name='send' />
+                                                </TouchableOpacity>
+                                            </View>
+
                                         </View>
-
-                                    </View>
-                                )}
+                                    )}
 
 
 
-                                <View style={{ height: 5 }} />
-                                {/*<View style={{ width:'100%', height: 10, backgroundColor:'#2A3E49' }} />*/}
+                                    <View style={{ height: 5 }} />
+                                    {/*<View style={{ width:'100%', height: 10, backgroundColor:'#2A3E49' }} />*/}
 
-                            </TouchableOpacity>
-                            {/* CONTAINER DA ETIQUETA DA MENSAGEM ACIMA Pressable */}
+                                </TouchableOpacity>
+                                {/* CONTAINER DA ETIQUETA DA MENSAGEM ACIMA Pressable */}
 
-                        </View>
+                            </View>
 
 
+                        )// containerProposta_Visivel_Invisivel && 
 
                     ))//DO MAP
 
