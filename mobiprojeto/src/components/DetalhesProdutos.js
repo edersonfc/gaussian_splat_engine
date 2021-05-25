@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useContext } from 'react'
-import { View, Text, Image, SafeAreaView, TouchableOpacity, TouchableHighlight, Alert, ScrollView, Dimensions } from 'react-native'
+import { View, Text, Image, SafeAreaView, TouchableOpacity, TouchableHighlight, Alert, ScrollView, Dimensions, Share } from 'react-native'
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -93,7 +93,7 @@ export default function DetalhesProdutos(props) {
     //GERANDO ARRAY DE IMAGENS ABAIXO
     var ARRAY_DE_IMAGENS_E_VIDEOS = [];
     var URL_IMAGENS = produtos.URL_IMAGEN_DADOS_J.split("|");
-    var URL_VIDEOS = produtos.URL_VIDEOS_DADOS_J.split("|");
+    var URL_VIDEOS  = produtos.URL_VIDEOS_DADOS_J.split("|");
     URL_IMAGENS.pop();
     URL_VIDEOS.pop();
     /*
@@ -326,6 +326,39 @@ export default function DetalhesProdutos(props) {
 
 
 
+
+
+    //TENTANDO IMPLEMENTAR METODOS DE COMPARTILHAMENTO ABAIXO
+    // const ShareExample = () => {
+        const onShare = async (PARAMETRO) => {
+            try {
+              const result = await Share.share({
+                message:
+                  // 'React Native | A framework for building native apps using React',
+                  // 'Aplicativo de Compra e Venda de Gado ! ' + PARAMETRO,
+                  PARAMETRO,
+      
+              });
+              if (result.action === Share.sharedAction) {
+                if (result.activityType) {
+                  // shared with activity type of result.activityType
+                } else {
+                  // shared
+                }
+              } else if (result.action === Share.dismissedAction) {
+                // dismissed
+              }
+            } catch (error) {
+              alert(error.message);
+            }
+          };
+          //TENTANDO IMPLEMENTAR METODOS DE COMPARTILHAMENTO ACIMA
+
+
+
+
+
+
     return (
 
 
@@ -495,7 +528,15 @@ export default function DetalhesProdutos(props) {
 
                     <TouchableOpacity style={{ width: '26%', borderWidth: 0, height: 55, padding: 4, alignItems: 'center', justifyContent: 'flex-end' }}
                         onPress={() => {
-                            alert(produtos.numero_telefone_J + "  ###  " + NUMERO_CELL_DO_USUARIO);
+                            // alert(produtos.numero_telefone_J + "  ###  " + NUMERO_CELL_DO_USUARIO);
+
+
+                            // var IMAGEM = 'LINK COMPARTILHADO DA MENSAGEM !';
+                            var IMAGEM_OU_VIDEO = ARRAY_DE_IMAGENS_E_VIDEOS[0];
+
+                            var PAGINAS_PARTE_INICIAL = "<html> <body> <img src=" + IMAGEM_OU_VIDEO + " alt='GadoApp' width='500' height='600'> </body> </html>"
+                            onShare(PAGINAS_PARTE_INICIAL);   
+
 
                         }}
                     >
