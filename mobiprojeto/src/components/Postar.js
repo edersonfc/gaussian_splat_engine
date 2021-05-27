@@ -211,6 +211,8 @@ export default function Postar(props) {
 
     var [variavelTelefone, setVariavelTelefone] = useState("");
 
+    var [codigoDeSeguranca, setCodigoDeSeguranca] = useState("");
+
     var [caixaNumeroCelularVisivel, setCaixaNumeroCelularVisivel] = useState(false);
     var [aprovado_postagem, setAprovado_postagem] = useState(false);
 
@@ -637,8 +639,8 @@ export default function Postar(props) {
             <ScreenOrientation
                 // orientation={LANDSCAPE_LEFT}
                 orientation={PORTRAIT}
-                // onChange={orientation => console.log('onChange', orientation)}
-                // onDeviceChange={orientation => console.log('onDeviceChange', orientation)}
+            // onChange={orientation => console.log('onChange', orientation)}
+            // onDeviceChange={orientation => console.log('onDeviceChange', orientation)}
             />
             {/* MUDANDO A ORIENTAÇÃO DA TELA PRA PAISAGEM ACIMA colocar dentro da View principal que fica dentro do return  */}
 
@@ -1289,8 +1291,8 @@ export default function Postar(props) {
                                     //LIMPAR VARIAVEIS QUE SÓ TEM VALOR ZERO ACIMA
 
 
-                                   
-                                    if (  ((IDADE_DO_GADO + outrasErasAnterior + outrasErasPosterior) !== "")   ) {
+
+                                    if (((IDADE_DO_GADO + outrasErasAnterior + outrasErasPosterior) !== "")) {
 
                                         if ((TIPOS_DE_GADOS_MACHOS) !== "" || (TIPOS_DE_GADOS_FEMEAS) !== "") {
 
@@ -1308,7 +1310,7 @@ export default function Postar(props) {
                                                         if (quantidadeCabecasOuPesos != "") {
 
                                                             //alert("TODAS AS ETAPAS ESTÃO OK");
-                                                PEGAR_NUMERO_DO_CELL();
+                                                            PEGAR_NUMERO_DO_CELL();
                                                             // // navigation.goBack(null);
 
                                                         } else { alert("Quantidade de Cabeças Não Preenchido !") }
@@ -1500,11 +1502,19 @@ export default function Postar(props) {
                                     <View style={{ flexDirection: 'row', justifyContent: 'center', width: '100%', height: 'auto' }}  >
 
                                         {ocultarMostrarCaixaTexto && (
-                                            <TextInput
-                                                multiline={false} flexWrap='wrap' textAlign={'center'} placeholder={'CÓDIGO SEGURANÇA'} size={12} /*onChangeText={ } */
-                                                style={{ width: '40%', height: 45, alignItems: 'center', backgroundColor: '#fff', borderWidth: 0, borderRadius: 15 }}
-                                            >
-                                            </TextInput>
+
+                                            <TextInputMask size={10} placeholder="CÓDIGO SEGURANÇA" textAlign={'center'}
+
+                                                style={{ width: '42%', height: 45, alignItems: 'center', backgroundColor: '#fff', borderWidth: 0, borderRadius: 15 }}
+
+                                                type={'only-numbers'}
+                                                value={codigoDeSeguranca}//1567
+                                                maxLength={5}
+                                                onChangeText={value => {
+                                                    setCodigoDeSeguranca(value);
+                                                }}
+
+                                            />
                                         )}
 
                                         <View style={{ width: '3%' }} />
@@ -1523,36 +1533,84 @@ export default function Postar(props) {
                                                         setGerarEnviarCodigo("Enviar Código Segurança");
                                                         setOcultarMostrarCaixaTexto(true);
                                                         VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
-                                                        alert("Foi Enviado um Código de Verificação para " + variavelTelefone);
+                                                        // alert("Foi Enviado um Código de Verificação para " + variavelTelefone);
+
+
+
+                                                        //ENVIANDO TELEFONE PARA GERAR CÓDIGO DE DESBLOQUEIO ABAIXO
+                                                        try { //alert(IP_DO_SERVIDOR);
+                                                            //response = await Axios.get('http://192.168.0.102:3000/gerar_codigo_de_desbloqueio', {
+                                                            await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + "gerar_codigo_de_desbloqueio", {
+                                                                params: { numero_telefone: variavelTelefone }
+                                                            });
+
+
+                                                        } catch (exception) { alert(exception.message); return 0 } finally { alert("Foi Enviado um Código de Verificação para " + variavelTelefone); }
+                                                        //ENVIANDO TELEFONE PARA GERAR CÓDIGO DE DESBLOQUEIO ACIMA
+
+
+
 
                                                     } else if (gerarEnviarCodigo.includes("Enviar Código")) {
 
-                                                        // gerarEnviarCodigo = "Enviar Código";
-                                                        setGerarEnviarCodigo("Gerar Código Recuperação ");
 
-                                                        setOcultarMostrarClique(oldState => !oldState);
-                                                        setOcultarMostrarEnvioCodigo(oldState => !oldState);
 
-                                                        alert("Enviando Código de Verificação...");
-                                                        //COMUNICANDO COM O SERVIDOR TENTANDO LIBERAR O USO DO APLICATIVO
+                                                        var resposta_zero_ou_menos_um;
 
-                                                        setOcultarMostrarCaixaTexto(false);
 
-                                                        //DEPOIS DA LIBERAÇÃO DO USO DO APLICATIVO FAZER ISSO ABAIXO
-                                                        //IMPLEMENTAR GRAVAÇÃO DO TELEFONE NO CELULAR PARA USAR O APLICATIVO
-                                                        // alert(variavelTelefone);
-                                                        var telefone = { NUMERO_CELL_J: variavelTelefone.replace(/\"/g, '') }
-                                                        await GRAVAR_NUMERO_DO_CELL(telefone, true);
-                                                        var TELA_QUE_CHAMOU = props.tela_chamada;
-                                                        if (TELA_QUE_CHAMOU == "tela_proposta") {
-                                                            await props.OCULTAR_TELA_TELEFONE_PROPOSTA_remoto();
-                                                            VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
-                                                            navigation.goBack(null);
-                                                        } else if (TELA_QUE_CHAMOU == "tela_DetalhesProdutos") {
-                                                            await props.OCULTAR_TELA_TELEFONE_FUNCAO_REMOTA();
-                                                            VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
-                                                        }
-                                                        //DEPOIS DA LIBERAÇÃO DO USO DO APLICATIVO FAZER ISSO ACIMA
+                                                        //ENVIANDO O CÓDIGO DE DESBLOQUEIO RECEBIDO POR SMS ABAIXO
+                                                        try { //alert(IP_DO_SERVIDOR);
+                                                            //response = await Axios.get('http://192.168.0.102:3000/gerar_codigo_de_desbloqueio', {
+                                                            resposta_zero_ou_menos_um = await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + "recebendo_e_validando_codigo_de_desbloqueio", {
+                                                                params: {
+                                                                    numero_telefone: variavelTelefone,
+                                                                    codigo_de_desbloqueio: codigoDeSeguranca
+                                                                }
+                                                            });
+
+                                                            //  alert( resposta_zero_ou_menos_um.data.condicao );
+                                                            resposta_zero_ou_menos_um = resposta_zero_ou_menos_um.data.condicao
+                                                            //  alert( resposta_zero_ou_menos_um );
+
+                                                        } catch (exception) { alert(exception.message)/**/ }
+                                                        //ENVIANDO O CÓDIGO DE DESBLOQUEIO RECEBIDO POR SMS ACIMA
+
+
+                                                                if (resposta_zero_ou_menos_um == 0) {
+
+
+                                                                        // gerarEnviarCodigo = "Enviar Código";
+                                                                        setGerarEnviarCodigo("Gerar Código Recuperação ");
+
+                                                                        setOcultarMostrarClique(oldState => !oldState);
+                                                                        setOcultarMostrarEnvioCodigo(oldState => !oldState);
+
+                                                                        alert("Enviando Código de Verificação...");
+                                                                        //COMUNICANDO COM O SERVIDOR TENTANDO LIBERAR O USO DO APLICATIVO
+
+                                                                        setOcultarMostrarCaixaTexto(false);
+
+                                                                        //DEPOIS DA LIBERAÇÃO DO USO DO APLICATIVO FAZER ISSO ABAIXO
+                                                                        //IMPLEMENTAR GRAVAÇÃO DO TELEFONE NO CELULAR PARA USAR O APLICATIVO
+                                                                        // alert(variavelTelefone);
+                                                                        var telefone = { NUMERO_CELL_J: variavelTelefone.replace(/\"/g, '') }
+                                                                        await GRAVAR_NUMERO_DO_CELL(telefone, true);
+                                                                        var TELA_QUE_CHAMOU = props.tela_chamada;
+                                                                        if (TELA_QUE_CHAMOU == "tela_proposta") {
+                                                                            await props.OCULTAR_TELA_TELEFONE_PROPOSTA_remoto();
+                                                                            VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
+                                                                            navigation.goBack(null);
+                                                                        } else if (TELA_QUE_CHAMOU == "tela_DetalhesProdutos") {
+                                                                            await props.OCULTAR_TELA_TELEFONE_FUNCAO_REMOTA();
+                                                                            VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
+                                                                        }
+                                                                        //DEPOIS DA LIBERAÇÃO DO USO DO APLICATIVO FAZER ISSO ACIMA
+
+
+                                                                } else {
+
+                                                                    alert("CÓDIGO DE SEGURANÇA ESTÁ ERRADO !, TENTE NOVAMENTE ! ")
+                                                                }
 
                                                     }
 

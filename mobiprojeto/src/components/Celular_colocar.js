@@ -18,6 +18,8 @@ export default function Celular_colocar(params) {
     var [caixaNumeroCelularVisivel, setCaixaNumeroCelularVisivel] = useState(true);
     var [variavelTelefone, setVariavelTelefone] = useState("");
 
+    var [codigoDeSeguranca, setCodigoDeSeguranca] = useState("");
+
     const { VARIAVEL_GLOBAL } = useContext(GlobalContext);
 
     //METODOS ABAIXO
@@ -65,7 +67,7 @@ export default function Celular_colocar(params) {
 
                     });
 
-                    VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
+                VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
             }
             /////////////////////////////////////////////////////////////////  
 
@@ -327,11 +329,22 @@ export default function Celular_colocar(params) {
                                 <View style={{ flexDirection: 'row', justifyContent: 'center', width: '100%', height: 'auto' }}  >
 
                                     {ocultarMostrarCaixaTexto && (
-                                        <TextInput
-                                            multiline={false} flexWrap='wrap' textAlign={'center'} placeholder={'CÓDIGO SEGURANÇA'} size={12} /*onChangeText={ } */
-                                            style={{ width: '40%', height: 45, alignItems: 'center', backgroundColor: '#fff', borderWidth: 0, borderRadius: 15 }}
-                                        >
-                                        </TextInput>
+
+
+                                        <TextInputMask size={10} placeholder="CÓDIGO SEGURANÇA"  textAlign={'center'}
+
+                                            style={{ width: '42%', height: 45, alignItems: 'center', backgroundColor: '#fff', borderWidth: 0, borderRadius: 15 }}
+
+                                            type={'only-numbers'}
+                                            value={codigoDeSeguranca}//1567
+                                            maxLength={5}
+                                            onChangeText={value => {
+                                                setCodigoDeSeguranca(value);
+                                            }}
+
+                                        />
+
+
                                     )}
 
                                     <View style={{ width: '3%' }} />
@@ -350,76 +363,77 @@ export default function Celular_colocar(params) {
                                                     setGerarEnviarCodigo("Enviar Código Segurança");
                                                     setOcultarMostrarCaixaTexto(true);
                                                     VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
-                                              
+
 
 
                                                     //ENVIANDO TELEFONE PARA GERAR CÓDIGO DE DESBLOQUEIO ABAIXO
                                                     try { //alert(IP_DO_SERVIDOR);
                                                         //response = await Axios.get('http://192.168.0.102:3000/gerar_codigo_de_desbloqueio', {
                                                         await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + "gerar_codigo_de_desbloqueio", {
-                                                              params: { numero_telefone: variavelTelefone }
+                                                            params: { numero_telefone: variavelTelefone }
                                                         });
+                             
 
-                                                        alert("Foi Enviado um Código de Verificação para " + variavelTelefone);
-                                              
-                                                      } catch (exception) { alert(exception.message)/**/ }
+                                                    } catch (exception) { alert(exception.message); return 0 }finally{    alert("Foi Enviado um Código de Verificação para " + variavelTelefone);  }
                                                     //ENVIANDO TELEFONE PARA GERAR CÓDIGO DE DESBLOQUEIO ACIMA
 
-                                                   
+
 
 
                                                 } else if (gerarEnviarCodigo.includes("Enviar Código")) {
 
-                                                    
+
                                                     var resposta_zero_ou_menos_um;
-                                                    
+
 
                                                     //ENVIANDO O CÓDIGO DE DESBLOQUEIO RECEBIDO POR SMS ABAIXO
                                                     try { //alert(IP_DO_SERVIDOR);
                                                         //response = await Axios.get('http://192.168.0.102:3000/gerar_codigo_de_desbloqueio', {
                                                         resposta_zero_ou_menos_um = await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + "recebendo_e_validando_codigo_de_desbloqueio", {
-                                                            params: { numero_telefone: variavelTelefone,
-                                                                        codigo_de_desbloqueio: "1567"  }
+                                                            params: {
+                                                                numero_telefone: variavelTelefone,
+                                                                codigo_de_desbloqueio: codigoDeSeguranca
+                                                            }
                                                         });
 
                                                         //  alert( resposta_zero_ou_menos_um.data.condicao );
-                                                         resposta_zero_ou_menos_um = resposta_zero_ou_menos_um.data.condicao
+                                                        resposta_zero_ou_menos_um = resposta_zero_ou_menos_um.data.condicao
                                                         //  alert( resposta_zero_ou_menos_um );
-                                                                                                        
-                                                        } catch (exception) { alert(exception.message)/**/ }
-                                                     //ENVIANDO O CÓDIGO DE DESBLOQUEIO RECEBIDO POR SMS ACIMA
+
+                                                    } catch (exception) { alert(exception.message)/**/ }
+                                                    //ENVIANDO O CÓDIGO DE DESBLOQUEIO RECEBIDO POR SMS ACIMA
 
 
-                                                    if (resposta_zero_ou_menos_um == 0 ) {
-                                                    
-                                                            // gerarEnviarCodigo = "Enviar Código";
-                                                            setGerarEnviarCodigo("Gerar Código Recuperação");
+                                                    if (resposta_zero_ou_menos_um == 0) {
 
-                                                            setOcultarMostrarClique(oldState => !oldState);
-                                                            setOcultarMostrarEnvioCodigo(oldState => !oldState);
+                                                        // gerarEnviarCodigo = "Enviar Código";
+                                                        setGerarEnviarCodigo("Gerar Código Recuperação");
 
-                                                            alert("Enviando Código de Verificação...");
-                                                            //COMUNICANDO COM O SERVIDOR TENTANDO LIBERAR O USO DO APLICATIVO
+                                                        setOcultarMostrarClique(oldState => !oldState);
+                                                        setOcultarMostrarEnvioCodigo(oldState => !oldState);
 
-                                                            setOcultarMostrarCaixaTexto(false);
+                                                        alert("Enviando Código de Verificação...");
+                                                        //COMUNICANDO COM O SERVIDOR TENTANDO LIBERAR O USO DO APLICATIVO
 
-                                                            //DEPOIS DA LIBERAÇÃO DO USO DO APLICATIVO FAZER ISSO ABAIXO
-                                                            //IMPLEMENTAR GRAVAÇÃO DO TELEFONE NO CELULAR PARA USAR O APLICATIVO
-                                                            // alert(variavelTelefone);
-                                                            var telefone = { NUMERO_CELL_J: variavelTelefone.replace(/\"/g, '') }
-                                                            await GRAVAR_NUMERO_DO_CELL(telefone, true);
-                                                            var TELA_QUE_CHAMOU = params.tela_chamada;
-                                                            if (TELA_QUE_CHAMOU == "tela_proposta") {
-                                                                VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
-                                                                params.OCULTAR_TELA_TELEFONE_PROPOSTA_remoto();
-                                                                navigation.goBack(null);
-                                                            } else if (TELA_QUE_CHAMOU == "tela_DetalhesProdutos") {
-                                                                VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
-                                                                params.OCULTAR_TELA_TELEFONE_FUNCAO_REMOTA();
-                                                            }
-                                                            //DEPOIS DA LIBERAÇÃO DO USO DO APLICATIVO FAZER ISSO ACIMA
+                                                        setOcultarMostrarCaixaTexto(false);
 
-                                                    }else{
+                                                        //DEPOIS DA LIBERAÇÃO DO USO DO APLICATIVO FAZER ISSO ABAIXO
+                                                        //IMPLEMENTAR GRAVAÇÃO DO TELEFONE NO CELULAR PARA USAR O APLICATIVO
+                                                        // alert(variavelTelefone);
+                                                        var telefone = { NUMERO_CELL_J: variavelTelefone.replace(/\"/g, '') }
+                                                        await GRAVAR_NUMERO_DO_CELL(telefone, true);
+                                                        var TELA_QUE_CHAMOU = params.tela_chamada;
+                                                        if (TELA_QUE_CHAMOU == "tela_proposta") {
+                                                            VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
+                                                            params.OCULTAR_TELA_TELEFONE_PROPOSTA_remoto();
+                                                            navigation.goBack(null);
+                                                        } else if (TELA_QUE_CHAMOU == "tela_DetalhesProdutos") {
+                                                            VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
+                                                            params.OCULTAR_TELA_TELEFONE_FUNCAO_REMOTA();
+                                                        }
+                                                        //DEPOIS DA LIBERAÇÃO DO USO DO APLICATIVO FAZER ISSO ACIMA
+
+                                                    } else {
 
                                                         alert("CÓDIGO DE SEGURANÇA ESTÁ ERRADO !, TENTE NOVAMENTE ! ")
                                                     }
