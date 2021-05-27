@@ -464,41 +464,42 @@ export default function MensagensPropostas(param) {
     function ACEITAR_PROPOSTA_FUNCAO(index) {
 
 
-        var ID_PROPOSTAS = propostasss[index].cod_automatico;
+                var ID_PROPOSTAS = propostasss[index].cod_automatico;
 
-        var PRIMEIRA_PROPOSTA = propostasss[index].conteudo_da_proposta;
+                var PRIMEIRA_PROPOSTA = propostasss[index].conteudo_da_proposta;
 
-        var topo_html = '<html><body>';
-        var bottom_html = '</body></html>';
+                var topo_html = '<html><body>';
+                var bottom_html = '</body></html>';
 
-        var RESPOSTAS = '';
+                var RESPOSTAS = '';
 
+                //DEFININDO SE É COMPRADOR OU VENDEDOR NA HORA DE RESPONDER ABAIXO
+                VENDEDOR = propostasss[index].numero_telefone_vendedor;
+                COMPRADOR = propostasss[index].numero_telefone_comprador;
+                vendedor_ou_comprador[index] = "Vendedor";
+                //DEFININDO SE É COMPRADOR OU VENDEDOR NA HORA DE RESPONDER ACIMA
 
-        //DEFININDO SE É COMPRADOR OU VENDEDOR NA HORA DE RESPONDER ABAIXO
-        VENDEDOR = propostasss[index].numero_telefone_vendedor;
-        COMPRADOR = propostasss[index].numero_telefone_comprador;
-        vendedor_ou_comprador[index] = "Vendedor";
-        //DEFININDO SE É COMPRADOR OU VENDEDOR NA HORA DE RESPONDER ACIMA
+                //SEM HTML ABAIXO
+                RESPOSTAS =
+                    propostasss[index].conteudo_da_proposta +
+                    "\n" +
+                    '<a>' + vendedor_ou_comprador[index] + "  " + data_hora_e_segundo_completo_ingles() + '</a>' +
+                    conteudoDaResposta +
+                    '<b> Proposta Aceita !</b>' +
+                    '<c> Compra e Venda Fechada</c>';
 
-        //SEM HTML ABAIXO
-        RESPOSTAS =
-            propostasss[index].conteudo_da_proposta +
-            "\n" +
-            '<a>' + vendedor_ou_comprador[index] + "  " + data_hora_e_segundo_completo_ingles() + '</a>' +
-            conteudoDaResposta +
-            '<b> Proposta Aceita !</b>' +
-            '<c> Compra e Venda Fechada</c>';
-        //'<d> Edersonfc7 </d>';
-        //SEM HTML ACIMA
-        /**/
+                //alert(RESPOSTAS);
+                param.funcao_resposta_da_proposta(ID_PROPOSTAS, RESPOSTAS, VENDEDOR, COMPRADOR);
 
-        //alert(RESPOSTAS);
-        param.funcao_resposta_da_proposta(ID_PROPOSTAS, RESPOSTAS, VENDEDOR, COMPRADOR);
-
-        VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
+                VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
 
 
+
+                
     }
+
+
+
 
 
     useEffect(() => {
@@ -544,7 +545,7 @@ export default function MensagensPropostas(param) {
 
         }
 
-    }, [ containerProposta_Visivel_Invisivel, visivel_true_false ]);
+    }, [containerProposta_Visivel_Invisivel, visivel_true_false]);
 
 
 
@@ -706,7 +707,7 @@ export default function MensagensPropostas(param) {
                         //vendedor_ou_comprador.push(FUNCAO_QUE_IDENTIFICA_SE_E_VENDEDOR_OU_COMPRADOR(propostasss[index].numero_telefone_vendedor, propostasss[index].numero_telefone_comprador)),
 
                         visivel_true_false && (
-                        // containerProposta_Visivel_Invisivel && (
+                            // containerProposta_Visivel_Invisivel && (
 
                             <View key={propostasss[index].id_proposta + index} style={{ width: '100%', height: 'auto', backgroundColor: '#2A3E49', padding: 5, position: 'relative', top: 5, bottom: 0, left: 0, right: 0 }} >
 

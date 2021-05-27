@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState, useContext } from 'react'
-import { View, Text, SafeAreaView, TouchableOpacity, Alert, TextInput, ScrollView, PermissionsAndroid, TouchableHighlight, Keyboard, Dimensions, Animated } from 'react-native'
+import { View, Text, SafeAreaView, TouchableOpacity, Alert, TextInput, ScrollView, PermissionsAndroid, TouchableHighlight, Keyboard, Dimensions, Animated } from 'react-native';
 
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -68,16 +68,16 @@ import PROPRIETARIO from './components/PROPRIETARIO'
 //VARIAVÉIS GLOBAIS ABAIXO
 
 
-// var IP_DO_SERVIDOR    = "http://192.168.0.102:3000/";
-// var IP_DO_SERVIDOR_IO = "http://192.168.0.102:3001/";
+var IP_DO_SERVIDOR    = "http://192.168.0.102:3000/";
+var IP_DO_SERVIDOR_IO = "http://192.168.0.102:3001/";
 
 
 // var IP_DO_SERVIDOR    = "http://192.168.56.1:3000/";
 // var IP_DO_SERVIDOR_IO = "http://192.168.56.1:3001/";
 
 
-var IP_DO_SERVIDOR    = "http://18.221.55.248:3000/";
-var IP_DO_SERVIDOR_IO = "http://18.221.55.248:3001/";
+// var IP_DO_SERVIDOR    = "http://18.221.55.248:3000/";
+// var IP_DO_SERVIDOR_IO = "http://18.221.55.248:3001/";
 
 
 var TELA_DE_ORIGEM_E_SITUACAO = 'Tela_AppTest_POSTAGEM_SOMENTE';
