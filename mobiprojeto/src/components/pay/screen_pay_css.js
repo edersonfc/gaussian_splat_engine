@@ -38,7 +38,7 @@ export const ContainerPrincipal = styled.View`
 `;
 
 
-export const ViewSeta = styled.View`
+export const ViewSeta = styled.TouchableOpacity`
 
         width:  ${(LARGURA * 100) / 100}px;
         height: ${(ALTURA * 7) / 100}px;
@@ -100,7 +100,7 @@ export const ViewBorda = styled.View`
      width:  ${(LARGURA * 90) / 100}px;
      justify-content: center;
      alignItems: center;
-     borderBottomWidth: 1px;
+     borderWidth: 0px;
      border-color: #fffFFF;
   `;
 
@@ -153,21 +153,39 @@ export const Txt_6 = styled.Text`
 
 
 export const Txt_7 = styled.Text`
-        font-size:25px;
+        font-size:29px;
         font-weight: bold;
         color:'rgba(255,255,255,0.9)';
 `;
 
 
 export const Txt_8 = styled.Text`
-        width:  ${(LARGURA * 90) / 100}px;
-        border-width: 1px;
         justify-content: center;
         align-items: center;
         font-size:20px;
         font-weight: bold;
         color:'rgba(255,255,255,0.9)';
 `;
+
+
+export const Txt_9 = styled.Text`
+        justify-content: center;
+        align-items: center;
+        font-size:20px;
+        font-weight: bold;
+        color:'rgba(255,255,255,0.9)';
+`;
+
+
+export const Txt_10 = styled.Text`
+        justify-content: center;
+        align-items: center;
+        font-size:20px;
+        font-weight: bold;
+        color: #25E7DB;
+`;
+
+
 
 
 

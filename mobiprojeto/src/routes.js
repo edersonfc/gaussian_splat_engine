@@ -24,6 +24,8 @@ import MapaGoogle from './components/MapaGoogle';
 import Estatistica from './components/Estatistica';
 import Screen_pay from './components/pay/Screen_pay';
 
+import pay_credity_card from './components/pay/pay_credity_card';
+
 
 
 export default function Routes() {
@@ -60,6 +62,8 @@ export default function Routes() {
         <AppStack.Screen name="Estatistica" component={Estatistica} />
  
         <AppStack.Screen name="Screen_pay" component={Screen_pay} />
+
+        <AppStack.Screen name="pay_credity_card" component={pay_credity_card} />
  
 
         

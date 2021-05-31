@@ -16,7 +16,7 @@ import { QUANTIDADES_VEZES_PRECOS, MOEDA_P_DOUBLE_OU_FLOAT } from '../CALCULO_E_
 
 import {
     ContainerPrincipal, ViewSeta, ViewTitulo_1, ViewTitulo_2, ViewTaxa, ViewEspacoAltura, ViewBorda, ViewFinal,
-    Txt_1, Txt_2, Txt_3, Txt_4, Txt_5, Txt_6, Txt_7, Txt_8,
+    Txt_1, Txt_2, Txt_3, Txt_4, Txt_5, Txt_6, Txt_7, Txt_8, Txt_9, Txt_10,
     ButtonCartao, ButtonGerarBoleto,
     StyledIconFontAwesome, StyledIconFontAwesome_2
 } from './screen_pay_css';
@@ -68,7 +68,13 @@ export default function Screen_pay(params) {
 
         <ContainerPrincipal>
 
-            <ViewSeta>
+            <ViewSeta onPress={() => {
+
+                // alert("Voltar pra Tela Anterior");
+                // navigation.navigate("Screen_pay",{propostas});
+                navigation.goBack(null);
+
+            }} >
                 <StyledIconFontAwesome name='arrow-left' />
             </ViewSeta>
 
@@ -92,14 +98,13 @@ export default function Screen_pay(params) {
 
             <ViewBorda />
 
-
             <ViewEspacoAltura />
             <ViewEspacoAltura />
-
 
             <ButtonCartao onPress={() => {
 
-                alert("Pagar com Cartão de Débito");
+                // alert("Pagar com Cartão de Débito");
+                navigation.navigate("pay_credity_card",{dados_da_negociacao});
 
 
             }} >
@@ -107,10 +112,8 @@ export default function Screen_pay(params) {
                 <Txt_5> Cartão de Débito </Txt_5>
             </ButtonCartao>
 
-
             <ViewEspacoAltura />
             <ViewEspacoAltura />
-
 
             <ButtonGerarBoleto onPress={() => {
 
@@ -125,7 +128,6 @@ export default function Screen_pay(params) {
 
             </ButtonGerarBoleto>
 
-
             <ViewEspacoAltura />
             <ViewEspacoAltura />
 
@@ -134,14 +136,20 @@ export default function Screen_pay(params) {
             <ViewEspacoAltura />
 
             <ViewFinal>
-            <Txt_8>
-                Não divulgamos e não utilizamos seus dados
-                para quaisquer outras
-                finalidades que não esteja dentro da
-                Lei de Proteção de Dados !
-                Lei nº 13.709
-            </Txt_8>
+
+                <Txt_8> Não divulgamos e não utilizamos</Txt_8>
+                <Txt_8> seus dados para quaisquer outras</Txt_8>
+                <Txt_8> finalidades que não esteja dentro</Txt_8>
+                <Txt_8> da Lei de Proteção de Dados !</Txt_8>
+
+                <View style={{ flexDirection: 'row', width: '90%', alignItems: 'center', justifyContent: 'center' }} >
+                    <Txt_9>Lei nº</Txt_9>
+                    <Txt_10> 13.709 </Txt_10>
+                </View>
+
             </ViewFinal>
+
+
 
         </ContainerPrincipal>
 
