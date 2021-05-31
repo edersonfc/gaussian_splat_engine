@@ -404,7 +404,7 @@ export default function Celular_colocar(params) {
                                                     //ENVIANDO O CÓDIGO DE DESBLOQUEIO RECEBIDO POR SMS ACIMA
 
 
-                                                    if (resposta_zero_ou_menos_um == 0) {
+                                                    if (resposta_zero_ou_menos_um > -1) {
 
                                                         // gerarEnviarCodigo = "Enviar Código";
                                                         setGerarEnviarCodigo("Gerar Código Recuperação");

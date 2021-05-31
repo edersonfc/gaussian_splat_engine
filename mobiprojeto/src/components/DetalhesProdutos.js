@@ -803,7 +803,11 @@ export default function DetalhesProdutos(props) {
                                     VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta"; //OBSERVER
                                 }
 
+                                VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE = produtos;
+
                                 navigation.navigate("EnvioPropostasCompras", { index, numero_telefone, id_da_postagem, numero_telefone_comprador });
+
+
 
 
                             } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {

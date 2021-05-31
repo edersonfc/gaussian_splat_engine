@@ -242,6 +242,10 @@ dependencies {
 compile project(':react-native-fs')
 
 
+//28052021
+implementation 'com.mercadopago.android.px:checkout:4.+'
+
+
   
 }//dependencies CHAVE DA DEPENDENCIA
 

@@ -1576,41 +1576,41 @@ export default function Postar(props) {
                                                         //ENVIANDO O CÓDIGO DE DESBLOQUEIO RECEBIDO POR SMS ACIMA
 
 
-                                                                if (resposta_zero_ou_menos_um == 0) {
+                                                        if (resposta_zero_ou_menos_um > -1) {
 
 
-                                                                        // gerarEnviarCodigo = "Enviar Código";
-                                                                        setGerarEnviarCodigo("Gerar Código Recuperação ");
+                                                            // gerarEnviarCodigo = "Enviar Código";
+                                                            setGerarEnviarCodigo("Gerar Código Recuperação ");
 
-                                                                        setOcultarMostrarClique(oldState => !oldState);
-                                                                        setOcultarMostrarEnvioCodigo(oldState => !oldState);
+                                                            setOcultarMostrarClique(oldState => !oldState);
+                                                            setOcultarMostrarEnvioCodigo(oldState => !oldState);
 
-                                                                        alert("Enviando Código de Verificação...");
-                                                                        //COMUNICANDO COM O SERVIDOR TENTANDO LIBERAR O USO DO APLICATIVO
+                                                            alert("Enviando Código de Verificação...");
+                                                            //COMUNICANDO COM O SERVIDOR TENTANDO LIBERAR O USO DO APLICATIVO
 
-                                                                        setOcultarMostrarCaixaTexto(false);
+                                                            setOcultarMostrarCaixaTexto(false);
 
-                                                                        //DEPOIS DA LIBERAÇÃO DO USO DO APLICATIVO FAZER ISSO ABAIXO
-                                                                        //IMPLEMENTAR GRAVAÇÃO DO TELEFONE NO CELULAR PARA USAR O APLICATIVO
-                                                                        // alert(variavelTelefone);
-                                                                        var telefone = { NUMERO_CELL_J: variavelTelefone.replace(/\"/g, '') }
-                                                                        await GRAVAR_NUMERO_DO_CELL(telefone, true);
-                                                                        var TELA_QUE_CHAMOU = props.tela_chamada;
-                                                                        if (TELA_QUE_CHAMOU == "tela_proposta") {
-                                                                            await props.OCULTAR_TELA_TELEFONE_PROPOSTA_remoto();
-                                                                            VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
-                                                                            navigation.goBack(null);
-                                                                        } else if (TELA_QUE_CHAMOU == "tela_DetalhesProdutos") {
-                                                                            await props.OCULTAR_TELA_TELEFONE_FUNCAO_REMOTA();
-                                                                            VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
-                                                                        }
-                                                                        //DEPOIS DA LIBERAÇÃO DO USO DO APLICATIVO FAZER ISSO ACIMA
+                                                            //DEPOIS DA LIBERAÇÃO DO USO DO APLICATIVO FAZER ISSO ABAIXO
+                                                            //IMPLEMENTAR GRAVAÇÃO DO TELEFONE NO CELULAR PARA USAR O APLICATIVO
+                                                            // alert(variavelTelefone);
+                                                            var telefone = { NUMERO_CELL_J: variavelTelefone.replace(/\"/g, '') }
+                                                            await GRAVAR_NUMERO_DO_CELL(telefone, true);
+                                                            var TELA_QUE_CHAMOU = props.tela_chamada;
+                                                            if (TELA_QUE_CHAMOU == "tela_proposta") {
+                                                                await props.OCULTAR_TELA_TELEFONE_PROPOSTA_remoto();
+                                                                VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
+                                                                navigation.goBack(null);
+                                                            } else if (TELA_QUE_CHAMOU == "tela_DetalhesProdutos") {
+                                                                await props.OCULTAR_TELA_TELEFONE_FUNCAO_REMOTA();
+                                                                VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
+                                                            }
+                                                            //DEPOIS DA LIBERAÇÃO DO USO DO APLICATIVO FAZER ISSO ACIMA
 
 
-                                                                } else {
+                                                        } else {
 
-                                                                    alert("CÓDIGO DE SEGURANÇA ESTÁ ERRADO !, TENTE NOVAMENTE ! ")
-                                                                }
+                                                            alert("CÓDIGO DE SEGURANÇA ESTÁ ERRADO !, TENTE NOVAMENTE ! ")
+                                                        }
 
                                                     }
 

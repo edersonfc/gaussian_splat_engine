@@ -12,23 +12,23 @@ import estilo from './components/estilo';
 
 import RangeSlider from 'rn-range-slider';
 
-import { metodo_remoto } from './components/funcao_teste'
+import { metodo_remoto } from './components/funcao_teste';
 
-import ProdutosEtiquetas from './components/ProdutosEtiquetas'
+import ProdutosEtiquetas from './components/ProdutosEtiquetas';
 
 //import FlatlistTeste from './components/FlatlistTeste';
 
-import MENU_LATERAL from './components/Menu'
+import MENU_LATERAL from './components/Menu';
 
-import FILTRO_CATEGORIA from './components/Categorias'
+import FILTRO_CATEGORIA from './components/Categorias';
 
-import DETALHES from './components/DetalhesProdutos'
+import DETALHES from './components/DetalhesProdutos';
 
 import { useNavigation } from "@react-navigation/native";
 
 import ScreenOrientation, { PORTRAIT, LANDSCAPE, LANDSCAPE_LEFT } from "react-native-orientation-locker/ScreenOrientation";
 
-import Geolocation from 'react-native-geolocation-service'
+import Geolocation from 'react-native-geolocation-service';
 
 import { useNetInfo } from '@react-native-community/netinfo';
 
@@ -60,7 +60,7 @@ import LicencaExpirada from './components/LicencaExpirada';
 import TelaSplash from './components/TelaSplash';
 
 
-import PROPRIETARIO from './components/PROPRIETARIO'
+import PROPRIETARIO from './components/PROPRIETARIO';
 
 
 // LicencaExpirada
@@ -72,8 +72,8 @@ import PROPRIETARIO from './components/PROPRIETARIO'
 // var IP_DO_SERVIDOR_IO = "http://192.168.0.102:3001/";
 
 
-// var IP_DO_SERVIDOR    = "http://192.168.56.1:3000/";
-// var IP_DO_SERVIDOR_IO = "http://192.168.56.1:3001/";
+// var IP_DO_SERVIDOR    = "http://192.168.0.107:3000/";
+// var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3001/";
 
 
 var IP_DO_SERVIDOR    = "http://18.221.55.248:3000/";

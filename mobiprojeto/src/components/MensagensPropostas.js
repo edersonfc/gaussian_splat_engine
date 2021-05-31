@@ -20,6 +20,8 @@ import GlobalContext from '../context/UsersContext';
 
 import Celular_colocar from './Celular_colocar';
 
+import { useNavigation } from "@react-navigation/native";
+
 
 //VARIAVEL GLOBAL FORA DO METODO EXPORT PRINCIPA DA TELA ABAIXO
 var propostasss =
@@ -49,6 +51,8 @@ var COR_FUNDO_MENSAGEN = "34,43,54"; //COR MAIS ESCURA
 export default function MensagensPropostas(param) {
 
     const { VARIAVEL_GLOBAL } = useContext(GlobalContext);
+
+    const navigation = useNavigation();
 
     //const [chamado_clique_botaoTrueFalse, setChamado_clique_botaoTrueFalse ] = useState(false);
 
@@ -870,7 +874,11 @@ export default function MensagensPropostas(param) {
                                                 onPress={(e) => {
 
                                                     //param.funcao_remota_aceitar_proposta(propostasss[index].cod_automatico);
-                                                    ACEITAR_PROPOSTA_FUNCAO(index);
+                                                    // ACEITAR_PROPOSTA_FUNCAO(index);
+                                                    navigation.navigate("Screen_pay",{propostas});
+
+
+                                                    <Icon name='arrow-left' style={Estilo.icones_medio} />
 
                                                 }}
 
