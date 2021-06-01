@@ -1,0 +1,196 @@
+import React, { useEffect, useRef, useState, useContext } from 'react';
+
+import { View, Text, SafeAreaView, TouchableOpacity, Alert, TextInput, ScrollView, PermissionsAndroid, TouchableHighlight, Keyboard, Dimensions, Animated } from 'react-native';
+
+import { useNavigation } from "@react-navigation/native";
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+import GlobalContext from '../../context/UsersContext';
+
+//npm i socket.io-client
+import io from 'socket.io-client';
+
+// import {QUANTIDADES_VEZES_PRECOS } from './CALCULO_E_FORMATACAO/FORMATACAO';
+import { QUANTIDADES_VEZES_PRECOS, MOEDA_P_DOUBLE_OU_FLOAT } from '../CALCULO_E_FORMATACAO/FORMATACAO';
+
+
+import Estilo from '../estilo';
+
+
+import {
+    View_1, View_2, View_3, View_4,
+    Txt_1, Txt_2,
+    ButtonCancelarTentarNovamente, cor_fundo
+} from './pay_aprovado_reprovado_css'
+
+
+var LARGURA = Math.round(Dimensions.get('window').width);
+var ALTURA = Math.round(Dimensions.get('window').height);
+
+export default function pay_aprovado_reprovado(params) {
+
+
+
+    var compraAprovadaOuReprovada = params.compraAprovadaOuReprovadaRecebid;
+    // alert( JSON.stringify(params) );
+    // alert( compraAprovadaOuReprovada );
+
+
+
+    var [compraAprovada,  setCompraAprovada]  = useState(false);
+    var [compraReprovada, setCompraReprovada] = useState(false);
+
+
+
+    useEffect(() => {
+
+        var valor = Math.floor(Math.random() * 10);
+
+        if(compraAprovadaOuReprovada == "aprovado"){
+
+            setCompraAprovada(true);
+            setCompraReprovada(false);
+
+        }else if(compraAprovadaOuReprovada == "reprovado"){
+
+            setCompraAprovada(false);
+            setCompraReprovada(true);
+            
+        }
+
+
+    // },[]);
+    });
+
+
+    return (
+
+        //1
+        <View_1
+            largura={LARGURA}
+            altura={ALTURA}
+        >
+
+
+            {/* 2 */}
+            <View_2
+                largura={LARGURA}
+                altura={(ALTURA * 0.4)}
+            >
+
+                {compraAprovada && (
+
+                    //3
+                    <View_3
+                        largura={LARGURA}
+                        altura={(ALTURA * 0.4)}
+                        cor_fundo={'#36BE54'}
+                    >
+
+                        <Txt_1
+                            largura={(LARGURA * 0.90)}
+                        >
+                            Pagamento Realizado com Sucesso
+                        </Txt_1>
+
+                        {/* 4 */}
+                        <View_4 altura={30} />
+
+                        <ButtonCancelarTentarNovamente
+                            largura={(LARGURA * 0.4)}
+                            altura={50}
+                            cor_fundo={'#36BE54'}
+                        >
+
+                            <Txt_2
+                                largura={(LARGURA * 0.4)}
+                                altura={30}
+                            >
+                                Voltar Inicio
+                            </Txt_2>
+
+                        </ButtonCancelarTentarNovamente>
+
+                    </View_3>
+
+                )}
+
+
+
+
+
+                {compraReprovada && (
+
+                    //3
+                    <View_3
+                        largura={LARGURA}
+                        altura={(ALTURA * 0.4)}
+                        cor_fundo={'#FF5353'}
+                    >
+
+                        <Txt_1
+                            largura={(LARGURA * 0.90)}
+                        >
+                            Houve Algum erro com o Seu Pagamento
+                        </Txt_1>
+
+                        {/* 4 */}
+                        <View_4 altura={30} />
+
+                        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'space-between' }} >
+
+                            <ButtonCancelarTentarNovamente
+                                largura={(LARGURA * 0.4)}
+                                altura={50}
+                                cor_fundo={'#FF5353'}
+                            >
+
+                                <Txt_2
+                                    largura={(LARGURA * 0.4)}
+                                    altura={30}
+                                >
+                                    Cancelar
+                            </Txt_2>
+
+                            </ButtonCancelarTentarNovamente>
+
+                            <View style={{ width: '4%' }} />
+
+                            <ButtonCancelarTentarNovamente
+                                largura={(LARGURA * 0.5)}
+                                altura={50}
+                                cor_fundo={'#36BE54'}
+                            >
+
+                                <Txt_2
+                                    largura={(LARGURA * 0.5)}
+                                    altura={30}
+                                >
+                                    Tentar Novamente
+                            </Txt_2>
+
+                            </ButtonCancelarTentarNovamente>
+
+                        </View>
+
+                    </View_3>
+
+                )}
+
+
+
+            </View_2>
+
+
+
+
+        </View_1>
+
+
+    );
+
+
+    // backgroundColor: '#FF5353'
+
+}

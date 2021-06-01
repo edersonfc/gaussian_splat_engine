@@ -18,6 +18,7 @@ import { QUANTIDADES_VEZES_PRECOS, MOEDA_P_DOUBLE_OU_FLOAT } from '../CALCULO_E_
 
 import Estilo from '../estilo';
 
+import Pay_aprovado_reprovado from './pay_aprovado_reprovado';
 
 
 import {
@@ -90,6 +91,11 @@ export default function pay_credity_card(params) {
     var [cpf_cnpjCard, setcpf_cnpjCard] = useState("");
     function cpf_cnpjCardF(cpf_cnpjCard) { setcpf_cnpjCard(cpf_cnpjCard); }
 
+    var [ menssagemStatusDaCompra, setMenssagemStatusDaCompra  ] = useState(false);
+
+
+   
+    var [ compraAprovadaOuReprovadaRecebida, setCompraAprovadaOuReprovadaRecebida  ] = useState("");
 
 
     return (
@@ -222,6 +228,7 @@ export default function pay_credity_card(params) {
 
                             onPress={async () => {
                                 // alert("CANCELAR COMPRA COM CARTÃO");
+                                setMenssagemStatusDaCompra(false);
                                 navigation.goBack(null);
                             }}
                         >
@@ -230,8 +237,9 @@ export default function pay_credity_card(params) {
 
                         <ButtonCancelarPagar cor_fundo={'#36BE54'}
                             onPress={async () => {
-                                alert("REALIZAR COMPRA COM O CARTÃO");
-                                // alert( nomeCartao );
+                                // alert("REALIZAR COMPRA COM O CARTÃO");
+                                setCompraAprovadaOuReprovadaRecebida("aprovado");
+                                setMenssagemStatusDaCompra(true);
                             }}
                         >
                             <Text style={{ fontSize: 15, color: '#fff' }} >Pagar</Text>
@@ -247,7 +255,10 @@ export default function pay_credity_card(params) {
 
             </ScrollView>
 
+            {menssagemStatusDaCompra && (<Pay_aprovado_reprovado compraAprovadaOuReprovadaRecebid={compraAprovadaOuReprovadaRecebida}  />)}
+        
         </SafeAreaView>
+
 
     );
 
