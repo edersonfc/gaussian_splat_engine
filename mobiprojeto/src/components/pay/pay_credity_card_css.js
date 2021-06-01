@@ -14,7 +14,7 @@ import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 
 
 var LARGURA = Math.round(Dimensions.get('window').width);
-var ALTURA = Math.round(Dimensions.get('window').height);
+var ALTURA  = Math.round(Dimensions.get('window').height);
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -26,14 +26,34 @@ import { TextInputMask } from 'react-native-masked-text';
 
 export const ContainerPrincipal = styled.View`
 
-        width:  ${LARGURA}px;
-        height: ${ALTURA}px;
+        width:   ${props => props.largura * (LARGURA)}px;
+        height:  ${props => props.altura  * (ALTURA) }px;
+
+        /* width: 100%; */
+        /* height: auto; */
         
         background-color: #2A3E4A;
         flex-direction: column;
-        align-items: center;
+        align-items: ${props => props.alinhamento_horizontal}; 
+        borderWidth: 0px;
         /* justify-content: center; */
-        position: absolute;
+        /* position: absolute; */
+        top: 0;
+        /* opacity: 0.7; */
+    `;
+
+
+export const ContainerValidadeEcodigo = styled.View`
+
+        width:  ${props => props.largura * (LARGURA)}px;
+        height: ${props => props.altura  * (ALTURA) }px;
+        
+        /* background-color: #2A3E4A; */
+        background-color: #2E4A;
+        flex-direction: column;
+        align-items: ${props => props.alinhamento_horizontal}; 
+        /* justify-content: center; */
+        /* position: absolute; */
         top: 0;
         /* opacity: 0.7; */
     `;
@@ -43,7 +63,7 @@ export const ContainerPrincipal = styled.View`
 export const ViewSeta = styled.TouchableOpacity`
 
 width:  ${(LARGURA * 100) / 100}px;
-height: ${(ALTURA * 7) / 100}px;
+height: ${(ALTURA  * 7) / 100}px;
 border-color: #fff;
 border-width: 0px;
 align-items: center;
@@ -124,10 +144,9 @@ export const StyledIconFontAwesome = styled(IconFontAwesome)`
 var TESTE = 0
 
 export const TextInputMaskCaixa = styled(TextInputMask)`
-
         width: ${props => props.largura * ALTURA }px;
         height:40px;
-        borderWidth:1px;
+        borderWidth:0px;
         padding: 0px;
         font-size:24px;
         text-align: center;
@@ -135,13 +154,27 @@ export const TextInputMaskCaixa = styled(TextInputMask)`
         backgroundColor: #FFF;
         borderRadius:10px;
     `;
+    
+
+
+    export const TextInputCaixa = styled.TextInput`
+            width: ${props => props.largura * ALTURA }px;
+            height:40px;
+            borderWidth:0px;
+            padding: 0px;
+            font-size:19px;
+            text-align: center;
+            justify-content: center;
+            backgroundColor: #FFF;
+            borderRadius:10px;
+        `;
 
 
 
 
 export const ButtonCancelarPagar = styled.TouchableOpacity`
         width:  ${(LARGURA * 35) / 100}px;
-        height: ${(ALTURA * 6) / 100}px;
+        height: ${(ALTURA * 7) / 100}px;
 
         flex-direction: row;
 
@@ -151,7 +184,7 @@ export const ButtonCancelarPagar = styled.TouchableOpacity`
         background: ${props => props.cor_fundo}; 
 
         /* background: ${({ iconColor }) => iconColor ? iconColor : '#fff'}; */
-        
+
         border-width: 1px;
         borderRadius: 25px;
         align-items: center;
