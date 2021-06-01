@@ -23,11 +23,11 @@ import { QUANTIDADES_VEZES_PRECOS, MOEDA_P_DOUBLE_OU_FLOAT } from '../CALCULO_E_
 
 
 import {
-    ContainerPrincipal, ViewSeta, ViewTitulo_1, ViewTitulo_2, ViewTaxa, ViewEspacoAltura, ViewBorda, ViewFinal,
+    ContainerPrincipal, ViewSeta, ViewTitulo_1, ViewButtons, ViewEspacoAltura, ViewBorda,
     Txt_1, Txt_2, Txt_3, Txt_4, Txt_5, Txt_6, Txt_7, Txt_8, Txt_9, Txt_10,
-    TextInputMaskCaixa,
-    ButtonCartao, ButtonGerarBoleto,
-    StyledIconFontAwesome, StyledIconFontAwesome_2
+    TextInputMaskCaixa, TextInputMaskCaixa_2,
+    ButtonCancelarPagar,
+    StyledIconFontAwesome
 } from './pay_credity_card_css';
 
 
@@ -81,16 +81,16 @@ export default function pay_credity_card(params) {
     var [dataValidade, setdataValidade] = useState("");
     function dataValidadeF(dataValidade) { setdataValidade(dataValidade); }
 
-        var [codSeguranca, setcodSeguranca ] = useState("");
-    function codSegurancaF(codSeguranca) { setcodSeguranca  (codSeguranca); }
+    var [codSeguranca, setcodSeguranca] = useState("");
+    function codSegurancaF(codSeguranca) { setcodSeguranca(codSeguranca); }
 
 
-        var [nomeCartao, setnomeCartao ] = useState("");
-    function nomeCartaoF(nomeCartao) { setnomeCartao  (nomeCartao); }
+    var [nomeCartao, setnomeCartao] = useState("");
+    function nomeCartaoF(nomeCartao) { setnomeCartao(nomeCartao); }
 
 
-        var [cpf_cnpjCard, setcpf_cnpjCard ] = useState("");
-    function cpf_cnpjCardF(cpf_cnpjCard) { setcpf_cnpjCard  (cpf_cnpjCard); }
+    var [cpf_cnpjCard, setcpf_cnpjCard] = useState("");
+    function cpf_cnpjCardF(cpf_cnpjCard) { setcpf_cnpjCard(cpf_cnpjCard); }
 
 
 
@@ -117,7 +117,7 @@ export default function pay_credity_card(params) {
 
             <Txt_2>Número do Cartão</Txt_2>
 
-            <TextInputMaskCaixa
+            <TextInputMaskCaixa  largura={0.5}
                 type={'credit-card'}
                 value={numeroCredCard}
                 maxLength={19}
@@ -134,10 +134,13 @@ export default function pay_credity_card(params) {
 
             <Txt_2>Validade</Txt_2>
 
-            <TextInputMaskCaixa
-                type={'custom'}
+            <TextInputMaskCaixa largura={0.2}
+                type={'datetime'}
+                options={{
+                    format: 'MM/YY'
+                }}
                 value={dataValidade}
-                maxLength={19}
+                maxLength={5}
                 onChangeText={value => {
                     dataValidadeF(value);
                     // value = value.replace('.', '');
@@ -152,15 +155,15 @@ export default function pay_credity_card(params) {
 
             <Txt_2>Código de Segurança</Txt_2>
 
-            <TextInputMaskCaixa  Style={{width:'30%'}}
+            <TextInputMaskCaixa largura={0.2}
                 type={'only-numbers'}
                 value={codSeguranca}
-                maxLength={19}
+                maxLength={4}
                 onChangeText={value => {
                     codSegurancaF(value);
                     // value = value.replace('.', '');
                     // value = value.replace(',', '.');
-                    // dataValidadeF(Number(value));
+                    // codSegurancaF(Number(value));
                 }}
             />
 
@@ -170,15 +173,15 @@ export default function pay_credity_card(params) {
 
             <Txt_2>Nome Impresso no Cartão</Txt_2>
 
-            <TextInputMaskCaixa  Style={{width:'30%'}}
+            <TextInputMaskCaixa largura={0.5}
                 type={'custom'}
                 value={nomeCartao}
-                maxLength={19}
+                maxLength={40}
                 onChangeText={value => {
                     nomeCartaoF(value);
                     // value = value.replace('.', '');
                     // value = value.replace(',', '.');
-                    // dataValidadeF(Number(value));
+                    // nomeCartaoF(Number(value));
                 }}
             />
 
@@ -188,19 +191,40 @@ export default function pay_credity_card(params) {
 
             <Txt_2>CPF/CNPJ do Titular da Conta</Txt_2>
 
-            <TextInputMaskCaixa  Style={{width:'30%'}}
+            <TextInputMaskCaixa largura={0.5}
+
                 type={'custom'}
                 value={cpf_cnpjCard}
                 maxLength={19}
                 onChangeText={value => {
                     cpf_cnpjCardF(value);
-                    // value = value.replace('.', '');
-                    // value = value.replace(',', '.');
-                    // dataValidadeF(Number(value));
                 }}
             />
 
 
+            <ViewButtons>
+
+                <ButtonCancelarPagar cor_fundo={'#FF5353'}
+
+                    onPress={async () => {
+                        alert("CANCELAR COMPRA COM CARTÃO");
+                    }}
+                >
+                    <Text style={{ fontSize: 15, color: '#fff' }} >Cancelar</Text>
+                </ButtonCancelarPagar>
+
+                <ButtonCancelarPagar cor_fundo={'#36BE54'}
+                    onPress={async () => {
+                         alert("REALIZAR COMPRA COM O CARTÃO");
+                        //console.log(Object.values(TextInputMaskCaixa));
+                        //alert( JSON.stringify( TextInputMaskCaixa ) );
+                    }}
+                >
+                    <Text style={{ fontSize: 15, color: '#fff' }} >Pagar</Text>
+                </ButtonCancelarPagar>
+
+
+            </ViewButtons>
 
 
 

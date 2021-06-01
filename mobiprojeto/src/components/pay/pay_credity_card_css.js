@@ -66,6 +66,21 @@ top: 0;
 `;
 
 
+export const ViewButtons = styled.View`
+
+width:  ${(LARGURA * 80) / 100}px;
+height: ${(ALTURA * 15) / 100}px;
+
+flex-direction: row;
+
+border-color: #fff;
+border-width: 0px;
+align-items: center;
+justify-content: space-between;
+top: 0;
+`;
+
+
 export const ViewBorda = styled.View`
     width:  ${(LARGURA * 60) / 100}px;
     height: 10px;
@@ -90,7 +105,7 @@ export const Txt_1 = styled.Text`
 export const Txt_2 = styled.Text`
         width:  ${(LARGURA * 85) / 100}px;
         height: 25px;
-        borderWidth: 1px;
+        borderWidth: 0px;
         font-size:13px;
         /*font-weight: bold;*/
         color:'rgba(255,255,255,0.9)';
@@ -106,16 +121,58 @@ export const StyledIconFontAwesome = styled(IconFontAwesome)`
         border-width: 0px;
 `;
 
-
+var TESTE = 0
 
 export const TextInputMaskCaixa = styled(TextInputMask)`
-    width:  ${(LARGURA * 85) / 100}px;
-    height:40px;
-    borderWidth:1px;
-    padding: 0px;
-    font-size:24px;
-    text-align: center;
-    justify-content: center;
-    backgroundColor: #FFF;
-    borderRadius:10px;
+
+        width: ${props => props.largura * ALTURA }px;
+        height:40px;
+        borderWidth:1px;
+        padding: 0px;
+        font-size:24px;
+        text-align: center;
+        justify-content: center;
+        backgroundColor: #FFF;
+        borderRadius:10px;
+    `;
+
+
+
+
+export const ButtonCancelarPagar = styled.TouchableOpacity`
+        width:  ${(LARGURA * 35) / 100}px;
+        height: ${(ALTURA * 6) / 100}px;
+
+        flex-direction: row;
+
+        font-size:20px;
+        border-color: #fff;
+        /*background: #FF5353;*/
+        background: ${props => props.cor_fundo}; 
+
+        /* background: ${({ iconColor }) => iconColor ? iconColor : '#fff'}; */
+        
+        border-width: 1px;
+        borderRadius: 25px;
+        align-items: center;
+        justify-content: center;
+        top: 0;
+`;
+
+
+
+export const ButtonPagar = styled.TouchableOpacity`
+        width:  ${(LARGURA * 35) / 100}px;
+        height: ${(ALTURA * 6) / 100}px;
+
+        flex-direction: row;
+
+        font-size:20px;
+        border-color: #fff;
+        background: #36BE54;
+        border-width: 1px;
+        borderRadius: 25px;
+        align-items: center;
+        justify-content: center;
+        top: 0;
 `;
