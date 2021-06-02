@@ -98,6 +98,8 @@ export default function pay_credity_card(params) {
     var [ compraAprovadaOuReprovadaRecebida, setCompraAprovadaOuReprovadaRecebida  ] = useState("");
 
 
+function ocultar_tela_de_mensagem(){  setMenssagemStatusDaCompra(false);  }
+
     return (
 
         <SafeAreaView style={[Estilo.App]} >
@@ -238,7 +240,7 @@ export default function pay_credity_card(params) {
                         <ButtonCancelarPagar cor_fundo={'#36BE54'}
                             onPress={async () => {
                                 // alert("REALIZAR COMPRA COM O CARTÃO");
-                                setCompraAprovadaOuReprovadaRecebida("aprovado");
+                                setCompraAprovadaOuReprovadaRecebida("reprovado");
                                 setMenssagemStatusDaCompra(true);
                             }}
                         >
@@ -255,7 +257,10 @@ export default function pay_credity_card(params) {
 
             </ScrollView>
 
-            {menssagemStatusDaCompra && (<Pay_aprovado_reprovado compraAprovadaOuReprovadaRecebid={compraAprovadaOuReprovadaRecebida}  />)}
+            {menssagemStatusDaCompra && (<Pay_aprovado_reprovado 
+                               compraAprovadaOuReprovadaRecebid={compraAprovadaOuReprovadaRecebida}
+                               ocultar_tela_de_mensagem={ocultar_tela_de_mensagem}
+                               />)}
         
         </SafeAreaView>
 

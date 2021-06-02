@@ -21,7 +21,8 @@ import Estilo from '../estilo';
 import {
     View_1, View_2, View_3, View_4,
     Txt_1, Txt_2,
-    ButtonCancelarTentarNovamente, cor_fundo
+    ButtonCancelarTentarNovamente, cor_fundo, 
+    StyledIconFontAwesome
 } from './pay_aprovado_reprovado_css'
 
 
@@ -30,7 +31,7 @@ var ALTURA = Math.round(Dimensions.get('window').height);
 
 export default function pay_aprovado_reprovado(params) {
 
-
+    const navigation = useNavigation();
 
     var compraAprovadaOuReprovada = params.compraAprovadaOuReprovadaRecebid;
     // alert( JSON.stringify(params) );
@@ -88,6 +89,8 @@ export default function pay_aprovado_reprovado(params) {
                         cor_fundo={'#36BE54'}
                     >
 
+<StyledIconFontAwesome largura={50} altura={(50)} name='check-circle' />
+
                         <Txt_1
                             largura={(LARGURA * 0.90)}
                         >
@@ -101,6 +104,9 @@ export default function pay_aprovado_reprovado(params) {
                             largura={(LARGURA * 0.4)}
                             altura={50}
                             cor_fundo={'#36BE54'}
+
+                            onPress={ () => {  navigation.goBack(null); navigation.goBack(null);  }}
+
                         >
 
                             <Txt_2
@@ -128,6 +134,7 @@ export default function pay_aprovado_reprovado(params) {
                         altura={(ALTURA * 0.4)}
                         cor_fundo={'#FF5353'}
                     >
+                        <StyledIconFontAwesome largura={50} altura={(50)} name='times-circle' />
 
                         <Txt_1
                             largura={(LARGURA * 0.90)}
@@ -144,6 +151,9 @@ export default function pay_aprovado_reprovado(params) {
                                 largura={(LARGURA * 0.4)}
                                 altura={50}
                                 cor_fundo={'#FF5353'}
+
+                onPress={ () => {  /*navigation.goBack(null);*/ params.ocultar_tela_de_mensagem(); }}
+
                             >
 
                                 <Txt_2

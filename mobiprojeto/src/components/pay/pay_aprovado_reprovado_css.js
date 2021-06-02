@@ -99,6 +99,9 @@ export const ButtonCancelarTentarNovamente = styled.TouchableOpacity`
 
 
 export const StyledIconFontAwesome = styled(IconFontAwesome)`
-    width:  ${props => props.largura}px;
-    height: ${props => props.altura}px;
-    `;
+   /* width:  ${props => props.largura}px;
+    height: ${props => props.altura}px; */
+    font-Size:45px;
+    color:'rgba(255,255,255,0.9)';
+`;
+   
