@@ -21,7 +21,7 @@ import Estilo from '../estilo';
 import {
     View_1, View_2, View_3, View_4,
     Txt_1, Txt_2,
-    ButtonCancelarTentarNovamente, cor_fundo, 
+    ButtonCancelarTentarNovamente, cor_fundo,
     StyledIconFontAwesome
 } from './pay_aprovado_reprovado_css'
 
@@ -39,29 +39,29 @@ export default function pay_aprovado_reprovado(params) {
 
 
 
-    var [compraAprovada,  setCompraAprovada]  = useState(false);
+    var [compraAprovada, setCompraAprovada] = useState(false);
     var [compraReprovada, setCompraReprovada] = useState(false);
 
 
 
     useEffect(() => {
 
-        var valor = Math.floor(Math.random() * 10);
+        // var valor = Math.floor(Math.random() * 10);
 
-        if(compraAprovadaOuReprovada == "aprovado"){
+        if (compraAprovadaOuReprovada == "aprovado") {
 
             setCompraAprovada(true);
             setCompraReprovada(false);
 
-        }else if(compraAprovadaOuReprovada == "reprovado"){
+        } else if (compraAprovadaOuReprovada == "reprovado") {
 
             setCompraAprovada(false);
             setCompraReprovada(true);
-            
+
         }
 
 
-    // },[]);
+        // },[]);
     });
 
 
@@ -89,7 +89,7 @@ export default function pay_aprovado_reprovado(params) {
                         cor_fundo={'#36BE54'}
                     >
 
-<StyledIconFontAwesome largura={50} altura={(50)} name='check-circle' />
+                        <StyledIconFontAwesome largura={50} altura={(50)} name='check-circle' />
 
                         <Txt_1
                             largura={(LARGURA * 0.90)}
@@ -105,7 +105,7 @@ export default function pay_aprovado_reprovado(params) {
                             altura={50}
                             cor_fundo={'#36BE54'}
 
-                            onPress={ () => {  navigation.goBack(null); navigation.goBack(null);  }}
+                            onPress={() => { navigation.goBack(null); navigation.goBack(null); }}
 
                         >
 
@@ -133,7 +133,8 @@ export default function pay_aprovado_reprovado(params) {
                         largura={LARGURA}
                         altura={(ALTURA * 0.4)}
                         cor_fundo={'#FF5353'}
-                    >
+
+                     >
                         <StyledIconFontAwesome largura={50} altura={(50)} name='times-circle' />
 
                         <Txt_1
@@ -152,7 +153,7 @@ export default function pay_aprovado_reprovado(params) {
                                 altura={50}
                                 cor_fundo={'#FF5353'}
 
-                onPress={ () => {  /*navigation.goBack(null);*/ params.ocultar_tela_de_mensagem(); }}
+                                onPress={() => {  /*navigation.goBack(null);*/ params.ocultar_tela_de_mensagem(); }}
 
                             >
 
@@ -176,6 +177,7 @@ export default function pay_aprovado_reprovado(params) {
                                 <Txt_2
                                     largura={(LARGURA * 0.5)}
                                     altura={30}
+                                    onPress={() => { params.executarPagamentoComCrediCard(); }}
                                 >
                                     Tentar Novamente
                             </Txt_2>

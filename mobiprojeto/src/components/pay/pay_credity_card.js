@@ -100,6 +100,29 @@ export default function pay_credity_card(params) {
 
 function ocultar_tela_de_mensagem(){  setMenssagemStatusDaCompra(false);  }
 
+
+
+
+function executarPagamentoComCrediCard(){
+ 
+ 
+    //ALTERNANCIA DE ESTADOS USADO SOMENTE PARA TESTES ABAIXO
+    var enviandoCondicao = "";
+    var valor = Math.floor(Math.random() * 10);
+    if( valor <= 5){
+      enviandoCondicao = "aprovado";
+    }else if( valor > 5){
+      enviandoCondicao = "reprovado";
+    }
+    //ALTERNANCIA DE ESTADOS USADO SOMENTE PARA TESTES ACIMA
+
+                // alert("REALIZAR COMPRA COM O CARTÃO");
+                setCompraAprovadaOuReprovadaRecebida(enviandoCondicao);
+                setMenssagemStatusDaCompra(true);
+
+}
+
+
     return (
 
         <SafeAreaView style={[Estilo.App]} >
@@ -239,9 +262,9 @@ function ocultar_tela_de_mensagem(){  setMenssagemStatusDaCompra(false);  }
 
                         <ButtonCancelarPagar cor_fundo={'#36BE54'}
                             onPress={async () => {
-                                // alert("REALIZAR COMPRA COM O CARTÃO");
-                                setCompraAprovadaOuReprovadaRecebida("reprovado");
-                                setMenssagemStatusDaCompra(true);
+
+                                executarPagamentoComCrediCard();
+
                             }}
                         >
                             <Text style={{ fontSize: 15, color: '#fff' }} >Pagar</Text>
@@ -260,6 +283,7 @@ function ocultar_tela_de_mensagem(){  setMenssagemStatusDaCompra(false);  }
             {menssagemStatusDaCompra && (<Pay_aprovado_reprovado 
                                compraAprovadaOuReprovadaRecebid={compraAprovadaOuReprovadaRecebida}
                                ocultar_tela_de_mensagem={ocultar_tela_de_mensagem}
+                               executarPagamentoComCrediCard={executarPagamentoComCrediCard}
                                />)}
         
         </SafeAreaView>
