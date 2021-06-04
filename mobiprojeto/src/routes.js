@@ -25,6 +25,7 @@ import Estatistica from './components/Estatistica';
 import Screen_pay from './components/pay/Screen_pay';
 
 import pay_credity_card from './components/pay/pay_credity_card';
+import Tabela_planos from './components/pay_anuncios/Tabela_planos';
 
 
 
@@ -64,10 +65,8 @@ export default function Routes() {
         <AppStack.Screen name="Screen_pay" component={Screen_pay} />
 
         <AppStack.Screen name="pay_credity_card" component={pay_credity_card} />
+        <AppStack.Screen name="Tabela_planos" component={Tabela_planos} />
  
-
-        
-
         
 
       </AppStack.Navigator>
