@@ -43,7 +43,7 @@ export const View_1 = styled.View`
                alignItems: center;
                borderWidth: 0px;   
                
-               /**/ background:#7676; 
+                 /**/ background:#7676;
               `;
               
 
@@ -110,13 +110,13 @@ export const Txt_2 = styled.Text`
         width:  ${props => props.largura}px;
         height: ${props => props.altura}px;
 
-        font-Size:20px;
+        font-Size:25px;
      
         color: ${props => props.selected ? '#25E7DB' : 'rgba(255,255,255,0.9)'};
 
-        textAlign: ${props => props.alinhamento}
-     
-`;
+         textAlign: ${props => props.alinhamento}
+`;   
+
 
 
 export const Txt_3 = styled.Text`
@@ -155,8 +155,9 @@ export const Txt_4 = styled.Text`
 
 export const StyledIconFontAwesome = styled(IconFontAwesome)`
          width:  ${props => props.largura}px;
-        font-Size:25px;
-        textAlign:center;
+        font-Size:28px;
+        textAlign:left;
+        paddingLeft:20px;
         color:'rgba(255,255,255,0.9)';
         border-color: #999333;
         border-width: 0px;
