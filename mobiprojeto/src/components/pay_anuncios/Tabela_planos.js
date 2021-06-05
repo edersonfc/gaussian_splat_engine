@@ -16,7 +16,7 @@ import GlobalContext from '../../context/UsersContext';
 import io from 'socket.io-client';
 
 // import {QUANTIDADES_VEZES_PRECOS } from './CALCULO_E_FORMATACAO/FORMATACAO';
-import { QUANTIDADES_VEZES_PRECOS, MOEDA_P_DOUBLE_OU_FLOAT } from '../CALCULO_E_FORMATACAO/FORMATACAO';
+import { QUANTIDADES_VEZES_PRECOS, MOEDA_P_DOUBLE_OU_FLOAT, DOUBLE_OU_FLOAT_P_MOEDA } from '../CALCULO_E_FORMATACAO/FORMATACAO';
 
 
 import {
@@ -150,7 +150,8 @@ export default function Tabela_planos(props) {
                 setEstado_array(ARRAY_SELECIONADOS);
 
                 // alert(ARRAY_PLANO_VALOR_SELECIONADO[i]);
-                valor_do_plano = ARRAY_PLANO_VALOR_SELECIONADO[i];
+                valor_do_plano = DOUBLE_OU_FLOAT_P_MOEDA( ARRAY_PLANO_VALOR_SELECIONADO[i], 'R$');
+             // valor_do_plano =  DOUBLE_OU_FLOAT_P_MOEDA( valor_do_plano, 'R$' );
 
             } else {
 

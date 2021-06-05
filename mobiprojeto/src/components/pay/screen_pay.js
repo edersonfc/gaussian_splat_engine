@@ -79,15 +79,19 @@ export default function Screen_pay(params) {
         //  alert( QUANTIDADES_VEZES_PRECOS(dados_da_venda.quantidadeCabecasOuPesos_J, dados_da_venda.precoSugerido_J  ) );
 
         var a = MOEDA_P_DOUBLE_OU_FLOAT(QUANTIDADES_VEZES_PRECOS(dados_da_venda.quantidadeCabecasOuPesos_J, dados_da_venda.precoSugerido_J));
-        //  alert( (a * 1.5) / 100 );
-        //   alert( a );
 
-        if (a > 99999 || a < 200000) {
+
+        //  alert( (a * 1.5) / 100 );
+        if (a >= 200000) {
+
+            TAXA = "R$ 249,97"
+  
+        } else if (a > 99999 || a < 200000) {
 
             TAXA = "R$ 149,98"
             
         } else if (a < 99999 || a > 49999) {
-            TAXA = "R$ 99,99"
+            TAXA = "R$ 99,98"
 
         } else if (a < 50000) {
 
