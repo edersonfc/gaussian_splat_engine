@@ -34,7 +34,8 @@ export const View_1 = styled.View`
        `;
 
        
-       export const View_2 = styled.View`
+//        export const View_2 = styled.View`
+       export const View_2 = styled.TouchableOpacity`
                flex-direction: row;
                width:  ${props => props.largura}px;
                height: ${props => props.altura}px;
@@ -45,12 +46,20 @@ export const View_1 = styled.View`
                /**/ background:#7676; 
               `;
               
+
+
+
+
               export const View_3 = styled.View`
                       flex-direction: row;
                       width:  ${props => props.largura}px;
                       height: ${props => props.altura}px;
                       borderWidth: 0px;           
                      `;
+
+
+
+
 
        export const View_borda = styled.View`
                 width:  ${props => props.largura}px;
@@ -73,6 +82,20 @@ export const View_touchable_1 = styled.TouchableOpacity`
 
 
 
+export const View_touchable_2 = styled.TouchableOpacity`
+        width:  ${props => props.largura}px;
+        height: ${props => props.altura}px;
+        borderWidth: 1px;
+        border-color: ${props => props.cor_borda};
+        borderRadius: 25px;
+
+        justifyContent:center;
+        textAlign:center;
+`;
+
+
+
+
 export const Txt_1 = styled.Text`
         width:  ${props => props.largura}px;
         height: ${props => props.altura}px;
@@ -88,9 +111,11 @@ export const Txt_2 = styled.Text`
         height: ${props => props.altura}px;
 
         font-Size:20px;
-        color:'rgba(255,255,255,0.9)';
+     
+        color: ${props => props.selected ? '#25E7DB' : 'rgba(255,255,255,0.9)'};
+
         textAlign: ${props => props.alinhamento}
-       
+     
 `;
 
 
@@ -133,6 +158,21 @@ export const StyledIconFontAwesome = styled(IconFontAwesome)`
         font-Size:25px;
         textAlign:center;
         color:'rgba(255,255,255,0.9)';
+        border-color: #999333;
+        border-width: 0px;
+       
+`;
+
+
+
+export const StyledIconFontAwesome_2 = styled(IconFontAwesome)`
+         width:  ${props => props.largura}px;
+        font-Size:25px;
+        textAlign:center;
+        /* color:'rgba(255,255,255,0.9)'; */
+
+        color: ${props => props.selected ? '#25E7DB' : 'rgba(255,255,255,0.9)'};
+
         border-color: #999333;
         border-width: 0px;
        

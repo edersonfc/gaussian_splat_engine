@@ -22,6 +22,8 @@ import {
 } from './screen_pay_css';
 
 
+// var TAXA = "R$ 149,99"
+var TAXA = ""
 
 
 export default function Screen_pay(params) {
@@ -58,7 +60,42 @@ export default function Screen_pay(params) {
 
     // // CALCULOS ACIMA
 
-    var TAXA = "R$ 149,99"
+
+
+    // alert( JSON.stringify( dados_da_negociacao ) );
+
+    var chave = Object.keys(dados_da_negociacao);
+
+    // alert(chave);
+
+    if (chave.includes("valor_do_plano")) {
+
+        TAXA = dados_da_negociacao.valor_do_plano;
+        //  alert(TAXA);
+
+
+    } else {
+
+        //  alert( QUANTIDADES_VEZES_PRECOS(dados_da_venda.quantidadeCabecasOuPesos_J, dados_da_venda.precoSugerido_J  ) );
+
+        var a = MOEDA_P_DOUBLE_OU_FLOAT(QUANTIDADES_VEZES_PRECOS(dados_da_venda.quantidadeCabecasOuPesos_J, dados_da_venda.precoSugerido_J));
+        //  alert( (a * 1.5) / 100 );
+        //   alert( a );
+
+        if (a > 99999 || a < 200000) {
+
+            TAXA = "R$ 149,98"
+            
+        } else if (a < 99999 || a > 49999) {
+            TAXA = "R$ 99,99"
+
+        } else if (a < 50000) {
+
+            TAXA = "R$ 69,99"
+
+        }
+
+    }
 
 
 
@@ -102,7 +139,7 @@ export default function Screen_pay(params) {
             <ButtonCartao onPress={() => {
 
                 // alert("Pagar com Cartão de Débito");
-                navigation.navigate("pay_credity_card",{dados_da_negociacao});
+                navigation.navigate("pay_credity_card", { dados_da_negociacao });
 
 
             }} >
