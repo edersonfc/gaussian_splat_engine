@@ -38,10 +38,8 @@ export default function Screen_pay(params) {
     // alert(   JSON.stringify(  VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE  )  );
     var dados_da_venda = JSON.stringify(VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE);
 
-
     dados_da_negociacao = JSON.parse(dados_da_negociacao);
     dados_da_venda = JSON.parse(dados_da_venda);
-
 
     // alert( Object.values( dados_da_negociacao ) );
     // alert( Object.values( dados_da_venda ) );

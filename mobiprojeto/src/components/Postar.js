@@ -1334,7 +1334,11 @@ export default function Postar(props) {
 
                                 //DESATIVAR ESSA LINHA DEPOIS
                                 // PEGAR_NUMERO_DO_CELL();
-                                navigation.navigate("Tabela_planos", null );
+
+                               const produto = { IMAGENS: VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT, VIDEOS:  VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT }
+                                navigation.navigate("Tabela_planos", {precoSugerido, quantidadeCabecasOuPesos, produto} );
+
+                                
 
 
                             }}

@@ -28,17 +28,87 @@ var LARGURA = Math.round(Dimensions.get('window').width);
 var ALTURA = Math.round(Dimensions.get('window').height);
 
 
-export default function Tabela_planos(params) {
+export default function Tabela_planos(props) {
 
-    var mes_1_valor_tx = "59,90";
-    var mes_3_valor_tx = "159,90";
-    var mes_6_valor_tx = "299,90";
-    var mes_12_valor_tx = "569,90";
+
+
+    // alert(  JSON.stringify(params)  );  
+  
+    var {  precoSugerido,  quantidadeCabecasOuPesos, produto } = props.route.params;
+    // alert( precoSugerido +"  #  "+ quantidadeCabecasOuPesos  +"  #  "+  JSON.stringify(produto)  ); 
+
+    var imagens_ou_videos = JSON.stringify(produto);
+
+    const navigation = useNavigation();
+
+    var [mes_1_valor_tx,  setMes_1_valor_tx  ] = useState(59.90);
+    var [mes_3_valor_tx,  setMes_3_valor_tx  ] = useState(159.90);
+    var [mes_6_valor_tx,  setMes_6_valor_tx  ] = useState(299.90);
+    var [mes_12_valor_tx, setMes_12_valor_tx ] = useState(569.90);
+
+    var [ contemNaoContemVideos, setContemNaoContemVideos ] = useState("");
+
+
+
+
+
+
+// //CALCULO ABAIXO
+// var a = MOEDA_P_DOUBLE_OU_FLOAT(QUANTIDADES_VEZES_PRECOS(quantidadeCabecasOuPesos, precoSugerido ));
+//         alert(a);
+// //CALCULO ACIMA
+
+
 
     var COLUNA_1 = 0.10;
     var COLUNA_2 = 0.4;
     var COLUNA_3 = 0.10;
-    var COLUNA_4 = 0.19;
+    var COLUNA_4 = 0.2;
+
+
+ 
+
+    const propostas = { 
+
+        precoSugerido: precoSugerido,
+        quantidadeCabecasOuPesos:quantidadeCabecasOuPesos,
+        imagens_ou_videos:imagens_ou_videos
+
+    }
+
+
+
+    useEffect(() => {
+
+   
+        // alert( JSON.parse(propostas.imagens_ou_videos).IMAGENS.length );
+        // alert( JSON.parse(propostas.imagens_ou_videos).VIDEOS.length );
+       
+        if( JSON.parse(propostas.imagens_ou_videos).VIDEOS.length > 0){
+
+            setMes_1_valor_tx((mes_1_valor_tx   * 0.8) + mes_1_valor_tx);
+            setMes_3_valor_tx((mes_3_valor_tx   * 0.8) + mes_3_valor_tx);
+            setMes_6_valor_tx((mes_6_valor_tx   * 0.8) + mes_6_valor_tx);
+            setMes_12_valor_tx((mes_12_valor_tx * 0.8) + mes_12_valor_tx);
+
+            // alert(mes_1_valor_tx);
+
+            setContemNaoContemVideos("Contém");
+
+        }else{
+
+            setMes_1_valor_tx(mes_1_valor_tx);
+            setMes_3_valor_tx(mes_3_valor_tx);
+            setMes_6_valor_tx(mes_6_valor_tx);
+            setMes_12_valor_tx(mes_12_valor_tx);
+
+            setContemNaoContemVideos("não Contém");
+
+        }
+       
+
+    },[]);
+
 
 
     return (
@@ -156,12 +226,14 @@ export default function Tabela_planos(params) {
             <View style={{ height: 20 }} />
 
             <Txt_3 altura={35} largura={LARGURA} >
-                Esta Publicação não Contém Vídeos
+                Esta Publicação {contemNaoContemVideos} Vídeos
             </Txt_3>
 
             <View style={{ height: 5 }} />
 
-            <View_touchable_1 largura={LARGURA * 0.3} altura={ALTURA * 0.07} cor_borda={'#FFF'} >
+            <View_touchable_1 largura={LARGURA * 0.3} altura={ALTURA * 0.07} cor_borda={'#FFF'} 
+                 onPress={(e) => {  navigation.goBack(null);  }}
+            >
                 <Txt_4 cor_txt={'#FFF'} >
                     Editar
                 </Txt_4>
@@ -170,7 +242,14 @@ export default function Tabela_planos(params) {
 
             <View style={{ height: 30 }} />
 
-            <View_touchable_1 largura={LARGURA * 0.3} altura={ALTURA * 0.07} cor_borda={'#25E7DB'} >
+            <View_touchable_1 largura={LARGURA * 0.3} altura={ALTURA * 0.07} cor_borda={'#25E7DB'} 
+                       onPress={(e) => {    
+                           
+                        navigation.navigate("Screen_pay", { propostas } );  
+                        // alert(  JSON.stringify(  propostas  )  );
+                    
+                    }}
+            >
                 <Txt_4 cor_txt={'#25E7DB'} >
                     Postar
                 </Txt_4>
