@@ -68,16 +68,16 @@ import PROPRIETARIO from './components/PROPRIETARIO';
 //VARIAVÉIS GLOBAIS ABAIXO
 
 
-// var IP_DO_SERVIDOR    = "http://192.168.0.102:3000/";
+// var IP_DO_SERVIDOR = "http://192.168.0.102:3000/";
 // var IP_DO_SERVIDOR_IO = "http://192.168.0.102:3001/";
 
 
-// var IP_DO_SERVIDOR    = "http://192.168.0.107:3000/";
-// var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3001/";
+var IP_DO_SERVIDOR    = "http://192.168.0.107:3000/";
+var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3001/";
 
 
-var IP_DO_SERVIDOR    = "http://18.221.55.248:3000/";
-var IP_DO_SERVIDOR_IO = "http://18.221.55.248:3001/";
+// var IP_DO_SERVIDOR    = "http://18.221.55.248:3000/";
+// var IP_DO_SERVIDOR_IO = "http://18.221.55.248:3001/";
 
 
 var TELA_DE_ORIGEM_E_SITUACAO = 'Tela_AppTest_POSTAGEM_SOMENTE';
@@ -120,11 +120,17 @@ var descricoesGerais;
 var precoSugerido;
 var quantidadeCabecasOuPesos;
 var aprovado_postagem;
-
 var favorito;
 var venda_status;
 var comprador;
 var ta_online;
+
+var tempoPostagem;
+
+
+
+
+
 
 
 
@@ -197,44 +203,45 @@ async function MOSTRAR_POSTAGENS() {
     //CAMPOS DAS POSTAGENS ABAIXO
     for (var i = 0; i < obj_JSON.length; i++) {
 
-      numero_telefone = "" + obj_JSON[i].numero_telefone_J;
-      id = "" + obj_JSON[i].id_J;
-      data = "" + obj_JSON[i].data_J;
-      LATITUDE = "" + obj_JSON[i].LATITUDE_J;
-      LONGITUDE = "" + obj_JSON[i].LONGITUDE_J;
-      URL_IMAGEN_DADOS = "" + obj_JSON[i].URL_IMAGEN_DADOS_J;
-      URL_VIDEOS_DADOS = "" + obj_JSON[i].URL_VIDEOS_DADOS_J;
-      corMacho = "" + obj_JSON[i].corMacho_J;
-      corFemea = "" + obj_JSON[i].corFemea_J;
-      cor_0_12 = "" + obj_JSON[i].cor_0_12_J;
-      cor_12_24 = "" + obj_JSON[i].cor_12_24_J;
-      cor_24_36 = "" + obj_JSON[i].cor_24_36_J;
-      corAcima_36 = "" + obj_JSON[i].corAcima_36_J;
-      outrasErasAnterior = "" + obj_JSON[i].outrasErasAnterior_J;
-      outrasErasPosterior = "" + obj_JSON[i].outrasErasPosterior_J;
-      corBezerros = "" + obj_JSON[i].corBezerros_J;
-      corGarrotes = "" + obj_JSON[i].corGarrotes_J;
-      corTourunos = "" + obj_JSON[i].corTourunos_J;
-      corBois = "" + obj_JSON[i].corBois_J;
-      corBoisGordos = "" + obj_JSON[i].corBoisGordos_J;
-      corBezerras = "" + obj_JSON[i].corBezerras_J;
-      corNovilhas = "" + obj_JSON[i].corNovilhas_J;
-      corVacasBoiadeiras = "" + obj_JSON[i].corVacasBoiadeiras_J;
-      corVacas = "" + obj_JSON[i].corVacas_J;
-      corVacasGordas = "" + obj_JSON[i].corVacasGordas_J;
-      corVacasPrenhas = "" + obj_JSON[i].corVacasPrenhas_J;
-      corVacasParidas = "" + obj_JSON[i].corVacasParidas_J;
-      descricoesGerais = "" + obj_JSON[i].descricoesGerais_J;
-      precoSugerido = "" + obj_JSON[i].precoSugerido_J;
-      quantidadeCabecasOuPesos = "" + obj_JSON[i].quantidadeCabecasOuPesos_J;
-      aprovado_postagem = "" + obj_JSON[i].aprovado_postagem_J;
+          numero_telefone = "" + obj_JSON[i].numero_telefone_J;
+          id = "" + obj_JSON[i].id_J;
+          data = "" + obj_JSON[i].data_J;
+          LATITUDE = "" + obj_JSON[i].LATITUDE_J;
+          LONGITUDE = "" + obj_JSON[i].LONGITUDE_J;
+          URL_IMAGEN_DADOS = "" + obj_JSON[i].URL_IMAGEN_DADOS_J;
+          URL_VIDEOS_DADOS = "" + obj_JSON[i].URL_VIDEOS_DADOS_J;
+          corMacho = "" + obj_JSON[i].corMacho_J;
+          corFemea = "" + obj_JSON[i].corFemea_J;
+          cor_0_12 = "" + obj_JSON[i].cor_0_12_J;
+          cor_12_24 = "" + obj_JSON[i].cor_12_24_J;
+          cor_24_36 = "" + obj_JSON[i].cor_24_36_J;
+          corAcima_36 = "" + obj_JSON[i].corAcima_36_J;
+          outrasErasAnterior = "" + obj_JSON[i].outrasErasAnterior_J;
+          outrasErasPosterior = "" + obj_JSON[i].outrasErasPosterior_J;
+          corBezerros = "" + obj_JSON[i].corBezerros_J;
+          corGarrotes = "" + obj_JSON[i].corGarrotes_J;
+          corTourunos = "" + obj_JSON[i].corTourunos_J;
+          corBois = "" + obj_JSON[i].corBois_J;
+          corBoisGordos = "" + obj_JSON[i].corBoisGordos_J;
+          corBezerras = "" + obj_JSON[i].corBezerras_J;
+          corNovilhas = "" + obj_JSON[i].corNovilhas_J;
+          corVacasBoiadeiras = "" + obj_JSON[i].corVacasBoiadeiras_J;
+          corVacas = "" + obj_JSON[i].corVacas_J;
+          corVacasGordas = "" + obj_JSON[i].corVacasGordas_J;
+          corVacasPrenhas = "" + obj_JSON[i].corVacasPrenhas_J;
+          corVacasParidas = "" + obj_JSON[i].corVacasParidas_J;
+          descricoesGerais = "" + obj_JSON[i].descricoesGerais_J;
+          precoSugerido = "" + obj_JSON[i].precoSugerido_J;
+          quantidadeCabecasOuPesos = "" + obj_JSON[i].quantidadeCabecasOuPesos_J;
+          aprovado_postagem = "" + obj_JSON[i].aprovado_postagem_J;
 
-      favorito = "" + obj_JSON[i].favorito_J;
+          favorito = "" + obj_JSON[i].favorito_J;
 
-      venda_status = "" + obj_JSON[i].venda_status_J;
-      comprador = "" + obj_JSON[i].comprador_J;
-      ta_online = "" + obj_JSON[i].ta_online_J;
-
+          venda_status = "" + obj_JSON[i].venda_status_J;
+          comprador = "" + obj_JSON[i].comprador_J;
+          ta_online = "" + obj_JSON[i].ta_online_J;
+          
+          tempoPostagem = "" + obj_JSON[i].tempoPostagem_J;
 
     }//FOR
     //alert(LATITUDE);
@@ -516,6 +523,9 @@ export default function AppTest() {
                         VARIAVEL_GLOBAL.CONEXAO_DO_APP = "ON-LINE";
                         //console.log("INICIO => " + hora_e_segundo_completo());
                         // console.log(VARIAVEL_GLOBAL.CONTADOR_GLOBAL + " => " + hora_e_segundo_completo())
+
+                        CONTANDO_QUANTIDADE_DE_POSTAGENS();
+
                       })
                   })
 
@@ -908,10 +918,10 @@ export default function AppTest() {
 
           if (VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO.includes("Proposta_No_Primeiro_cadastro")) {
 
-              //  VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
-               //alert("FOI ENVIADO A PROPOSTA DO PRIMEIRO CADASTRO");
+            //  VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
+            //alert("FOI ENVIADO A PROPOSTA DO PRIMEIRO CADASTRO");
 
-          }  
+          }
 
 
 
@@ -2223,14 +2233,14 @@ export default function AppTest() {
   useEffect(() => {
 
 
-      Animated.timing(
-        largura_tela_botoes,
-        {
-          toValue: SETENTA_PORCENTO_LARGURA_TELA,
-          duration: 1500,
-          useNativeDriver: false
-        }
-      )
+    Animated.timing(
+      largura_tela_botoes,
+      {
+        toValue: SETENTA_PORCENTO_LARGURA_TELA,
+        duration: 1500,
+        useNativeDriver: false
+      }
+    )
       .start()
     //   .start(({ finished }) => {
 
@@ -2246,6 +2256,47 @@ export default function AppTest() {
 
 
 
+
+ async function CONTANDO_QUANTIDADE_DE_POSTAGENS() {
+
+
+    if (VARIAVEL_GLOBAL.SOMENTE_UMA_VEZ === true) {
+
+      /***************************************/
+      var response = "";
+
+      //PRIMEIRA TENTATIVA ABAIXO
+      try { //alert(IP_DO_SERVIDOR);
+        // response = await api.get('/obtendo_postagens_online', {
+        //response = await Axios.get('http://192.168.0.102:3000/obtendo_postagens_online', {
+        response = await Axios.get(IP_DO_SERVIDOR + "contando_postagens", {
+
+          // params: { numero_telefone: DADOS_TELEFONE_VALOR }
+          params: { telefoneDoUsuario: VARIAVEL_GLOBAL.TELEFONE }
+        });
+
+        var retorno_do_bd_contagem_de_postagem = await response.data;
+        // alert( JSON.stringify(retorno_do_bd_contagem_de_postagem) );
+        // alert( retorno_do_bd_contagem_de_postagem[0].QUANTIDADE_DE_POSTAGENS );
+        VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS = retorno_do_bd_contagem_de_postagem[0].QUANTIDADE_DE_POSTAGENS;
+
+      } catch (exception) { alert(exception.message)/**/ }
+      /***************************************/
+
+
+
+      VARIAVEL_GLOBAL.SOMENTE_UMA_VEZ = false;
+    }
+
+
+
+  }
+
+
+
+
+
+
   return (
 
     <SafeAreaView style={[Estilo.App]}>
@@ -2255,8 +2306,8 @@ export default function AppTest() {
       {/* MUDANDO A ORIENTAÇÃO DA TELA PRA PAISAGEM ABAIXO colocar dentro da View principal que fica dentro do return */}
       <ScreenOrientation
         orientation={PORTRAIT}
-        // onChange={orientation => console.log('onChange', orientation)}
-        // onDeviceChange={orientation => console.log('onDeviceChange', orientation)}
+      // onChange={orientation => console.log('onChange', orientation)}
+      // onDeviceChange={orientation => console.log('onDeviceChange', orientation)}
       />
       {/* MUDANDO A ORIENTAÇÃO DA TELA PRA PAISAGEM ACIMA colocar dentro da View principal que fica dentro do return  */}
 
@@ -2303,7 +2354,7 @@ export default function AppTest() {
                 //MOSTRAR_POSTAGENS();
                 //PEGAR_TODAS_CHAVES_DO_ASYNC_STORAGE();
                 // navigation.navigate("TelaPrincipal", { produto })
-                navigation.navigate("TelaPrincipal",null);
+                navigation.navigate("TelaPrincipal", null);
 
               }}
 
@@ -2795,10 +2846,11 @@ export default function AppTest() {
                     text: 'Sim',
                     onPress: () => {/*console.log('Yes Pressed'), alert("Você Cancelou  "),*/
 
-                      APAGAR_POSTAGEM('POSTAGEM'),
-                        APAGAR_NUMERO_CELULAR('NUMERO_CELL')
-                      VARIAVEL_GLOBAL.TELEFONE = "SEM_TELEFONE_USUARIO"
-                      //setVARIAVEL_FUNCAO_TESTANDO_PROMISSE_DE_TIMER( oldState => !oldState );
+                    
+                      APAGAR_POSTAGEM('POSTAGEM')
+                      // APAGAR_NUMERO_CELULAR('NUMERO_CELL')
+                      // VARIAVEL_GLOBAL.TELEFONE = "SEM_TELEFONE_USUARIO"
+                     
 
                     }
                   },

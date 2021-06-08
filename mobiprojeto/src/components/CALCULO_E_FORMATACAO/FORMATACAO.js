@@ -540,6 +540,8 @@ Number.prototype.formatMoney = function (c, d, t) {
 };
 
 
+
+
 function VALIDAR_CPF(strCPF) {
     var Soma;
     var Resto;

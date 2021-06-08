@@ -51,6 +51,8 @@ export default function Tabela_planos(props) {
     var { precoSugerido, quantidadeCabecasOuPesos, produto } = props.route.params;
     // alert( precoSugerido +"  #  "+ quantidadeCabecasOuPesos  +"  #  "+  JSON.stringify(produto)  ); 
 
+    const { VARIAVEL_GLOBAL } = useContext(GlobalContext);
+
     var imagens_ou_videos = JSON.stringify(produto);
 
     const navigation = useNavigation();
@@ -155,6 +157,11 @@ export default function Tabela_planos(props) {
                 // alert(ARRAY_PLANO_VALOR_SELECIONADO[i]);
                 valor_do_plano = DOUBLE_OU_FLOAT_P_MOEDA(ARRAY_PLANO_VALOR_SELECIONADO[i], 'R$');
 
+                if (index === 0) { VARIAVEL_GLOBAL.tempoPostagem_G = 30 }
+                else if (index === 1) { VARIAVEL_GLOBAL.tempoPostagem_G = 90 }
+                else if (index === 2) { VARIAVEL_GLOBAL.tempoPostagem_G = 180 }
+                else if (index === 3) { VARIAVEL_GLOBAL.tempoPostagem_G = 360 }
+
             } else {
 
                 ARRAY_SELECIONADOS[i] = false;
@@ -183,7 +190,7 @@ export default function Tabela_planos(props) {
 
 
 
-  
+
 
 
     return (
@@ -196,8 +203,8 @@ export default function Tabela_planos(props) {
             cor_fundo={'#2A3E4A'}
 
         >
- <View style={{ height: 10 }} />
-            <StyledIconFontAwesome largura={LARGURA} name='arrow-left'  onPress={(e) => { navigation.goBack(null); }} />
+            <View style={{ height: 10 }} />
+            <StyledIconFontAwesome largura={LARGURA} name='arrow-left' onPress={(e) => { navigation.goBack(null); }} />
 
 
             <View_1 altura={40} largura={LARGURA}  >
@@ -220,7 +227,7 @@ export default function Tabela_planos(props) {
             <View_2 altura={50} largura={LARGURA * 0.8} >
 
                 <View_2 onPress={() => { alernarTrueFalse(0); }} altura={40} largura={LARGURA * COLUNA_1} >
-                    <StyledIconFontAwesome_2 selected={estado_array[0]} name={ estado_array[0] ? 'check-circle' : 'circle-thin'} largura={LARGURA * COLUNA_1} />
+                    <StyledIconFontAwesome_2 selected={estado_array[0]} name={estado_array[0] ? 'check-circle' : 'circle-thin'} largura={LARGURA * COLUNA_1} />
                 </View_2>
 
                 <View_2 onPress={() => { alernarTrueFalse(0); }} altura={40} largura={LARGURA * COLUNA_2}  >
@@ -240,7 +247,7 @@ export default function Tabela_planos(props) {
             <View_2 altura={50} largura={LARGURA * 0.8}  >
 
                 <View_2 onPress={() => { alernarTrueFalse(1); }} altura={40} largura={LARGURA * COLUNA_1}  >
-                    <StyledIconFontAwesome_2 selected={estado_array[1]} name={ estado_array[1] ? 'check-circle' : 'circle-thin'} largura={LARGURA * COLUNA_1} />
+                    <StyledIconFontAwesome_2 selected={estado_array[1]} name={estado_array[1] ? 'check-circle' : 'circle-thin'} largura={LARGURA * COLUNA_1} />
                 </View_2>
                 <View_2 onPress={() => { alernarTrueFalse(1); }} altura={40} largura={LARGURA * COLUNA_2}  >
                     <Txt_2 selected={estado_array[1]} altura={30} largura={LARGURA * COLUNA_2} alinhamento={'left'} >3 Mês</Txt_2>
@@ -260,7 +267,7 @@ export default function Tabela_planos(props) {
             <View_2 altura={50} largura={LARGURA * 0.8}  >
 
                 <View_2 onPress={() => { alernarTrueFalse(2); }} altura={40} largura={LARGURA * COLUNA_1}  >
-                    <StyledIconFontAwesome_2 selected={estado_array[2]} name={ estado_array[2] ? 'check-circle' : 'circle-thin'} largura={LARGURA * COLUNA_1} />
+                    <StyledIconFontAwesome_2 selected={estado_array[2]} name={estado_array[2] ? 'check-circle' : 'circle-thin'} largura={LARGURA * COLUNA_1} />
                 </View_2>
                 <View_2 onPress={() => { alernarTrueFalse(2); }} altura={40} largura={LARGURA * COLUNA_2}  >
                     <Txt_2 selected={estado_array[2]} altura={30} largura={LARGURA * COLUNA_2} alinhamento={'left'}  >6 Mês</Txt_2>
@@ -279,7 +286,7 @@ export default function Tabela_planos(props) {
             <View_2 altura={50} largura={LARGURA * 0.8}  >
 
                 <View_2 onPress={() => { alernarTrueFalse(3); }} altura={40} largura={LARGURA * COLUNA_1}  >
-                    <StyledIconFontAwesome_2 selected={estado_array[3]} name={ estado_array[3] ? 'check-circle' : 'circle-thin'} largura={LARGURA * COLUNA_1} />
+                    <StyledIconFontAwesome_2 selected={estado_array[3]} name={estado_array[3] ? 'check-circle' : 'circle-thin'} largura={LARGURA * COLUNA_1} />
                 </View_2>
                 <View_2 onPress={() => { alernarTrueFalse(3); }} altura={40} largura={LARGURA * COLUNA_2}  >
                     <Txt_2 selected={estado_array[3]} altura={30} largura={LARGURA * COLUNA_2} alinhamento={'left'}  >12 Mês</Txt_2>
@@ -326,9 +333,11 @@ export default function Tabela_planos(props) {
                     if (valor_do_plano === "") {
 
                         alert("É necessário Escolher um Plano na Tabela de Preços !");
+                   
                     } else {
                         navigation.navigate("Screen_pay", { propostas });
                         // alert(  JSON.stringify(  propostas  )  );
+                        // alert( VARIAVEL_GLOBAL.tempoPostagem_G );
                     }
 
                 }}

@@ -21,6 +21,9 @@ import Estilo from '../estilo';
 import Pay_aprovado_reprovado from './pay_aprovado_reprovado';
 
 
+import Axios from 'axios';
+
+
 import {
     ContainerPrincipal, ViewSeta, ViewTitulo_1, ViewButtons, ViewEspacoAltura, ViewBorda, ContainerValidadeEcodigo,
     Txt_1, Txt_2, Txt_3, Txt_4, Txt_5, Txt_6, Txt_7, Txt_8, Txt_9, Txt_10,
@@ -108,21 +111,89 @@ function ocultar_tela_de_mensagem(){  setMenssagemStatusDaCompra(false);  }
 function executarPagamentoComCrediCard(){
  
  
+
+     //AQUI SERÁ PROCESSADO O PAGAMENTO  NO MERCADO PAGO PARTE 1   ABAIXO
+
+
+
     //ALTERNANCIA DE ESTADOS USADO SOMENTE PARA TESTES ABAIXO
     var enviandoCondicao = "";
     var valor = Math.floor(Math.random() * 10);
     if( valor <= 5){
-      enviandoCondicao = "aprovado";
+      
+        enviandoCondicao = "aprovado";
+        UPDATE_PLANO_DE_POSTAGEM_APOS_APROVACAO_();
+
     }else if( valor > 5){
       enviandoCondicao = "reprovado";
     }
     //ALTERNANCIA DE ESTADOS USADO SOMENTE PARA TESTES ACIMA
+   
 
+
+
+     //AQUI SERÁ PROCESSADO O PAGAMENTO PARTE 2  e  FINAL   ABAIXO
                 // alert("REALIZAR COMPRA COM O CARTÃO");
                 setCompraAprovadaOuReprovadaRecebida(enviandoCondicao);
                 setMenssagemStatusDaCompra(true);
 
 }
+
+
+
+
+async function UPDATE_PLANO_DE_POSTAGEM_APOS_APROVACAO_() {
+
+    // alert( Object.values( dados_da_negociacao ) );
+    // alert( JSON.stringify(VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE) );
+
+
+
+// alert( dados_da_venda.numero_telefone_A );
+// alert( dados_da_venda.id_A );
+// alert( VARIAVEL_GLOBAL.tempoPostagem_G );
+ 
+
+  
+   // venda_status_J = 'aberta'
+   // tempoPostagem_J = 360
+
+
+
+      /***************************************/
+      var response = "";
+
+      //PRIMEIRA TENTATIVA ABAIXO
+      try { //alert(IP_DO_SERVIDOR);
+        // response = await api.get('/obtendo_postagens_online', {
+        //response = await Axios.get('http://192.168.0.102:3000/obtendo_postagens_online', {
+        await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + "update_plano_de_postagem_pos_pagamento", {
+
+            params: { 
+                        // telefoneDoUsuario: VARIAVEL_GLOBAL.TELEFONE,
+                        telefoneDoUsuario:dados_da_venda.numero_telefone_A,
+                        id_J:dados_da_venda.id_A,
+                        venda_status_J: 'aberta',
+                        tempoPostagem_J: VARIAVEL_GLOBAL.tempoPostagem_G
+                    }
+        });
+
+        var retorno_do_bd_contagem_de_postagem = await response.data;
+
+        // alert( JSON.stringify(retorno_do_bd_contagem_de_postagem) );
+        // alert( retorno_do_bd_contagem_de_postagem[0].QUANTIDADE_DE_POSTAGENS );
+        // console.log( JSON.stringify(retorno_do_bd_contagem_de_postagem) );
+        // VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS = retorno_do_bd_contagem_de_postagem[0].QUANTIDADE_DE_POSTAGENS;
+
+      } catch (exception) { alert(exception.message)/**/ }
+      /***************************************/
+
+
+
+
+  }
+
+
 
 
     return (

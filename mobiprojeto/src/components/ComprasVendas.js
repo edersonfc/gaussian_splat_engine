@@ -331,6 +331,7 @@ export default function ComprasVendas(props) {
     var comprador;
     var ta_online;
 
+    var tempoPostagem;
 
 
 

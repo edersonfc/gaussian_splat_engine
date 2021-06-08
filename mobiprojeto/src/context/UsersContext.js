@@ -41,7 +41,14 @@ var OBJETOS_JSON =
      LICENCA_USO:"SEM_CADASTRO",
 
      LARGURA_DA_TELA: Math.round(Dimensions.get('window').width),
-     ALTURA_DA_TELA:  Math.round(Dimensions.get('window').height)
+     ALTURA_DA_TELA:  Math.round(Dimensions.get('window').height),
+
+     SOMENTE_UMA_VEZ: true,
+     QUANTIDADE_DE_POSTAGEMS:0,
+     PARAMETROS_QUANTIDADE_DE_POSTAGEMS:1,
+
+
+     tempoPostagem_G:360
 };
 /**/
 //TODOS PARAMETROS IMPORTANTES RELACIONADO A SITUAÇÃO DOS PRODUTOS ACIMA

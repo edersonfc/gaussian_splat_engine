@@ -100,9 +100,12 @@ var dadosPostagem =
         aprovado_postagem_J: "",
 
         favorito_J: "",
+        // venda_status_J: "aberta",
         venda_status_J: "aberta",
         comprador_J: "nenhum",
-        ta_online_J: "nao"
+        ta_online_J: "nao",
+
+        tempoPostagem_J: 30
     }];
 
 
@@ -619,6 +622,49 @@ export default function Postar(props) {
     // }, []);
 
     //COLOCANDO EFEITOS DE ANIMAÇÃO ACIMA
+
+
+
+
+
+    async function CONTANDO_QUANTIDADE_DE_POSTAGENS() {
+
+        // alert("TÁ CHAMANDO");
+
+        // if (VARIAVEL_GLOBAL.SOMENTE_UMA_VEZ === true) {
+    
+          /***************************************/
+          var response = "";
+    
+          //PRIMEIRA TENTATIVA ABAIXO
+          try { //alert(IP_DO_SERVIDOR);
+            // response = await api.get('/obtendo_postagens_online', {
+            //response = await Axios.get('http://192.168.0.102:3000/obtendo_postagens_online', {
+            response = await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + "contando_postagens", {
+    
+              // params: { numero_telefone: DADOS_TELEFONE_VALOR }
+              params: { telefoneDoUsuario: VARIAVEL_GLOBAL.TELEFONE }
+            });
+    
+            var retorno_do_bd_contagem_de_postagem = await response.data;
+
+            // alert( JSON.stringify(retorno_do_bd_contagem_de_postagem) );
+            // alert( retorno_do_bd_contagem_de_postagem[0].QUANTIDADE_DE_POSTAGENS );
+            // console.log( JSON.stringify(retorno_do_bd_contagem_de_postagem) );
+
+            VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS = retorno_do_bd_contagem_de_postagem[0].QUANTIDADE_DE_POSTAGENS;
+    
+          } catch (exception) { alert(exception.message)/**/ }
+          /***************************************/
+        
+    
+        //   VARIAVEL_GLOBAL.SOMENTE_UMA_VEZ = false;
+        // }   // if (VARIAVEL_GLOBAL.SOMENTE_UMA_VEZ === true) {
+    
+    
+    
+      }
+
 
 
 
@@ -1332,13 +1378,22 @@ export default function Postar(props) {
 
 
 
-                                //DESATIVAR ESSA LINHA DEPOIS
-                                // PEGAR_NUMERO_DO_CELL();
+                                //DESATIVAR ESSA LINHA DEPOIS ABAIXO
 
-                               const produto = { IMAGENS: VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT, VIDEOS:  VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT }
-                                navigation.navigate("Tabela_planos", {precoSugerido, quantidadeCabecasOuPesos, produto} );
+                                await CONTANDO_QUANTIDADE_DE_POSTAGENS();
 
-                                
+                                // console.log(VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS);
+
+                                await PEGAR_NUMERO_DO_CELL();// GOBACK HERE
+
+                                if (VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS > VARIAVEL_GLOBAL.PARAMETROS_QUANTIDADE_DE_POSTAGEMS) {
+                                        // venda_status_J = 'pendente';
+                                        const produto = { IMAGENS: VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT, VIDEOS: VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT }
+                                        navigation.navigate("Tabela_planos", { precoSugerido, quantidadeCabecasOuPesos, produto });
+                                }
+
+                                //DESATIVAR ESSA LINHA DEPOIS ACIMA
+
 
 
                             }}
@@ -1771,6 +1826,16 @@ export default function Postar(props) {
 
     async function ARMAZENAR_POSTAGEM_PRIMEIRA_ETAPA() {
 
+
+        if (VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS > VARIAVEL_GLOBAL.PARAMETROS_QUANTIDADE_DE_POSTAGEMS) {
+
+            // venda_status_J = 'pendente';
+            venda_status = 'pendente';
+
+        }
+        
+        
+
         //variavelTelefone = variavelTelefone.replace("[", "").replace("]", "");
 
         //returns a random integer from 0 to 9999  in line  below
@@ -1847,7 +1912,55 @@ export default function Postar(props) {
         var venda_status_J = venda_status;
         var comprador_J = comprador;
         var ta_online_J = ta_online;
-        //alert(dadosPostagem);
+
+        var tempoPostagem_J = VARIAVEL_GLOBAL.tempoPostagem_G;
+
+        // alert(dadosPostagem);
+
+
+
+        VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE  =
+                        {
+                            numero_telefone_A:numero_telefone_J,
+                            id_A:	id_J,
+                            data_A:	data_J,
+                            LATITUDE_A:	LATITUDE_J,
+                            LONGITUDE_A:	LONGITUDE_J,
+                            URL_IMAGEN_DADOS_A:	URL_IMAGEN_DADOS_J,
+                            URL_VIDEOS_DADOS_A:	URL_VIDEOS_DADOS_J,
+                            corMacho_A:	corMacho_J,
+                            corFemea_A:	corFemea_J,
+                            cor_0_12_A:	cor_0_12_J,
+                            cor_12_24_A	:	cor_12_24_J,
+                            cor_24_36_A	:	cor_24_36_J,
+                            corAcima_36_A	:	corAcima_36_J,
+                            outrasErasAnterior_A	:	outrasErasAnterior_J,
+                            outrasErasPosterior_A	:	outrasErasPosterior_J,
+                            corBezerros_A	:	corBezerros_J,
+                            corGarrotes_A	:	corGarrotes_J,
+                            corTourunos_A	:	corTourunos_J,
+                            corBois_A	:	corBois_J,
+                            corBoisGordos_A	:	corBoisGordos_J,
+                            corBezerras_A	:	corBezerras_J,
+                            corNovilhas_A	:	corNovilhas_J,
+                            corVacasBoiadeiras_A	:	corVacasBoiadeiras_J,
+                            corVacas_A	:	corVacas_J,
+                            corVacasGordas_A	:	corVacasGordas_J,
+                            corVacasPrenhas_A	:	corVacasPrenhas_J,
+                            corVacasParidas_A	:	corVacasParidas_J,
+                            descricoesGerais_A	:	descricoesGerais_J,
+                            precoSugerido_A	:	precoSugerido_J,
+                            quantidadeCabecasOuPesos_A	:	quantidadeCabecasOuPesos_J,
+                            aprovado_postagem_A	:	aprovado_postagem_J,
+                            favorito_A	:	favorito_J,
+                            venda_status_A	:	venda_status_J,
+                            comprador_A	:	comprador_J,
+                            ta_online_A	:	ta_online_J,
+                            tempoPostagem_A	:	tempoPostagem_J
+                        } 
+
+
+
 
         //Preencher o OBJETO JSON caso não esteja VAZIO ABAIXO
         dadosPostagem = await MOSTRAR_POSTAGENS();
@@ -1905,7 +2018,8 @@ export default function Postar(props) {
                 favorito_J,
                 venda_status_J,
                 comprador_J,
-                ta_online_J
+                ta_online_J,
+                tempoPostagem_J
             });
 
         } else if (dadosPostagem === null) {
@@ -1959,7 +2073,9 @@ export default function Postar(props) {
                 favorito_J: favorito,
                 venda_status_J: venda_status,
                 comprador_J: comprador,
-                ta_online_J: ta_online
+                ta_online_J: ta_online,
+
+                tempoPostagem_J: VARIAVEL_GLOBAL.tempoPostagem_G
             }];
 
 
@@ -2016,8 +2132,23 @@ export default function Postar(props) {
             // });
 
 
+            //TENTANDO IMPLEMENTAR ESSA LINHA 
+            // VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE  =  JSON.stringify(data_object);
+            // VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE  = "";
+            // VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE  =  data_object;
+
+
+            if (VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS > VARIAVEL_GLOBAL.PARAMETROS_QUANTIDADE_DE_POSTAGEMS) {
+
+                // alert("VAI CHAMAR FORMA DE PAGAMENTO");//
+                console.log("VAI CHAMAR FORMA DE PAGAMENTO");
+
+            }else{
 
             alert("GRAVADO COM SUCESSO !");//
+            
+
+            }
 
         }
         catch (exception) {
