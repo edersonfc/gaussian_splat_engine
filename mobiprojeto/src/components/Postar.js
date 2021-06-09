@@ -632,20 +632,20 @@ export default function Postar(props) {
         // alert("TÁ CHAMANDO");
 
         // if (VARIAVEL_GLOBAL.SOMENTE_UMA_VEZ === true) {
-    
-          /***************************************/
-          var response = "";
-    
-          //PRIMEIRA TENTATIVA ABAIXO
-          try { //alert(IP_DO_SERVIDOR);
+
+        /***************************************/
+        var response = "";
+
+        //PRIMEIRA TENTATIVA ABAIXO
+        try { //alert(IP_DO_SERVIDOR);
             // response = await api.get('/obtendo_postagens_online', {
             //response = await Axios.get('http://192.168.0.102:3000/obtendo_postagens_online', {
             response = await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + "contando_postagens", {
-    
-              // params: { numero_telefone: DADOS_TELEFONE_VALOR }
-              params: { telefoneDoUsuario: VARIAVEL_GLOBAL.TELEFONE }
+
+                // params: { numero_telefone: DADOS_TELEFONE_VALOR }
+                params: { telefoneDoUsuario: VARIAVEL_GLOBAL.TELEFONE }
             });
-    
+
             var retorno_do_bd_contagem_de_postagem = await response.data;
 
             // alert( JSON.stringify(retorno_do_bd_contagem_de_postagem) );
@@ -653,17 +653,181 @@ export default function Postar(props) {
             // console.log( JSON.stringify(retorno_do_bd_contagem_de_postagem) );
 
             VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS = retorno_do_bd_contagem_de_postagem[0].QUANTIDADE_DE_POSTAGENS;
-    
-          } catch (exception) { alert(exception.message)/**/ }
-          /***************************************/
-        
-    
+
+        } catch (exception) { alert(exception.message)/**/ }
+        /***************************************/
+
+
         //   VARIAVEL_GLOBAL.SOMENTE_UMA_VEZ = false;
         // }   // if (VARIAVEL_GLOBAL.SOMENTE_UMA_VEZ === true) {
-    
-    
-    
-      }
+
+
+
+    }
+
+
+
+
+
+
+
+    /**************************************************************************************************/
+    /**************************************************************************************************/
+    /**************************************************************************************************/
+    //INSERINDO DADOS NO BANCO DE DADOS ABAIXO
+    async function INSERINDO_NO_BANCO_DE_DADOS_POSTAGENS_OFF_LINE() {
+
+        //setSomatorio_notificacao_numero(0);
+
+        try {
+
+            //Pegando dados das POSTAGENS GRAVADO OFF LINE
+            var datos = await AsyncStorage.getItem('POSTAGEM');
+            //alert(datos);
+            //console.log(datos);
+            var obj_JSON = JSON.parse(datos);
+            //alert(  JSON.stringify(obj_JSON[0]) );
+            //alert(obj_JSON.length);
+
+            for (var i = 0; i < obj_JSON.length; i++) {
+
+                var TA_ON_LINE = obj_JSON[i].ta_online_J;//ADICIONADO EM 05/12/2020
+
+                //alert(TA_ON_LINE);
+
+                var JSON_POSTAGEM_STRING = JSON.stringify(obj_JSON[i]);
+                //alert( JSON_POSTAGEM_STRING );
+
+                //VERIFICANDO SE POSTAGEM ESTÁ GRAVADO ON-LINE e fazendo A SINCRONIZAÇÃO no BANCO DE DADOS ABAIXO
+                /*METODO DE SELECT REMOTO NO BANCO DE DADOS ONLINE ABAIXO */
+                var numero_telefone_J = obj_JSON[i].numero_telefone_J;
+                var id_J = obj_JSON[i].id_J;
+
+                const response = await Axios.get(IP_DO_SERVIDOR + 'se_postagem_esta_online', {
+                    params: {
+                        numero_telefone_J: numero_telefone_J,
+                        id_J: id_J,
+                    }
+                });
+
+                //console.log( response.data.length );
+                var tamanho = response.data.length;
+
+                if (tamanho == 0) {
+                    //console.log( "GRAVAR" );
+                    /* METODO DE SELECT REMOTO NO BANCO DE DADOS ONLINE ACIMA */
+
+                    //if (TA_ON_LINE === 'nao') { //ADICIONADO EM 05/12/2020
+                    //console.log("GRAVAR");
+
+                    //TENTAR UPAR IMAGENS e VIDEOS AQUI Abaixo
+
+
+                    //UPLOAD DE IMAGENS ABAIXO
+                    //1º Upload de IMAGENS
+                    var URL_IMAGEN_DADOS_J = obj_JSON[i].URL_IMAGEN_DADOS_J;
+                    var ARRAY_IMAGENS = URL_IMAGEN_DADOS_J.split("|");
+                    ARRAY_IMAGENS = await REMOVER_ITENS_NULOS_DO_ARRAY(ARRAY_IMAGENS);
+
+                    //ENVIANDO IMAGENS PRO SERVIDOR REMOTO ABAIXO
+                    ARRAY_IMAGENS.map(async (photo, index) => {
+                        var nome_do_arquivo = (extrair_nome_de_Arquivo_da_url(ARRAY_IMAGENS[index]).arquivo);
+                        //COMANDOS DAQUI PRA BAIXO
+                        //CHAMANDO O METODO DE ENVIO DE IMAGENS PRO SERVIDOR
+                        UPLOAD_PRO_SERVIDOR(nome_do_arquivo, ARRAY_IMAGENS[index]);
+
+
+
+                        //COMANDOS DAQUI PRACIMA
+                    });//MAP
+                    //ENVIANDO IMAGENS PRO SERVIDOR REMOTO ACIMA
+
+                    //UPLOAD DE IMAGENS ACIMA
+
+
+
+                    /**/
+                    //UPLOAD DE VÍDEOS ABAIXO
+                    //2º Upload de VIDEOS
+                    var URL_VIDEOS_DADOS_J = obj_JSON[i].URL_VIDEOS_DADOS_J;
+                    var ARRAY_VIDEOS = URL_VIDEOS_DADOS_J.split("|");
+                    ARRAY_VIDEOS = await REMOVER_ITENS_NULOS_DO_ARRAY(ARRAY_VIDEOS);
+
+                    //ENVIANDO VIDEOS PRO SERVIDOR REMOTO ABAIXO
+                    ARRAY_VIDEOS.map((video, index) => {
+                        var nome_do_arquivo = (extrair_nome_de_Arquivo_da_url(ARRAY_VIDEOS[index]).arquivo);
+                        //COMANDOS DAQUI PRA BAIXO
+                        //CHAMANDO O METODO DE ENVIO DE IMAGENS PRO SERVIDOR
+                        UPLOAD_PRO_SERVIDOR(nome_do_arquivo, ARRAY_VIDEOS[index]);
+                        //COMANDOS DAQUI PRACIMA
+                    });//MAP
+                    //ENVIANDO VIDEOS PRO SERVIDOR REMOTO ACIMA
+
+                    //UPLOAD DE VÍDEOS ACIMA
+
+
+                    //TENTAR UPAR IMAGENS e VIDEOS AQUI Acima
+
+
+
+                    //ATIVAR DEPOIS MUITO IMPORTANTE ATENÇÃO 
+                    //GRAVAÇÃO DA INFORMAÇÃO NO BANCO DE DADOS ABAIXO  
+                    await Axios.get(IP_DO_SERVIDOR + 'insert_postagens', {
+                        //{postagem:'{"cidade":"Nova Três"}'}
+                        params:
+                        {
+                            postagem: JSON_POSTAGEM_STRING
+                        }
+                    });
+
+
+                    /*
+                    .then((response)=>{
+                         //console.log(response)
+                      if(response.ok && response.status == 200){
+                        //displaying data to screen
+                        ATUALIZANDO_DADOS_NO_ASYNCSTORAGE_POR_INDICE(i,'sim'); //ADICIONADO EM 05/12/2020
+                        console.log(JSON_POSTAGEM_STRING);
+                      } else{
+                        //display alert failed to call API
+                        alert("FALHOU A GRAVAÇÃO DE DADOS");
+                      }
+                    });
+                    */
+
+                    //GRAVAÇÃO DA INFORMAÇÃO NO BANCO DE DADOS ACIMA 
+                    /**/
+
+
+                } else if (tamanho > 0) {
+                    //} else if (TA_ON_LINE === 'sim') { //ADICIONADO EM 05/12/2020
+                    //console.log("NÃO GRAVAR");
+
+
+                }//IF ELSE 
+                //VERIFICANDO SE POSTAGEM ESTÁ GRAVADO ON-LINE e fazendo A SINCRONIZAÇÃO no BANCO DE DADOS ACIMA
+
+
+            }//FOR    
+
+
+        } catch (error) { /*alert(error)*/ /*console.log("ERRO 8786414" + error);*/ }
+        //OBSERVER HERE
+
+
+    }
+    //INSERINDO DADOS NO BANCO DE DADOS ACIMA
+    /**************************************************************************************************/
+    /**************************************************************************************************/
+    /**************************************************************************************************/
+
+
+
+
+
+
+
+
 
 
 
@@ -1387,9 +1551,9 @@ export default function Postar(props) {
                                 await PEGAR_NUMERO_DO_CELL();// GOBACK HERE
 
                                 if (VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS > VARIAVEL_GLOBAL.PARAMETROS_QUANTIDADE_DE_POSTAGEMS) {
-                                        // venda_status_J = 'pendente';
-                                        const produto = { IMAGENS: VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT, VIDEOS: VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT }
-                                        navigation.navigate("Tabela_planos", { precoSugerido, quantidadeCabecasOuPesos, produto });
+                                    // venda_status_J = 'pendente';
+                                    const produto = { IMAGENS: VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT, VIDEOS: VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT }
+                                    navigation.navigate("Tabela_planos", { precoSugerido, quantidadeCabecasOuPesos, produto });
                                 }
 
                                 //DESATIVAR ESSA LINHA DEPOIS ACIMA
@@ -1728,7 +1892,7 @@ export default function Postar(props) {
             //alert(obj_JSON.URL_VIDEOS_DADOS_J);
             //var DADO_CONVERTIDOS_PRA_ARRAY = pegar_somente_valores_de_JSON(obj_JSON);
             //alert(DADO_CONVERTIDOS_PRA_ARRAY);
-            variavelTelefone = await Object.values(obj_JSON);
+            variavelTelefone = Object.values(obj_JSON);
 
             //alert("AQUI 789 "+variavelTelefone)
 
@@ -1833,14 +1997,12 @@ export default function Postar(props) {
             venda_status = 'pendente';
 
         }
-        
-        
+
 
         //variavelTelefone = variavelTelefone.replace("[", "").replace("]", "");
 
         //returns a random integer from 0 to 9999  in line  below
         var random = Math.floor(Math.random() * 10000);
-
 
         //Agrupar URLs das Imagens e Videos separando pelo caracter |   
         var URL_IMAGEN_DADOS = "";
@@ -1917,47 +2079,48 @@ export default function Postar(props) {
 
         // alert(dadosPostagem);
 
+        // id_J = id_J.trim();
+        id_J = id_J.replace(/\s+/g, "");
 
-
-        VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE  =
-                        {
-                            numero_telefone_A:numero_telefone_J,
-                            id_A:	id_J,
-                            data_A:	data_J,
-                            LATITUDE_A:	LATITUDE_J,
-                            LONGITUDE_A:	LONGITUDE_J,
-                            URL_IMAGEN_DADOS_A:	URL_IMAGEN_DADOS_J,
-                            URL_VIDEOS_DADOS_A:	URL_VIDEOS_DADOS_J,
-                            corMacho_A:	corMacho_J,
-                            corFemea_A:	corFemea_J,
-                            cor_0_12_A:	cor_0_12_J,
-                            cor_12_24_A	:	cor_12_24_J,
-                            cor_24_36_A	:	cor_24_36_J,
-                            corAcima_36_A	:	corAcima_36_J,
-                            outrasErasAnterior_A	:	outrasErasAnterior_J,
-                            outrasErasPosterior_A	:	outrasErasPosterior_J,
-                            corBezerros_A	:	corBezerros_J,
-                            corGarrotes_A	:	corGarrotes_J,
-                            corTourunos_A	:	corTourunos_J,
-                            corBois_A	:	corBois_J,
-                            corBoisGordos_A	:	corBoisGordos_J,
-                            corBezerras_A	:	corBezerras_J,
-                            corNovilhas_A	:	corNovilhas_J,
-                            corVacasBoiadeiras_A	:	corVacasBoiadeiras_J,
-                            corVacas_A	:	corVacas_J,
-                            corVacasGordas_A	:	corVacasGordas_J,
-                            corVacasPrenhas_A	:	corVacasPrenhas_J,
-                            corVacasParidas_A	:	corVacasParidas_J,
-                            descricoesGerais_A	:	descricoesGerais_J,
-                            precoSugerido_A	:	precoSugerido_J,
-                            quantidadeCabecasOuPesos_A	:	quantidadeCabecasOuPesos_J,
-                            aprovado_postagem_A	:	aprovado_postagem_J,
-                            favorito_A	:	favorito_J,
-                            venda_status_A	:	venda_status_J,
-                            comprador_A	:	comprador_J,
-                            ta_online_A	:	ta_online_J,
-                            tempoPostagem_A	:	tempoPostagem_J
-                        } 
+        VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE =
+                {
+                    numero_telefone_A: numero_telefone_J,
+                    id_A: id_J,
+                    data_A: data_J,
+                    LATITUDE_A: LATITUDE_J,
+                    LONGITUDE_A: LONGITUDE_J,
+                    URL_IMAGEN_DADOS_A: URL_IMAGEN_DADOS_J,
+                    URL_VIDEOS_DADOS_A: URL_VIDEOS_DADOS_J,
+                    corMacho_A: corMacho_J,
+                    corFemea_A: corFemea_J,
+                    cor_0_12_A: cor_0_12_J,
+                    cor_12_24_A: cor_12_24_J,
+                    cor_24_36_A: cor_24_36_J,
+                    corAcima_36_A: corAcima_36_J,
+                    outrasErasAnterior_A: outrasErasAnterior_J,
+                    outrasErasPosterior_A: outrasErasPosterior_J,
+                    corBezerros_A: corBezerros_J,
+                    corGarrotes_A: corGarrotes_J,
+                    corTourunos_A: corTourunos_J,
+                    corBois_A: corBois_J,
+                    corBoisGordos_A: corBoisGordos_J,
+                    corBezerras_A: corBezerras_J,
+                    corNovilhas_A: corNovilhas_J,
+                    corVacasBoiadeiras_A: corVacasBoiadeiras_J,
+                    corVacas_A: corVacas_J,
+                    corVacasGordas_A: corVacasGordas_J,
+                    corVacasPrenhas_A: corVacasPrenhas_J,
+                    corVacasParidas_A: corVacasParidas_J,
+                    descricoesGerais_A: descricoesGerais_J,
+                    precoSugerido_A: precoSugerido_J,
+                    quantidadeCabecasOuPesos_A: quantidadeCabecasOuPesos_J,
+                    aprovado_postagem_A: aprovado_postagem_J,
+                    favorito_A: favorito_J,
+                    venda_status_A: venda_status_J,
+                    comprador_A: comprador_J,
+                    ta_online_A: ta_online_J,
+                    tempoPostagem_A: tempoPostagem_J
+                }
 
 
 
@@ -1975,6 +2138,7 @@ export default function Postar(props) {
 
         //alert(dadosPostagem);
 
+        console.log("#=>"+id_J);
 
         if (dadosPostagem != null) {
 
@@ -2142,11 +2306,15 @@ export default function Postar(props) {
 
                 // alert("VAI CHAMAR FORMA DE PAGAMENTO");//
                 console.log("VAI CHAMAR FORMA DE PAGAMENTO");
+                try {
+                    await INSERINDO_NO_BANCO_DE_DADOS_POSTAGENS_OFF_LINE();
+                } catch (error) { console.log(error); }
 
-            }else{
 
-            alert("GRAVADO COM SUCESSO !");//
-            
+            } else {
+
+                alert("GRAVADO COM SUCESSO !");//
+                INSERINDO_NO_BANCO_DE_DADOS_POSTAGENS_OFF_LINE();
 
             }
 

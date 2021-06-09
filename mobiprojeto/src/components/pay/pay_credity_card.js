@@ -108,7 +108,7 @@ function ocultar_tela_de_mensagem(){  setMenssagemStatusDaCompra(false);  }
 
 
 
-function executarPagamentoComCrediCard(){
+async function executarPagamentoComCrediCard(){
  
  
 
@@ -121,15 +121,15 @@ function executarPagamentoComCrediCard(){
     var valor = Math.floor(Math.random() * 10);
     if( valor <= 5){
       
+        // await VARIAVEL_GLOBAL.CONECTANDO_AO_BANCO_DE_DADOS_GLOBALMENTE;
         enviandoCondicao = "aprovado";
-        UPDATE_PLANO_DE_POSTAGEM_APOS_APROVACAO_();
+        await UPDATE_PLANO_DE_POSTAGEM_APOS_APROVACAO_();
 
     }else if( valor > 5){
       enviandoCondicao = "reprovado";
     }
     //ALTERNANCIA DE ESTADOS USADO SOMENTE PARA TESTES ACIMA
    
-
 
 
      //AQUI SERÁ PROCESSADO O PAGAMENTO PARTE 2  e  FINAL   ABAIXO

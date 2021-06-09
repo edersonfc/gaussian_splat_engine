@@ -72,7 +72,7 @@ import PROPRIETARIO from './components/PROPRIETARIO';
 // var IP_DO_SERVIDOR_IO = "http://192.168.0.102:3001/";
 
 
-var IP_DO_SERVIDOR    = "http://192.168.0.107:3000/";
+var IP_DO_SERVIDOR = "http://192.168.0.107:3000/";
 var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3001/";
 
 
@@ -203,45 +203,45 @@ async function MOSTRAR_POSTAGENS() {
     //CAMPOS DAS POSTAGENS ABAIXO
     for (var i = 0; i < obj_JSON.length; i++) {
 
-          numero_telefone = "" + obj_JSON[i].numero_telefone_J;
-          id = "" + obj_JSON[i].id_J;
-          data = "" + obj_JSON[i].data_J;
-          LATITUDE = "" + obj_JSON[i].LATITUDE_J;
-          LONGITUDE = "" + obj_JSON[i].LONGITUDE_J;
-          URL_IMAGEN_DADOS = "" + obj_JSON[i].URL_IMAGEN_DADOS_J;
-          URL_VIDEOS_DADOS = "" + obj_JSON[i].URL_VIDEOS_DADOS_J;
-          corMacho = "" + obj_JSON[i].corMacho_J;
-          corFemea = "" + obj_JSON[i].corFemea_J;
-          cor_0_12 = "" + obj_JSON[i].cor_0_12_J;
-          cor_12_24 = "" + obj_JSON[i].cor_12_24_J;
-          cor_24_36 = "" + obj_JSON[i].cor_24_36_J;
-          corAcima_36 = "" + obj_JSON[i].corAcima_36_J;
-          outrasErasAnterior = "" + obj_JSON[i].outrasErasAnterior_J;
-          outrasErasPosterior = "" + obj_JSON[i].outrasErasPosterior_J;
-          corBezerros = "" + obj_JSON[i].corBezerros_J;
-          corGarrotes = "" + obj_JSON[i].corGarrotes_J;
-          corTourunos = "" + obj_JSON[i].corTourunos_J;
-          corBois = "" + obj_JSON[i].corBois_J;
-          corBoisGordos = "" + obj_JSON[i].corBoisGordos_J;
-          corBezerras = "" + obj_JSON[i].corBezerras_J;
-          corNovilhas = "" + obj_JSON[i].corNovilhas_J;
-          corVacasBoiadeiras = "" + obj_JSON[i].corVacasBoiadeiras_J;
-          corVacas = "" + obj_JSON[i].corVacas_J;
-          corVacasGordas = "" + obj_JSON[i].corVacasGordas_J;
-          corVacasPrenhas = "" + obj_JSON[i].corVacasPrenhas_J;
-          corVacasParidas = "" + obj_JSON[i].corVacasParidas_J;
-          descricoesGerais = "" + obj_JSON[i].descricoesGerais_J;
-          precoSugerido = "" + obj_JSON[i].precoSugerido_J;
-          quantidadeCabecasOuPesos = "" + obj_JSON[i].quantidadeCabecasOuPesos_J;
-          aprovado_postagem = "" + obj_JSON[i].aprovado_postagem_J;
+      numero_telefone = "" + obj_JSON[i].numero_telefone_J;
+      id = "" + obj_JSON[i].id_J;
+      data = "" + obj_JSON[i].data_J;
+      LATITUDE = "" + obj_JSON[i].LATITUDE_J;
+      LONGITUDE = "" + obj_JSON[i].LONGITUDE_J;
+      URL_IMAGEN_DADOS = "" + obj_JSON[i].URL_IMAGEN_DADOS_J;
+      URL_VIDEOS_DADOS = "" + obj_JSON[i].URL_VIDEOS_DADOS_J;
+      corMacho = "" + obj_JSON[i].corMacho_J;
+      corFemea = "" + obj_JSON[i].corFemea_J;
+      cor_0_12 = "" + obj_JSON[i].cor_0_12_J;
+      cor_12_24 = "" + obj_JSON[i].cor_12_24_J;
+      cor_24_36 = "" + obj_JSON[i].cor_24_36_J;
+      corAcima_36 = "" + obj_JSON[i].corAcima_36_J;
+      outrasErasAnterior = "" + obj_JSON[i].outrasErasAnterior_J;
+      outrasErasPosterior = "" + obj_JSON[i].outrasErasPosterior_J;
+      corBezerros = "" + obj_JSON[i].corBezerros_J;
+      corGarrotes = "" + obj_JSON[i].corGarrotes_J;
+      corTourunos = "" + obj_JSON[i].corTourunos_J;
+      corBois = "" + obj_JSON[i].corBois_J;
+      corBoisGordos = "" + obj_JSON[i].corBoisGordos_J;
+      corBezerras = "" + obj_JSON[i].corBezerras_J;
+      corNovilhas = "" + obj_JSON[i].corNovilhas_J;
+      corVacasBoiadeiras = "" + obj_JSON[i].corVacasBoiadeiras_J;
+      corVacas = "" + obj_JSON[i].corVacas_J;
+      corVacasGordas = "" + obj_JSON[i].corVacasGordas_J;
+      corVacasPrenhas = "" + obj_JSON[i].corVacasPrenhas_J;
+      corVacasParidas = "" + obj_JSON[i].corVacasParidas_J;
+      descricoesGerais = "" + obj_JSON[i].descricoesGerais_J;
+      precoSugerido = "" + obj_JSON[i].precoSugerido_J;
+      quantidadeCabecasOuPesos = "" + obj_JSON[i].quantidadeCabecasOuPesos_J;
+      aprovado_postagem = "" + obj_JSON[i].aprovado_postagem_J;
 
-          favorito = "" + obj_JSON[i].favorito_J;
+      favorito = "" + obj_JSON[i].favorito_J;
 
-          venda_status = "" + obj_JSON[i].venda_status_J;
-          comprador = "" + obj_JSON[i].comprador_J;
-          ta_online = "" + obj_JSON[i].ta_online_J;
-          
-          tempoPostagem = "" + obj_JSON[i].tempoPostagem_J;
+      venda_status = "" + obj_JSON[i].venda_status_J;
+      comprador = "" + obj_JSON[i].comprador_J;
+      ta_online = "" + obj_JSON[i].ta_online_J;
+
+      tempoPostagem = "" + obj_JSON[i].tempoPostagem_J;
 
     }//FOR
     //alert(LATITUDE);
@@ -1141,8 +1141,6 @@ export default function AppTest() {
 
   }//function CONECTANDO_AO_BANCO_DE_DADOS()
   //CONECTAR AO BANCO DE DADOS ACIMA
-
-
 
 
 
@@ -2257,7 +2255,7 @@ export default function AppTest() {
 
 
 
- async function CONTANDO_QUANTIDADE_DE_POSTAGENS() {
+  async function CONTANDO_QUANTIDADE_DE_POSTAGENS() {
 
 
     if (VARIAVEL_GLOBAL.SOMENTE_UMA_VEZ === true) {
@@ -2292,6 +2290,15 @@ export default function AppTest() {
 
   }
 
+
+
+
+
+      useEffect(() => {
+
+        VARIAVEL_GLOBAL.CONECTANDO_AO_BANCO_DE_DADOS_GLOBALMENTE = CONECTANDO_AO_BANCO_DE_DADOS();
+
+      }, []);
 
 
 
@@ -2846,11 +2853,11 @@ export default function AppTest() {
                     text: 'Sim',
                     onPress: () => {/*console.log('Yes Pressed'), alert("Você Cancelou  "),*/
 
-                    
+
                       APAGAR_POSTAGEM('POSTAGEM')
                       // APAGAR_NUMERO_CELULAR('NUMERO_CELL')
                       // VARIAVEL_GLOBAL.TELEFONE = "SEM_TELEFONE_USUARIO"
-                     
+
 
                     }
                   },
