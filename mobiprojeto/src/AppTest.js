@@ -1617,6 +1617,93 @@ export default function AppTest() {
       /****************************************************************************************************************************************/
 
 
+       //IN  CONSTRUCTIONS ABAIXO 1
+      /** PESQUISA DE PUBLICAÇÕES PENDENTES ABAIXO **/
+      var qtd_publicacoes_pendentes;
+      try {
+
+         array_publicacoes_pendentes.length = 0;
+        qtd_publicacoes_pendentes = await Axios.get(IP_DO_SERVIDOR + 'pesquisar_publicacoes_pendentes', {
+
+          params: { numero_telefone_J: VARIAVEL_GLOBAL.TELEFONE }
+
+        });
+
+        const retorrno = await qtd_publicacoes_pendentes.data;
+
+
+        if (retorrno.length > 0) {
+
+          var ARRAY_PROVISORIO_ITENS_DUPLICADOS = []
+          for (var i = 0; i < retorrno.length; i++) {
+            // [ RowDataPacket { id_J: '10420211534524107   ' } ]
+            //  alert(retorrno[i].id_J);
+            ARRAY_PROVISORIO_ITENS_DUPLICADOS.push(retorrno[i].id_J);
+            // DADOS.filter(DADO => DADO. array_publicacoes_pendentes[i] ==  DADO. array_publicacoes_pendentes[i] )
+          }//FOR
+          //alert( array_propostas_recentes_recebidas );
+
+          //REMOVENDO ELEMENTOS DUPLICADOS
+           array_publicacoes_pendentes = ARRAY_PROVISORIO_ITENS_DUPLICADOS.filter((el, i, arr) => arr.indexOf(el) == i);
+          // console.log(unique); // ["a", "b", "c"]
+
+        }//IF
+
+        setQtde_publicacao_pendentes( array_publicacoes_pendentes.length );
+
+
+      } catch (error) { alert("THR45G"+error); }
+      /** PESQUISA DE PUBLICAÇÕES PENDENTES ACIMA **/
+       //IN  CONSTRUCTIONS ACIMA 1
+
+
+
+       
+
+
+       //IN  CONSTRUCTIONS ABAIXO 2
+      /** PESQUISA DE PUBLICAÇÕES expiradas ABAIXO **/
+      var qtd_publicacoes_expiradas;
+      try {
+
+         array_publicacoes_expiradas.length = 0;
+        qtd_publicacoes_expiradas = await Axios.get(IP_DO_SERVIDOR + 'pesquisar_publicacoes_expiradas', {
+
+          params: { numero_telefone_J: VARIAVEL_GLOBAL.TELEFONE }
+
+        });
+
+        const retorrno = await qtd_publicacoes_expiradas.data;
+
+
+        if (retorrno.length > 0) {
+
+          var ARRAY_PROVISORIO_ITENS_DUPLICADOS = []
+          for (var i = 0; i < retorrno.length; i++) {
+            // [ RowDataPacket { id_J: '10420211534524107   ' } ]
+            //  alert(retorrno[i].id_J);
+            ARRAY_PROVISORIO_ITENS_DUPLICADOS.push(retorrno[i].id_J);
+            // DADOS.filter(DADO => DADO. array_publicacoes_expiradas[i] ==  DADO. array_publicacoes_expiradas[i] )
+          }//FOR
+          //alert( array_propostas_recentes_recebidas );
+
+          //REMOVENDO ELEMENTOS DUPLICADOS
+           array_publicacoes_expiradas = ARRAY_PROVISORIO_ITENS_DUPLICADOS.filter((el, i, arr) => arr.indexOf(el) == i);
+          // console.log(unique); // ["a", "b", "c"]
+
+        }//IF
+
+        setQtde_publicacao_expiradas( array_publicacoes_expiradas.length );
+
+
+      } catch (error) { alert("THR45G"+error); }
+      /** PESQUISA DE PUBLICAÇÕES expiradas ACIMA **/
+       //IN  CONSTRUCTIONS ACIMA 2
+
+
+
+
+
 
       VARIAVEL_GLOBAL.PROPOSTAS_RECEBIDAS = array_propostas_recentes_recebidas.length;
       VARIAVEL_GLOBAL.PROPOSTAS_ENVIADAS = array_propostas_recentes_enviadas.length;
