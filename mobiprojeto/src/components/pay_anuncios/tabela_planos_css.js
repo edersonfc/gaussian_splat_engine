@@ -22,6 +22,9 @@ export const ContainerPrincipal = styled.View`
         height: ${props => props.altura}px;
         background: ${props => props.cor_fundo};
         align-items: center;
+
+        borderWidth: 0px;
+        border-color: #FFF555;  
 `;
 
 export const View_1 = styled.View`

@@ -211,7 +211,7 @@ export default function Tabela_planos(props) {
                 <Txt_1 altura={60} largura={LARGURA}  >Escolha um Plano para {"\n"} esta publicação</Txt_1>
             </View_1>
 
-            <View style={{ height: 30 }} />
+            <View style={{ height: 10 }} />
 
             <View_1 altura={40} largura={LARGURA}  >
                 <Txt_1 altura={30} largura={LARGURA} >Tabela de Preços</Txt_1>
@@ -308,13 +308,13 @@ export default function Tabela_planos(props) {
                 custa  50% porcento amais.
             </Txt_3>
 
-            <View style={{ height: 20 }} />
+            <View style={{ height: 10 }} />
 
             <Txt_3 altura={35} largura={LARGURA} >
                 Esta Publicação {contemNaoContemVideos} Vídeos
             </Txt_3>
 
-            <View style={{ height: 5 }} />
+            <View style={{ height: 2 }} />
 
             <View_touchable_1 largura={LARGURA * 0.3} altura={ALTURA * 0.07} cor_borda={'#FFF'}
                 onPress={(e) => { navigation.goBack(null); }}
@@ -325,7 +325,7 @@ export default function Tabela_planos(props) {
 
             </View_touchable_1>
 
-            <View style={{ height: 30 }} />
+            <View style={{ height: 10 }} />
 
             <View_touchable_1 largura={LARGURA * 0.3} altura={ALTURA * 0.07} cor_borda={'#25E7DB'}
                 onPress={(e) => {

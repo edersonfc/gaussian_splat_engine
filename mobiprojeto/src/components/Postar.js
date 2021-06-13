@@ -675,7 +675,7 @@ export default function Postar(props) {
     /**************************************************************************************************/
     /**************************************************************************************************/
     //INSERINDO DADOS NO BANCO DE DADOS ABAIXO
-    async function INSERINDO_NO_BANCO_DE_DADOS_POSTAGENS_OFF_LINE() {
+    async function INSERINDO_NO_BANCO_DE_DADOS_POSTAGENS_OFF_LINE_2() {
 
         //setSomatorio_notificacao_numero(0);
 
@@ -2307,14 +2307,14 @@ export default function Postar(props) {
                 // alert("VAI CHAMAR FORMA DE PAGAMENTO");//
                 console.log("VAI CHAMAR FORMA DE PAGAMENTO");
                 try {
-                    await INSERINDO_NO_BANCO_DE_DADOS_POSTAGENS_OFF_LINE();
+                    await INSERINDO_NO_BANCO_DE_DADOS_POSTAGENS_OFF_LINE_2();
                 } catch (error) { console.log(error); }
 
 
             } else {
 
                 alert("GRAVADO COM SUCESSO !");//
-                INSERINDO_NO_BANCO_DE_DADOS_POSTAGENS_OFF_LINE();
+                INSERINDO_NO_BANCO_DE_DADOS_POSTAGENS_OFF_LINE_2();
 
             }
 

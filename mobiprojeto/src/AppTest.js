@@ -66,13 +66,13 @@ import PROPRIETARIO from './components/PROPRIETARIO';
 // LicencaExpirada
 
 //VARIAVÉIS GLOBAIS ABAIXO
-
-
-// var IP_DO_SERVIDOR = "http://192.168.0.102:3000/";
+// var IP_DO_SERVIDOR    = "http://192.168.0.102:3000/";
 // var IP_DO_SERVIDOR_IO = "http://192.168.0.102:3001/";
 
 
-var IP_DO_SERVIDOR = "http://192.168.0.107:3000/";
+
+
+var IP_DO_SERVIDOR    = "http://192.168.0.107:3000/";
 var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3001/";
 
 
@@ -126,10 +126,6 @@ var comprador;
 var ta_online;
 
 var tempoPostagem;
-
-
-
-
 
 
 
@@ -256,9 +252,13 @@ async function MOSTRAR_POSTAGENS() {
 
 //ARRAYS DE NOTIFICAÇÕES DO SISTEMA
 var array_propostas_recentes_recebidas = [];
-var array_propostas_recentes_enviadas = [];
-var array_propostas_recentes_aceitas = [];
-var array_venda_recentes_requisitadas = [];
+var array_propostas_recentes_enviadas  = [];
+var array_propostas_recentes_aceitas   = [];
+var array_venda_recentes_requisitadas  = [];
+
+var array_publicacoes_pendentes = [];
+var array_publicacoes_expiradas = [];
+
 
 
 
@@ -272,7 +272,7 @@ export default function AppTest() {
   /* */
   async function pegar_ip() {
     // IP_DO_SERVIDOR = await AsyncStorage.getItem('IP_CONEXAO');
-    //alert(IP_DO_SERVIDOR);
+    // alert(IP_DO_SERVIDOR);
 
     await AsyncStorage.setItem('TELA_PRA_VOLTAR', 'TelaPrincipal');
     VARIAVEL_GLOBAL.NUMERO_IP = IP_DO_SERVIDOR;
@@ -304,6 +304,13 @@ export default function AppTest() {
   const [qtde_propostas_aceitas_nao_vista, setQtde_propostas_aceitas_nao_vista] = useState('0');
 
   const [qtde_venda_recentes_nao_vista, setQtde_venda_recentes_nao_vista] = useState('0');
+  
+  
+  const [qtde_publicacao_pendentes, setQtde_publicacao_pendentes] = useState('0');
+  
+  const [qtde_publicacao_expiradas, setQtde_publicacao_expiradas] = useState('0');
+
+
 
   const [somatorio_notificacao_numero, setSomatorio_notificacao_numero] = useState(0);
 
@@ -678,9 +685,10 @@ export default function AppTest() {
             params: { numero_telefone: VARIAVEL_GLOBAL.TELEFONE }
           });
 
-        } catch (exception) { alert(exception.message)/**/ }
+        } catch (exception) { alert("#45@#"+exception.message)/**/ }
 
-        //alert(typeof response.data);
+        // alert(typeof response.data);
+        //alert("GFDIU  "+ response.data);
 
 
 
@@ -1637,7 +1645,7 @@ export default function AppTest() {
       // alert("ESTÁ EXECUTANDO BUSCA DE NOTIFICAÇÃO NESSA AUDITORIA")
 
 
-    } catch (erro) { alert(erro + " => wdcf$387") }
+    } catch (erro) { alert(erro + " => wdcf$387"); }
 
 
   }
@@ -1693,9 +1701,8 @@ export default function AppTest() {
         setbotoePropostasRecebidas(false);
         setbotoePropostasEnviadas(true);
         PROPOSTAS_RESPONDIDAS_RECENTES("menuLateral");
-
-
         return false;
+
       } else {
         alert("Não Tem Propostas Recebidas !");
       }
@@ -1778,6 +1785,30 @@ export default function AppTest() {
     setTexto_filtro_notificacao("Vendas Recentes");
 
   }
+
+
+
+  /*IN  CONSTRUCTIONS ABAIXO********************/
+  function PUBLICACOES_PENDENTES() {
+
+
+        setLabelOuPesquisar(true);
+        //alert(array_venda_recentes_requisitadas);
+        PUXAR_PRODUTOS_DAS_NOTIFICACOES(array_venda_recentes_requisitadas)
+        setMenu_aviso_visivel_or_invisivel(false);
+        setFaixa_submenu_e_filtro(false);
+        setTexto_filtro_notificacao("Publicações Pendentes");
+
+
+  }
+
+
+  function PUBLICACOES_EXPIRADAS() { 
+
+
+
+  }
+  /*IN  CONSTRUCTIONS ACIMA********************/
 
   //MOSTRAR ITENS DAS NOTIFICAÇÕES QUANDO SOLICITADO ACIMA
 
@@ -2294,11 +2325,11 @@ export default function AppTest() {
 
 
 
-      useEffect(() => {
+      // useEffect(() => {
 
-        VARIAVEL_GLOBAL.CONECTANDO_AO_BANCO_DE_DADOS_GLOBALMENTE = CONECTANDO_AO_BANCO_DE_DADOS();
+      //   VARIAVEL_GLOBAL.CONECTANDO_AO_BANCO_DE_DADOS_GLOBALMENTE = CONECTANDO_AO_BANCO_DE_DADOS();
 
-      }, []);
+      // }, []);
 
 
 
@@ -2854,9 +2885,9 @@ export default function AppTest() {
                     onPress: () => {/*console.log('Yes Pressed'), alert("Você Cancelou  "),*/
 
 
-                      APAGAR_POSTAGEM('POSTAGEM')
-                      // APAGAR_NUMERO_CELULAR('NUMERO_CELL')
-                      // VARIAVEL_GLOBAL.TELEFONE = "SEM_TELEFONE_USUARIO"
+                      APAGAR_POSTAGEM('POSTAGEM'),
+                      APAGAR_NUMERO_CELULAR('NUMERO_CELL')
+                      VARIAVEL_GLOBAL.TELEFONE = "SEM_TELEFONE_USUARIO"
 
 
                     }
@@ -3062,6 +3093,61 @@ export default function AppTest() {
           <View style={{ width: '100%', height: 0, borderWidth: 0, borderColor: '#fff' }} />
           {/*5º FAIXA ITEM DO MENU ACIMA */}
 
+
+
+          {/*6º FAIXA ITEM DO MENU ABAIXO */}
+
+          <View style={{ width: '100%', height: 1, borderWidth: 1, borderColor: '#fff' }} />
+
+          <View style={{ width: '100%', height: 60, backgroundColor: '#2A3E49', justifyContent: 'center' }} >
+            <Text style={{ borderWidth: 0, borderColor: '#fff', color: '#fff', fontSize: 25 }}  >   Publicações</Text>
+          </View>
+
+
+{/*GOBACKHERE 12062021 ABAIXO***************************************************/}
+          <TouchableOpacity style={{ width: '100%', height: 40, backgroundColor: '#778187', justifyContent: 'center' }}
+            onPress={() => { VENDAS_RECENTES(); setLargura_tela_botoes(new Animated.Value(0)); }}
+          >
+
+            <View flexDirection='row' style={{ width: '100%', height: 30, paddingLeft: 15 }}>
+
+              <Text style={{
+                width: 30, height: 30, borderRadius: 50,
+                color: 'white', fontWeight: "bold", fontSize: 20, backgroundColor: 'red',
+                position: 'relative', zIndex: 10, textAlign: 'center', justifyContent: 'center'
+              }} >{qtde_publicacao_pendentes}
+              </Text>
+              <View style={{ width: 10 }} />
+              <Text style={{ borderWidth: 0, borderColor: '#fff', color: '#fff', fontSize: 20 }}  >Pendentes</Text>
+
+            </View>
+
+          </TouchableOpacity>
+
+          <View style={{ width: '100%', height: 1, borderWidth: 1, borderColor: '#fff' }} />
+
+          <TouchableOpacity style={{ width: '100%', height: 40, backgroundColor: '#778187', justifyContent: 'center' }}
+            onPress={() => { VENDAS_RECENTES(); setLargura_tela_botoes(new Animated.Value(0)); }}
+          >
+
+            <View flexDirection='row' style={{ width: '100%', height: 30, paddingLeft: 15 }}>
+
+              <Text style={{
+                width: 30, height: 30, borderRadius: 50,
+                color: 'white', fontWeight: "bold", fontSize: 20, backgroundColor: 'red',
+                position: 'relative', zIndex: 10, textAlign: 'center', justifyContent: 'center'
+              }} >{qtde_publicacao_expiradas}
+              </Text>
+              <View style={{ width: 10 }} />
+              <Text style={{ borderWidth: 0, borderColor: '#fff', color: '#fff', fontSize: 20 }}  >Expiradas</Text>
+
+            </View>
+
+          </TouchableOpacity>
+{/*GOBACKHERE 12062021 ACIMA***************************************************/}
+
+
+           {/*6º FAIXA ITEM DO MENU ACIMA */}
 
 
         </Animated.View>
