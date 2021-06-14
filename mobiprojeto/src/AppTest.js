@@ -75,6 +75,8 @@ import PROPRIETARIO from './components/PROPRIETARIO';
 var IP_DO_SERVIDOR    = "http://192.168.0.107:3000/";
 var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3001/";
 
+// var IP_DO_SERVIDOR    = "http://localhost:3000/";
+// var IP_DO_SERVIDOR_IO = "http://localhost:3001/";
 
 // var IP_DO_SERVIDOR    = "http://18.221.55.248:3000/";
 // var IP_DO_SERVIDOR_IO = "http://18.221.55.248:3001/";
@@ -252,9 +254,9 @@ async function MOSTRAR_POSTAGENS() {
 
 //ARRAYS DE NOTIFICAÇÕES DO SISTEMA
 var array_propostas_recentes_recebidas = [];
-var array_propostas_recentes_enviadas  = [];
-var array_propostas_recentes_aceitas   = [];
-var array_venda_recentes_requisitadas  = [];
+var array_propostas_recentes_enviadas = [];
+var array_propostas_recentes_aceitas = [];
+var array_venda_recentes_requisitadas = [];
 
 var array_publicacoes_pendentes = [];
 var array_publicacoes_expiradas = [];
@@ -304,10 +306,10 @@ export default function AppTest() {
   const [qtde_propostas_aceitas_nao_vista, setQtde_propostas_aceitas_nao_vista] = useState('0');
 
   const [qtde_venda_recentes_nao_vista, setQtde_venda_recentes_nao_vista] = useState('0');
-  
-  
+
+
   const [qtde_publicacao_pendentes, setQtde_publicacao_pendentes] = useState('0');
-  
+
   const [qtde_publicacao_expiradas, setQtde_publicacao_expiradas] = useState('0');
 
 
@@ -676,20 +678,19 @@ export default function AppTest() {
         var response = "";
 
         //PRIMEIRA TENTATIVA ABAIXO
-        try { //alert(IP_DO_SERVIDOR);
+        try {
+          // alert(IP_DO_SERVIDOR);
           // response = await api.get('/obtendo_postagens_online', {
           //response = await Axios.get('http://192.168.0.102:3000/obtendo_postagens_online', {
           response = await Axios.get(IP_DO_SERVIDOR + "obtendo_postagens_online", {
-
             // params: { numero_telefone: DADOS_TELEFONE_VALOR }
             params: { numero_telefone: VARIAVEL_GLOBAL.TELEFONE }
           });
 
-        } catch (exception) { alert("#45@#"+exception.message)/**/ }
+        } catch (exception) { alert("#45@#" + exception.message)/**/ }
 
         // alert(typeof response.data);
-        //alert("GFDIU  "+ response.data);
-
+        // alert("GFDIU  "+ response.data);
 
 
         var DADOS_REMOTO_ONLINE = JSON.stringify(response.data);
@@ -1617,12 +1618,12 @@ export default function AppTest() {
       /****************************************************************************************************************************************/
 
 
-       //IN  CONSTRUCTIONS ABAIXO 1
+      //IN  CONSTRUCTIONS ABAIXO 1
       /** PESQUISA DE PUBLICAÇÕES PENDENTES ABAIXO **/
       var qtd_publicacoes_pendentes;
       try {
 
-         array_publicacoes_pendentes.length = 0;
+        array_publicacoes_pendentes.length = 0;
         qtd_publicacoes_pendentes = await Axios.get(IP_DO_SERVIDOR + 'pesquisar_publicacoes_pendentes', {
 
           params: { numero_telefone_J: VARIAVEL_GLOBAL.TELEFONE }
@@ -1644,29 +1645,29 @@ export default function AppTest() {
           //alert( array_propostas_recentes_recebidas );
 
           //REMOVENDO ELEMENTOS DUPLICADOS
-           array_publicacoes_pendentes = ARRAY_PROVISORIO_ITENS_DUPLICADOS.filter((el, i, arr) => arr.indexOf(el) == i);
+          array_publicacoes_pendentes = ARRAY_PROVISORIO_ITENS_DUPLICADOS.filter((el, i, arr) => arr.indexOf(el) == i);
           // console.log(unique); // ["a", "b", "c"]
 
         }//IF
 
-        setQtde_publicacao_pendentes( array_publicacoes_pendentes.length );
+        setQtde_publicacao_pendentes(array_publicacoes_pendentes.length);
 
 
-      } catch (error) { alert("THR45G"+error); }
+      } catch (error) { alert("THR45G" + error); }
       /** PESQUISA DE PUBLICAÇÕES PENDENTES ACIMA **/
-       //IN  CONSTRUCTIONS ACIMA 1
+      //IN  CONSTRUCTIONS ACIMA 1
 
 
 
-       
 
 
-       //IN  CONSTRUCTIONS ABAIXO 2
+
+      //IN  CONSTRUCTIONS ABAIXO 2
       /** PESQUISA DE PUBLICAÇÕES expiradas ABAIXO **/
       var qtd_publicacoes_expiradas;
       try {
 
-         array_publicacoes_expiradas.length = 0;
+        array_publicacoes_expiradas.length = 0;
         qtd_publicacoes_expiradas = await Axios.get(IP_DO_SERVIDOR + 'pesquisar_publicacoes_expiradas', {
 
           params: { numero_telefone_J: VARIAVEL_GLOBAL.TELEFONE }
@@ -1688,27 +1689,32 @@ export default function AppTest() {
           //alert( array_propostas_recentes_recebidas );
 
           //REMOVENDO ELEMENTOS DUPLICADOS
-           array_publicacoes_expiradas = ARRAY_PROVISORIO_ITENS_DUPLICADOS.filter((el, i, arr) => arr.indexOf(el) == i);
+          array_publicacoes_expiradas = ARRAY_PROVISORIO_ITENS_DUPLICADOS.filter((el, i, arr) => arr.indexOf(el) == i);
           // console.log(unique); // ["a", "b", "c"]
 
         }//IF
 
-        setQtde_publicacao_expiradas( array_publicacoes_expiradas.length );
+        setQtde_publicacao_expiradas(array_publicacoes_expiradas.length);
 
 
-      } catch (error) { alert("THR45G"+error); }
+      } catch (error) { alert("THR45G" + error); }
       /** PESQUISA DE PUBLICAÇÕES expiradas ACIMA **/
-       //IN  CONSTRUCTIONS ACIMA 2
+      //IN  CONSTRUCTIONS ACIMA 2
 
 
 
 
 
 
-      VARIAVEL_GLOBAL.PROPOSTAS_RECEBIDAS = array_propostas_recentes_recebidas.length;
-      VARIAVEL_GLOBAL.PROPOSTAS_ENVIADAS = array_propostas_recentes_enviadas.length;
-      VARIAVEL_GLOBAL.PROPOSTAS_ACEITAS = array_propostas_recentes_aceitas.length;
-      VARIAVEL_GLOBAL.VENDAS_RECENTES = array_venda_recentes_requisitadas.length;
+      VARIAVEL_GLOBAL.PROPOSTAS_RECEBIDAS   = array_propostas_recentes_recebidas.length;
+      VARIAVEL_GLOBAL.PROPOSTAS_ENVIADAS    = array_propostas_recentes_enviadas.length;
+      VARIAVEL_GLOBAL.PROPOSTAS_ACEITAS     = array_propostas_recentes_aceitas.length;
+      VARIAVEL_GLOBAL.VENDAS_RECENTES       = array_venda_recentes_requisitadas.length;
+
+      VARIAVEL_GLOBAL.PUBLICACOES_PENDENTES = array_publicacoes_pendentes.length;
+      VARIAVEL_GLOBAL.PUBLICACOES_EXPIRADAS = array_publicacoes_expiradas.length;
+
+
 
 
 
@@ -1716,8 +1722,12 @@ export default function AppTest() {
         array_propostas_recentes_recebidas.length +
         array_propostas_recentes_enviadas.length +
         array_propostas_recentes_aceitas.length +
-        array_venda_recentes_requisitadas.length
+
+        array_venda_recentes_requisitadas.length +
+        array_publicacoes_pendentes.length +
+        array_publicacoes_expiradas.length
       );
+
 
 
       // alert(   array_propostas_recentes_recebidas.length  +"  |  "+ 
@@ -1732,7 +1742,7 @@ export default function AppTest() {
       // alert("ESTÁ EXECUTANDO BUSCA DE NOTIFICAÇÃO NESSA AUDITORIA")
 
 
-    } catch (erro) { alert(erro + " => wdcf$387"); }
+    } catch (erro) {  alert(erro + " => wdcf$387 =>"+IP_DO_SERVIDOR); }
 
 
   }
@@ -1866,7 +1876,7 @@ export default function AppTest() {
 
     setLabelOuPesquisar(true);
     //alert(array_venda_recentes_requisitadas);
-    PUXAR_PRODUTOS_DAS_NOTIFICACOES(array_venda_recentes_requisitadas)
+    PUXAR_PRODUTOS_DAS_NOTIFICACOES(array_venda_recentes_requisitadas);
     setMenu_aviso_visivel_or_invisivel(false);
     setFaixa_submenu_e_filtro(false);
     setTexto_filtro_notificacao("Vendas Recentes");
@@ -1879,19 +1889,25 @@ export default function AppTest() {
   function PUBLICACOES_PENDENTES() {
 
 
-        setLabelOuPesquisar(true);
-        //alert(array_venda_recentes_requisitadas);
-        PUXAR_PRODUTOS_DAS_NOTIFICACOES(array_venda_recentes_requisitadas)
-        setMenu_aviso_visivel_or_invisivel(false);
-        setFaixa_submenu_e_filtro(false);
-        setTexto_filtro_notificacao("Publicações Pendentes");
+    setLabelOuPesquisar(true);
+    //alert(array_venda_recentes_requisitadas);
+    PUXAR_PRODUTOS_DAS_NOTIFICACOES(array_publicacoes_pendentes);
+    setMenu_aviso_visivel_or_invisivel(false);
+    setFaixa_submenu_e_filtro(false);
+    setTexto_filtro_notificacao("Publicações Pendentes");
 
 
   }
 
 
-  function PUBLICACOES_EXPIRADAS() { 
+  function PUBLICACOES_EXPIRADAS() {
 
+    setLabelOuPesquisar(true);
+    //alert(array_venda_recentes_requisitadas);
+    PUXAR_PRODUTOS_DAS_NOTIFICACOES(array_publicacoes_expiradas);
+    setMenu_aviso_visivel_or_invisivel(false);
+    setFaixa_submenu_e_filtro(false);
+    setTexto_filtro_notificacao("Publicações Expiradas");
 
 
   }
@@ -2216,8 +2232,8 @@ export default function AppTest() {
 
     // setNotificacao_visivel_true_false(true);
     async function CHAMANDO_NF() {
-      await PEGAR_NUMERO_DO_CELL_NO_CARREGAMENTO()
-      await BUSCANDO_NOTIFICACOES_2()
+      await PEGAR_NUMERO_DO_CELL_NO_CARREGAMENTO();
+      await BUSCANDO_NOTIFICACOES_2();
       // .then(() => { });
 
     }
@@ -2412,11 +2428,11 @@ export default function AppTest() {
 
 
 
-      // useEffect(() => {
+  // useEffect(() => {
 
-      //   VARIAVEL_GLOBAL.CONECTANDO_AO_BANCO_DE_DADOS_GLOBALMENTE = CONECTANDO_AO_BANCO_DE_DADOS();
+  //   VARIAVEL_GLOBAL.CONECTANDO_AO_BANCO_DE_DADOS_GLOBALMENTE = CONECTANDO_AO_BANCO_DE_DADOS();
 
-      // }, []);
+  // }, []);
 
 
 
@@ -2973,7 +2989,7 @@ export default function AppTest() {
 
 
                       APAGAR_POSTAGEM('POSTAGEM'),
-                      APAGAR_NUMERO_CELULAR('NUMERO_CELL')
+                        APAGAR_NUMERO_CELULAR('NUMERO_CELL')
                       VARIAVEL_GLOBAL.TELEFONE = "SEM_TELEFONE_USUARIO"
 
 
@@ -3063,7 +3079,7 @@ export default function AppTest() {
             <View style={{ width: "75%", height: 60, paddingLeft: 15, justifyContent: "center", backgroundColor: '#2A3E49' }} >
               <Text style={{ borderWidth: 0, borderColor: "yellow", color: "#fff", fontSize: 25, backgroundColor: "#2A3E49" }}>
                 Propostas
-        </Text>
+              </Text>
             </View>
 
             <TouchableOpacity style={{ width: "25%", height: 60, alignItems: "center", justifyContent: "center", backgroundColor: '#2A3E49' }} >
@@ -3191,9 +3207,9 @@ export default function AppTest() {
           </View>
 
 
-{/*GOBACKHERE 12062021 ABAIXO***************************************************/}
+          {/*GOBACKHERE 12062021 ABAIXO***************************************************/}
           <TouchableOpacity style={{ width: '100%', height: 40, backgroundColor: '#778187', justifyContent: 'center' }}
-            onPress={() => { VENDAS_RECENTES(); setLargura_tela_botoes(new Animated.Value(0)); }}
+            onPress={() => { PUBLICACOES_PENDENTES(); setLargura_tela_botoes(new Animated.Value(0)); }}
           >
 
             <View flexDirection='row' style={{ width: '100%', height: 30, paddingLeft: 15 }}>
@@ -3214,9 +3230,8 @@ export default function AppTest() {
           <View style={{ width: '100%', height: 1, borderWidth: 1, borderColor: '#fff' }} />
 
           <TouchableOpacity style={{ width: '100%', height: 40, backgroundColor: '#778187', justifyContent: 'center' }}
-            onPress={() => { VENDAS_RECENTES(); setLargura_tela_botoes(new Animated.Value(0)); }}
+            onPress={() => {  PUBLICACOES_EXPIRADAS();  setLargura_tela_botoes(new Animated.Value(0)); }}
           >
-
             <View flexDirection='row' style={{ width: '100%', height: 30, paddingLeft: 15 }}>
 
               <Text style={{
@@ -3231,10 +3246,10 @@ export default function AppTest() {
             </View>
 
           </TouchableOpacity>
-{/*GOBACKHERE 12062021 ACIMA***************************************************/}
+          {/*GOBACKHERE 12062021 ACIMA***************************************************/}
 
 
-           {/*6º FAIXA ITEM DO MENU ACIMA */}
+          {/*6º FAIXA ITEM DO MENU ACIMA */}
 
 
         </Animated.View>

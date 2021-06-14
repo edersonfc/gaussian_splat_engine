@@ -93,7 +93,7 @@ export default function DetalhesProdutos(props) {
     //GERANDO ARRAY DE IMAGENS ABAIXO
     var ARRAY_DE_IMAGENS_E_VIDEOS = [];
     var URL_IMAGENS = produtos.URL_IMAGEN_DADOS_J.split("|");
-    var URL_VIDEOS  = produtos.URL_VIDEOS_DADOS_J.split("|");
+    var URL_VIDEOS = produtos.URL_VIDEOS_DADOS_J.split("|");
     URL_IMAGENS.pop();
     URL_VIDEOS.pop();
     /*
@@ -241,6 +241,7 @@ export default function DetalhesProdutos(props) {
     const [comprar_ou_deletar, setComprar_ou_deletar] = useState("");
 
 
+    const [ativar_publicacao, setAtivar_publicacao] = useState(true);
 
 
     useEffect(() => {
@@ -264,9 +265,17 @@ export default function DetalhesProdutos(props) {
             }//IF INTERNO SE FOI VENDIDO
 
 
-        } else {
+            if (  produtos.venda_status_J.includes("pendente")  ||  produtos.venda_status_J.includes("expirada")  ) {
 
-            //alert("NÃO FOI VOCÊ QUEM POSTOU ESSA POSTAGEM");
+                  setAtivar_publicacao(false);
+
+            }   
+
+
+
+        } else { //alert("NÃO FOI VOCÊ QUEM POSTOU ESSA POSTAGEM");
+
+           
             setComprador_ou_vendedor(true);
             setFazer_ou_ver_proposta("Fazer Proposta");
             setComprar_ou_deletar("Comprar");
@@ -330,29 +339,29 @@ export default function DetalhesProdutos(props) {
 
     //TENTANDO IMPLEMENTAR METODOS DE COMPARTILHAMENTO ABAIXO
     // const ShareExample = () => {
-        const onShare = async (PARAMETRO) => {
-            try {
-              const result = await Share.share({
+    const onShare = async (PARAMETRO) => {
+        try {
+            const result = await Share.share({
                 message:
-                  // 'React Native | A framework for building native apps using React',
-                  // 'Aplicativo de Compra e Venda de Gado ! ' + PARAMETRO,
-                  PARAMETRO,
-      
-              });
-              if (result.action === Share.sharedAction) {
+                    // 'React Native | A framework for building native apps using React',
+                    // 'Aplicativo de Compra e Venda de Gado ! ' + PARAMETRO,
+                    PARAMETRO,
+
+            });
+            if (result.action === Share.sharedAction) {
                 if (result.activityType) {
-                  // shared with activity type of result.activityType
+                    // shared with activity type of result.activityType
                 } else {
-                  // shared
+                    // shared
                 }
-              } else if (result.action === Share.dismissedAction) {
+            } else if (result.action === Share.dismissedAction) {
                 // dismissed
-              }
-            } catch (error) {
-              alert(error.message);
             }
-          };
-          //TENTANDO IMPLEMENTAR METODOS DE COMPARTILHAMENTO ACIMA
+        } catch (error) {
+            alert(error.message);
+        }
+    };
+    //TENTANDO IMPLEMENTAR METODOS DE COMPARTILHAMENTO ACIMA
 
 
 
@@ -535,7 +544,7 @@ export default function DetalhesProdutos(props) {
                             var IMAGEM_OU_VIDEO = ARRAY_DE_IMAGENS_E_VIDEOS[0];
 
                             var PAGINAS_PARTE_INICIAL = "<html> <body> <img src=" + IMAGEM_OU_VIDEO + " alt='GadoApp' width='500' height='600'> </body> </html>"
-                            onShare(PAGINAS_PARTE_INICIAL);   
+                            onShare(PAGINAS_PARTE_INICIAL);
 
 
                         }}
@@ -562,7 +571,7 @@ export default function DetalhesProdutos(props) {
 
                                 } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
 
-                                        setLicencaExpiradaFalseOrTrue(true);
+                                    setLicencaExpiradaFalseOrTrue(true);
 
                                 }
 
@@ -586,7 +595,7 @@ export default function DetalhesProdutos(props) {
 
                                 } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
 
-                                        setLicencaExpiradaFalseOrTrue(true);
+                                    setLicencaExpiradaFalseOrTrue(true);
                                 }
 
                             }}
@@ -709,123 +718,150 @@ export default function DetalhesProdutos(props) {
 
 
                 {/*IN CONSTRUCTION  ABAIXO      <TouchableHighlight></TouchableHighlight>   */}
-                <View style={{ flexDirection: 'row', padding: '1%' }} >
-                    <View style={{ width: '5%' }} />
-                    <TouchableHighlight style={{ width: '42%', height: 40, alignItems: 'center', paddingTop: 10, borderWidth: 1, borderRadius: 10, borderColor: 'white' }}
-                        onPress={async () => {
+
+                {ativar_publicacao ?
+
+                    <View style={{ flexDirection: 'row', padding: '1%' }} >
+                        <View style={{ width: '5%' }} />
+                        <TouchableHighlight style={{ width: '42%', height: 40, alignItems: 'center', paddingTop: 10, borderWidth: 1, borderRadius: 10, borderColor: 'white' }}
+                            onPress={async () => {
 
 
-                            if (VARIAVEL_GLOBAL.LICENCA_USO === "liberado" || VARIAVEL_GLOBAL.TELEFONE === "SEM_TELEFONE_USUARIO") {
-
-
-
-                                if (comprador_ou_vendedor == true) {
-                                    //var index = parseInt(INDICE_PRINCIPAL_JSON);
-                                    var numero_telefone = produtos.numero_telefone_J;
-                                    var id_da_postagem = produtos.id_J;
-                                    var numero_telefone_comprador = '{"NUMERO_CELL_J":"' + NUMERO_CELL_DO_USUARIO + '"}';//ESTA LINHA CONCERTA A FORMATAÇÃO DO Nº DO CELULAR PONDO DENTRO OBJETO JSON NESSE FORMATO PARA NÃO DAR ERRO NA GRAVAÇÃO DO BANCO DE DADOS
-                                    // alert("VAI COMPRAR DIRETO");
-                                    //alert( index+"   "+numero_telefone+"   "+id_da_postagem );
-                                    var numero_telefone_J = numero_telefone;
-                                    var id_J = id_da_postagem;
-                                    try {
-
-
-                                        if (NUMERO_CELL_DO_USUARIO != "" && comprar_ou_deletar != "Comprado" && comprar_ou_deletar != "Vendido") {
-
-                                            //alert(numero_telefone_comprador);
-
-                                            await Axios.get(IP_DO_SERVIDOR + 'comprar_direto', {
-                                                params: {
-                                                    numero_telefone_J: numero_telefone_J,
-                                                    id_J: id_J,
-                                                    comprador_J: numero_telefone_comprador
-                                                }
-
-                                            }, alert("Compra Realizada... Entraremos em Contato !"));
+                                if (VARIAVEL_GLOBAL.LICENCA_USO === "liberado" || VARIAVEL_GLOBAL.TELEFONE === "SEM_TELEFONE_USUARIO") {
 
 
 
-                                        } else {
-                                            //alert("Cadastre o Telefone pra poder Comprar ou Vender !");
-                                            if (NUMERO_CELL_DO_USUARIO == "" && comprar_ou_deletar != "Comprado" && comprar_ou_deletar != "Vendido") {
-                                                setColocar_celular_visivel_or_invisivel(true);
+                                    if (comprador_ou_vendedor == true) {
+                                        //var index = parseInt(INDICE_PRINCIPAL_JSON);
+                                        var numero_telefone = produtos.numero_telefone_J;
+                                        var id_da_postagem = produtos.id_J;
+                                        var numero_telefone_comprador = '{"NUMERO_CELL_J":"' + NUMERO_CELL_DO_USUARIO + '"}';//ESTA LINHA CONCERTA A FORMATAÇÃO DO Nº DO CELULAR PONDO DENTRO OBJETO JSON NESSE FORMATO PARA NÃO DAR ERRO NA GRAVAÇÃO DO BANCO DE DADOS
+                                        // alert("VAI COMPRAR DIRETO");
+                                        //alert( index+"   "+numero_telefone+"   "+id_da_postagem );
+                                        var numero_telefone_J = numero_telefone;
+                                        var id_J = id_da_postagem;
+                                        try {
+
+
+                                            if (NUMERO_CELL_DO_USUARIO != "" && comprar_ou_deletar != "Comprado" && comprar_ou_deletar != "Vendido") {
+
+                                                //alert(numero_telefone_comprador);
+
+                                                await Axios.get(IP_DO_SERVIDOR + 'comprar_direto', {
+                                                    params: {
+                                                        numero_telefone_J: numero_telefone_J,
+                                                        id_J: id_J,
+                                                        comprador_J: numero_telefone_comprador
+                                                    }
+
+                                                }, alert("Compra Realizada... Entraremos em Contato !"));
+
+
+
                                             } else {
+                                                //alert("Cadastre o Telefone pra poder Comprar ou Vender !");
+                                                if (NUMERO_CELL_DO_USUARIO == "" && comprar_ou_deletar != "Comprado" && comprar_ou_deletar != "Vendido") {
+                                                    setColocar_celular_visivel_or_invisivel(true);
+                                                } else {
 
-                                                CANCELAMENTO_DE_COMPRA_E_VENDA();
+                                                    CANCELAMENTO_DE_COMPRA_E_VENDA();
 
+                                                }
                                             }
-                                        }
 
-                                    } catch (error) { "493@g#=> " + error }
-
-                                } else {
-
-                                    if (comprar_ou_deletar == "Comprado" || comprar_ou_deletar == "Vendido") {
-
-                                        //alert("Deseja Realmente Cancelar essa Compra e Venda !!! ");
-                                        CANCELAMENTO_DE_COMPRA_E_VENDA();
+                                        } catch (error) { "493@g#=> " + error }
 
                                     } else {
 
-                                        DELETAR_POSTAGEM_NO_BANCO_DE_DADOS();
+                                        if (comprar_ou_deletar == "Comprado" || comprar_ou_deletar == "Vendido") {
 
-                                    }
+                                            //alert("Deseja Realmente Cancelar essa Compra e Venda !!! ");
+                                            CANCELAMENTO_DE_COMPRA_E_VENDA();
 
-                                }//ELSE IF
+                                        } else {
 
+                                            DELETAR_POSTAGEM_NO_BANCO_DE_DADOS();
 
-                            } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
+                                        }
 
-                                  setLicencaExpiradaFalseOrTrue(true);
-
-                            }
-
-
-                        }}
-                    >
-                        <Text style={{ fontSize: 15, color: '#fff' }} >{comprar_ou_deletar}</Text>
-                    </TouchableHighlight>
-                    <View style={{ width: '5%' }} />
-                    <TouchableHighlight style={{ width: '42%', height: 40, alignItems: 'center', paddingTop: 10, borderWidth: 1, borderRadius: 10, borderColor: 'white' }}
-                        onPress={() => {
+                                    }//ELSE IF
 
 
-                            if (VARIAVEL_GLOBAL.LICENCA_USO === "liberado" || VARIAVEL_GLOBAL.TELEFONE === "SEM_TELEFONE_USUARIO") {
+                                } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
 
-                                var index = parseInt(INDICE_PRINCIPAL_JSON);
-                                var numero_telefone = produtos.numero_telefone_J;
-                                var id_da_postagem = produtos.id_J;
-                                var numero_telefone_comprador = '{"NUMERO_CELL_J":"' + NUMERO_CELL_DO_USUARIO + '"}';//ESTA LINHA CONCERTA A FORMATAÇÃO DO Nº DO CELULAR PONDO DENTRO OBJETO JSON NESSE FORMATO PARA NÃO DAR ERRO NA GRAVAÇÃO DO BANCO DE DADOS
-                                VARIAVEL_GLOBAL.FAZER_PROPOSTA = fazer_ou_ver_proposta;
+                                    setLicencaExpiradaFalseOrTrue(true);
 
-                                if (VARIAVEL_GLOBAL.TELEFONE != "SEM_TELEFONE_USUARIO" || VARIAVEL_GLOBAL.TELEFONE != "") {
-                                    VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta"; //OBSERVER
                                 }
 
-                                VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE = produtos;
 
-                                navigation.navigate("EnvioPropostasCompras", { index, numero_telefone, id_da_postagem, numero_telefone_comprador });
+                            }}
+                        >
+                            <Text style={{ fontSize: 15, color: '#fff' }} >{comprar_ou_deletar}</Text>
 
-
-
-
-                            } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
-
-                                setLicencaExpiradaFalseOrTrue(true);
-
-                            }
+                        </TouchableHighlight>
+                        <View style={{ width: '5%' }} />
+                        <TouchableHighlight style={{ width: '42%', height: 40, alignItems: 'center', paddingTop: 10, borderWidth: 1, borderRadius: 10, borderColor: 'white' }}
+                            onPress={() => {
 
 
+                                if (VARIAVEL_GLOBAL.LICENCA_USO === "liberado" || VARIAVEL_GLOBAL.TELEFONE === "SEM_TELEFONE_USUARIO") {
+
+                                    var index = parseInt(INDICE_PRINCIPAL_JSON);
+                                    var numero_telefone = produtos.numero_telefone_J;
+                                    var id_da_postagem = produtos.id_J;
+                                    var numero_telefone_comprador = '{"NUMERO_CELL_J":"' + NUMERO_CELL_DO_USUARIO + '"}';//ESTA LINHA CONCERTA A FORMATAÇÃO DO Nº DO CELULAR PONDO DENTRO OBJETO JSON NESSE FORMATO PARA NÃO DAR ERRO NA GRAVAÇÃO DO BANCO DE DADOS
+                                    VARIAVEL_GLOBAL.FAZER_PROPOSTA = fazer_ou_ver_proposta;
+
+                                    if (VARIAVEL_GLOBAL.TELEFONE != "SEM_TELEFONE_USUARIO" || VARIAVEL_GLOBAL.TELEFONE != "") {
+                                        VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta"; //OBSERVER
+                                    }
+
+                                    VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE = produtos;
+
+                                    navigation.navigate("EnvioPropostasCompras", { index, numero_telefone, id_da_postagem, numero_telefone_comprador });
 
 
+
+
+                                } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
+
+                                    setLicencaExpiradaFalseOrTrue(true);
+
+                                }
+
+
+
+
+                            }}
+                        >
+                            <Text style={{ fontSize: 15, color: '#fff' }} >{fazer_ou_ver_proposta}</Text>
+                        </TouchableHighlight>
+                        <View style={{ width: '5%' }} />
+                    </View>
+
+                    :
+
+                    <View style={{ flexDirection: 'row', padding: '1%', width: '100%', justifyContent: 'center', alignItems: 'center', borderWidth: 0, borderColor: 'white' }} >
+
+                        <TouchableOpacity style={{ width: '60%', height: 40, alignItems: 'center', borderWidth: 1 , justifyContent: 'center' , borderRadius: 10, borderColor: 'yellow' }}
+                        
+                        onPress={async () => {
+                                  alert("CHAMAR TELA DE TABELA DE PREÇOS PARA ATIVAR PUBLICAÇÃO")
                         }}
-                    >
-                        <Text style={{ fontSize: 15, color: '#fff' }} >{fazer_ou_ver_proposta}</Text>
-                    </TouchableHighlight>
-                    <View style={{ width: '5%' }} />
-                </View>
+                        >
+                            <Text style={{ fontSize: 20, color: 'yellow' }} >Ativar Publicação</Text>
+                        </TouchableOpacity>
+
+                    </View>
+                }
+
+
+
                 {/*IN CONSTRUCTION  ACIMA*/}
+
+
+
+
 
                 {/* _________________C________________ */}
                 <View style={{ width: '100%', height: 15, borderWidth: 0, borderColor: '#fff', alignItems: 'center', justifyContent: 'flex-end' }} >
@@ -833,6 +869,8 @@ export default function DetalhesProdutos(props) {
                     </View>
                 </View>
                 {/* _________________B________________ */}
+
+
 
 
 
