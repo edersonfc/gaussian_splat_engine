@@ -522,13 +522,14 @@ export default function AppTest() {
               /***********TAREFAZ AQUI ABAIXO****************** */
 
               if (filtro_ativado_sim_ou_nao === false) {
+                // alert("ta vindo aqui")
                 //process response
                 CONECTANDO_AO_BANCO_DE_DADOS()
                   .then(() => {
                     ADICIONAR_PRODUTOS_por_ARRAY(true)
                       .then(() => {
                         //alert(busca_de_tempo_em_tempo+" CONECTADO");
-                        //ARMAZENAR_ESTATUS_SE_TA_ONLINE_OU_OFFLINE('ON-LINE');
+                      // alert("ESTÁ ON-LINE");  //ARMAZENAR_ESTATUS_SE_TA_ONLINE_OU_OFFLINE('ON-LINE');
                         VARIAVEL_GLOBAL.CONEXAO_DO_APP = "ON-LINE";
                         //console.log("INICIO => " + hora_e_segundo_completo());
                         // console.log(VARIAVEL_GLOBAL.CONTADOR_GLOBAL + " => " + hora_e_segundo_completo())
@@ -550,7 +551,7 @@ export default function AppTest() {
               // Timeouts if the request takes
               // longer than 6 seconds
               // console.log(error.name === 'AbortError');
-              // console.log("ESTÁ OFF-LINE");
+              alert("ESTÁ OFF-LINE");   // console.log("ESTÁ OFF-LINE");
               VARIAVEL_GLOBAL.CONEXAO_DO_APP = "OFF-LINE";
               VARIAVEL_GLOBAL.BUSCAR_LICENCA = false;
             }
@@ -654,7 +655,7 @@ export default function AppTest() {
       var datos = "";
 
       if (estado_da_conecao) {
-        //alert(estado_da_conecao);    NUMERO_CELL_J
+      //  alert(estado_da_conecao);    //NUMERO_CELL_J
 
         //BUSCANDO POSTAGENS NA INTERNET ABAIXO
 
@@ -686,6 +687,8 @@ export default function AppTest() {
             // params: { numero_telefone: DADOS_TELEFONE_VALOR }
             params: { numero_telefone: VARIAVEL_GLOBAL.TELEFONE }
           });
+
+          // /* console.log("7@##@ "+response.data); */  alert("7@##@ "+response.data);
 
         } catch (exception) { alert("#45@#" + exception.message)/**/ }
 
@@ -2399,8 +2402,8 @@ export default function AppTest() {
 
       //PRIMEIRA TENTATIVA ABAIXO
       try { //alert(IP_DO_SERVIDOR);
-        // response = await api.get('/obtendo_postagens_online', {
-        //response = await Axios.get('http://192.168.0.102:3000/obtendo_postagens_online', {
+        // response = await api.get('/contando_postagens', {
+        //response = await Axios.get('http://192.168.0.102:3000/contando_postagens', {
         response = await Axios.get(IP_DO_SERVIDOR + "contando_postagens", {
 
           // params: { numero_telefone: DADOS_TELEFONE_VALOR }

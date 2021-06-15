@@ -96,102 +96,149 @@ export default function pay_credity_card(params) {
     var [cpf_cnpjCard, setcpf_cnpjCard] = useState("");
     function cpf_cnpjCardF(cpf_cnpjCard) { setcpf_cnpjCard(cpf_cnpjCard); }
 
-    var [ menssagemStatusDaCompra, setMenssagemStatusDaCompra  ] = useState(false);
-
-
-   
-    var [ compraAprovadaOuReprovadaRecebida, setCompraAprovadaOuReprovadaRecebida  ] = useState("");
-
-
-function ocultar_tela_de_mensagem(){  setMenssagemStatusDaCompra(false);  }
+    var [menssagemStatusDaCompra, setMenssagemStatusDaCompra] = useState(false);
 
 
 
+    var [compraAprovadaOuReprovadaRecebida, setCompraAprovadaOuReprovadaRecebida] = useState("");
 
-async function executarPagamentoComCrediCard(){
- 
- 
 
-     //AQUI SERÁ PROCESSADO O PAGAMENTO  NO MERCADO PAGO PARTE 1   ABAIXO
+    function ocultar_tela_de_mensagem() { setMenssagemStatusDaCompra(false); }
 
 
 
-    //ALTERNANCIA DE ESTADOS USADO SOMENTE PARA TESTES ABAIXO
-    var enviandoCondicao = "";
-    var valor = Math.floor(Math.random() * 10);
-    if( valor <= 5){
-      
-        // await VARIAVEL_GLOBAL.CONECTANDO_AO_BANCO_DE_DADOS_GLOBALMENTE;
-        enviandoCondicao = "aprovado";
-        await UPDATE_PLANO_DE_POSTAGEM_APOS_APROVACAO_();
 
-    }else if( valor > 5){
-      enviandoCondicao = "reprovado";
+    async function executarPagamentoComCrediCard() {
+
+
+
+        //AQUI SERÁ PROCESSADO O PAGAMENTO  NO MERCADO PAGO PARTE 1   ABAIXO
+
+
+
+        //ALTERNANCIA DE ESTADOS USADO SOMENTE PARA TESTES ABAIXO
+        var enviandoCondicao = "";
+        var valor = Math.floor(Math.random() * 10);
+        if (valor <= 5) {
+
+            // await VARIAVEL_GLOBAL.CONECTANDO_AO_BANCO_DE_DADOS_GLOBALMENTE;
+            enviandoCondicao = "aprovado";
+            await UPDATE_PLANO_DE_POSTAGEM_APOS_APROVACAO_();
+
+        } else if (valor > 5) {
+            enviandoCondicao = "reprovado";
+        }
+        //ALTERNANCIA DE ESTADOS USADO SOMENTE PARA TESTES ACIMA
+
+
+
+        //AQUI SERÁ PROCESSADO O PAGAMENTO PARTE 2  e  FINAL   ABAIXO
+        // alert("REALIZAR COMPRA COM O CARTÃO");
+        setCompraAprovadaOuReprovadaRecebida(enviandoCondicao);
+        setMenssagemStatusDaCompra(true);
+
     }
-    //ALTERNANCIA DE ESTADOS USADO SOMENTE PARA TESTES ACIMA
-   
-
-
-     //AQUI SERÁ PROCESSADO O PAGAMENTO PARTE 2  e  FINAL   ABAIXO
-                // alert("REALIZAR COMPRA COM O CARTÃO");
-                setCompraAprovadaOuReprovadaRecebida(enviandoCondicao);
-                setMenssagemStatusDaCompra(true);
-
-}
 
 
 
 
-async function UPDATE_PLANO_DE_POSTAGEM_APOS_APROVACAO_() {
+    async function UPDATE_PLANO_DE_POSTAGEM_APOS_APROVACAO_() {
 
-    // alert( Object.values( dados_da_negociacao ) );
-    // alert( JSON.stringify(VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE) );
-
-
-
-// alert( dados_da_venda.numero_telefone_A );
-// alert( dados_da_venda.id_A );
-// alert( VARIAVEL_GLOBAL.tempoPostagem_G );
- 
-
-  
-   // venda_status_J = 'aberta'
-   // tempoPostagem_J = 360
+        // alert( Object.values( dados_da_negociacao ) );
+        // alert( JSON.stringify(VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE) );
+        // alert( dados_da_venda.numero_telefone_A );
+        // alert( dados_da_venda.id_A );
+        // alert( VARIAVEL_GLOBAL.tempoPostagem_G );
+        // venda_status_J = 'aberta'
+        // tempoPostagem_J = 360
 
 
 
-      /***************************************/
-      var response = "";
+        //1º
+        if (typeof dados_da_venda.id_A === "undefined") {
 
-      //PRIMEIRA TENTATIVA ABAIXO
-      try { //alert(IP_DO_SERVIDOR);
-        // response = await api.get('/obtendo_postagens_online', {
-        //response = await Axios.get('http://192.168.0.102:3000/obtendo_postagens_online', {
-        await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + "update_plano_de_postagem_pos_pagamento", {
+            
+            /***************************************/
+            var response = "";
 
-            params: { 
+            //PRIMEIRA TENTATIVA ABAIXO
+            try { //alert(IP_DO_SERVIDOR);
+                //    console.log( JSON.stringify(VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE).id_J  );
+                //    console.log( VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.id_J  );
+                //    return 0;
+                // response = await api.get('/obtendo_postagens_online', {
+                //response = await Axios.get('http://192.168.0.102:3000/obtendo_postagens_online', {
+                await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + "update_plano_de_postagem_pos_pagamento", {
+
+                    params: {
                         // telefoneDoUsuario: VARIAVEL_GLOBAL.TELEFONE,
-                        telefoneDoUsuario:dados_da_venda.numero_telefone_A,
-                        id_J:dados_da_venda.id_A,
+                        telefoneDoUsuario:VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.numero_telefone_J,
+                        id_J: VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.id_J,
+                        venda_status_J: 'aberta',
+                        tempoPostagem_J: VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.tempoPostagem_J
+                    }
+                });
+
+                var retorno_do_bd_contagem_de_postagem = await response.data;
+
+                // alert( JSON.stringify(retorno_do_bd_contagem_de_postagem) );
+                // alert( retorno_do_bd_contagem_de_postagem[0].QUANTIDADE_DE_POSTAGENS );
+                // console.log( JSON.stringify(retorno_do_bd_contagem_de_postagem) );
+                // VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS = retorno_do_bd_contagem_de_postagem[0].QUANTIDADE_DE_POSTAGENS;
+
+            } catch (exception) { alert(exception.message)/**/ }
+            /***************************************/
+
+
+        } else {
+
+
+            //2º
+            /***************************************/
+            var response = "";
+
+            //PRIMEIRA TENTATIVA ABAIXO
+            try { //alert(IP_DO_SERVIDOR);
+                // console.log(JSON.stringify(VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE));
+                // return 0;
+                // response = await api.get('/obtendo_postagens_online', {
+                //response = await Axios.get('http://192.168.0.102:3000/obtendo_postagens_online', {
+                await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + "update_plano_de_postagem_pos_pagamento", {
+
+                    params: {
+                        // telefoneDoUsuario: VARIAVEL_GLOBAL.TELEFONE,
+                        telefoneDoUsuario: dados_da_venda.numero_telefone_A,
+                        id_J: dados_da_venda.id_A,
                         venda_status_J: 'aberta',
                         tempoPostagem_J: VARIAVEL_GLOBAL.tempoPostagem_G
                     }
-        });
+                });
 
-        var retorno_do_bd_contagem_de_postagem = await response.data;
+                var retorno_do_bd_contagem_de_postagem = await response.data;
 
-        // alert( JSON.stringify(retorno_do_bd_contagem_de_postagem) );
-        // alert( retorno_do_bd_contagem_de_postagem[0].QUANTIDADE_DE_POSTAGENS );
-        // console.log( JSON.stringify(retorno_do_bd_contagem_de_postagem) );
-        // VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS = retorno_do_bd_contagem_de_postagem[0].QUANTIDADE_DE_POSTAGENS;
+                // alert( JSON.stringify(retorno_do_bd_contagem_de_postagem) );
+                // alert( retorno_do_bd_contagem_de_postagem[0].QUANTIDADE_DE_POSTAGENS );
+                // console.log( JSON.stringify(retorno_do_bd_contagem_de_postagem) );
+                // VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS = retorno_do_bd_contagem_de_postagem[0].QUANTIDADE_DE_POSTAGENS;
 
-      } catch (exception) { alert(exception.message)/**/ }
-      /***************************************/
-
-
+            } catch (exception) { alert(exception.message)/**/ }
+            /***************************************/
 
 
-  }
+
+        }
+
+
+
+
+
+
+
+
+
+
+
+    }
 
 
 
@@ -201,7 +248,7 @@ async function UPDATE_PLANO_DE_POSTAGEM_APOS_APROVACAO_() {
         <SafeAreaView style={[Estilo.App]} >
 
             <ScrollView style={{ width: '100%', height: 'auto', borderWidth: 0 }} >
-            
+
                 <ContainerPrincipal
                     alinhamento_horizontal={'center'}
                     largura={1}
@@ -211,7 +258,7 @@ async function UPDATE_PLANO_DE_POSTAGEM_APOS_APROVACAO_() {
 
                     <ViewSeta onPress={() => {
 
-                     // navigation.navigate("Screen_pay",{propostas});
+                        // navigation.navigate("Screen_pay",{propostas});
                         navigation.goBack(null);
 
                     }} >
@@ -297,7 +344,7 @@ async function UPDATE_PLANO_DE_POSTAGEM_APOS_APROVACAO_() {
 
                     <Txt_2>Nome Impresso no Cartão</Txt_2>
 
-                    <TextInputCaixa 
+                    <TextInputCaixa
                         largura={0.5}
                         onChangeText={nomeCartaoF}
                     />
@@ -353,12 +400,12 @@ async function UPDATE_PLANO_DE_POSTAGEM_APOS_APROVACAO_() {
 
             </ScrollView>
 
-            {menssagemStatusDaCompra && (<Pay_aprovado_reprovado 
-                               compraAprovadaOuReprovadaRecebid={compraAprovadaOuReprovadaRecebida}
-                               ocultar_tela_de_mensagem={ocultar_tela_de_mensagem}
-                               executarPagamentoComCrediCard={executarPagamentoComCrediCard}
-                               />)}
-        
+            {menssagemStatusDaCompra && (<Pay_aprovado_reprovado
+                compraAprovadaOuReprovadaRecebid={compraAprovadaOuReprovadaRecebida}
+                ocultar_tela_de_mensagem={ocultar_tela_de_mensagem}
+                executarPagamentoComCrediCard={executarPagamentoComCrediCard}
+            />)}
+
         </SafeAreaView>
 
 

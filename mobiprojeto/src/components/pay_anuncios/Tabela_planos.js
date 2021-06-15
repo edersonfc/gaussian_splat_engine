@@ -25,7 +25,7 @@ import {
 
 
 var LARGURA = Math.round(Dimensions.get('window').width);
-var ALTURA = Math.round(Dimensions.get('window').height);
+var ALTURA  = Math.round(Dimensions.get('window').height);
 
 
 var ARRAY_PLANO_VALOR_SELECIONADO = new Array();
@@ -50,6 +50,9 @@ export default function Tabela_planos(props) {
 
     var { precoSugerido, quantidadeCabecasOuPesos, produto } = props.route.params;
     // alert( precoSugerido +"  #  "+ quantidadeCabecasOuPesos  +"  #  "+  JSON.stringify(produto)  ); 
+
+    // 14-06-2021
+    console.log(JSON.stringify(produto));
 
     const { VARIAVEL_GLOBAL } = useContext(GlobalContext);
 

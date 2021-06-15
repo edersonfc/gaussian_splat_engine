@@ -846,7 +846,29 @@ export default function DetalhesProdutos(props) {
                         <TouchableOpacity style={{ width: '60%', height: 40, alignItems: 'center', borderWidth: 1 , justifyContent: 'center' , borderRadius: 10, borderColor: 'yellow' }}
                         
                         onPress={async () => {
-                                  alert("CHAMAR TELA DE TABELA DE PREÇOS PARA ATIVAR PUBLICAÇÃO")
+                                  
+
+                                /***********************************************************************/
+                                // if (VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS > VARIAVEL_GLOBAL.PARAMETROS_QUANTIDADE_DE_POSTAGEMS) {
+                                    // venda_status_J = 'pendente';
+                                    // const produto = { IMAGENS: VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT, VIDEOS: VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT }
+                                
+                                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+                                    // const produto = produtos;
+
+                                     VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE = await produtos;
+
+                                    const produto = { IMAGENS: VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT, VIDEOS: VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT }
+
+                                    // alert( JSON.stringify(produtos) );
+                                    // alert( produtos.precoSugerido_J );
+                                    // alert( produtos.quantidadeCabecasOuPesos_J );
+                                    const precoSugerido =  produtos.precoSugerido_J;
+                                    const quantidadeCabecasOuPesos = produtos.quantidadeCabecasOuPesos_J;
+                                    navigation.navigate("Tabela_planos", { precoSugerido, quantidadeCabecasOuPesos, produto });
+                                // }
+                                /***********************************************************************/
                         }}
                         >
                             <Text style={{ fontSize: 20, color: 'yellow' }} >Ativar Publicação</Text>

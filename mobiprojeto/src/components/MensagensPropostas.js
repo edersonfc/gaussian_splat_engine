@@ -877,7 +877,6 @@ export default function MensagensPropostas(param) {
                                                     // ACEITAR_PROPOSTA_FUNCAO(index);
                                                     navigation.navigate("Screen_pay",{propostas});
 
-
                                                     <Icon name='arrow-left' style={Estilo.icones_medio} />
 
                                                 }}
