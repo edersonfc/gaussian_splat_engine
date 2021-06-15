@@ -60,9 +60,9 @@ export default function Tabela_planos(props) {
 
     const navigation = useNavigation();
 
-    var [mes_1_valor_tx, setMes_1_valor_tx] = useState(59.90);
-    var [mes_3_valor_tx, setMes_3_valor_tx] = useState(159.90);
-    var [mes_6_valor_tx, setMes_6_valor_tx] = useState(299.90);
+    var [mes_1_valor_tx, setMes_1_valor_tx]   = useState(59.90);
+    var [mes_3_valor_tx, setMes_3_valor_tx]   = useState(159.90);
+    var [mes_6_valor_tx, setMes_6_valor_tx]   = useState(299.90);
     var [mes_12_valor_tx, setMes_12_valor_tx] = useState(569.90);
 
     var [contemNaoContemVideos, setContemNaoContemVideos] = useState("");

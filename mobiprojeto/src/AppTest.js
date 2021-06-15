@@ -72,7 +72,7 @@ import PROPRIETARIO from './components/PROPRIETARIO';
 
 
 
-var IP_DO_SERVIDOR    = "http://192.168.0.107:3000/";
+var IP_DO_SERVIDOR = "http://192.168.0.107:3000/";
 var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3001/";
 
 // var IP_DO_SERVIDOR    = "http://localhost:3000/";
@@ -529,12 +529,13 @@ export default function AppTest() {
                     ADICIONAR_PRODUTOS_por_ARRAY(true)
                       .then(() => {
                         //alert(busca_de_tempo_em_tempo+" CONECTADO");
-                      // alert("ESTÁ ON-LINE");  //ARMAZENAR_ESTATUS_SE_TA_ONLINE_OU_OFFLINE('ON-LINE');
+                        // alert("ESTÁ ON-LINE");  //ARMAZENAR_ESTATUS_SE_TA_ONLINE_OU_OFFLINE('ON-LINE');
                         VARIAVEL_GLOBAL.CONEXAO_DO_APP = "ON-LINE";
                         //console.log("INICIO => " + hora_e_segundo_completo());
                         // console.log(VARIAVEL_GLOBAL.CONTADOR_GLOBAL + " => " + hora_e_segundo_completo())
 
                         CONTANDO_QUANTIDADE_DE_POSTAGENS();
+                        PUXANDO_TABELA_PRECOS();
 
                       })
                   })
@@ -655,7 +656,7 @@ export default function AppTest() {
       var datos = "";
 
       if (estado_da_conecao) {
-      //  alert(estado_da_conecao);    //NUMERO_CELL_J
+        //  alert(estado_da_conecao);    //NUMERO_CELL_J
 
         //BUSCANDO POSTAGENS NA INTERNET ABAIXO
 
@@ -1709,10 +1710,10 @@ export default function AppTest() {
 
 
 
-      VARIAVEL_GLOBAL.PROPOSTAS_RECEBIDAS   = array_propostas_recentes_recebidas.length;
-      VARIAVEL_GLOBAL.PROPOSTAS_ENVIADAS    = array_propostas_recentes_enviadas.length;
-      VARIAVEL_GLOBAL.PROPOSTAS_ACEITAS     = array_propostas_recentes_aceitas.length;
-      VARIAVEL_GLOBAL.VENDAS_RECENTES       = array_venda_recentes_requisitadas.length;
+      VARIAVEL_GLOBAL.PROPOSTAS_RECEBIDAS = array_propostas_recentes_recebidas.length;
+      VARIAVEL_GLOBAL.PROPOSTAS_ENVIADAS = array_propostas_recentes_enviadas.length;
+      VARIAVEL_GLOBAL.PROPOSTAS_ACEITAS = array_propostas_recentes_aceitas.length;
+      VARIAVEL_GLOBAL.VENDAS_RECENTES = array_venda_recentes_requisitadas.length;
 
       VARIAVEL_GLOBAL.PUBLICACOES_PENDENTES = array_publicacoes_pendentes.length;
       VARIAVEL_GLOBAL.PUBLICACOES_EXPIRADAS = array_publicacoes_expiradas.length;
@@ -1745,7 +1746,7 @@ export default function AppTest() {
       // alert("ESTÁ EXECUTANDO BUSCA DE NOTIFICAÇÃO NESSA AUDITORIA")
 
 
-    } catch (erro) {  alert(erro + " => wdcf$387 =>"+IP_DO_SERVIDOR); }
+    } catch (erro) { alert(erro + " => wdcf$387 =>" + IP_DO_SERVIDOR); }
 
 
   }
@@ -2426,6 +2427,43 @@ export default function AppTest() {
 
 
   }
+
+
+
+
+
+
+
+
+
+
+  async function PUXANDO_TABELA_PRECOS() {
+
+    if (VARIAVEL_GLOBAL.SOMENTE_UMA_VEZ === true) {
+
+      /***************************************/
+      var response = "";
+
+      try {
+
+        response = await Axios.get(IP_DO_SERVIDOR + "puxando_tabela_precos");
+
+        var tabela_de_precos_json = await response.data;
+
+        //  alert(  Object.values( tabela_de_precos_json[0] )  );
+        VARIAVEL_GLOBAL.TABELA_PRECOS_ANUNCIO =  Object.values( tabela_de_precos_json[0] );
+
+         alert(  VARIAVEL_GLOBAL.TABELA_PRECOS_ANUNCIO[0] );
+         
+
+      } catch (exception) { alert(exception.message)/**/ }
+      /***************************************/
+
+      VARIAVEL_GLOBAL.SOMENTE_UMA_VEZ = false;
+    }
+
+  }
+
 
 
 
@@ -3233,7 +3271,7 @@ export default function AppTest() {
           <View style={{ width: '100%', height: 1, borderWidth: 1, borderColor: '#fff' }} />
 
           <TouchableOpacity style={{ width: '100%', height: 40, backgroundColor: '#778187', justifyContent: 'center' }}
-            onPress={() => {  PUBLICACOES_EXPIRADAS();  setLargura_tela_botoes(new Animated.Value(0)); }}
+            onPress={() => { PUBLICACOES_EXPIRADAS(); setLargura_tela_botoes(new Animated.Value(0)); }}
           >
             <View flexDirection='row' style={{ width: '100%', height: 30, paddingLeft: 15 }}>
 

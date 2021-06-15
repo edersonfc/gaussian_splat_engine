@@ -12,7 +12,10 @@ import GlobalContext from '../../context/UsersContext';
 import io from 'socket.io-client';
 
 // import {QUANTIDADES_VEZES_PRECOS } from './CALCULO_E_FORMATACAO/FORMATACAO';
-import { QUANTIDADES_VEZES_PRECOS, MOEDA_P_DOUBLE_OU_FLOAT } from '../CALCULO_E_FORMATACAO/FORMATACAO';
+import { 
+         QUANTIDADES_VEZES_PRECOS, MOEDA_P_DOUBLE_OU_FLOAT, 
+         data_completa, data_completa_ingles
+       } from '../CALCULO_E_FORMATACAO/FORMATACAO';
 
 
 
@@ -171,7 +174,7 @@ export default function pay_credity_card(params) {
                 await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + "update_plano_de_postagem_pos_pagamento", {
 
                     params: {
-                        // telefoneDoUsuario: VARIAVEL_GLOBAL.TELEFONE,
+                        data_J:data_completa_ingles(),
                         telefoneDoUsuario:VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.numero_telefone_J,
                         id_J: VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.id_J,
                         venda_status_J: 'aberta',
@@ -206,7 +209,7 @@ export default function pay_credity_card(params) {
                 await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + "update_plano_de_postagem_pos_pagamento", {
 
                     params: {
-                        // telefoneDoUsuario: VARIAVEL_GLOBAL.TELEFONE,
+                        data_J:data_completa_ingles(),
                         telefoneDoUsuario: dados_da_venda.numero_telefone_A,
                         id_J: dados_da_venda.id_A,
                         venda_status_J: 'aberta',
