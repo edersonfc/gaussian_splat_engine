@@ -52,7 +52,9 @@ var OBJETOS_JSON =
 
      TABELA_PRECOS_ANUNCIO:null,
 
-     tempoPostagem_G:360
+     tempoPostagem_G:360,
+
+     COBRANCA_APP_PUBLICACAO_OU_TAXA:""
 
     //  CONECTANDO_AO_BANCO_DE_DADOS_GLOBALMENTE:null
 };

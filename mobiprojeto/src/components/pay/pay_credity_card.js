@@ -12,10 +12,10 @@ import GlobalContext from '../../context/UsersContext';
 import io from 'socket.io-client';
 
 // import {QUANTIDADES_VEZES_PRECOS } from './CALCULO_E_FORMATACAO/FORMATACAO';
-import { 
-         QUANTIDADES_VEZES_PRECOS, MOEDA_P_DOUBLE_OU_FLOAT, 
-         data_completa, data_completa_ingles
-       } from '../CALCULO_E_FORMATACAO/FORMATACAO';
+import {
+    QUANTIDADES_VEZES_PRECOS, MOEDA_P_DOUBLE_OU_FLOAT,
+    data_completa, data_completa_ingles
+} from '../CALCULO_E_FORMATACAO/FORMATACAO';
 
 
 
@@ -124,9 +124,15 @@ export default function pay_credity_card(params) {
         var valor = Math.floor(Math.random() * 10);
         if (valor <= 5) {
 
-            // await VARIAVEL_GLOBAL.CONECTANDO_AO_BANCO_DE_DADOS_GLOBALMENTE;
-            enviandoCondicao = "aprovado";
-            await UPDATE_PLANO_DE_POSTAGEM_APOS_APROVACAO_();
+            if (VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA === "PUBLICACAO") {
+                // await VARIAVEL_GLOBAL.CONECTANDO_AO_BANCO_DE_DADOS_GLOBALMENTE;
+                enviandoCondicao = "aprovado";
+                await UPDATE_PLANO_DE_POSTAGEM_APOS_APROVACAO_();
+            }else  if (VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA === "TAXA") {
+
+                alert("UPDATE PARA COMPRA REQUERIDA AQUI !");
+
+            }
 
         } else if (valor > 5) {
             enviandoCondicao = "reprovado";
@@ -160,7 +166,7 @@ export default function pay_credity_card(params) {
         //1º
         if (typeof dados_da_venda.id_A === "undefined") {
 
-            
+
             /***************************************/
             var response = "";
 
@@ -174,8 +180,8 @@ export default function pay_credity_card(params) {
                 await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + "update_plano_de_postagem_pos_pagamento", {
 
                     params: {
-                        data_J:data_completa_ingles(),
-                        telefoneDoUsuario:VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.numero_telefone_J,
+                        data_J: data_completa_ingles(),
+                        telefoneDoUsuario: VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.numero_telefone_J,
                         id_J: VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.id_J,
                         venda_status_J: 'aberta',
                         tempoPostagem_J: VARIAVEL_GLOBAL.tempoPostagem_G
@@ -210,7 +216,7 @@ export default function pay_credity_card(params) {
                 await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + "update_plano_de_postagem_pos_pagamento", {
 
                     params: {
-                        data_J:data_completa_ingles(),
+                        data_J: data_completa_ingles(),
                         telefoneDoUsuario: dados_da_venda.numero_telefone_A,
                         id_J: dados_da_venda.id_A,
                         venda_status_J: 'aberta',

@@ -952,7 +952,8 @@ export default function AppTest() {
 
         FUNCAO_NOTIFICACAO_PAI(msg).then(() => {
 
-          setSomatorio_notificacao_numero(VARIAVEL_GLOBAL.PROPOSTAS_RECEBIDAS + VARIAVEL_GLOBAL.PROPOSTAS_ENVIADAS + VARIAVEL_GLOBAL.PROPOSTAS_ACEITAS + VARIAVEL_GLOBAL.VENDAS_RECENTES);
+          setSomatorio_notificacao_numero(VARIAVEL_GLOBAL.PROPOSTAS_RECEBIDAS + VARIAVEL_GLOBAL.PROPOSTAS_ENVIADAS + VARIAVEL_GLOBAL.PROPOSTAS_ACEITAS + VARIAVEL_GLOBAL.VENDAS_RECENTES + VARIAVEL_GLOBAL.PUBLICACOES_PENDENTES + VARIAVEL_GLOBAL.PUBLICACOES_EXPIRADAS);
+       
 
         });
 
@@ -1723,25 +1724,21 @@ export default function AppTest() {
 
 
       setSomatorio_notificacao_numero(
-        array_propostas_recentes_recebidas.length +
-        array_propostas_recentes_enviadas.length +
-        array_propostas_recentes_aceitas.length +
+          array_propostas_recentes_recebidas.length +
+          array_propostas_recentes_enviadas.length +
+          array_propostas_recentes_aceitas.length +
 
-        array_venda_recentes_requisitadas.length +
-        array_publicacoes_pendentes.length +
-        array_publicacoes_expiradas.length
+          array_venda_recentes_requisitadas.length +
+          array_publicacoes_pendentes.length +
+          array_publicacoes_expiradas.length
       );
 
 
 
-      // alert(   array_propostas_recentes_recebidas.length  +"  |  "+ 
-      //          array_propostas_recentes_enviadas.length   +"  |  "+ 
-      //          array_propostas_recentes_aceitas.length );
+       VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = false;
 
-
-
-      VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = false;
-
+      //alert("EXPIRADAS NF => "+ array_publicacoes_pendentes.length);
+      // alert("TOTAL NF => "+somatorio_notificacao_numero);
 
       // alert("ESTÁ EXECUTANDO BUSCA DE NOTIFICAÇÃO NESSA AUDITORIA")
 

@@ -343,6 +343,7 @@ export default function Tabela_planos(props) {
                         alert("É necessário Escolher um Plano na Tabela de Preços !");
                    
                     } else {
+                        VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "PUBLICACAO"; 
                         navigation.navigate("Screen_pay", { propostas });
                         // alert(  JSON.stringify(  propostas  )  );
                         // alert( VARIAVEL_GLOBAL.tempoPostagem_G );

@@ -873,12 +873,12 @@ export default function MensagensPropostas(param) {
 
                                                 onPress={(e) => {
 
+                                                  VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "TAXA";  
                                                     //param.funcao_remota_aceitar_proposta(propostasss[index].cod_automatico);
                                                     // ACEITAR_PROPOSTA_FUNCAO(index);
                                                     navigation.navigate("Screen_pay",{propostas});
 
                                                     <Icon name='arrow-left' style={Estilo.icones_medio} />
-
                                                 }}
 
                                             >
