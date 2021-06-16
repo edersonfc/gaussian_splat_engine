@@ -52,7 +52,7 @@ export default function Tabela_planos(props) {
     // alert( precoSugerido +"  #  "+ quantidadeCabecasOuPesos  +"  #  "+  JSON.stringify(produto)  ); 
 
     // 14-06-2021
-    console.log(JSON.stringify(produto));
+    // console.log(JSON.stringify(produto));
 
     const { VARIAVEL_GLOBAL } = useContext(GlobalContext);
 
@@ -60,10 +60,15 @@ export default function Tabela_planos(props) {
 
     const navigation = useNavigation();
 
-    var [mes_1_valor_tx, setMes_1_valor_tx]   = useState(59.90);
-    var [mes_3_valor_tx, setMes_3_valor_tx]   = useState(159.90);
-    var [mes_6_valor_tx, setMes_6_valor_tx]   = useState(299.90);
-    var [mes_12_valor_tx, setMes_12_valor_tx] = useState(569.90);
+    // var [mes_1_valor_tx, setMes_1_valor_tx]   = useState(59.90);
+    // var [mes_3_valor_tx, setMes_3_valor_tx]   = useState(159.90);
+    // var [mes_6_valor_tx, setMes_6_valor_tx]   = useState(299.90);
+    // var [mes_12_valor_tx, setMes_12_valor_tx] = useState(569.90);
+    
+    var [mes_1_valor_tx, setMes_1_valor_tx]   = useState(VARIAVEL_GLOBAL.TABELA_PRECOS_ANUNCIO.MES_1);
+    var [mes_3_valor_tx, setMes_3_valor_tx]   = useState(VARIAVEL_GLOBAL.TABELA_PRECOS_ANUNCIO.MES_3);
+    var [mes_6_valor_tx, setMes_6_valor_tx]   = useState(VARIAVEL_GLOBAL.TABELA_PRECOS_ANUNCIO.MES_6);
+    var [mes_12_valor_tx, setMes_12_valor_tx] = useState(VARIAVEL_GLOBAL.TABELA_PRECOS_ANUNCIO.MES_12);
 
     var [contemNaoContemVideos, setContemNaoContemVideos] = useState("");
 

@@ -178,7 +178,8 @@ export default function pay_credity_card(params) {
                         telefoneDoUsuario:VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.numero_telefone_J,
                         id_J: VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.id_J,
                         venda_status_J: 'aberta',
-                        tempoPostagem_J: VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.tempoPostagem_J
+                        tempoPostagem_J: VARIAVEL_GLOBAL.tempoPostagem_G
+                        // tempoPostagem_J: VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.tempoPostagem_J
                     }
                 });
 

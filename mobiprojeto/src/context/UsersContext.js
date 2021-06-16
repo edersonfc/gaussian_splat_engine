@@ -40,8 +40,7 @@ var OBJETOS_JSON =
      LISTAVIDEOS_CONTEXT:[],
 
      CONTADOR_GLOBAL:60,
-    //  CONTADOR_GLOBAL:30,
-
+   
      LICENCA_USO:"SEM_CADASTRO",
 
      LARGURA_DA_TELA: Math.round(Dimensions.get('window').width),
@@ -51,7 +50,7 @@ var OBJETOS_JSON =
      QUANTIDADE_DE_POSTAGEMS:0,
      PARAMETROS_QUANTIDADE_DE_POSTAGEMS:1,
 
-     TABELA_PRECOS_ANUNCIO:"",
+     TABELA_PRECOS_ANUNCIO:null,
 
      tempoPostagem_G:360
 

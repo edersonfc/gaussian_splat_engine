@@ -1878,12 +1878,16 @@ export default function AppTest() {
   function VENDAS_RECENTES() {
 
 
-    setLabelOuPesquisar(true);
-    //alert(array_venda_recentes_requisitadas);
-    PUXAR_PRODUTOS_DAS_NOTIFICACOES(array_venda_recentes_requisitadas);
-    setMenu_aviso_visivel_or_invisivel(false);
-    setFaixa_submenu_e_filtro(false);
-    setTexto_filtro_notificacao("Vendas Recentes");
+    if (qtde_venda_recentes_nao_vista != 0) {
+
+      setLabelOuPesquisar(true);
+      //alert(array_venda_recentes_requisitadas);
+      PUXAR_PRODUTOS_DAS_NOTIFICACOES(array_venda_recentes_requisitadas);
+      setMenu_aviso_visivel_or_invisivel(false);
+      setFaixa_submenu_e_filtro(false);
+      setTexto_filtro_notificacao("Vendas Recentes");
+
+    } else { alert("Não Tem Vendas Recentes !"); }
 
   }
 
@@ -1892,13 +1896,17 @@ export default function AppTest() {
   /*IN  CONSTRUCTIONS ABAIXO********************/
   function PUBLICACOES_PENDENTES() {
 
+    if (qtde_publicacao_pendentes != 0) {
 
-    setLabelOuPesquisar(true);
-    //alert(array_venda_recentes_requisitadas);
-    PUXAR_PRODUTOS_DAS_NOTIFICACOES(array_publicacoes_pendentes);
-    setMenu_aviso_visivel_or_invisivel(false);
-    setFaixa_submenu_e_filtro(false);
-    setTexto_filtro_notificacao("Publicações Pendentes");
+      setLabelOuPesquisar(true);
+      //alert(array_venda_recentes_requisitadas);
+      PUXAR_PRODUTOS_DAS_NOTIFICACOES(array_publicacoes_pendentes);
+      setMenu_aviso_visivel_or_invisivel(false);
+      setFaixa_submenu_e_filtro(false);
+      setTexto_filtro_notificacao("Publicações Pendentes");
+
+
+    } else { alert("Não Tem Publicações Pendentes !"); }
 
 
   }
@@ -1906,12 +1914,17 @@ export default function AppTest() {
 
   function PUBLICACOES_EXPIRADAS() {
 
-    setLabelOuPesquisar(true);
-    //alert(array_venda_recentes_requisitadas);
-    PUXAR_PRODUTOS_DAS_NOTIFICACOES(array_publicacoes_expiradas);
-    setMenu_aviso_visivel_or_invisivel(false);
-    setFaixa_submenu_e_filtro(false);
-    setTexto_filtro_notificacao("Publicações Expiradas");
+
+    if (qtde_publicacao_expiradas != 0) {
+
+      setLabelOuPesquisar(true);
+      //alert(array_venda_recentes_requisitadas);
+      PUXAR_PRODUTOS_DAS_NOTIFICACOES(array_publicacoes_expiradas);
+      setMenu_aviso_visivel_or_invisivel(false);
+      setFaixa_submenu_e_filtro(false);
+      setTexto_filtro_notificacao("Publicações Expiradas");
+
+    } else { alert("Não Tem Publicações Expiradas !"); }
 
 
   }
@@ -2451,10 +2464,10 @@ export default function AppTest() {
         var tabela_de_precos_json = await response.data;
 
         //  alert(  Object.values( tabela_de_precos_json[0] )  );
-        VARIAVEL_GLOBAL.TABELA_PRECOS_ANUNCIO =  Object.values( tabela_de_precos_json[0] );
+        VARIAVEL_GLOBAL.TABELA_PRECOS_ANUNCIO = Object.values(tabela_de_precos_json[0]);
+        VARIAVEL_GLOBAL.TABELA_PRECOS_ANUNCIO = JSON.parse(VARIAVEL_GLOBAL.TABELA_PRECOS_ANUNCIO);
+        // alert( VARIAVEL_GLOBAL.TABELA_PRECOS_ANUNCIO.MES_12  );
 
-         alert(  VARIAVEL_GLOBAL.TABELA_PRECOS_ANUNCIO[0] );
-         
 
       } catch (exception) { alert(exception.message)/**/ }
       /***************************************/
