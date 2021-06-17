@@ -2568,13 +2568,14 @@ export default function AppTest() {
 
               onPress={() => {
 
-
                 const LARTITUDE = userPosition.latitude;
                 const LORNGITUDE = userPosition.longitude;
+                VARIAVEL_GLOBAL.LATITUDE  =  userPosition.latitude;
+                VARIAVEL_GLOBAL.LONGITUDE =  userPosition.longitude;
+
                 //alert(userPosition.latitude+"   |    "+ userPosition.longitude);
                 //navigation.navigate("MAPA");
                 navigation.navigate("MapaGoogle", { LARTITUDE, LORNGITUDE });
-
 
                 // alert(
                 //   array_propostas_recentes_recebidas.length + "  <= recebidas  " +

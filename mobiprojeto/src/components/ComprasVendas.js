@@ -214,8 +214,9 @@ export default function ComprasVendas(props) {
 
         ADICIONAR_PRODUTOS_por_ARRAY(true);
         // alert("TÁ DISPARANDOY")
+        VARIAVEL_GLOBAL.SOMENTE_UMA_VEZ = false;
 
-    }, [dataInicial, dataFinal]);
+    }, [dataInicial, dataFinal, VARIAVEL_GLOBAL.SOMENTE_UMA_VEZ ]);
 
 
 

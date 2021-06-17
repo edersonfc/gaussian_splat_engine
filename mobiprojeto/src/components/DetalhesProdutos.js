@@ -1153,13 +1153,24 @@ export default function DetalhesProdutos(props) {
                         /******************************/
                         var id_postagem = produtos.id_J;
                         try {
-                            Axios.get(IP_DO_SERVIDOR + 'deletar_postagem_do_banco_de_dados', {
+                          await Axios.get(IP_DO_SERVIDOR + 'deletar_postagem_do_banco_de_dados', {
                                 params: {
                                     id_J: id_postagem
                                 }
                             });
 
-                            navigation.goBack(null);
+                            // navigation.goBack(null);
+                            /********************************************/
+                            VARIAVEL_GLOBAL.TELA_ATUAL = "ComprasVendas";
+                            VARIAVEL_GLOBAL.TELA_ORIGEM = "MenuDaTelaPrincipal";
+                            VARIAVEL_GLOBAL.TELA_TERCEIRA = "Principal";
+                            // { ComprasVendas = 'Postagens' }
+                            const LATITUDE_USUARIO  = VARIAVEL_GLOBAL.LATITUDE;
+                            const LONGITUDE_USUARIO = VARIAVEL_GLOBAL.LONGITUDE;
+                            const ComprasVendas = 'Postagens';
+                            VARIAVEL_GLOBAL.SOMENTE_UMA_VEZ = true;
+                            navigation.navigate("ComprasVendas", {ComprasVendas, LATITUDE_USUARIO, LONGITUDE_USUARIO });
+                            /********************************************/
 
                         } catch (error) { alert("FALHA AO REMOVER POSTAGEM !!!"); }
 
