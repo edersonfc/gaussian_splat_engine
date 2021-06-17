@@ -887,6 +887,14 @@ export default function AppTest() {
 
           VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = msg_parametro;
 
+
+          if (VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO.includes("Broadcast Postagem Deletada")) {
+            ADICIONAR_PRODUTOS_por_ARRAY(true);
+          }
+
+
+          // alert( VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO);
+
           if (VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO.includes("Proposta-Recebida-Recente")) {
 
             // setNotificacao_visivel_true_false(true);
@@ -952,9 +960,9 @@ export default function AppTest() {
 
         FUNCAO_NOTIFICACAO_PAI(msg).then(() => {
 
-          alert(msg);
+
           setSomatorio_notificacao_numero(VARIAVEL_GLOBAL.PROPOSTAS_RECEBIDAS + VARIAVEL_GLOBAL.PROPOSTAS_ENVIADAS + VARIAVEL_GLOBAL.PROPOSTAS_ACEITAS + VARIAVEL_GLOBAL.VENDAS_RECENTES + VARIAVEL_GLOBAL.PUBLICACOES_PENDENTES + VARIAVEL_GLOBAL.PUBLICACOES_EXPIRADAS);
-       
+
 
         });
 
@@ -1725,18 +1733,18 @@ export default function AppTest() {
 
 
       setSomatorio_notificacao_numero(
-          array_propostas_recentes_recebidas.length +
-          array_propostas_recentes_enviadas.length +
-          array_propostas_recentes_aceitas.length +
+        array_propostas_recentes_recebidas.length +
+        array_propostas_recentes_enviadas.length +
+        array_propostas_recentes_aceitas.length +
 
-          array_venda_recentes_requisitadas.length +
-          array_publicacoes_pendentes.length +
-          array_publicacoes_expiradas.length
+        array_venda_recentes_requisitadas.length +
+        array_publicacoes_pendentes.length +
+        array_publicacoes_expiradas.length
       );
 
 
 
-       VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = false;
+      VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = false;
 
       //alert("EXPIRADAS NF => "+ array_publicacoes_pendentes.length);
       // alert("TOTAL NF => "+somatorio_notificacao_numero);

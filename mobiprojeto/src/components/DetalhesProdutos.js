@@ -1158,6 +1158,9 @@ export default function DetalhesProdutos(props) {
                                     id_J: id_postagem
                                 }
                             });
+
+                            navigation.goBack(null);
+
                         } catch (error) { alert("FALHA AO REMOVER POSTAGEM !!!"); }
 
 
