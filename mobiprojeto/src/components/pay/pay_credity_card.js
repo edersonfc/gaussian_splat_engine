@@ -124,7 +124,7 @@ export default function pay_credity_card(params) {
         var valor = Math.floor(Math.random() * 10);
         if (valor <= 5) {
 
-            if (VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA === "PUBLICACAO") {
+            if (VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA === "PUBLICACAO" || VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA === "ATIVAR PUBLICAÇÃO" ) {
                 // await VARIAVEL_GLOBAL.CONECTANDO_AO_BANCO_DE_DADOS_GLOBALMENTE;
                 enviandoCondicao = "aprovado";
                 await UPDATE_PLANO_DE_POSTAGEM_APOS_APROVACAO_();

@@ -919,11 +919,9 @@ export default function AppTest() {
 
           if (VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO.includes("compra-efetuada")) {
 
-            //alert("Compraram Algum Produto Seu.");
-            // VARIAVEL_GLOBAL.VENDAS_RECENTES = parseInt(VARIAVEL_GLOBAL.VENDAS_RECENTES) + 1;
-            // setQtde_venda_recentes_nao_vista(VARIAVEL_GLOBAL.VENDAS_RECENTES);
 
-            //VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "NENHUMA_NOTIFICACAO_AGORA";
+            ADICIONAR_PRODUTOS_por_ARRAY(true);
+
 
           }
 

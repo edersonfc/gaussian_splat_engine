@@ -31,6 +31,9 @@ var ALTURA = Math.round(Dimensions.get('window').height);
 
 export default function pay_aprovado_reprovado(params) {
 
+
+    const { VARIAVEL_GLOBAL } = useContext(GlobalContext);
+
     const navigation = useNavigation();
 
     var compraAprovadaOuReprovada = params.compraAprovadaOuReprovadaRecebid;
@@ -105,7 +108,34 @@ export default function pay_aprovado_reprovado(params) {
                             altura={50}
                             cor_fundo={'#36BE54'}
 
-                            onPress={() => { navigation.goBack(null); navigation.goBack(null); }}
+                            onPress={() => {
+
+                                if (VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA == "ATIVAR PUBLICAÇÃO") {
+
+                                    VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "";
+                                    VARIAVEL_GLOBAL.SOMENTE_UMA_VEZ = true;
+                                    navigation.goBack(null);
+                                    navigation.goBack(null);
+                                    navigation.goBack(null);
+                                    navigation.goBack(null);
+
+
+                                } else if (VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA == "TAXA") {
+
+
+
+
+                                } else if (VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA == "PUBLICACAO") {
+
+                                    VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "";
+                                    VARIAVEL_GLOBAL.SOMENTE_UMA_VEZ = true;
+                                    navigation.goBack(null);
+                                    navigation.goBack(null);
+                                    navigation.goBack(null);
+
+
+                                }
+                            }}
 
                         >
 
@@ -134,7 +164,7 @@ export default function pay_aprovado_reprovado(params) {
                         altura={(ALTURA * 0.4)}
                         cor_fundo={'#FF5353'}
 
-                     >
+                    >
                         <StyledIconFontAwesome largura={50} altura={(50)} name='times-circle' />
 
                         <Txt_1
@@ -162,7 +192,7 @@ export default function pay_aprovado_reprovado(params) {
                                     altura={30}
                                 >
                                     Cancelar
-                            </Txt_2>
+                                </Txt_2>
 
                             </ButtonCancelarTentarNovamente>
 
@@ -180,7 +210,7 @@ export default function pay_aprovado_reprovado(params) {
                                     onPress={() => { params.executarPagamentoComCrediCard(); }}
                                 >
                                     Tentar Novamente
-                            </Txt_2>
+                                </Txt_2>
 
                             </ButtonCancelarTentarNovamente>
 

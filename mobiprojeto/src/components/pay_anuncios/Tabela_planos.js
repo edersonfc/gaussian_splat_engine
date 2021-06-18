@@ -25,7 +25,7 @@ import {
 
 
 var LARGURA = Math.round(Dimensions.get('window').width);
-var ALTURA  = Math.round(Dimensions.get('window').height);
+var ALTURA = Math.round(Dimensions.get('window').height);
 
 
 var ARRAY_PLANO_VALOR_SELECIONADO = new Array();
@@ -64,10 +64,10 @@ export default function Tabela_planos(props) {
     // var [mes_3_valor_tx, setMes_3_valor_tx]   = useState(159.90);
     // var [mes_6_valor_tx, setMes_6_valor_tx]   = useState(299.90);
     // var [mes_12_valor_tx, setMes_12_valor_tx] = useState(569.90);
-    
-    var [mes_1_valor_tx, setMes_1_valor_tx]   = useState(VARIAVEL_GLOBAL.TABELA_PRECOS_ANUNCIO.MES_1);
-    var [mes_3_valor_tx, setMes_3_valor_tx]   = useState(VARIAVEL_GLOBAL.TABELA_PRECOS_ANUNCIO.MES_3);
-    var [mes_6_valor_tx, setMes_6_valor_tx]   = useState(VARIAVEL_GLOBAL.TABELA_PRECOS_ANUNCIO.MES_6);
+
+    var [mes_1_valor_tx, setMes_1_valor_tx] = useState(VARIAVEL_GLOBAL.TABELA_PRECOS_ANUNCIO.MES_1);
+    var [mes_3_valor_tx, setMes_3_valor_tx] = useState(VARIAVEL_GLOBAL.TABELA_PRECOS_ANUNCIO.MES_3);
+    var [mes_6_valor_tx, setMes_6_valor_tx] = useState(VARIAVEL_GLOBAL.TABELA_PRECOS_ANUNCIO.MES_6);
     var [mes_12_valor_tx, setMes_12_valor_tx] = useState(VARIAVEL_GLOBAL.TABELA_PRECOS_ANUNCIO.MES_12);
 
     var [contemNaoContemVideos, setContemNaoContemVideos] = useState("");
@@ -341,9 +341,20 @@ export default function Tabela_planos(props) {
                     if (valor_do_plano === "") {
 
                         alert("É necessário Escolher um Plano na Tabela de Preços !");
-                   
+
                     } else {
-                        VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "PUBLICACAO"; 
+
+
+                       
+
+                        if (!VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA.includes("ATIVAR PUBLICAÇÃO") &&
+                            !VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA.includes("TAXA")) {
+
+                                alert(VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA);
+
+                            VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "PUBLICACAO";
+                        }
+
                         navigation.navigate("Screen_pay", { propostas });
                         // alert(  JSON.stringify(  propostas  )  );
                         // alert( VARIAVEL_GLOBAL.tempoPostagem_G );

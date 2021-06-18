@@ -265,17 +265,17 @@ export default function DetalhesProdutos(props) {
             }//IF INTERNO SE FOI VENDIDO
 
 
-            if (  produtos.venda_status_J.includes("pendente")  ||  produtos.venda_status_J.includes("expirada")  ) {
+            if (produtos.venda_status_J.includes("pendente") || produtos.venda_status_J.includes("expirada")) {
 
-                  setAtivar_publicacao(false);
+                setAtivar_publicacao(false);
 
-            }   
+            }
 
 
 
         } else { //alert("NÃO FOI VOCÊ QUEM POSTOU ESSA POSTAGEM");
 
-           
+
             setComprador_ou_vendedor(true);
             setFazer_ou_ver_proposta("Fazer Proposta");
             setComprar_ou_deletar("Comprar");
@@ -747,15 +747,19 @@ export default function DetalhesProdutos(props) {
 
                                                 //alert(numero_telefone_comprador);
 
-                                                await Axios.get(IP_DO_SERVIDOR + 'comprar_direto', {
-                                                    params: {
-                                                        numero_telefone_J: numero_telefone_J,
-                                                        id_J: id_J,
-                                                        comprador_J: numero_telefone_comprador
-                                                    }
+                                                // try {
 
-                                                }, alert("Compra Realizada... Entraremos em Contato !"));
+                                                    await Axios.get(IP_DO_SERVIDOR + 'comprar_direto', {
+                                                        params: {
+                                                            numero_telefone_J: numero_telefone_J,
+                                                            id_J: id_J,
+                                                            comprador_J: numero_telefone_comprador
+                                                        }
 
+                                                        },  setComprar_ou_deletar("Comprado"),  alert("Compra Realizada... Entraremos em Contato !")  );
+                                                    
+                               
+                                                // } catch (error) { alert("Falha ao Comprar !"); }
 
 
                                             } else {
@@ -843,33 +847,26 @@ export default function DetalhesProdutos(props) {
 
                     <View style={{ flexDirection: 'row', padding: '1%', width: '100%', justifyContent: 'center', alignItems: 'center', borderWidth: 0, borderColor: 'white' }} >
 
-                        <TouchableOpacity style={{ width: '60%', height: 40, alignItems: 'center', borderWidth: 1 , justifyContent: 'center' , borderRadius: 10, borderColor: 'yellow' }}
-                        
-                        onPress={async () => {
-                                  
+                        <TouchableOpacity style={{ width: '60%', height: 40, alignItems: 'center', borderWidth: 1, justifyContent: 'center', borderRadius: 10, borderColor: 'yellow' }}
+
+                            onPress={async () => {
+
 
                                 /***********************************************************************/
-                                // if (VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS > VARIAVEL_GLOBAL.PARAMETROS_QUANTIDADE_DE_POSTAGEMS) {
-                                    // venda_status_J = 'pendente';
-                                    // const produto = { IMAGENS: VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT, VIDEOS: VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT }
-                                
-                                /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+                                VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE = await produtos;
 
-                                    // const produto = produtos;
+                                const produto = { IMAGENS: VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT, VIDEOS: VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT }
 
-                                     VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE = await produtos;
+                                VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "ATIVAR PUBLICAÇÃO";
+                                // alert( JSON.stringify(produtos) );
+                                // alert( produtos.precoSugerido_J );
+                                // alert( produtos.quantidadeCabecasOuPesos_J );
+                                const precoSugerido = produtos.precoSugerido_J;
+                                const quantidadeCabecasOuPesos = produtos.quantidadeCabecasOuPesos_J;
+                                navigation.navigate("Tabela_planos", { precoSugerido, quantidadeCabecasOuPesos, produto });
 
-                                    const produto = { IMAGENS: VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT, VIDEOS: VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT }
-
-                                    // alert( JSON.stringify(produtos) );
-                                    // alert( produtos.precoSugerido_J );
-                                    // alert( produtos.quantidadeCabecasOuPesos_J );
-                                    const precoSugerido =  produtos.precoSugerido_J;
-                                    const quantidadeCabecasOuPesos = produtos.quantidadeCabecasOuPesos_J;
-                                    navigation.navigate("Tabela_planos", { precoSugerido, quantidadeCabecasOuPesos, produto });
-                                // }
                                 /***********************************************************************/
-                        }}
+                            }}
                         >
                             <Text style={{ fontSize: 20, color: 'yellow' }} >Ativar Publicação</Text>
                         </TouchableOpacity>
@@ -1153,7 +1150,7 @@ export default function DetalhesProdutos(props) {
                         /******************************/
                         var id_postagem = produtos.id_J;
                         try {
-                          await Axios.get(IP_DO_SERVIDOR + 'deletar_postagem_do_banco_de_dados', {
+                            await Axios.get(IP_DO_SERVIDOR + 'deletar_postagem_do_banco_de_dados', {
                                 params: {
                                     id_J: id_postagem
                                 }
@@ -1165,11 +1162,11 @@ export default function DetalhesProdutos(props) {
                             VARIAVEL_GLOBAL.TELA_ORIGEM = "MenuDaTelaPrincipal";
                             VARIAVEL_GLOBAL.TELA_TERCEIRA = "Principal";
                             // { ComprasVendas = 'Postagens' }
-                            const LATITUDE_USUARIO  = VARIAVEL_GLOBAL.LATITUDE;
+                            const LATITUDE_USUARIO = VARIAVEL_GLOBAL.LATITUDE;
                             const LONGITUDE_USUARIO = VARIAVEL_GLOBAL.LONGITUDE;
                             const ComprasVendas = 'Postagens';
                             VARIAVEL_GLOBAL.SOMENTE_UMA_VEZ = true;
-                            navigation.navigate("ComprasVendas", {ComprasVendas, LATITUDE_USUARIO, LONGITUDE_USUARIO });
+                            navigation.navigate("ComprasVendas", { ComprasVendas, LATITUDE_USUARIO, LONGITUDE_USUARIO });
                             /********************************************/
 
                         } catch (error) { alert("FALHA AO REMOVER POSTAGEM !!!"); }
