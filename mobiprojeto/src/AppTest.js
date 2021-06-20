@@ -2552,8 +2552,8 @@ export default function AppTest() {
 
                 //MOSTRAR_POSTAGENS();
                 //PEGAR_TODAS_CHAVES_DO_ASYNC_STORAGE();
-                // navigation.navigate("TelaPrincipal", { produto })
-                navigation.navigate("TelaPrincipal", null);
+                alert( "<HTML><CENTER>Acordo de Compra e Venda Aceita ! \n Entre em Contato com o Comprador !</HTML>");
+                 navigation.navigate("TelaPrincipal", null);
 
               }}
 

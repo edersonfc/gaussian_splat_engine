@@ -68,6 +68,16 @@ export default function pay_aprovado_reprovado(params) {
     });
 
 
+
+
+
+
+
+
+
+
+
+
     return (
 
         //1
@@ -122,7 +132,11 @@ export default function pay_aprovado_reprovado(params) {
 
                                 } else if (VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA == "TAXA") {
 
-
+                                    VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "";
+                                    VARIAVEL_GLOBAL.SOMENTE_UMA_VEZ = true;
+                                    navigation.goBack(null);
+                                    navigation.goBack(null);
+                                    // navigation.goBack(null);
 
 
                                 } else if (VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA == "PUBLICACAO") {

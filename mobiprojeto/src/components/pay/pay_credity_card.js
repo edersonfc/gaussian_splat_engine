@@ -14,7 +14,7 @@ import io from 'socket.io-client';
 // import {QUANTIDADES_VEZES_PRECOS } from './CALCULO_E_FORMATACAO/FORMATACAO';
 import {
     QUANTIDADES_VEZES_PRECOS, MOEDA_P_DOUBLE_OU_FLOAT,
-    data_completa, data_completa_ingles
+    data_completa, data_completa_ingles, data_hora_e_segundo_completo_ingles
 } from '../CALCULO_E_FORMATACAO/FORMATACAO';
 
 
@@ -122,19 +122,29 @@ export default function pay_credity_card(params) {
         //ALTERNANCIA DE ESTADOS USADO SOMENTE PARA TESTES ABAIXO
         var enviandoCondicao = "";
         var valor = Math.floor(Math.random() * 10);
-        if (valor <= 5) {
+        if (valor <= 5) {//AQUI É SE FOR APROVADO A COMPRA
 
-            if (VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA === "PUBLICACAO" || VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA === "ATIVAR PUBLICAÇÃO" ) {
+            if (VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA === "PUBLICACAO" || VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA === "ATIVAR PUBLICAÇÃO") {
+
                 // await VARIAVEL_GLOBAL.CONECTANDO_AO_BANCO_DE_DADOS_GLOBALMENTE;
                 enviandoCondicao = "aprovado";
                 await UPDATE_PLANO_DE_POSTAGEM_APOS_APROVACAO_();
-            }else  if (VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA === "TAXA") {
 
-                alert("UPDATE PARA COMPRA REQUERIDA AQUI !");
+            } else if (VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA === "TAXA") {
+
+                // alert("UPDATE PARA COMPRA REQUERIDA AQUI !");
+                enviandoCondicao = "aprovado";
+                VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "TAXA";
+                // await UPDATE_PLANO_DE_POSTAGEM_APOS_APROVACAO_();
+                ACEITAR_PROPOSTA_FUNCAO(1);
+
+            } else if (VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA === "TAXAQQQ") {
+
 
             }
 
-        } else if (valor > 5) {
+
+        } else if (valor > 5) { //AQUI É SE FOR REPROVADO A COMPRA
             enviandoCondicao = "reprovado";
         }
         //ALTERNANCIA DE ESTADOS USADO SOMENTE PARA TESTES ACIMA
@@ -239,6 +249,7 @@ export default function pay_credity_card(params) {
         }
 
 
+    }
 
 
 
@@ -246,9 +257,151 @@ export default function pay_credity_card(params) {
 
 
 
+
+
+
+
+    //THIS IS TO GO REMAINING
+    function ACEITAR_PROPOSTA_FUNCAO(index) {
+
+        // console.log(VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.numero_telefone_J);
+        // console.log( JSON.stringify(VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE) ); NÃO USAR ESSE ESSE É TODO O CONTEUDO
+
+        // alert(  dados_da_negociacao.conteudo_da_proposta  );
+        // alert(  JSON.stringify(dados_da_negociacao)  ); //NÃO USAR ESSE ESSE É TODO O CONTEUDO
+
+        // console.log(dados_da_negociacao);
+
+        /***********************************************************************************************/
+
+        var VENDEDOR = "";
+        var COMPRADOR = "";
+        var USUARIO_CELL = "";
+
+        // var ID_PROPOSTAS      = propostasss[index].cod_automatico;  DESATIVADO
+        // var ID_PROPOSTAS      = dados_da_negociacao.id_proposta; DESATIVADO
+        var ID_PROPOSTAS = dados_da_negociacao.cod_automatico;
+
+        // var topo_html = '<html><body>';  DESATIVADO E NÃO USADO NO OUTRO TAMBÉM
+        // var bottom_html = '</body></html>'; DESATIVADO E NÃO USADO NO OUTRO TAMBÉM
+
+        var RESPOSTAS = '';
+
+        //DEFININDO SE É COMPRADOR OU VENDEDOR NA HORA DE RESPONDER ABAIXO
+        // VENDEDOR =  propostasss[index].numero_telefone_vendedor;  DESATIVADO
+        // COMPRADOR = propostasss[index].numero_telefone_comprador; DESATIVADO
+        VENDEDOR = dados_da_negociacao.numero_telefone_comprador;
+        COMPRADOR = dados_da_negociacao.numero_telefone_vendedor;
+        //DEFININDO SE É COMPRADOR OU VENDEDOR NA HORA DE RESPONDER ACIMA
+
+        //SEM HTML ABAIXO
+        RESPOSTAS =
+            // propostasss[index].conteudo_da_proposta + DESATIVADO
+            dados_da_negociacao.conteudo_da_proposta +
+            "\n" +
+            // '<a>' + vendedor_ou_comprador[index] + "  " + data_hora_e_segundo_completo_ingles() + '</a>' + DESATIVADO
+          '<a>' + "Vendedor" + "  " + data_hora_e_segundo_completo_ingles() + '</a>' +
+            // conteudoDaResposta + DESATIVADO
+            // dados_da_negociacao.conteudo_da_proposta +
+            '<b> Proposta Aceita !</b>' +
+            '<c> Compra e Venda Fechada</c>';
+
+        //alert(RESPOSTAS);
+        // param.funcao_resposta_da_proposta(ID_PROPOSTAS, RESPOSTAS, VENDEDOR, COMPRADOR);
+        RESPOSTA_DE_PROPOSTAS(ID_PROPOSTAS, RESPOSTAS, VENDEDOR, COMPRADOR);
+
+        VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
 
 
     }
+
+
+
+
+
+
+
+
+
+
+    //THIS IS TO GO REMAINING 2
+    async function RESPOSTA_DE_PROPOSTAS(id_resposta_proposta, resposta_da_proposta, VENDEDOR_R, COMPRADOR_R) {
+
+        VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = true;
+
+        var telefone_destino = "";
+
+        if (VENDEDOR_R == VARIAVEL_GLOBAL.TELEFONE) {
+
+            telefone_destino = COMPRADOR_R;
+
+        } else { telefone_destino = VENDEDOR_R; }
+
+
+        // var DEU_ERRO_SIM_NAO_TALVEZ = "TALVEZ"; DESATIVADO
+        var DEU_ERRO_SIM_NAO_TALVEZ = "NAO";
+
+
+        var telefone_do_usuario_txt = VARIAVEL_GLOBAL.TELEFONE.toString();
+        telefone_do_usuario_txt = telefone_do_usuario_txt.replace(/([\[])|([\]])/g, '');
+
+
+
+        try {
+            //    await Axios.get(IP_DO_SERVIDOR + 'update_propostas', {
+            await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + 'update_propostas', {
+
+                params: {
+                    id_resposta_proposta_J: id_resposta_proposta,
+                    resposta_da_proposta_J: resposta_da_proposta,
+                    telefone_do_usuario: telefone_do_usuario_txt,
+                    telefone_destino: telefone_destino
+                }
+            })
+
+        } catch (error) {
+
+            alert(error)
+            // alert("Já foi enviado a Resposta da Proposta");
+            DEU_ERRO_SIM_NAO_TALVEZ = "SIM"
+
+        } finally {
+
+            if (DEU_ERRO_SIM_NAO_TALVEZ === "NAO") {
+
+                await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + 'comprar_direto', {
+                    params: {
+                        numero_telefone_J: dados_da_negociacao.numero_telefone_vendedor,
+                        id_J: VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.id_J,
+                        comprador_J: dados_da_negociacao.numero_telefone_comprador
+
+                    }
+                })
+
+                    .then(() => {
+                        VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
+                        VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = true;
+                        alert( "<HTML><CENTER>Acordo de Compra e Venda Aceita ! \n Entre em Contato com o Comprador !</HTML>");
+                    });
+
+            }
+
+
+            // alert("RESPONDENDO ABAIXO");
+
+
+        }
+
+    }//function RESPOSTA_DE_PROPOSTAS()
+
+
+
+
+
+
+
+
+
 
 
 
