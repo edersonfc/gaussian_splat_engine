@@ -300,7 +300,7 @@ export default function pay_credity_card(params) {
             dados_da_negociacao.conteudo_da_proposta +
             "\n" +
             // '<a>' + vendedor_ou_comprador[index] + "  " + data_hora_e_segundo_completo_ingles() + '</a>' + DESATIVADO
-          '<a>' + "Vendedor" + "  " + data_hora_e_segundo_completo_ingles() + '</a>' +
+            '<a>' + "Vendedor" + "  " + data_hora_e_segundo_completo_ingles() + '</a>' +
             // conteudoDaResposta + DESATIVADO
             // dados_da_negociacao.conteudo_da_proposta +
             '<b> Proposta Aceita !</b>' +
@@ -367,27 +367,34 @@ export default function pay_credity_card(params) {
 
         } finally {
 
+
+            // var numeroTLF = "(12)-3-4567-8901";
+            var JSON_OBJETO_numero_telefone_comprador = { "NUMERO_CELL_J": "" + dados_da_negociacao.numero_telefone_comprador + "" }
+            // console.log(JSON_OBJETO);
+
+
             if (DEU_ERRO_SIM_NAO_TALVEZ === "NAO") {
 
                 await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + 'comprar_direto', {
                     params: {
                         numero_telefone_J: dados_da_negociacao.numero_telefone_vendedor,
                         id_J: VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.id_J,
-                        comprador_J: dados_da_negociacao.numero_telefone_comprador
-
+                        comprador_J:JSON_OBJETO_numero_telefone_comprador 
                     }
                 })
 
                     .then(() => {
                         VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
                         VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = true;
-                        alert( "<HTML><CENTER>Acordo de Compra e Venda Aceita ! \n Entre em Contato com o Comprador !</HTML>");
+                        alert("Acordo de Compra e Venda Aceita ! \n Entre em Contato com o Comprador !");
                     });
 
             }
 
+            //AUDITORIA
+            // alert( "Vendedor "+dados_da_negociacao.numero_telefone_vendedor+" || Comprador "+dados_da_negociacao.numero_telefone_comprador);
 
-            // alert("RESPONDENDO ABAIXO");
+
 
 
         }

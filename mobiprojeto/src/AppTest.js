@@ -62,6 +62,9 @@ import TelaSplash from './components/TelaSplash';
 
 import PROPRIETARIO from './components/PROPRIETARIO';
 
+import DeviceInfo from 'react-native-device-info';
+
+
 
 // LicencaExpirada
 
@@ -2486,12 +2489,69 @@ export default function AppTest() {
 
 
 
-  // useEffect(() => {
+  useEffect(() => {
+    //   VARIAVEL_GLOBAL.CONECTANDO_AO_BANCO_DE_DADOS_GLOBALMENTE = CONECTANDO_AO_BANCO_DE_DADOS();
 
-  //   VARIAVEL_GLOBAL.CONECTANDO_AO_BANCO_DE_DADOS_GLOBALMENTE = CONECTANDO_AO_BANCO_DE_DADOS();
+    PEGANDO_NUMERO_DO_CARD_CHIP_CELLFONE()
 
-  // }, []);
 
+  }, []);
+
+
+  /*************************************************************/
+  // _retrieveData = async () => {
+  //   try {
+  //     const value = await AsyncStorage.getItem('visited_onces');
+  //     if (value !== null) {
+  //       this.props.navigation.replace('Welcome_back', { Json_value: value });
+  //       console.log(value);
+  //     }
+  //   } catch (error) {
+  //     alert(error);
+  //   }
+  // };
+  /*************************************************************/
+
+
+  async function PEGANDO_NUMERO_DO_CARD_CHIP_CELLFONE() {
+
+
+    ///////////////////////////////////////////////////////////////////////
+    try {
+
+      const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_PHONE_STATE)
+
+      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+        // alert("You can read the phone state");
+        // alert("Você pode ler o estado do telefone");
+
+        // const phoneNumber = DeviceInfo.getPhoneNumber();
+        // const phoneNumber  =  DeviceInfo.getMacAddressSync();
+        // const phoneNumber  =  DeviceInfo.getPhoneNumberSync();
+        const phoneNumber  =  DeviceInfo.getPhoneNumberSync();
+        // alert(JSON.stringify(phoneNumber));
+       
+      } else {
+        // console.log("permission denied");
+        alert("permission denied");
+      }
+    } catch (err) {
+
+      console.warn(err);
+
+    } finally {
+
+      // // alert("PEGANDO O NUMERO DO CHIP");
+
+
+    }
+
+    ///////////////////////////////////////////////////////////////////////
+
+
+
+
+  }
 
 
 
@@ -2552,8 +2612,8 @@ export default function AppTest() {
 
                 //MOSTRAR_POSTAGENS();
                 //PEGAR_TODAS_CHAVES_DO_ASYNC_STORAGE();
-                alert( "<HTML><CENTER>Acordo de Compra e Venda Aceita ! \n Entre em Contato com o Comprador !</HTML>");
-                 navigation.navigate("TelaPrincipal", null);
+                alert("<HTML><CENTER>Acordo de Compra e Venda Aceita ! \n Entre em Contato com o Comprador !</HTML>");
+                navigation.navigate("TelaPrincipal", null);
 
               }}
 
@@ -2568,8 +2628,8 @@ export default function AppTest() {
 
                 const LARTITUDE = userPosition.latitude;
                 const LORNGITUDE = userPosition.longitude;
-                VARIAVEL_GLOBAL.LATITUDE  =  userPosition.latitude;
-                VARIAVEL_GLOBAL.LONGITUDE =  userPosition.longitude;
+                VARIAVEL_GLOBAL.LATITUDE = userPosition.latitude;
+                VARIAVEL_GLOBAL.LONGITUDE = userPosition.longitude;
 
                 //alert(userPosition.latitude+"   |    "+ userPosition.longitude);
                 //navigation.navigate("MAPA");
