@@ -8,11 +8,11 @@ import Estilo from './components/estilo'
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-import estilo from './components/estilo';
+// import estilo from './components/estilo';
 
-import RangeSlider from 'rn-range-slider';
+// import RangeSlider from 'rn-range-slider';
 
-import { metodo_remoto } from './components/funcao_teste';
+// import { metodo_remoto } from './components/funcao_teste';
 
 import ProdutosEtiquetas from './components/ProdutosEtiquetas';
 
@@ -20,9 +20,8 @@ import ProdutosEtiquetas from './components/ProdutosEtiquetas';
 
 import MENU_LATERAL from './components/Menu';
 
-import FILTRO_CATEGORIA from './components/Categorias';
-
-import DETALHES from './components/DetalhesProdutos';
+// import FILTRO_CATEGORIA from './components/Categorias';
+// import DETALHES from './components/DetalhesProdutos';
 
 import { useNavigation } from "@react-navigation/native";
 
@@ -57,7 +56,7 @@ import LicencaExpirada from './components/LicencaExpirada';
 
 
 // import TelaWeb from './components/arquivosHtml/TelaWeb';
-import TelaSplash from './components/TelaSplash';
+// import TelaSplash from './components/TelaSplash';
 
 
 import PROPRIETARIO from './components/PROPRIETARIO';
@@ -1549,44 +1548,70 @@ export default function AppTest() {
 
     try {
 
-      //In this party I become array empty bellow line
-      array_propostas_recentes_recebidas.length = 0;
-      array_propostas_recentes_enviadas.length = 0;
-      array_propostas_recentes_aceitas.length = 0;
+            //In this party I become array empty bellow line
+            array_propostas_recentes_recebidas.length = 0;
+            array_propostas_recentes_enviadas.length = 0;
+
+            // var numero_telefone_vendedor = DADOS_TELEFONE;
+            // alert(VARIAVEL_GLOBAL.TELEFONE)
+
+            var todas_as_propostas_Recebidas_Enviadas;
+
+            todas_as_propostas_Recebidas_Enviadas = await Axios.get(IP_DO_SERVIDOR + 'pesquisar_propostas_Recebidas_Enviadas', {
+
+              // params: { numero_telefone_J: numero_telefone_vendedor }
+              params: { numero_telefone_J: VARIAVEL_GLOBAL.TELEFONE }
+
+            });
+
+            const DADOS = await todas_as_propostas_Recebidas_Enviadas.data;
+
+            // // alert(retorrno);
+            // console.log(" FLAGS PONTEIRO => "+ JSON.stringify(DADOS) );
+
+            const propostas_recebidas = DADOS.filter(DADO => DADO.numero_telefone_vendedor == VARIAVEL_GLOBAL.TELEFONE && DADO.proposta_aceita == "nao");
+            const propostas_enviadas = DADOS.filter(DADO => DADO.numero_telefone_comprador == VARIAVEL_GLOBAL.TELEFONE && DADO.proposta_aceita == "nao");
+
+            // console.log( newDADOS )
+            // alert( JSON.stringify(newDADOS) )
+
+            array_propostas_recentes_recebidas = propostas_recebidas.map(newDADO => newDADO.id_postagem)
+            array_propostas_recentes_enviadas = propostas_enviadas.map(newDADO => newDADO.id_postagem)
+
+            setQtde_propostas_recebidas_nao_vista(array_propostas_recentes_recebidas.length);
+            setQtde_propostas_enviadas_nao_vista(array_propostas_recentes_enviadas.length);
 
 
-      // var numero_telefone_vendedor = DADOS_TELEFONE;
-      // alert(VARIAVEL_GLOBAL.TELEFONE)
 
 
-      var todas_as_propostas_Recebidas_Enviadas_Aceitas;
 
-      todas_as_propostas_Recebidas_Enviadas_Aceitas = await Axios.get(IP_DO_SERVIDOR + 'pesquisar_propostas_Recebidas_Enviadas_Aceitas', {
+      /***************************************************************************************************************************************/
+      /****************************************************************************************************************************************/
+      try {
 
-        // params: { numero_telefone_J: numero_telefone_vendedor }
-        params: { numero_telefone_J: VARIAVEL_GLOBAL.TELEFONE }
+            array_propostas_recentes_aceitas.length = 0;
 
-      });
+            var todas_as_propostas_Aceitas;
 
-      const DADOS = await todas_as_propostas_Recebidas_Enviadas_Aceitas.data;
+            todas_as_propostas_Aceitas = await Axios.get(IP_DO_SERVIDOR + 'pesquisar_propostas_Aceitas', {
 
-      // // alert(retorrno);
+              // params: { numero_telefone_J: numero_telefone_vendedor }
+              params: { numero_telefone_J: VARIAVEL_GLOBAL.TELEFONE }
 
-      const propostas_recebidas = DADOS.filter(DADO => DADO.numero_telefone_vendedor == VARIAVEL_GLOBAL.TELEFONE && DADO.proposta_aceita == "nao")
-      const propostas_enviadas = DADOS.filter(DADO => DADO.numero_telefone_comprador == VARIAVEL_GLOBAL.TELEFONE && DADO.proposta_aceita == "nao")
-      const propostas_aceitas = DADOS.filter(DADO => DADO.proposta_aceita == "sim")
-      // console.log( newDADOS )
-      // alert( JSON.stringify(newDADOS) )
+            });
 
+            const DADOS = await todas_as_propostas_Aceitas.data;
 
-      array_propostas_recentes_recebidas = propostas_recebidas.map(newDADO => newDADO.id_postagem)
-      array_propostas_recentes_enviadas = propostas_enviadas.map(newDADO => newDADO.id_postagem)
-      array_propostas_recentes_aceitas = propostas_aceitas.map(newDADO => newDADO.id_postagem)
+            const propostas_aceitas = DADOS.filter(DADO => DADO.proposta_aceita == "sim");
 
+            array_propostas_recentes_aceitas = propostas_aceitas.map(newDADO => newDADO.id_postagem);
 
-      setQtde_propostas_recebidas_nao_vista(array_propostas_recentes_recebidas.length);
-      setQtde_propostas_enviadas_nao_vista(array_propostas_recentes_enviadas.length);
-      setQtde_propostas_aceitas_nao_vista(array_propostas_recentes_aceitas.length);
+            setQtde_propostas_aceitas_nao_vista(array_propostas_recentes_aceitas.length);
+
+      } catch (error) { alert(" ERRO $764#@ " + error) }
+
+      /***************************************************************************************************************************************/
+      /****************************************************************************************************************************************/
 
 
 
@@ -2528,9 +2553,9 @@ export default function AppTest() {
         // const phoneNumber = DeviceInfo.getPhoneNumber();
         // const phoneNumber  =  DeviceInfo.getMacAddressSync();
         // const phoneNumber  =  DeviceInfo.getPhoneNumberSync();
-        const phoneNumber  =  DeviceInfo.getPhoneNumberSync();
+        const phoneNumber = DeviceInfo.getPhoneNumberSync();
         // alert(JSON.stringify(phoneNumber));
-       
+
       } else {
         // console.log("permission denied");
         alert("permission denied");

@@ -468,38 +468,38 @@ export default function MensagensPropostas(param) {
     function ACEITAR_PROPOSTA_FUNCAO(index) {
 
 
-                var ID_PROPOSTAS = propostasss[index].cod_automatico;
+        var ID_PROPOSTAS = propostasss[index].cod_automatico;
 
-                var PRIMEIRA_PROPOSTA = propostasss[index].conteudo_da_proposta;
+        var PRIMEIRA_PROPOSTA = propostasss[index].conteudo_da_proposta;
 
-                var topo_html = '<html><body>';
-                var bottom_html = '</body></html>';
+        var topo_html = '<html><body>';
+        var bottom_html = '</body></html>';
 
-                var RESPOSTAS = '';
+        var RESPOSTAS = '';
 
-                //DEFININDO SE É COMPRADOR OU VENDEDOR NA HORA DE RESPONDER ABAIXO
-                VENDEDOR = propostasss[index].numero_telefone_vendedor;
-                COMPRADOR = propostasss[index].numero_telefone_comprador;
-                vendedor_ou_comprador[index] = "Vendedor";
-                //DEFININDO SE É COMPRADOR OU VENDEDOR NA HORA DE RESPONDER ACIMA
+        //DEFININDO SE É COMPRADOR OU VENDEDOR NA HORA DE RESPONDER ABAIXO
+        VENDEDOR = propostasss[index].numero_telefone_vendedor;
+        COMPRADOR = propostasss[index].numero_telefone_comprador;
+        vendedor_ou_comprador[index] = "Vendedor";
+        //DEFININDO SE É COMPRADOR OU VENDEDOR NA HORA DE RESPONDER ACIMA
 
-                //SEM HTML ABAIXO
-                RESPOSTAS =
-                    propostasss[index].conteudo_da_proposta +
-                    "\n" +
-                    '<a>' + vendedor_ou_comprador[index] + "  " + data_hora_e_segundo_completo_ingles() + '</a>' +
-                    conteudoDaResposta +
-                    '<b> Proposta Aceita !</b>' +
-                    '<c> Compra e Venda Fechada</c>';
+        //SEM HTML ABAIXO
+        RESPOSTAS =
+            propostasss[index].conteudo_da_proposta +
+            "\n" +
+            '<a>' + vendedor_ou_comprador[index] + "  " + data_hora_e_segundo_completo_ingles() + '</a>' +
+            conteudoDaResposta +
+            '<b> Proposta Aceita !</b>' +
+            '<c> Compra e Venda Fechada</c>';
 
-                //alert(RESPOSTAS);
-                param.funcao_resposta_da_proposta(ID_PROPOSTAS, RESPOSTAS, VENDEDOR, COMPRADOR);
+        //alert(RESPOSTAS);
+        param.funcao_resposta_da_proposta(ID_PROPOSTAS, RESPOSTAS, VENDEDOR, COMPRADOR);
 
-                VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
+        VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
 
 
 
-                
+
     }
 
 
@@ -814,9 +814,21 @@ export default function MensagensPropostas(param) {
 
                                                         //alert("VOCÊ ESCOLHEU APAGAR ESSA MENSAGEM !");
                                                         //alert(propostas.cod_automatico);
-                                                        param.funcao_remota_deletar_proposta(propostas.cod_automatico, propostas.numero_telefone_vendedor, propostas.numero_telefone_comprador);
 
-                                                        VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
+
+                                                        // alert(propostas.conteudo_da_proposta);
+
+                                                        if (propostas.conteudo_da_proposta.includes("Compra e Venda Fechada</")) {
+
+                                                            alert("Compra e Venda Fechada ! \n Não é possivel Excluir a Mensagem da Proposta !");
+
+                                                        } else {
+                                                            
+                                                            // alert("VAI APAGAR ESSA PROPOSTA");
+                                                            param.funcao_remota_deletar_proposta(propostas.cod_automatico, propostas.numero_telefone_vendedor, propostas.numero_telefone_comprador);
+                                                            VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
+
+                                                        }
 
                                                     }
                                                 },
@@ -873,10 +885,10 @@ export default function MensagensPropostas(param) {
 
                                                 onPress={(e) => {
 
-                                                  VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "TAXA";  
+                                                    VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "TAXA";
                                                     //param.funcao_remota_aceitar_proposta(propostasss[index].cod_automatico);
                                                     // ACEITAR_PROPOSTA_FUNCAO(index);
-                                                    navigation.navigate("Screen_pay",{propostas});
+                                                    navigation.navigate("Screen_pay", { propostas });
 
                                                     <Icon name='arrow-left' style={Estilo.icones_medio} />
                                                 }}
