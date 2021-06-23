@@ -616,12 +616,23 @@ export default function MensagensPropostas(param) {
                                 <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '45%', borderRadius: 20, borderColor: '#fff', borderWidth: 1 }}
                                     onPress={() => {
 
-                                        //ENVIAR PROPOSTA CHAMANDO FUNÇÃO DO PAI AQUI
-                                        param.funcao_remota_enivar_proposta(conteudoDaProposta);
+                                        // alert(JSON.stringify(propostasss));
+                                        // ////////////////////////
+                                        if (JSON.stringify(propostasss).includes("Compra e Venda Fechada</")) {
 
-                                        //alert(VARIAVEL_GLOBAL.TELEFONE);
-                                        Keyboard.dismiss();
-                                        VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
+                                            alert("Compra e Venda Fechada ! \n Não é possivel Emviar Mensagem de Proposta !");
+
+                                        } else {
+
+                                            //ENVIAR PROPOSTA CHAMANDO FUNÇÃO DO PAI AQUI
+                                            param.funcao_remota_enivar_proposta(conteudoDaProposta);
+                                            //alert(VARIAVEL_GLOBAL.TELEFONE);
+                                            Keyboard.dismiss();
+                                            VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
+
+                                        }
+                                        /////////////////////////
+
 
                                     }}
                                 >
@@ -671,8 +682,19 @@ export default function MensagensPropostas(param) {
 
                             <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', width: '45%', borderRadius: 20, borderColor: '#fff', borderWidth: 1 }}
                                 onPress={async () => {
-                                    //COMPRAR DIRETO FUNÇÃO AQUI NESSE ONPRESS
-                                    param.funcao_remota_enivar_comprar_direto();
+
+
+                                    if (JSON.stringify(propostasss).includes("Compra e Venda Fechada</")) {
+
+                                        alert("Compra e Venda já Fechada ! \n Não é Possivel Essa Operação !");
+
+                                    } else {
+
+                                        //COMPRAR DIRETO FUNÇÃO AQUI NESSE ONPRESS
+                                        param.funcao_remota_enivar_comprar_direto();
+
+                                    }
+
                                 }}
                             >
 
@@ -818,12 +840,12 @@ export default function MensagensPropostas(param) {
 
                                                         // alert(propostas.conteudo_da_proposta);
 
-                                                        if (propostas.conteudo_da_proposta.includes("Compra e Venda Fechada</")) {
+                                                        if (JSON.stringify(propostasss).includes("Compra e Venda Fechada</")) {
 
                                                             alert("Compra e Venda Fechada ! \n Não é possivel Excluir a Mensagem da Proposta !");
 
                                                         } else {
-                                                            
+
                                                             // alert("VAI APAGAR ESSA PROPOSTA");
                                                             param.funcao_remota_deletar_proposta(propostas.cod_automatico, propostas.numero_telefone_vendedor, propostas.numero_telefone_comprador);
                                                             VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
