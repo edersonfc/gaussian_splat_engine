@@ -22,12 +22,13 @@ var URLs_Fotos = new Array();
 //function PreencherLista(){setUrl_strings(String(URLs_Fotos[0]))}
 
 
+
 //CLASSE PRINCIPAL DE EXECUÇÃO ABAIXO
 export default function navegacaoFotos(props) {
 
     const { VARIAVEL_GLOBAL } = useContext(GlobalContext);
 
-    var [andar, setAndar] = useState(0)
+    var [andar, setAndar] = useState(-1);
 
 
     const [tirarFoto, setTirarFoto] = useState(true)
@@ -143,9 +144,9 @@ export default function navegacaoFotos(props) {
                             <TouchableOpacity style={{ width: '20%' }}
                                 //onPress={() => this.takePicture(camera)
                                 onPress={() => {
-                                    //andar = andar - 1;
+                                    
+                                    
                                     setAndar(andar = andar - 1);
-
                                     if (andar > -1) {
                                         setUrl_strings(ARRY_URL_IMAGENS[andar])
                                     } else {
@@ -155,36 +156,21 @@ export default function navegacaoFotos(props) {
 
                                     }
 
-                                }
-                                }
+
+                                } }
+                               
                                 style={styles.capture}>
                                 <Icon name='arrow-left' style={styles.fontIcone} />
 
                             </TouchableOpacity>
 
-                            {/**********
-
-                            <TouchableOpacity style={{ width: '20%' }}
-                                //onPress={() => this.takePicture(camera)
-                                onPress={() => {
-
-                                    setTirarFoto(oldState => !oldState)
-                                    setNavegarFoto(oldState => !oldState)
-                                }
-                                }
-                                style={styles.capture}>
-                                <Text style={styles.fontBotao} > Mais Fotos deletar esse botao </Text>
-
-                            </TouchableOpacity>
-
-
-                            **********/}
 
 
                             <TouchableOpacity style={{ width: '20%' }}
-                                //onPress={() => this.takePicture(camera)
+                               
                                 onPress={() => {
 
+                                    /* */
                                     ARRY_URL_IMAGENS.splice(ARRY_URL_IMAGENS.indexOf(ARRY_URL_IMAGENS[andar]), 1);
 
                                     alert('Imagem Apagada')
@@ -199,10 +185,12 @@ export default function navegacaoFotos(props) {
                                     } else {
                                         setUrl_strings(ARRY_URL_IMAGENS[andar])
                                     }
+                                   
+                                    // alert( JSON.stringify(VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT)  );
+                                   
 
-
-                                }
-                                }
+                                } }
+                               
                                 style={styles.capture}>
                                 <Text style={styles.fontBotao} >Apagar{/*andar*/} {/*tamanho_array = {ARRY_URL_IMAGENS.length*/} </Text>
 

@@ -74,7 +74,7 @@ import DeviceInfo from 'react-native-device-info';
 
 
 
-var IP_DO_SERVIDOR = "http://192.168.0.107:3000/";
+var IP_DO_SERVIDOR    = "http://192.168.0.107:3000/";
 var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3001/";
 
 // var IP_DO_SERVIDOR    = "http://localhost:3000/";

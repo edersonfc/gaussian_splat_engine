@@ -36,15 +36,26 @@ var data;
 
 var ARRY_URL_IMAGENS = new Array();
 
-var IncrementoDecremento = -1;
+
+// var IncrementoDecremento = -1;
 
 var andar = -1;
 
 
 
+
 export default function CameraFoto(props) {
 
+
+
     const { VARIAVEL_GLOBAL } = useContext(GlobalContext);
+
+    // var IncrementoDecremento = -1;
+    // var IncrementoDecremento = VARIAVEL_GLOBAL.INDICE_GLOBAL_IMAGENS_VIDEOS;
+    // const [IncrementoDecremento, setIncrementoDecremento ] = useState(-1);
+
+    // var andar = -1;
+    // var andar = VARIAVEL_GLOBAL.INDICE_GLOBAL_IMAGENS_VIDEOS;
 
 
     //IMPLEMENTANDO EM AUDITORIA ABAIXO
@@ -113,24 +124,9 @@ export default function CameraFoto(props) {
         //const options = { maxFileSize: 40400, quality:RNCamera.Constants.VideoQuality['480p'] , base64: false  };//ESSE SUBSTITUI A LINHA DE CIMA QUE ESTÁ COM A QUALIDADE MUITO ALTA DE 0.5
 
         // data = await camera.takePictureAsync(null);
-       DIMINUINDO_RESOLUCAO_DA_IMAGEM(await camera.takePictureAsync(null), true)// INSERIDO 31 03 2021
+        DIMINUINDO_RESOLUCAO_DA_IMAGEM(await camera.takePictureAsync(null), true)// INSERIDO 31 03 2021
 
-    
-        //eslint-disable-next-line
-        // console.log(data.uri);
-        // console.log("TIPO "+ data );
-        // console.log(data.uri);
-        //alert(data.uri);
-        //    IncrementoDecremento = IncrementoDecremento + 1;
-        //     andar = andar + 1;
-        //     URL = data.uri;
-        //     URLS_DAS_FOTOS(URL);
-        //     setUrl_strings(ARRY_URL_IMAGENS[IncrementoDecremento])
-        //     /*navigation.navigate("Postar",{URL})*/
-        //     setTirarFoto(oldState => !oldState)
-        //     setNavegarFoto(oldState => !oldState)
 
-       
     };
 
 
@@ -149,7 +145,7 @@ export default function CameraFoto(props) {
                 return new Promise((resolve, reject) => {
                     // ImageResizer.createResizedImage(photo.uri, 240, 240, 'JPEG', 90, 0).then((response) => {
                     // ImageResizer.createResizedImage(photo.uri, 960, 1280, 'JPEG', 90, 0).then((response) => {
-                    ImageResizer.createResizedImage(photo.uri, 1280, 960, 'JPEG', 90, 0).then((response) => {    
+                    ImageResizer.createResizedImage(photo.uri, 1280, 960, 'JPEG', 90, 0).then((response) => {
                         resolve(response);
                     }).catch((err) => {
                         reject(err);
@@ -165,7 +161,11 @@ export default function CameraFoto(props) {
                 data = photo.uri
                 // console.log(data.uri);
                 // alert(data.uri);
-                IncrementoDecremento = IncrementoDecremento + 1;
+                // IncrementoDecremento = IncrementoDecremento + 1;
+                VARIAVEL_GLOBAL.INDICE_GLOBAL_IMAGENS_VIDEOS = VARIAVEL_GLOBAL.INDICE_GLOBAL_IMAGENS_VIDEOS + 1;
+                // setIncrementoDecremento( IncrementoDecremento + 1);
+                // alert(IncrementoDecremento);
+
                 andar = andar + 1;
                 // URL = data.uri;
                 URL = data;
@@ -173,7 +173,8 @@ export default function CameraFoto(props) {
                 // URLS_DAS_FOTOS(URL,VARIAVEL_GLOBAL); // TROCADO PELO LINHA ABAIXO
                 VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.push(URL);
                 // setUrl_strings(ARRY_URL_IMAGENS[IncrementoDecremento])
-                setUrl_strings(VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[IncrementoDecremento])
+                // setUrl_strings(VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[IncrementoDecremento]); DESATIVADO 25/06/2021
+                setUrl_strings(VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[VARIAVEL_GLOBAL.INDICE_GLOBAL_IMAGENS_VIDEOS]);
                 setTirarFoto(oldState => !oldState)
                 setNavegarFoto(oldState => !oldState)
 
@@ -193,17 +194,16 @@ export default function CameraFoto(props) {
 
 
 
-    const [ largura_tela,      setLargura_tela  ] = useState(Dimensions.get('window').width);
-    const [ altura_tela,       setAltura_tela   ] = useState(Dimensions.get('window').height);
+    const [largura_tela, setLargura_tela] = useState(Dimensions.get('window').width);
+    const [altura_tela, setAltura_tela] = useState(Dimensions.get('window').height);
 
-    const [ altura_20_porcento, setAltura_20_porcento  ] = useState(0);
+    const [altura_20_porcento, setAltura_20_porcento] = useState(0);
 
-        useEffect(() => {
+    useEffect(() => {
 
-            setAltura_20_porcento( ((largura_tela * 20) / 100) );
+        setAltura_20_porcento(((largura_tela * 20) / 100));
 
-        });   
-
+    });
 
 
 
@@ -217,10 +217,10 @@ export default function CameraFoto(props) {
 
             {/* MUDANDO A ORIENTAÇÃO DA TELA PRA PAISAGEM ABAIXO  coloca dentro da View principal que fica dentro do return*/}
             <ScreenOrientation
-              orientation={LANDSCAPE_LEFT}
-                // orientation={PORTRAIT}
-                // onChange={orientation => console.log('onChange', orientation)}
-                // onDeviceChange={orientation => console.log('onDeviceChange', orientation)}
+                orientation={LANDSCAPE_LEFT}
+            // orientation={PORTRAIT}
+            // onChange={orientation => console.log('onChange', orientation)}
+            // onDeviceChange={orientation => console.log('onDeviceChange', orientation)}
             />
             {/* MUDANDO A ORIENTAÇÃO DA TELA PRA PAISAGEM ACIMA   coloca dentro da View principal que fica dentro do return */}
 
@@ -250,20 +250,21 @@ export default function CameraFoto(props) {
                         if (status !== 'READY') return <PendingView />;
                         return (
 
-                            <View style={{ width: '100%', height:'auto' , backgroundColor: 'rgba(0,0,0,0.5)' }} >
+                            <View style={{ width: '100%', height: 'auto', backgroundColor: 'rgba(0,0,0,0.5)' }} >
 
                                 <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
                                     <TouchableOpacity
                                         //onPress={() => this.takePicture(camera)
-                                        onPress={() => {
+                                        onPress={async () => {
 
-                                            takePicture(camera)
+                                            await takePicture(camera);
                                             //alert(data.uri)
+                                            // alert(andar);
 
                                         }
                                         }
                                         style={styles.capture}>
-                                        <Text style={styles.fontBotao}  > Tirar Foto </Text>
+                                        <Text style={styles.fontBotao}  >Tirar Foto</Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>
@@ -325,12 +326,14 @@ export default function CameraFoto(props) {
                                     //onPress={() => this.takePicture(camera)
                                     onPress={() => {
 
-                                        setTirarFoto(oldState => !oldState)
-                                        setNavegarFoto(oldState => !oldState)
-                                    }
-                                    }
+                                        setTirarFoto(oldState => !oldState);
+                                        setNavegarFoto(oldState => !oldState);
+
+
+                                    }}
+
                                     style={styles.capture}>
-                                    <Text style={styles.fontBotao} > Mais Fotos </Text>
+                                    <Text style={styles.fontBotao} >Mais Fotos</Text>
 
                                 </TouchableOpacity>
 
@@ -342,23 +345,16 @@ export default function CameraFoto(props) {
                                     //onPress={() => this.takePicture(camera)
                                     onPress={() => {
 
-                                        //ARRY_URL_IMAGENS.splice(andar)
-                                        // ARRY_URL_IMAGENS.splice(ARRY_URL_IMAGENS.indexOf(ARRY_URL_IMAGENS[andar]), 1);
                                         VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.splice(VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.indexOf(VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[andar]), 1);
-
                                         alert('Imagem Apagada')
-
                                         andar = andar - 1;
-
                                         if (andar == -1) {
-
                                             andar = andar + 1;
                                             // setUrl_strings(ARRY_URL_IMAGENS[andar])
-                                            setUrl_strings(VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[andar])
-
+                                            setUrl_strings(VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[andar]);
                                         } else {
                                             // setUrl_strings(ARRY_URL_IMAGENS[andar])
-                                            setUrl_strings(VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[andar])
+                                            setUrl_strings(VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[andar]);
                                         }
 
 
@@ -414,7 +410,7 @@ export default function CameraFoto(props) {
                                         andar = andar + 1;
 
                                         // if (andar < ARRY_URL_IMAGENS.length) {
-                                            if (andar < VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length) {
+                                        if (andar < VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length) {
                                             // setUrl_strings(ARRY_URL_IMAGENS[andar])
                                             setUrl_strings(VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[andar])
                                         } else {
@@ -456,9 +452,9 @@ export default function CameraFoto(props) {
 
 }
 
-function URLS_DAS_FOTOS(URLS_PARAMETRO,  VARIAVEL_GLOBAL) {
+function URLS_DAS_FOTOS(URLS_PARAMETRO, VARIAVEL_GLOBAL) {
 
-   
+
 
     // ARRY_URL_IMAGENS.push(URLS_PARAMETRO);
     VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.push(URLS_PARAMETRO);

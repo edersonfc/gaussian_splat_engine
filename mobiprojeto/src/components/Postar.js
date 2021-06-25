@@ -864,6 +864,7 @@ export default function Postar(props) {
                 {/*****************************************/}
                 <TouchableOpacity style={{ flexDirection: 'row', width: '30%', height: 40, paddingLeft: 10, paddingBottom: 0, alignItems: 'center', justifyContent: 'flex-start', borderWidth: 0, borderColor: 'pink' }}
                     onPress={() => {
+                        VARIAVEL_GLOBAL.INDICE_GLOBAL_IMAGENS_VIDEOS = -1;
                         VARIAVEL_GLOBAL.CONTADOR_GLOBAL = 55;
                         navigation.navigate("TelaPrincipal", { produto })
                     }}
