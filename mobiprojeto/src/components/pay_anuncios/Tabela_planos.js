@@ -344,16 +344,19 @@ export default function Tabela_planos(props) {
 
                     } else {
 
+                      ////ABAIXO FOI DESATIVADO OBSERVAR SE O CÓDIGO É DESNECESSARIO DEPOIS
+                                // if (!VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA.includes("ATIVAR PUBLICACAO") &&
+                                //     !VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA.includes("TAXA") ) {
 
-                       
+                                //         alert(VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA);
 
-                        if (!VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA.includes("ATIVAR PUBLICAÇÃO") &&
-                            !VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA.includes("TAXA")) {
+                                //     VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "PUBLICACAO";
+                                // }
+                     ////ACIMA FOI DESATIVADO OBSERVAR SE O CÓDIGO É DESNECESSARIO DEPOIS
 
-                                alert(VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA);
+                                // alert("TIPO É => "+VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA);
+                                // return 0;
 
-                            VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "PUBLICACAO";
-                        }
 
                         navigation.navigate("Screen_pay", { propostas });
                         // alert(  JSON.stringify(  propostas  )  );

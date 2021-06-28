@@ -38,6 +38,7 @@ import {
 
 // import { TextInputMask } from 'react-native-masked-text';
 
+var segundo = 0;
 
 export default function pay_credity_card(params) {
 
@@ -114,6 +115,11 @@ export default function pay_credity_card(params) {
     async function executarPagamentoComCrediCard() {
 
 
+        function contagem_tempo() {
+            segundo++;
+        }
+
+        VARIAVEL_INTERVALO = setInterval(contagem_tempo, 1000);
 
         //AQUI SERÁ PROCESSADO O PAGAMENTO  NO MERCADO PAGO PARTE 1   ABAIXO
 
@@ -122,15 +128,46 @@ export default function pay_credity_card(params) {
         //ALTERNANCIA DE ESTADOS USADO SOMENTE PARA TESTES ABAIXO
         var enviandoCondicao = "";
         var valor = Math.floor(Math.random() * 10);
+        valor = 4;
         if (valor <= 5) {//AQUI É SE FOR APROVADO A COMPRA
 
-            if (VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA === "PUBLICACAO" || VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA === "ATIVAR PUBLICAÇÃO") {
+            if (VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA == "PUBLICACAO" || VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA == "ATIVAR PUBLICACAO") {
 
-                // await VARIAVEL_GLOBAL.CONECTANDO_AO_BANCO_DE_DADOS_GLOBALMENTE;
+                
+                var VARIAVEL_INTERVALO;
                 enviandoCondicao = "aprovado";
+                var tamanho = -1;
+
+                /*******************************************************/
+                LABEL1: do {
+
+                    // if(segundo.length >= 21){   //console.log("EDERSPNFC");
+                    tamanho = await VERIFICANDO_SE_POSTAGEM_EXISTE();
+                    //   segundo = 0;  
+                    //  }  
+
+                    // console.log( typeof segundo );
+
+                    if (tamanho > 0) {
+                        clearInterval(VARIAVEL_INTERVALO);
+                        segundo = 0;
+                    }
+
+                       console.log(tamanho+"  <==>  "+segundo);
+
+                    if (tamanho <= 0 || tamanho == "undefined" ) continue LABEL1;
+                } while (tamanho <= 0);
+                /*******************************************************/
+
+                
+
+                // alert(tamanho);
+                // return 0;
+
                 await UPDATE_PLANO_DE_POSTAGEM_APOS_APROVACAO_();
 
-            } else if (VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA === "TAXA") {
+
+            } else if (VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA == "TAXA") {
 
                 // alert("UPDATE PARA COMPRA REQUERIDA AQUI !");
                 enviandoCondicao = "aprovado";
@@ -138,7 +175,7 @@ export default function pay_credity_card(params) {
                 // await UPDATE_PLANO_DE_POSTAGEM_APOS_APROVACAO_();
                 ACEITAR_PROPOSTA_FUNCAO(1);
 
-            } else if (VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA === "TAXAQQQ") {
+            } else if (VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA == "TAXAQQQ") {
 
 
             }
@@ -157,6 +194,78 @@ export default function pay_credity_card(params) {
         setMenssagemStatusDaCompra(true);
 
     }
+
+
+
+
+    async function VERIFICANDO_SE_POSTAGEM_EXISTE() {
+
+        // console.log(segundo);
+        // if (segund >= 20) {
+
+
+            if (typeof dados_da_venda.id_A === "undefined") {
+
+
+                /***************************************/
+                try {
+
+                    const response = await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + 'se_postagem_esta_online', {
+                        params: {
+                            numero_telefone_J: VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.numero_telefone_J,
+                            // id_J: "QWT" + VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.id_J
+                            id_J: VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.id_J
+                        }
+                    });
+
+                    // alert("ESSE É O QUE TÁ RETORNANDO ...1 !");
+                    // return 0;
+                    return response.data.length;
+                    // return response.data;
+                    // alert(response.data.length);
+                    // return 0;
+
+                } catch (error) { /**/alert("erro no axios ¨%$367 " + error) }
+                /***************************************/
+
+
+            } else {
+
+
+                /***************************************/
+                try {
+
+                    const response = await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + 'se_postagem_esta_online', {
+                        params: {
+                            numero_telefone_J: dados_da_venda.numero_telefone_A,
+                            // id_J: "QWT" + dados_da_venda.id_A
+                            id_J: dados_da_venda.id_A
+                        }
+                    });
+
+                    // alert("ESSE É O QUE TÁ RETORNANDO ...2 !");
+                    // return 0;
+                    return response.data.length;
+                    // return response.data;
+                    // alert(response.data.length);
+                    // return 0;
+
+                } catch (error) { /**/alert("erro no axios ¨%$3632 " + error) }
+                /***************************************/
+
+            }
+
+
+        //     segundo = 0;
+        // }//IF
+
+
+
+    }
+
+
+
+
 
 
 
@@ -185,8 +294,6 @@ export default function pay_credity_card(params) {
                 //    console.log( JSON.stringify(VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE).id_J  );
                 //    console.log( VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.id_J  );
                 //    return 0;
-                // response = await api.get('/obtendo_postagens_online', {
-                //response = await Axios.get('http://192.168.0.102:3000/obtendo_postagens_online', {
                 await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + "update_plano_de_postagem_pos_pagamento", {
 
                     params: {
@@ -206,7 +313,7 @@ export default function pay_credity_card(params) {
                 // console.log( JSON.stringify(retorno_do_bd_contagem_de_postagem) );
                 // VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS = retorno_do_bd_contagem_de_postagem[0].QUANTIDADE_DE_POSTAGENS;
 
-            } catch (exception) { alert(exception.message)/**/ }
+            } catch (exception) { alert("&*%#YGHF " + exception.message)/**/ }
             /***************************************/
 
 
@@ -241,12 +348,25 @@ export default function pay_credity_card(params) {
                 // console.log( JSON.stringify(retorno_do_bd_contagem_de_postagem) );
                 // VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS = retorno_do_bd_contagem_de_postagem[0].QUANTIDADE_DE_POSTAGENS;
 
-            } catch (exception) { alert(exception.message)/**/ }
+            } catch (exception) { alert("78*754*( " + exception.message)/**/ }
             /***************************************/
 
 
 
         }
+
+
+    }
+
+
+
+
+
+
+
+
+
+    function FUNCAO_DELAY() {
 
 
     }
@@ -379,7 +499,7 @@ export default function pay_credity_card(params) {
                     params: {
                         numero_telefone_J: dados_da_negociacao.numero_telefone_vendedor,
                         id_J: VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.id_J,
-                        comprador_J:JSON_OBJETO_numero_telefone_comprador 
+                        comprador_J: JSON_OBJETO_numero_telefone_comprador
                     }
                 })
 

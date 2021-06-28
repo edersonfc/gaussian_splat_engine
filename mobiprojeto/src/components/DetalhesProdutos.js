@@ -857,7 +857,7 @@ export default function DetalhesProdutos(props) {
 
                                 const produto = { IMAGENS: VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT, VIDEOS: VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT }
 
-                                VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "ATIVAR PUBLICAÇÃO";
+                                VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "ATIVAR PUBLICACAO";
                                 // alert( JSON.stringify(produtos) );
                                 // alert( produtos.precoSugerido_J );
                                 // alert( produtos.quantidadeCabecasOuPesos_J );

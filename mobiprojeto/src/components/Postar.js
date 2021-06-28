@@ -1552,10 +1552,11 @@ export default function Postar(props) {
                                 await PEGAR_NUMERO_DO_CELL();// GOBACK HERE
 
                                 if (VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS > VARIAVEL_GLOBAL.PARAMETROS_QUANTIDADE_DE_POSTAGEMS) {
-                                    // venda_status_J = 'pendente';
-                                    const produto = { IMAGENS: VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT, VIDEOS: VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT }
-                                    navigation.navigate("Tabela_planos", { precoSugerido, quantidadeCabecasOuPesos, produto });
-                                }
+                                        VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "PUBLICACAO";
+                                        // venda_status_J = 'pendente';
+                                        const produto = { IMAGENS: VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT, VIDEOS: VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT }
+                                        navigation.navigate("Tabela_planos", { precoSugerido, quantidadeCabecasOuPesos, produto });
+                                }//if
 
                                 //DESATIVAR ESSA LINHA DEPOIS ACIMA
 
@@ -2139,7 +2140,7 @@ export default function Postar(props) {
 
         //alert(dadosPostagem);
 
-        console.log("#=>"+id_J);
+        console.log("#1=>"+id_J);
 
         if (dadosPostagem != null) {
 
@@ -2252,7 +2253,7 @@ export default function Postar(props) {
         alert(DADO_CONVERTIDOS_PRA_ARRAY);
         */
 
-
+        console.log("#2=>"+id_J);
 
         ARMAZENAR_POSTAGEM_SEGUNTA_ETAPA(dadosPostagem);
 
@@ -2265,6 +2266,7 @@ export default function Postar(props) {
         console.log(nome_dos_campos_do_JSON+"  /n/n/n  "+valores_do_arquivo_do_JSON);
         //////////////////////////////////////////////////
         */
+
     }
 
 

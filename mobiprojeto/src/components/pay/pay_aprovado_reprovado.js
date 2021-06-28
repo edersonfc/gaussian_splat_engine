@@ -120,7 +120,7 @@ export default function pay_aprovado_reprovado(params) {
 
                             onPress={() => {
 
-                                if (VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA == "ATIVAR PUBLICAÇÃO") {
+                                if (VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA == "ATIVAR PUBLICACAO") {
 
                                     VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "";
                                     VARIAVEL_GLOBAL.SOMENTE_UMA_VEZ = true;
