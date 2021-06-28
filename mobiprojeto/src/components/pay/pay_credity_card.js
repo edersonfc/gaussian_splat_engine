@@ -115,11 +115,9 @@ export default function pay_credity_card(params) {
     async function executarPagamentoComCrediCard() {
 
 
-        function contagem_tempo() {
-            segundo++;
-        }
-
+        function contagem_tempo() { segundo++; }
         VARIAVEL_INTERVALO = setInterval(contagem_tempo, 1000);
+
 
         //AQUI SERÁ PROCESSADO O PAGAMENTO  NO MERCADO PAGO PARTE 1   ABAIXO
 
@@ -133,38 +131,44 @@ export default function pay_credity_card(params) {
 
             if (VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA == "PUBLICACAO" || VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA == "ATIVAR PUBLICACAO") {
 
-                
-                var VARIAVEL_INTERVALO;
-                enviandoCondicao = "aprovado";
+
+                /***************************************************************/
                 var tamanho = -1;
+                myLoop();  //  start the loop
 
-                /*******************************************************/
-                LABEL1: do {
+                var i = 1;                  //  set your counter to 1
+                function myLoop() {         //  create a loop function
+                    setTimeout(async function () {   //  call a 3s setTimeout when the loop is called
+                        // console.log('hello');   //  your code here
+                        tamanho = await VERIFICANDO_SE_POSTAGEM_EXISTE();
 
-                    // if(segundo.length >= 21){   //console.log("EDERSPNFC");
-                    tamanho = await VERIFICANDO_SE_POSTAGEM_EXISTE();
-                    //   segundo = 0;  
-                    //  }  
+                        i++;                    //  increment the counter
+                        if (tamanho <= 0) {
+                            console.log("Valor do i => " + i + "  Tamanho =>" + tamanho);
+                            myLoop();             //  ..  again which will trigger another 
+                        } else {
+                            console.log("Valor do i => " + i + "  Tamanho =>" + tamanho);
+                            UPDATE_PLANO_DE_POSTAGEM_APOS_APROVACAO_();
+                            
+                            // .then(() => {
 
-                    // console.log( typeof segundo );
+                                console.log("Terminou o Loop");
+                                setCompraAprovadaOuReprovadaRecebida(enviandoCondicao);
+                                setMenssagemStatusDaCompra(true);
 
-                    if (tamanho > 0) {
-                        clearInterval(VARIAVEL_INTERVALO);
-                        segundo = 0;
-                    }
+                            //})
 
-                       console.log(tamanho+"  <==>  "+segundo);
+                            // return 0;
+                        }   //  ..  setTimeout()
+                    }, 3000)
+                }
+                // console.log("Terminou o Loop");
+                // if (tamanho > 0) {
+                //     await UPDATE_PLANO_DE_POSTAGEM_APOS_APROVACAO_();
+                // }
+                /***************************************************************/
 
-                    if (tamanho <= 0 || tamanho == "undefined" ) continue LABEL1;
-                } while (tamanho <= 0);
-                /*******************************************************/
 
-                
-
-                // alert(tamanho);
-                // return 0;
-
-                await UPDATE_PLANO_DE_POSTAGEM_APOS_APROVACAO_();
 
 
             } else if (VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA == "TAXA") {
@@ -174,6 +178,8 @@ export default function pay_credity_card(params) {
                 VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "TAXA";
                 // await UPDATE_PLANO_DE_POSTAGEM_APOS_APROVACAO_();
                 ACEITAR_PROPOSTA_FUNCAO(1);
+                setCompraAprovadaOuReprovadaRecebida(enviandoCondicao);
+                setMenssagemStatusDaCompra(true);
 
             } else if (VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA == "TAXAQQQ") {
 
@@ -183,15 +189,15 @@ export default function pay_credity_card(params) {
 
         } else if (valor > 5) { //AQUI É SE FOR REPROVADO A COMPRA
             enviandoCondicao = "reprovado";
+            setCompraAprovadaOuReprovadaRecebida(enviandoCondicao);
+            setMenssagemStatusDaCompra(true);
         }
         //ALTERNANCIA DE ESTADOS USADO SOMENTE PARA TESTES ACIMA
 
 
-
-        //AQUI SERÁ PROCESSADO O PAGAMENTO PARTE 2  e  FINAL   ABAIXO
-        // alert("REALIZAR COMPRA COM O CARTÃO");
         setCompraAprovadaOuReprovadaRecebida(enviandoCondicao);
         setMenssagemStatusDaCompra(true);
+
 
     }
 
@@ -204,56 +210,56 @@ export default function pay_credity_card(params) {
         // if (segund >= 20) {
 
 
-            if (typeof dados_da_venda.id_A === "undefined") {
+        if (typeof dados_da_venda.id_A === "undefined") {
 
 
-                /***************************************/
-                try {
+            /***************************************/
+            try {
 
-                    const response = await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + 'se_postagem_esta_online', {
-                        params: {
-                            numero_telefone_J: VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.numero_telefone_J,
-                            // id_J: "QWT" + VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.id_J
-                            id_J: VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.id_J
-                        }
-                    });
+                const response = await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + 'se_postagem_esta_online', {
+                    params: {
+                        numero_telefone_J: VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.numero_telefone_J,
+                        // id_J: "QWT" + VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.id_J
+                        id_J: VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.id_J
+                    }
+                });
 
-                    // alert("ESSE É O QUE TÁ RETORNANDO ...1 !");
-                    // return 0;
-                    return response.data.length;
-                    // return response.data;
-                    // alert(response.data.length);
-                    // return 0;
+                // alert("ESSE É O QUE TÁ RETORNANDO ...1 !");
+                // return 0;
+                return response.data.length;
+                // return response.data;
+                // alert(response.data.length);
+                // return 0;
 
-                } catch (error) { /**/alert("erro no axios ¨%$367 " + error) }
-                /***************************************/
-
-
-            } else {
+            } catch (error) { /**/alert("erro no axios ¨%$367 " + error) }
+            /***************************************/
 
 
-                /***************************************/
-                try {
+        } else {
 
-                    const response = await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + 'se_postagem_esta_online', {
-                        params: {
-                            numero_telefone_J: dados_da_venda.numero_telefone_A,
-                            // id_J: "QWT" + dados_da_venda.id_A
-                            id_J: dados_da_venda.id_A
-                        }
-                    });
 
-                    // alert("ESSE É O QUE TÁ RETORNANDO ...2 !");
-                    // return 0;
-                    return response.data.length;
-                    // return response.data;
-                    // alert(response.data.length);
-                    // return 0;
+            /***************************************/
+            try {
 
-                } catch (error) { /**/alert("erro no axios ¨%$3632 " + error) }
-                /***************************************/
+                const response = await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + 'se_postagem_esta_online', {
+                    params: {
+                        numero_telefone_J: dados_da_venda.numero_telefone_A,
+                        // id_J: "QWT" + dados_da_venda.id_A
+                        id_J: dados_da_venda.id_A
+                    }
+                });
 
-            }
+                // alert("ESSE É O QUE TÁ RETORNANDO ...2 !");
+                // return 0;
+                return response.data.length;
+                // return response.data;
+                // alert(response.data.length);
+                // return 0;
+
+            } catch (error) { /**/alert("erro no axios ¨%$3632 " + error) }
+            /***************************************/
+
+        }
 
 
         //     segundo = 0;
@@ -524,7 +530,12 @@ export default function pay_credity_card(params) {
 
 
 
+    // useEffect(() => {
 
+    //     // setCompraAprovadaOuReprovadaRecebida(enviandoCondicao);
+    //     setMenssagemStatusDaCompra(true);
+
+    // }, [menssagemStatusDaCompra])
 
 
 
