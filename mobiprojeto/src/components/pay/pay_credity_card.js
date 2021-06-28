@@ -23,6 +23,8 @@ import Estilo from '../estilo';
 
 import Pay_aprovado_reprovado from './pay_aprovado_reprovado';
 
+import TelaAguardeProcessamentoPagamento from './telaAguardeProcessamentoPagamento'
+
 
 import Axios from 'axios';
 
@@ -103,6 +105,8 @@ export default function pay_credity_card(params) {
     var [menssagemStatusDaCompra, setMenssagemStatusDaCompra] = useState(false);
 
 
+    var [menssagemProcessamento, setMenssagemProcessamento] = useState(false);
+
 
     var [compraAprovadaOuReprovadaRecebida, setCompraAprovadaOuReprovadaRecebida] = useState("");
 
@@ -114,10 +118,11 @@ export default function pay_credity_card(params) {
 
     async function executarPagamentoComCrediCard() {
 
-////FOI DESATIVADO O CONTADOR ABAIXO
+        setMenssagemProcessamento(true);
+        ////FOI DESATIVADO O CONTADOR ABAIXO
         // function contagem_tempo() { segundo++; }
         // VARIAVEL_INTERVALO = setInterval(contagem_tempo, 1000);
-////FOI DESATIVADO O CONTADOR ACIMA
+        ////FOI DESATIVADO O CONTADOR ACIMA
 
         //AQUI SERÁ PROCESSADO O PAGAMENTO  NO MERCADO PAGO PARTE 1   ABAIXO
 
@@ -130,7 +135,7 @@ export default function pay_credity_card(params) {
         if (valor <= 5) {//AQUI É SE FOR APROVADO A COMPRA
 
             if (VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA == "PUBLICACAO" || VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA == "ATIVAR PUBLICACAO") {
-
+              
 
                 /***************************************************************/
                 var tamanho = -1;
@@ -139,14 +144,14 @@ export default function pay_credity_card(params) {
                 var i = 1;                  //  set your counter to 1
                 function myLoop() {         //  create a loop function
                     setTimeout(async function () {   //  call a 3s setTimeout when the loop is called
-                        // console.log('hello');   //  your code here
                         tamanho = await VERIFICANDO_SE_POSTAGEM_EXISTE();
-
                         i++;                    //  increment the counter
                         if (tamanho <= 0) {
+                            
                             console.log("Valor do i => " + i + "  Tamanho =>" + tamanho);
-                            myLoop();             //  ..  again which will trigger another 
+                            myLoop();
                         } else {
+                            setMenssagemProcessamento(false);
                             console.log("Valor do i => " + i + "  Tamanho =>" + tamanho);
                             enviandoCondicao = "aprovado";
                             await UPDATE_PLANO_DE_POSTAGEM_APOS_APROVACAO_();
@@ -157,10 +162,6 @@ export default function pay_credity_card(params) {
                         }   //  ..  setTimeout()
                     }, 3000)
                 }
-                // console.log("Terminou o Loop");
-                // if (tamanho > 0) {
-                //     await UPDATE_PLANO_DE_POSTAGEM_APOS_APROVACAO_();
-                // }
                 /***************************************************************/
 
 
@@ -168,6 +169,7 @@ export default function pay_credity_card(params) {
 
             } else if (VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA == "TAXA") {
 
+                setMenssagemProcessamento(false);
                 // alert("UPDATE PARA COMPRA REQUERIDA AQUI !");
                 enviandoCondicao = "aprovado";
                 VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "TAXA";
@@ -183,6 +185,7 @@ export default function pay_credity_card(params) {
 
 
         } else if (valor > 5) { //AQUI É SE FOR REPROVADO A COMPRA
+            setMenssagemProcessamento(false);
             enviandoCondicao = "reprovado";
             setCompraAprovadaOuReprovadaRecebida(enviandoCondicao);
             setMenssagemStatusDaCompra(true);
@@ -701,6 +704,11 @@ export default function pay_credity_card(params) {
                 ocultar_tela_de_mensagem={ocultar_tela_de_mensagem}
                 executarPagamentoComCrediCard={executarPagamentoComCrediCard}
             />)}
+
+            {menssagemProcessamento && (
+                <TelaAguardeProcessamentoPagamento />
+            )}
+
 
         </SafeAreaView>
 
