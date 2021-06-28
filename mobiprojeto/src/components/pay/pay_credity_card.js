@@ -114,10 +114,10 @@ export default function pay_credity_card(params) {
 
     async function executarPagamentoComCrediCard() {
 
-
-        function contagem_tempo() { segundo++; }
-        VARIAVEL_INTERVALO = setInterval(contagem_tempo, 1000);
-
+////FOI DESATIVADO O CONTADOR ABAIXO
+        // function contagem_tempo() { segundo++; }
+        // VARIAVEL_INTERVALO = setInterval(contagem_tempo, 1000);
+////FOI DESATIVADO O CONTADOR ACIMA
 
         //AQUI SERÁ PROCESSADO O PAGAMENTO  NO MERCADO PAGO PARTE 1   ABAIXO
 
@@ -148,17 +148,12 @@ export default function pay_credity_card(params) {
                             myLoop();             //  ..  again which will trigger another 
                         } else {
                             console.log("Valor do i => " + i + "  Tamanho =>" + tamanho);
-                            UPDATE_PLANO_DE_POSTAGEM_APOS_APROVACAO_();
-                            
-                            // .then(() => {
+                            enviandoCondicao = "aprovado";
+                            await UPDATE_PLANO_DE_POSTAGEM_APOS_APROVACAO_();
+                            console.log("Terminou o Loop");
+                            setCompraAprovadaOuReprovadaRecebida(enviandoCondicao);
+                            setMenssagemStatusDaCompra(true);
 
-                                console.log("Terminou o Loop");
-                                setCompraAprovadaOuReprovadaRecebida(enviandoCondicao);
-                                setMenssagemStatusDaCompra(true);
-
-                            //})
-
-                            // return 0;
                         }   //  ..  setTimeout()
                     }, 3000)
                 }
@@ -195,8 +190,8 @@ export default function pay_credity_card(params) {
         //ALTERNANCIA DE ESTADOS USADO SOMENTE PARA TESTES ACIMA
 
 
-        setCompraAprovadaOuReprovadaRecebida(enviandoCondicao);
-        setMenssagemStatusDaCompra(true);
+        // setCompraAprovadaOuReprovadaRecebida(enviandoCondicao);
+        // setMenssagemStatusDaCompra(true);
 
 
     }
