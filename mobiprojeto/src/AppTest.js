@@ -74,7 +74,7 @@ import DeviceInfo from 'react-native-device-info';
 
 
 
-var IP_DO_SERVIDOR    = "http://192.168.0.107:3000/";
+var IP_DO_SERVIDOR = "http://192.168.0.107:3000/";
 var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3001/";
 
 // var IP_DO_SERVIDOR    = "http://localhost:3000/";
@@ -945,7 +945,17 @@ export default function AppTest() {
           }
 
 
+          if (VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO.includes("Broadcast Ativacao_de_publicacoes")) {
 
+                  VARIAVEL_GLOBAL.CONTADOR_GLOBAL = 60;
+
+                  VARIAVEL_GLOBAL.SOMENTE_UMA_VEZ = true;
+
+                  ADICIONAR_PRODUTOS_por_ARRAY(true);
+
+                  // alert("RECEBIDO A ATIVAÇÃO DE PUBLICAÇÕES");
+
+          }
 
 
           VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = true;
@@ -1548,38 +1558,38 @@ export default function AppTest() {
 
     try {
 
-            //In this party I become array empty bellow line
-            array_propostas_recentes_recebidas.length = 0;
-            array_propostas_recentes_enviadas.length = 0;
+      //In this party I become array empty bellow line
+      array_propostas_recentes_recebidas.length = 0;
+      array_propostas_recentes_enviadas.length = 0;
 
-            // var numero_telefone_vendedor = DADOS_TELEFONE;
-            // alert(VARIAVEL_GLOBAL.TELEFONE)
+      // var numero_telefone_vendedor = DADOS_TELEFONE;
+      // alert(VARIAVEL_GLOBAL.TELEFONE)
 
-            var todas_as_propostas_Recebidas_Enviadas;
+      var todas_as_propostas_Recebidas_Enviadas;
 
-            todas_as_propostas_Recebidas_Enviadas = await Axios.get(IP_DO_SERVIDOR + 'pesquisar_propostas_Recebidas_Enviadas', {
+      todas_as_propostas_Recebidas_Enviadas = await Axios.get(IP_DO_SERVIDOR + 'pesquisar_propostas_Recebidas_Enviadas', {
 
-              // params: { numero_telefone_J: numero_telefone_vendedor }
-              params: { numero_telefone_J: VARIAVEL_GLOBAL.TELEFONE }
+        // params: { numero_telefone_J: numero_telefone_vendedor }
+        params: { numero_telefone_J: VARIAVEL_GLOBAL.TELEFONE }
 
-            });
+      });
 
-            const DADOS = await todas_as_propostas_Recebidas_Enviadas.data;
+      const DADOS = await todas_as_propostas_Recebidas_Enviadas.data;
 
-            // // alert(retorrno);
-            // console.log(" FLAGS PONTEIRO => "+ JSON.stringify(DADOS) );
+      // // alert(retorrno);
+      // console.log(" FLAGS PONTEIRO => "+ JSON.stringify(DADOS) );
 
-            const propostas_recebidas = DADOS.filter(DADO => DADO.numero_telefone_vendedor == VARIAVEL_GLOBAL.TELEFONE && DADO.proposta_aceita == "nao");
-            const propostas_enviadas = DADOS.filter(DADO => DADO.numero_telefone_comprador == VARIAVEL_GLOBAL.TELEFONE && DADO.proposta_aceita == "nao");
+      const propostas_recebidas = DADOS.filter(DADO => DADO.numero_telefone_vendedor == VARIAVEL_GLOBAL.TELEFONE && DADO.proposta_aceita == "nao");
+      const propostas_enviadas = DADOS.filter(DADO => DADO.numero_telefone_comprador == VARIAVEL_GLOBAL.TELEFONE && DADO.proposta_aceita == "nao");
 
-            // console.log( newDADOS )
-            // alert( JSON.stringify(newDADOS) )
+      // console.log( newDADOS )
+      // alert( JSON.stringify(newDADOS) )
 
-            array_propostas_recentes_recebidas = propostas_recebidas.map(newDADO => newDADO.id_postagem)
-            array_propostas_recentes_enviadas = propostas_enviadas.map(newDADO => newDADO.id_postagem)
+      array_propostas_recentes_recebidas = propostas_recebidas.map(newDADO => newDADO.id_postagem)
+      array_propostas_recentes_enviadas = propostas_enviadas.map(newDADO => newDADO.id_postagem)
 
-            setQtde_propostas_recebidas_nao_vista(array_propostas_recentes_recebidas.length);
-            setQtde_propostas_enviadas_nao_vista(array_propostas_recentes_enviadas.length);
+      setQtde_propostas_recebidas_nao_vista(array_propostas_recentes_recebidas.length);
+      setQtde_propostas_enviadas_nao_vista(array_propostas_recentes_enviadas.length);
 
 
 
@@ -1589,24 +1599,24 @@ export default function AppTest() {
       /****************************************************************************************************************************************/
       try {
 
-            array_propostas_recentes_aceitas.length = 0;
+        array_propostas_recentes_aceitas.length = 0;
 
-            var todas_as_propostas_Aceitas;
+        var todas_as_propostas_Aceitas;
 
-            todas_as_propostas_Aceitas = await Axios.get(IP_DO_SERVIDOR + 'pesquisar_propostas_Aceitas', {
+        todas_as_propostas_Aceitas = await Axios.get(IP_DO_SERVIDOR + 'pesquisar_propostas_Aceitas', {
 
-              // params: { numero_telefone_J: numero_telefone_vendedor }
-              params: { numero_telefone_J: VARIAVEL_GLOBAL.TELEFONE }
+          // params: { numero_telefone_J: numero_telefone_vendedor }
+          params: { numero_telefone_J: VARIAVEL_GLOBAL.TELEFONE }
 
-            });
+        });
 
-            const DADOS = await todas_as_propostas_Aceitas.data;
+        const DADOS = await todas_as_propostas_Aceitas.data;
 
-            const propostas_aceitas = DADOS.filter(DADO => DADO.proposta_aceita == "sim");
+        const propostas_aceitas = DADOS.filter(DADO => DADO.proposta_aceita == "sim");
 
-            array_propostas_recentes_aceitas = propostas_aceitas.map(newDADO => newDADO.id_postagem);
+        array_propostas_recentes_aceitas = propostas_aceitas.map(newDADO => newDADO.id_postagem);
 
-            setQtde_propostas_aceitas_nao_vista(array_propostas_recentes_aceitas.length);
+        setQtde_propostas_aceitas_nao_vista(array_propostas_recentes_aceitas.length);
 
       } catch (error) { alert(" ERRO $764#@ " + error) }
 
