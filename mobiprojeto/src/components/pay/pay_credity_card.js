@@ -148,14 +148,14 @@ export default function pay_credity_card(params) {
                         i++;                    //  increment the counter
                         if (tamanho <= 0) {
                             
-                            console.log("Valor do i => " + i + "  Tamanho =>" + tamanho);
+                            // console.log("Valor do i => " + i + "  Tamanho =>" + tamanho);
                             myLoop();
                         } else {
                             setMenssagemProcessamento(false);
-                            console.log("Valor do i => " + i + "  Tamanho =>" + tamanho);
+                            // console.log("Valor do i => " + i + "  Tamanho =>" + tamanho);
                             enviandoCondicao = "aprovado";
                             await UPDATE_PLANO_DE_POSTAGEM_APOS_APROVACAO_();
-                            console.log("Terminou o Loop");
+                            // console.log("Terminou o Loop");
                             setCompraAprovadaOuReprovadaRecebida(enviandoCondicao);
                             setMenssagemStatusDaCompra(true);
 

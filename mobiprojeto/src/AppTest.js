@@ -953,7 +953,7 @@ export default function AppTest() {
 
                   ADICIONAR_PRODUTOS_por_ARRAY(true);
 
-                  // alert("RECEBIDO A ATIVAÇÃO DE PUBLICAÇÕES");
+                  alert("RECEBIDO A ATIVAÇÃO DE PUBLICAÇÕES");
 
           }
 
