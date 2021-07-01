@@ -378,8 +378,11 @@ export default function ProdutosEtiquetas(param) {
 
     setProdutos(produtosss);
 
+
     // alert(VARIAVEL_GLOBAL.TELA_ATUAL)
 
+        // console.log("TAMANHO LISTA PRODUTOS => "+typeof produtosss );
+        // console.log("TAMANHO LISTA PRODUTOS => "+produtosss.length );
 
   }, []);
 
@@ -531,7 +534,7 @@ export default function ProdutosEtiquetas(param) {
 
   }
 
-  const SPACING = 15;
+  const SPACING = 14;
   const AVATAR_GADO_SIZE = 140;
   const ITEM_SIZE = AVATAR_GADO_SIZE + SPACING * 1.7;
 
@@ -674,7 +677,12 @@ export default function ProdutosEtiquetas(param) {
                 try { valor = ARRAY_QUE_VAI_MOSTRAR_AS_MINIATURAS[index] } catch (error) { URL_IMAGEM = ""; }
                 if (valor === undefined) { valor = "" }
                 //alert(valor);
-                if (valor.includes(".JPEG") || valor.includes(".png")) {
+                if (//OBSERVER 30/06/2021
+                  valor.includes(".JPEG") || valor.includes(".PNG") ||
+                  valor.includes(".jpeg") || valor.includes(".png") ||
+                  valor.includes(".jpg") || valor.includes(".JPG")
+                ){           
+               
                   //setContainer_foto_video(true);
                   container_foto_video = true;
                   //alert("IMAGEM");
@@ -1004,7 +1012,7 @@ DESATIVAR DEPOIS ACIMA */
       <Animated.FlatList style={{
         flex: 1,
         paddingTop: SPACING,
-
+      
       }}
 
         onScroll={Animated.event(

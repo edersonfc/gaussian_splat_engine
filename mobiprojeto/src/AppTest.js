@@ -269,6 +269,8 @@ var array_publicacoes_expiradas = [];
 
 export default function AppTest() {
 
+  var datos = "";
+
   //CONTEXT_5
   const { VARIAVEL_GLOBAL } = useContext(GlobalContext);
 
@@ -534,7 +536,7 @@ export default function AppTest() {
                         // alert("ESTÁ ON-LINE");  //ARMAZENAR_ESTATUS_SE_TA_ONLINE_OU_OFFLINE('ON-LINE');
                         VARIAVEL_GLOBAL.CONEXAO_DO_APP = "ON-LINE";
                         //console.log("INICIO => " + hora_e_segundo_completo());
-                        // console.log(VARIAVEL_GLOBAL.CONTADOR_GLOBAL + " => " + hora_e_segundo_completo())
+                        //console.log(VARIAVEL_GLOBAL.CONTADOR_GLOBAL + " => " + hora_e_segundo_completo())
 
                         CONTANDO_QUANTIDADE_DE_POSTAGENS();
                         PUXANDO_TABELA_PRECOS();
@@ -548,6 +550,7 @@ export default function AppTest() {
               VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
 
               /***********TAREFAZ AQUI ACIMA******************** */
+
 
 
             } catch (error) {
@@ -633,6 +636,8 @@ export default function AppTest() {
 
       // console.log(VARIAVEL_GLOBAL.CONTADOR_GLOBAL)
 
+
+
     }, 1000);//function final do timer
 
 
@@ -655,7 +660,7 @@ export default function AppTest() {
 
     try {
 
-      var datos = "";
+      // var datos = "";
 
       if (estado_da_conecao) {
         //  alert(estado_da_conecao);    //NUMERO_CELL_J
@@ -700,6 +705,8 @@ export default function AppTest() {
 
 
         var DADOS_REMOTO_ONLINE = JSON.stringify(response.data);
+
+        // console.log("NA INICIALIZAÇÃO => " + response.data.length);
 
         //alert(DADOS_REMOTO_ONLINE);
 
@@ -767,6 +774,8 @@ export default function AppTest() {
 
 
       }//IF
+
+      setProdutosEtiquetasExibir(false);// em 30/06/2021
 
       //alert(datos);
 
@@ -947,13 +956,13 @@ export default function AppTest() {
 
           if (VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO.includes("Broadcast Ativacao_de_publicacoes")) {
 
-                  VARIAVEL_GLOBAL.CONTADOR_GLOBAL = 60;
+            // VARIAVEL_GLOBAL.CONTADOR_GLOBAL = 60;
 
-                  VARIAVEL_GLOBAL.SOMENTE_UMA_VEZ = true;
+            // VARIAVEL_GLOBAL.SOMENTE_UMA_VEZ = true;
 
-                  ADICIONAR_PRODUTOS_por_ARRAY(true);
+            ADICIONAR_PRODUTOS_por_ARRAY(true);
 
-                  alert("RECEBIDO A ATIVAÇÃO DE PUBLICAÇÕES");
+            // alert("RECEBIDO A ATIVAÇÃO DE PUBLICAÇÕES");
 
           }
 
@@ -1473,7 +1482,7 @@ export default function AppTest() {
     setMuda_cor(true);
     filtro_ativado_sim_ou_nao = true;
 
-    var datos = "";
+    // var datos = "";
 
     try {
       const response = await Axios.get(IP_DO_SERVIDOR + 'pesquisar_favorito_somente_filtros', {
@@ -1682,6 +1691,7 @@ export default function AppTest() {
 
         const retorrno = await qtd_publicacoes_pendentes.data;
 
+        // console.log("NA PENDENCIA => "+qtd_publicacoes_pendentes.data.length);
 
         if (retorrno.length > 0) {
 
@@ -1985,7 +1995,9 @@ export default function AppTest() {
     filtro_ativado_sim_ou_nao = true;
 
     var POSTAGENS_RETORNADA = "";
+
     var datos = "";
+
     try {
 
       const response = await Axios.get(IP_DO_SERVIDOR + 'pesquisar_produtos_das_notificacoes', {
@@ -2001,6 +2013,7 @@ export default function AppTest() {
       datos = JSON.stringify(POSTAGENS_RETORNADA);
       //datos = POSTAGENS_RETORNADA.data;
       //alert(datos);
+      // console.log("NA PENDENCIA => " + response.data.length);
       /*******************************************/
       /*******************************************/
       if (datos.length > 2) {
@@ -2039,10 +2052,14 @@ export default function AppTest() {
         }//IF
 
         //alert(datos);
+        setProdutosEtiquetasExibir(false);
 
         setProdutos(datos);
         //alert(produtosS);
         setProdutosEtiquetasExibir(true);
+
+
+
 
       } else { setProdutosEtiquetasExibir(false); }//OBBBSERVER03052021
       /*******************************************/
@@ -2270,6 +2287,7 @@ export default function AppTest() {
       }//IF
 
       //alert(datos);
+      setProdutosEtiquetasExibir(false);
 
       setProdutos(datos);
       //alert(produtosS);
@@ -2390,6 +2408,8 @@ export default function AppTest() {
 
   var Largura_total_da_tela = Math.round(Dimensions.get('window').width);
   var SETENTA_PORCENTO_LARGURA_TELA = 80;
+
+  var ALTURA_DA_TELA = Math.round(Dimensions.get('window').height);
 
 
   //ANIMAÇÕES COM ANIMATED ABAIXO
@@ -2583,9 +2603,13 @@ export default function AppTest() {
 
     ///////////////////////////////////////////////////////////////////////
 
+  }
 
 
 
+  function DEFININDO_85_PORCENTO_DE_ALTURA() {
+    // console.log((ALTURA_DA_TELA * 90) / 100);
+    return (ALTURA_DA_TELA * 94) / 100;
   }
 
 
@@ -2603,192 +2627,196 @@ export default function AppTest() {
       // onChange={orientation => console.log('onChange', orientation)}
       // onDeviceChange={orientation => console.log('onDeviceChange', orientation)}
       />
-      {/* MUDANDO A ORIENTAÇÃO DA TELA PRA PAISAGEM ACIMA colocar dentro da View principal que fica dentro do return  */}
 
-      {/* PAINEL DE MENU ABAIXO*/}
-      <View style={{ height: 50, paddingHorizontal: '5%', border: 0 }}>
+      <View style={{ borderWidth: 0, borderColor: 'pink', height: 'auto' }} >
 
-        <View style={{ height: 60, borderBottomWidth: 1, borderBottomColor: '#fff' }} >
+        {/* MUDANDO A ORIENTAÇÃO DA TELA PRA PAISAGEM ACIMA colocar dentro da View principal que fica dentro do return  */}
 
-          <View style={{ flex: 1, flexDirection: 'row', height: 30, borderWidth: 0, borderColor: 'pink', padding: 1 }}>
+        {/* PAINEL DE MENU ABAIXO*/}
+        <View style={{ height: 50, paddingHorizontal: '5%', border: 0 }}>
 
-            <TouchableOpacity style={[Estilo.borda_geral, style = { width: '25%', borderWidth: 0, alignItems: 'center' }]}
-              onPress={() => {
+          <View style={{ height: 60, borderBottomWidth: 1, borderBottomColor: '#fff' }} >
 
+            <View style={{ flex: 1, flexDirection: 'row', height: 30, borderWidth: 0, borderColor: 'red', padding: 1 }}>
 
-                if (VARIAVEL_GLOBAL.LICENCA_USO === "liberado" || VARIAVEL_GLOBAL.TELEFONE === "SEM_TELEFONE_USUARIO") {
-
-                  setExibeMenu(oldState => !oldState);
-
-                } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
-
-                  setLicencaExpiradaFalseOrTrue(true);
-                }
-
-
-              }}
-            >
-              {exibeMenu
-                ? <Icon name='bars'
-                  /* onPress={() =>  setExibeMenu(oldState => !oldState)} */
-                  style={[Estilo.icones_grande, style = { color: '#25E7DB' }]}
-                />
-                : <Icon name='bars'
-                  /* onPress={() =>  setExibeMenu(oldState => !oldState)} */
-                  style={[Estilo.icones_grande]}
-                />
-              }
-              <Text style={{ fontSize: 10, color: 'white' }}>Menu</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={[Estilo.borda_geral, style = { width: '25%', alignItems: 'center' }]}
-
-              onPress={() => {
-
-                //MOSTRAR_POSTAGENS();
-                //PEGAR_TODAS_CHAVES_DO_ASYNC_STORAGE();
-                alert("<HTML><CENTER>Acordo de Compra e Venda Aceita ! \n Entre em Contato com o Comprador !</HTML>");
-                navigation.navigate("TelaPrincipal", null);
-
-              }}
-
-            >
-              <Icon name='home' style={[Estilo.icones_grande]} />
-              <Text style={{ fontSize: 10, color: 'white' }}>Home</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={[Estilo.borda_geral, style = { width: '25%', alignItems: 'center', borderWidth: 0 }]}
-
-              onPress={() => {
-
-                const LARTITUDE = userPosition.latitude;
-                const LORNGITUDE = userPosition.longitude;
-                VARIAVEL_GLOBAL.LATITUDE = userPosition.latitude;
-                VARIAVEL_GLOBAL.LONGITUDE = userPosition.longitude;
-
-                //alert(userPosition.latitude+"   |    "+ userPosition.longitude);
-                //navigation.navigate("MAPA");
-                navigation.navigate("MapaGoogle", { LARTITUDE, LORNGITUDE });
-
-                // alert(
-                //   array_propostas_recentes_recebidas.length + "  <= recebidas  " +
-                //   array_propostas_recentes_enviadas.length + "   <= enviadas  " +
-                //   array_propostas_recentes_aceitas.length + "    <= aceitas   " +
-                //   array_venda_recentes_requisitadas.length + "    <= vendas requeridas   " +
-                //   somatorio_notificacao_numero + " <= SOMATÓRIO TOTAL  "
-                // )
-
-
-              }}
-            >
-              <Icon name='map-marker' style={[Estilo.icones_grande]} />
-              <Text style={{ fontSize: 10, color: 'white' }}>Mapa</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={[Estilo.borda_geral, style = { width: '25%', alignItems: 'center', borderWidth: 0 }]}
-              onPress={async () => {
-
-
-                // await isAvailable();
-
-                // if (VARIAVEL_GLOBAL.CONEXAO_DO_APP === "OFF-LINE") {
-
-                //   alert("Erro de Conexão, Sem Internet !");
-
-                // } else {   }
-
-                if (VARIAVEL_GLOBAL.LICENCA_USO === "liberado" || VARIAVEL_GLOBAL.TELEFONE === "SEM_TELEFONE_USUARIO") {
-
-                  VARIAVEL_GLOBAL.TELA_ATUAL = "Postar";
-                  VARIAVEL_GLOBAL.TELA_ORIGEM = "Principal";
-                  VARIAVEL_GLOBAL.TELA_TERCEIRA = "nenhuma";
-
-                  VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length = 0;
-                  VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT.length = 0;
-
-                  //navigation.navigate("Postar",{URL})
-                  navigation.navigate("Postar", { URL_FOTOS, URL_VIDEOS, })
-
-                } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
-
-                  setLicencaExpiradaFalseOrTrue(true);
-
-                }
-
-              }}
-            >
-              <Icon name='plus-circle' style={[Estilo.icones_grande]} />
-              <Text style={{ fontSize: 10, color: 'white' }}>Postar</Text>
-
-            </TouchableOpacity>
-          </View>
-
-
-        </View>
-
-      </View>
-
-      {/* PAINEL DE MENU ACIMA */}
-
-      <View style={{ height: 10 }} ></View>
-
-      {/********************************************************************* */}
-
-      <View style={{ height: 5 }}></View>
-
-      {faixa_submenu_e_filtro ?
-
-        /*FAIXA ORANGE ABAIXO*/
-        <View style={{ height: 50, padding: 5, borderWidth: 0, borderColor: 'orange' }} >
-
-
-
-          <View style={{ flex: 1, flexDirection: 'row', height: 30 }}>
-
-            <View style={[Estilo.borda_geral, style = { width: '35%', alignItems: 'flex-start', flexDirection: 'row' }]}  >
-
-
-              <TouchableOpacity style={{ width: '80%', height: 'auto', borderWidth: 0, justifyContent: 'flex-end', alignItems: 'center' }}
+              <TouchableOpacity style={[Estilo.borda_geral, style = { width: '25%', borderWidth: 0, alignItems: 'center' }]}
                 onPress={() => {
 
-                  if (!corIconeFiltro) {
 
-                    setExibeFiltroCategoria(true);
-                    filtro_ativado_sim_ou_nao = true;
+                  if (VARIAVEL_GLOBAL.LICENCA_USO === "liberado" || VARIAVEL_GLOBAL.TELEFONE === "SEM_TELEFONE_USUARIO") {
 
-                  } else {
+                    setExibeMenu(oldState => !oldState);
 
-                    CONECTANDO_AO_BANCO_DE_DADOS();
-                    ADICIONAR_PRODUTOS_por_ARRAY(true);
-                    filtro_ativado_sim_ou_nao = false;
+                  } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
 
+                    setLicencaExpiradaFalseOrTrue(true);
                   }
 
 
-                  setCorIconeFiltro(oldState => !oldState);
+                }}
+              >
+                {exibeMenu
+                  ? <Icon name='bars'
+                    /* onPress={() =>  setExibeMenu(oldState => !oldState)} */
+                    style={[Estilo.icones_grande, style = { color: '#25E7DB' }]}
+                  />
+                  : <Icon name='bars'
+                    /* onPress={() =>  setExibeMenu(oldState => !oldState)} */
+                    style={[Estilo.icones_grande]}
+                  />
+                }
+                <Text style={{ fontSize: 10, color: 'white' }}>Menu</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={[Estilo.borda_geral, style = { width: '25%', alignItems: 'center' }]}
+
+                onPress={() => {
+
+                  //MOSTRAR_POSTAGENS();
+                  //PEGAR_TODAS_CHAVES_DO_ASYNC_STORAGE();
+                  // alert("<HTML><CENTER>Acordo de Compra e Venda Aceita ! \n Entre em Contato com o Comprador !</HTML>");
+                  navigation.navigate("TelaPrincipal", null);
+                  console.log("ALTURA DA TELA DO APP => " + ALTURA_DA_TELA);
+
+                }}
+
+              >
+                <Icon name='home' style={[Estilo.icones_grande]} />
+                <Text style={{ fontSize: 10, color: 'white' }}>Home</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity style={[Estilo.borda_geral, style = { width: '25%', alignItems: 'center', borderWidth: 0 }]}
+
+                onPress={() => {
+
+                  const LARTITUDE = userPosition.latitude;
+                  const LORNGITUDE = userPosition.longitude;
+                  VARIAVEL_GLOBAL.LATITUDE = userPosition.latitude;
+                  VARIAVEL_GLOBAL.LONGITUDE = userPosition.longitude;
+
+                  //alert(userPosition.latitude+"   |    "+ userPosition.longitude);
+                  //navigation.navigate("MAPA");
+                  navigation.navigate("MapaGoogle", { LARTITUDE, LORNGITUDE });
+
+                  // alert(
+                  //   array_propostas_recentes_recebidas.length + "  <= recebidas  " +
+                  //   array_propostas_recentes_enviadas.length + "   <= enviadas  " +
+                  //   array_propostas_recentes_aceitas.length + "    <= aceitas   " +
+                  //   array_venda_recentes_requisitadas.length + "    <= vendas requeridas   " +
+                  //   somatorio_notificacao_numero + " <= SOMATÓRIO TOTAL  "
+                  // )
+
 
                 }}
               >
-
-                <View>
-                  {/* <Icon name='filter' nativeID='notificacao' style={[Estilo.icones_medio, style = { paddingRight: 10 }]} /> */}
-                  <Icon name='filter' nativeID='notificacao' style={[Estilo.icones_medio, style = { paddingRight: 10, color: corIconeFiltro ? "#25E7DB" : "white" }]} />
-                </View>
-                <Text style={{ fontSize: 10, color: corIconeFiltro ? "#25E7DB" : "white" }}>Filtrar Categorias</Text>
-
+                <Icon name='map-marker' style={[Estilo.icones_grande]} />
+                <Text style={{ fontSize: 10, color: 'white' }}>Mapa</Text>
               </TouchableOpacity>
 
+              <TouchableOpacity style={[Estilo.borda_geral, style = { width: '25%', alignItems: 'center', borderWidth: 0 }]}
+                onPress={async () => {
 
+
+                  // await isAvailable();
+
+                  // if (VARIAVEL_GLOBAL.CONEXAO_DO_APP === "OFF-LINE") {
+
+                  //   alert("Erro de Conexão, Sem Internet !");
+
+                  // } else {   }
+
+                  if (VARIAVEL_GLOBAL.LICENCA_USO === "liberado" || VARIAVEL_GLOBAL.TELEFONE === "SEM_TELEFONE_USUARIO") {
+
+                    VARIAVEL_GLOBAL.TELA_ATUAL = "Postar";
+                    VARIAVEL_GLOBAL.TELA_ORIGEM = "Principal";
+                    VARIAVEL_GLOBAL.TELA_TERCEIRA = "nenhuma";
+
+                    VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length = 0;
+                    VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT.length = 0;
+
+                    //navigation.navigate("Postar",{URL})
+                    navigation.navigate("Postar", { URL_FOTOS, URL_VIDEOS, })
+
+                  } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
+
+                    setLicencaExpiradaFalseOrTrue(true);
+
+                  }
+
+                }}
+              >
+                <Icon name='plus-circle' style={[Estilo.icones_grande]} />
+                <Text style={{ fontSize: 10, color: 'white' }}>Postar</Text>
+
+              </TouchableOpacity>
             </View>
 
 
+          </View>
+
+        </View>
+
+        {/* PAINEL DE MENU ACIMA */}
+
+        <View style={{ height: 10 }} ></View>
+
+        {/********************************************************************* */}
+
+        <View style={{ height: 5 }}></View>
+
+        {faixa_submenu_e_filtro ?
+
+          /*FAIXA ORANGE ABAIXO*/
+          <View style={{ height: 50, padding: 5, borderWidth: 0, borderColor: 'orange' }} >
 
 
 
-            <View style={[Estilo.borda_geral, style = { flexDirection: 'row', width: '35%', alignItems: 'flex-start' }]}  >
+            <View style={{ flex: 1, flexDirection: 'row', height: 30 }}>
 
-              {/* ABIAXO 2 muda_cor_checkado */}
-              {/* 
+              <View style={[Estilo.borda_geral, style = { width: '35%', alignItems: 'flex-start', flexDirection: 'row' }]}  >
+
+
+                <TouchableOpacity style={{ width: '80%', height: 'auto', borderWidth: 0, justifyContent: 'flex-end', alignItems: 'center' }}
+                  onPress={() => {
+
+                    if (!corIconeFiltro) {
+
+                      setExibeFiltroCategoria(true);
+                      filtro_ativado_sim_ou_nao = true;
+
+                    } else {
+
+                      CONECTANDO_AO_BANCO_DE_DADOS();
+                      ADICIONAR_PRODUTOS_por_ARRAY(true);
+                      filtro_ativado_sim_ou_nao = false;
+
+                    }
+
+
+                    setCorIconeFiltro(oldState => !oldState);
+
+                  }}
+                >
+
+                  <View>
+                    {/* <Icon name='filter' nativeID='notificacao' style={[Estilo.icones_medio, style = { paddingRight: 10 }]} /> */}
+                    <Icon name='filter' nativeID='notificacao' style={[Estilo.icones_medio, style = { paddingRight: 10, color: corIconeFiltro ? "#25E7DB" : "white" }]} />
+                  </View>
+                  <Text style={{ fontSize: 10, color: corIconeFiltro ? "#25E7DB" : "white" }}>Filtrar Categorias</Text>
+
+                </TouchableOpacity>
+
+
+              </View>
+
+
+
+
+
+              <View style={[Estilo.borda_geral, style = { flexDirection: 'row', width: '35%', alignItems: 'flex-start' }]}  >
+
+                {/* ABIAXO 2 muda_cor_checkado */}
+                {/* 
               {muda_cor_checkado_femea
                 ? <Icon name='check'
                   style={[style = { color: '#25E7DB' }]}//#2A3E4A
@@ -2838,342 +2866,344 @@ export default function AppTest() {
               }
               // {/* ACIAMA 2 muda_cor_checkado */}
 
-              <TouchableOpacity style={{ width: 75, height: 'auto', borderWidth: 0, justifyContent: 'flex-end', alignItems: 'center' }}
-                onPress={() => {
+                <TouchableOpacity style={{ width: 75, height: 'auto', borderWidth: 0, justifyContent: 'flex-end', alignItems: 'center' }}
+                  onPress={() => {
 
-                  // setLabelOuPesquisar(oldState => !oldState); 
-                  setLabelOuPesquisar(false);
-                  setFaixa_submenu_e_filtro(false);
-                  // alert("PESQUISAR POSTAGENS DE GADO ");
-                  setLargura_tela_notificacao(new Animated.Value(0));
-
-                }}
-              >
-
-                <View>
-                  <Icon name='search' nativeID='pesquisa' style={[Estilo.icones_medio, style = { paddingRight: 10 }]} />
-                </View>
-                <Text style={{ fontSize: 10, color: 'white' }}>Pesquisar</Text>
-
-              </TouchableOpacity>
-
-
-            </View>
-
-
-
-            <View style={[Estilo.borda_geral, Estilo.centralizar_horizontalmente, style = { width: '30%', alignItems: 'flex-end' }]} >
-              {/*<Icon name='heart' style={[Estilo.icones_grande, Estilo.icones_clicado, Estilo.borda_geral]} />*/}
-
-
-              {/* COLOCANDO NUMERO ENCIMA DE UM ICONE  #25E7DB */}
-              <TouchableOpacity style={{ width: 55, height: 'auto', borderWidth: 0, justifyContent: 'flex-start', alignItems: 'flex-end' }}
-                onPress={() => {
-
-                  //alert(somatorio_notificacao_numero);
-                  if (somatorio_notificacao_numero == 0) {
-                    alert("Nenhuma Notificação !");
-                  } else {
+                    // setLabelOuPesquisar(oldState => !oldState); 
+                    setLabelOuPesquisar(false);
+                    setFaixa_submenu_e_filtro(false);
+                    // alert("PESQUISAR POSTAGENS DE GADO ");
                     setLargura_tela_notificacao(new Animated.Value(0));
-                    setMenu_aviso_visivel_or_invisivel(true)
-                  }//else if
-
-                }}
-              >
-
-                {notificacao_visivel_true_false ?
-                  <Text style={{
-                    width: 20, height: 20, borderRadius: 50,
-                    color: 'white', fontWeight: "bold", fontSize: 10, backgroundColor: 'red',
-                    position: 'absolute', zIndex: 10, textAlign: 'center', justifyContent: 'center'
-                  }} >{somatorio_notificacao_numero}
-                  </Text>
-                  : []
-                }
-                <View>
-                  <Icon name='bell' nativeID='notificacao' style={[Estilo.icones_medio, style = { paddingRight: 10 }]} />
-                </View>
-                <Text style={{ fontSize: 10, color: 'white' }}>Notificação</Text>
-
-              </TouchableOpacity>
-
-              <View style={{ width: 20 }} />
-
-              {/* CORAÇÃO ABAIXO*/}
-              <TouchableOpacity style={{ width: 'auto', height: 'auto', borderWidth: 0 }} >
-                <View style={{ width: 'auto', borderWidth: 0 }}>
-                  {muda_cor
-                    ? <Icon name='heart' nativeID='Favorito'
-                      style={[Estilo.icones_medio, Estilo.icones_clicado]}
-                      onPress={() => {
-                        setMuda_cor(oldState => !oldState)
-                        //MOSTRAR_NUMERO_CELULAR();
-                        //REMOVER_ITEM_DO_JSON();
-                        CONECTANDO_AO_BANCO_DE_DADOS();
-                        ADICIONAR_PRODUTOS_por_ARRAY(true);
-                        filtro_ativado_sim_ou_nao = false;
-                      }}
-                    />
-
-                    : <Icon name='heart' style={[Estilo.icones_medio]}
-                      onPress={() => {
-                        // setMuda_cor(oldState => !oldState)
-                        //MOSTRAR_NUMERO_CELULAR();
-                        //REMOVER_ITEM_DO_JSON();
-                        FILTRAR_MEUS_FAVORITOS();
-                        // filtro_ativado_sim_ou_nao = true;
-                      }}
-                    />
-                  }
-                </View>
-                <Text style={{ fontSize: 10, color: 'white' }}>Favorito</Text>
-              </TouchableOpacity>
-              {/* CORAÇÃO ACIMA */}
-
-            </View>
-
-          </View>
-
-
-
-        </View>
-        /*FAIXA ORANGE ACIMA*/
-
-        : /* Faixa Filtro SubMenu Abaixo */
-        <View style={{ flexDirection: 'row', width: '100%', height: 50, justifyContent: 'center', borderWidth: 0, borderColor: 'yellow' }}>
-
-          <TouchableOpacity style={{ width: '20%', alignItems: 'center', justifyContent: 'center', borderWidth: 0 }}
-            onPress={() => {
-
-              setBotoePropostas(false);
-
-              setFaixa_submenu_e_filtro(true);
-              CONECTANDO_AO_BANCO_DE_DADOS();
-              ADICIONAR_PRODUTOS_por_ARRAY(true);
-              filtro_ativado_sim_ou_nao = false;
-            }}
-          >
-            <Icon name='reply'
-              style={{ fontSize: 25, color: '#fff' }} />
-          </TouchableOpacity>
-
-          {botoePropostas ?
-            <Animated.View style={{ width: largura_tela_botoes /*'80%'*/, alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0 }}>
-
-              <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }} >
-
-                <TouchableOpacity style={{ width: '30%', height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderRadius: 20, borderColor: botoePropostasRecebidas ? '#25E7DB' : 'white' }}
-
-                  onPress={() => {
-                    // alert("PROPOSTAS RECEBIDAS AQUI")
-
-                    var RETORNO_BOOLEAN = PROPOSTAS_RECEBIDAS_RECENTES(true, "menuTopo");
-
-                    if (RETORNO_BOOLEAN) {
-                      setbotoePropostasRecebidas(true);
-                      setbotoePropostasEnviadas(false);
-                      setbotoePropostasAceitas(false);
-
-                    }
-
 
                   }}
-
                 >
-                  <Text style={[Estilo.fontePequena, style = { alignItems: 'center', color: botoePropostasRecebidas ? '#25E7DB' : 'white', }]} >Recebidas</Text>
+
+                  <View>
+                    <Icon name='search' nativeID='pesquisa' style={[Estilo.icones_medio, style = { paddingRight: 10 }]} />
+                  </View>
+                  <Text style={{ fontSize: 10, color: 'white' }}>Pesquisar</Text>
+
                 </TouchableOpacity>
 
-                <TouchableOpacity style={{ width: '30%', height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderRadius: 20, borderColor: botoePropostasEnviadas ? '#25E7DB' : 'white' }}
-
-                  onPress={() => {
-                    // alert("PROPOSTAS ENVIADAS AQUI")
-                    var RETORNO_BOOLEAN = PROPOSTAS_RESPONDIDAS_RECENTES("menuTopo");
-
-                    if (RETORNO_BOOLEAN) {
-                      setbotoePropostasRecebidas(false);
-                      setbotoePropostasEnviadas(true);
-                      setbotoePropostasAceitas(false);
-
-                    }
-
-
-                  }}
-
-                >
-                  <Text style={[Estilo.fontePequena, style = { alignItems: 'center', color: botoePropostasEnviadas ? '#25E7DB' : 'white' }]} >Enviadas</Text>
-                </TouchableOpacity>
-
-                <TouchableOpacity style={{ width: '30%', height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderRadius: 20, borderColor: botoePropostasAceitas ? '#25E7DB' : 'white' }}
-
-                  onPress={() => {
-                    // alert("PROPOSTAS ACEITAS AQUI")
-                    var RETORNO_BOOLEAN = PROPOSTAS_ACEITAS_RECENTES();
-
-                    // alert(RETORNO_BOOLEAN);
-                    if (RETORNO_BOOLEAN) {
-                      setbotoePropostasRecebidas(false);
-                      setbotoePropostasEnviadas(false);
-                      setbotoePropostasAceitas(true);
-                      setLargura_tela_notificacao(new Animated.Value(0));
-                    }
-
-                  }}
-
-                >
-                  <Text style={[Estilo.fontePequena, style = { alignItems: 'center', color: botoePropostasAceitas ? '#25E7DB' : 'white' }]} >Aceitas</Text>
-                </TouchableOpacity>
-
-                <View style={{ width: '1%' }} />
 
               </View>
 
 
-            </Animated.View>
-            :
-            <Animated.View style={{ alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0, width: largura_tela_notificacao /*'80%'*/ }}>
 
-              {/* LABEL DA NOTIFICACÃO ABAIXO */}
-              {labelOuPesquisar ?
+              <View style={[Estilo.borda_geral, Estilo.centralizar_horizontalmente, style = { width: '30%', alignItems: 'flex-end' }]} >
+                {/*<Icon name='heart' style={[Estilo.icones_grande, Estilo.icones_clicado, Estilo.borda_geral]} />*/}
 
-                <Animated.View style={{ width: largura_tela_botoes/*'100%'*/, alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0 }}>
-                  <Text style={{ fontSize: 25, color: '#fff' }}>
-                    {texto_filtro_notificacao}
-                  </Text>
-                </Animated.View>
-                // {/* LABEL DA NOTIFICACÃO ACIMA */}
-                :
-                <View style={{ flexDirection: 'row', width: '98%', height: 'auto', alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0 }}>
 
-                  <TextInput style={{ width: '78%', height: 'auto', backgroundColor: 'white', borderRadius: 8 }} onChangeText={pesquisarGadoF} textAlign={'center'} placeholder={'Digite a Pesquisa'} />
+                {/* COLOCANDO NUMERO ENCIMA DE UM ICONE  #25E7DB */}
+                <TouchableOpacity style={{ width: 55, height: 'auto', borderWidth: 0, justifyContent: 'flex-start', alignItems: 'flex-end' }}
+                  onPress={() => {
 
-                  <TouchableOpacity style={{ width: '20%', height: '100%', alignItems: 'center', justifyContent: 'center', borderWidth: 0 }}
+                    //alert(somatorio_notificacao_numero);
+                    if (somatorio_notificacao_numero == 0) {
+                      alert("Nenhuma Notificação !");
+                    } else {
+                      setLargura_tela_notificacao(new Animated.Value(0));
+                      setMenu_aviso_visivel_or_invisivel(true)
+                    }//else if
+
+                  }}
+                >
+
+                  {notificacao_visivel_true_false ?
+                    <Text style={{
+                      width: 20, height: 20, borderRadius: 50,
+                      color: 'white', fontWeight: "bold", fontSize: 10, backgroundColor: 'red',
+                      position: 'absolute', zIndex: 10, textAlign: 'center', justifyContent: 'center'
+                    }} >{somatorio_notificacao_numero}
+                    </Text>
+                    : []
+                  }
+                  <View>
+                    <Icon name='bell' nativeID='notificacao' style={[Estilo.icones_medio, style = { paddingRight: 10 }]} />
+                  </View>
+                  <Text style={{ fontSize: 10, color: 'white' }}>Notificação</Text>
+
+                </TouchableOpacity>
+
+                <View style={{ width: 20 }} />
+
+                {/* CORAÇÃO ABAIXO*/}
+                <TouchableOpacity style={{ width: 'auto', height: 'auto', borderWidth: 0 }} >
+                  <View style={{ width: 'auto', borderWidth: 0 }}>
+                    {muda_cor
+                      ? <Icon name='heart' nativeID='Favorito'
+                        style={[Estilo.icones_medio, Estilo.icones_clicado]}
+                        onPress={() => {
+                          setMuda_cor(oldState => !oldState)
+                          //MOSTRAR_NUMERO_CELULAR();
+                          //REMOVER_ITEM_DO_JSON();
+                          CONECTANDO_AO_BANCO_DE_DADOS();
+                          ADICIONAR_PRODUTOS_por_ARRAY(true);
+                          filtro_ativado_sim_ou_nao = false;
+                        }}
+                      />
+
+                      : <Icon name='heart' style={[Estilo.icones_medio]}
+                        onPress={() => {
+                          // setMuda_cor(oldState => !oldState)
+                          //MOSTRAR_NUMERO_CELULAR();
+                          //REMOVER_ITEM_DO_JSON();
+                          FILTRAR_MEUS_FAVORITOS();
+                          // filtro_ativado_sim_ou_nao = true;
+                        }}
+                      />
+                    }
+                  </View>
+                  <Text style={{ fontSize: 10, color: 'white' }}>Favorito</Text>
+                </TouchableOpacity>
+                {/* CORAÇÃO ACIMA */}
+
+              </View>
+
+            </View>
+
+
+
+          </View>
+          /*FAIXA ORANGE ACIMA*/
+
+          : /* Faixa Filtro SubMenu Abaixo */
+          <View style={{ flexDirection: 'row', width: '100%', height: 50, justifyContent: 'center', borderWidth: 0, borderColor: 'yellow' }}>
+
+            <TouchableOpacity style={{ width: '20%', alignItems: 'center', justifyContent: 'center', borderWidth: 0 }}
+              onPress={() => {
+
+                setBotoePropostas(false);
+
+                setFaixa_submenu_e_filtro(true);
+                CONECTANDO_AO_BANCO_DE_DADOS();
+                ADICIONAR_PRODUTOS_por_ARRAY(true);
+                filtro_ativado_sim_ou_nao = false;
+              }}
+            >
+              <Icon name='reply'
+                style={{ fontSize: 25, color: '#fff' }} />
+            </TouchableOpacity>
+
+            {botoePropostas ?
+              <Animated.View style={{ width: largura_tela_botoes /*'80%'*/, alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0 }}>
+
+                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }} >
+
+                  <TouchableOpacity style={{ width: '30%', height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderRadius: 20, borderColor: botoePropostasRecebidas ? '#25E7DB' : 'white' }}
+
                     onPress={() => {
-                      Keyboard.dismiss(); /*alert("DAPESQUISA " + pesquisarGado)*/ PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH(pesquisarGado);
+                      // alert("PROPOSTAS RECEBIDAS AQUI")
+
+                      var RETORNO_BOOLEAN = PROPOSTAS_RECEBIDAS_RECENTES(true, "menuTopo");
+
+                      if (RETORNO_BOOLEAN) {
+                        setbotoePropostasRecebidas(true);
+                        setbotoePropostasEnviadas(false);
+                        setbotoePropostasAceitas(false);
+
+                      }
+
+
                     }}
+
                   >
-                    <Icon name='search' style={{ fontSize: 25, color: '#fff' }} />
+                    <Text style={[Estilo.fontePequena, style = { alignItems: 'center', color: botoePropostasRecebidas ? '#25E7DB' : 'white', }]} >Recebidas</Text>
                   </TouchableOpacity>
 
+                  <TouchableOpacity style={{ width: '30%', height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderRadius: 20, borderColor: botoePropostasEnviadas ? '#25E7DB' : 'white' }}
+
+                    onPress={() => {
+                      // alert("PROPOSTAS ENVIADAS AQUI")
+                      var RETORNO_BOOLEAN = PROPOSTAS_RESPONDIDAS_RECENTES("menuTopo");
+
+                      if (RETORNO_BOOLEAN) {
+                        setbotoePropostasRecebidas(false);
+                        setbotoePropostasEnviadas(true);
+                        setbotoePropostasAceitas(false);
+
+                      }
+
+
+                    }}
+
+                  >
+                    <Text style={[Estilo.fontePequena, style = { alignItems: 'center', color: botoePropostasEnviadas ? '#25E7DB' : 'white' }]} >Enviadas</Text>
+                  </TouchableOpacity>
+
+                  <TouchableOpacity style={{ width: '30%', height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderRadius: 20, borderColor: botoePropostasAceitas ? '#25E7DB' : 'white' }}
+
+                    onPress={() => {
+                      // alert("PROPOSTAS ACEITAS AQUI")
+                      var RETORNO_BOOLEAN = PROPOSTAS_ACEITAS_RECENTES();
+
+                      // alert(RETORNO_BOOLEAN);
+                      if (RETORNO_BOOLEAN) {
+                        setbotoePropostasRecebidas(false);
+                        setbotoePropostasEnviadas(false);
+                        setbotoePropostasAceitas(true);
+                        setLargura_tela_notificacao(new Animated.Value(0));
+                      }
+
+                    }}
+
+                  >
+                    <Text style={[Estilo.fontePequena, style = { alignItems: 'center', color: botoePropostasAceitas ? '#25E7DB' : 'white' }]} >Aceitas</Text>
+                  </TouchableOpacity>
+
+                  <View style={{ width: '1%' }} />
+
                 </View>
-              }{/*labelOuPesquisar*/}
 
-            </Animated.View>
 
+              </Animated.View>
+              :
+              <Animated.View style={{ alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0, width: largura_tela_notificacao /*'80%'*/ }}>
+
+                {/* LABEL DA NOTIFICACÃO ABAIXO */}
+                {labelOuPesquisar ?
+
+                  <Animated.View style={{ width: largura_tela_botoes/*'100%'*/, alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0 }}>
+                    <Text style={{ fontSize: 25, color: '#fff' }}>
+                      {texto_filtro_notificacao}
+                    </Text>
+                  </Animated.View>
+                  // {/* LABEL DA NOTIFICACÃO ACIMA */}
+                  :
+                  <View style={{ flexDirection: 'row', width: '98%', height: 'auto', alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0 }}>
+
+                    <TextInput style={{ width: '78%', height: 'auto', backgroundColor: 'white', borderRadius: 8 }} onChangeText={pesquisarGadoF} textAlign={'center'} placeholder={'Digite a Pesquisa'} />
+
+                    <TouchableOpacity style={{ width: '20%', height: '100%', alignItems: 'center', justifyContent: 'center', borderWidth: 0 }}
+                      onPress={() => {
+                        Keyboard.dismiss(); /*alert("DAPESQUISA " + pesquisarGado)*/ PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH(pesquisarGado);
+                      }}
+                    >
+                      <Icon name='search' style={{ fontSize: 25, color: '#fff' }} />
+                    </TouchableOpacity>
+
+                  </View>
+                }{/*labelOuPesquisar*/}
+
+              </Animated.View>
+
+            }
+
+          </View>
+        }
+        {/* Faixa Filtro SubMenu Acima */}
+
+        <View style={[Estilo.div_view_3, Estilo.borda_geral]}>
+
+          <View style={[Estilo.div_view_linha]}></View>
+
+
+          {
+            <Icon name='chevron-down' style={[Estilo.icones_medio, Estilo.icones_clicado, style = { paddingTop: 10 }]}
+              onPress={() => {
+                setExibe(oldState => !oldState);
+
+                /* SOMENTE PRA TESTE ESSE ARMAZENAMENTO ABAIXO */
+                ////alert("GRAVA POSTAGENS ");
+                ////alert(JSON.stringify(TODOSSDADOSJSON));
+                //ARMAZENAR_POSTAGEM_SEGUNTA_ETAPA(TODOSSDADOSJSON)
+                /* SOMENTE PRA TESTE ESSE ARMAZENAMENTO ACIMA */
+                //alert(TODOSSDADOSJSON[0].ta_online_J);
+
+
+                //ATUALIZANDO_TODOS_DADOS_NO_ASYNCSTORAGE();
+
+                setExibe_suas_postagens(oldState => !oldState);
+
+              }
+              }
+            />
           }
 
         </View>
-      }
-      {/* Faixa Filtro SubMenu Acima */}
-
-      <View style={[Estilo.div_view_3, Estilo.borda_geral]}>
-
-        <View style={[Estilo.div_view_linha]}></View>
 
 
-        {
-          <Icon name='chevron-down' style={[Estilo.icones_medio, Estilo.icones_clicado, style = { paddingTop: 10 }]}
-            onPress={() => {
-              setExibe(oldState => !oldState);
-
-              /* SOMENTE PRA TESTE ESSE ARMAZENAMENTO ABAIXO */
-              ////alert("GRAVA POSTAGENS ");
-              ////alert(JSON.stringify(TODOSSDADOSJSON));
-              //ARMAZENAR_POSTAGEM_SEGUNTA_ETAPA(TODOSSDADOSJSON)
-              /* SOMENTE PRA TESTE ESSE ARMAZENAMENTO ACIMA */
-              //alert(TODOSSDADOSJSON[0].ta_online_J);
+        {exibe_suas_postagens &&
 
 
-              //ATUALIZANDO_TODOS_DADOS_NO_ASYNCSTORAGE();
+          <View>
+            <Text style={{ width: '100%', height: 35, color: 'white', borderRadius: 8 }} >  http://192.168.0.102:3000/  </Text>
+            <View style={{ flexDirection: 'row', width: '50%' }}>
+              <TextInput style={{ width: '100%', height: 35, backgroundColor: 'white', borderRadius: 8 }} onChangeText={quantidadeCabecasOuPesosF} />
 
-              setExibe_suas_postagens(oldState => !oldState);
+              <TouchableHighlight style={{ width: '35%', height: 40, alignItems: 'center', paddingTop: 10, borderWidth: 1, borderRadius: 10, borderColor: 'white' }}
 
-            }
-            }
-          />
-        }
+                onPress={async () => {
 
-      </View>
+                  var VARIAVEL = String("http://" + quantidadeCabecasOuPesos + ":3000/");
+                  /* http://192.168.0.102:3000/ */
 
-
-      {exibe_suas_postagens &&
+                  await AsyncStorage.setItem('IP_CONEXAO', VARIAVEL);
+                  alert(VARIAVEL + " GRAVADO ");
 
 
-        <View>
-          <Text style={{ width: '100%', height: 35, color: 'white', borderRadius: 8 }} >  http://192.168.0.102:3000/  </Text>
-          <View style={{ flexDirection: 'row', width: '50%' }}>
-            <TextInput style={{ width: '100%', height: 35, backgroundColor: 'white', borderRadius: 8 }} onChangeText={quantidadeCabecasOuPesosF} />
+                }}
+              >
+                <Text style={{ fontSize: 15, color: '#fff' }} >Definir IP</Text>
+              </TouchableHighlight>
+            </View>
+
+
 
             <TouchableHighlight style={{ width: '35%', height: 40, alignItems: 'center', paddingTop: 10, borderWidth: 1, borderRadius: 10, borderColor: 'white' }}
 
               onPress={async () => {
 
-                var VARIAVEL = String("http://" + quantidadeCabecasOuPesos + ":3000/");
-                /* http://192.168.0.102:3000/ */
+                ////////////////////////////////////////////////////////////////////////////////////////////////////
+                ////////////////////////////////////////////////////////////////////////////////////////////////////
+                //const twoOptionAlertHandler = () => {
+                //function to make two option alert
+                Alert.alert(
+                  //title
+                  'Atenção !',
+                  //body
+                  //'I am two option alert. Do you want to cancel me ?',
+                  'Deseja Apagar Total Postagem no AsyncStorage !',
+                  [
+                    {
+                      text: 'Sim',
+                      onPress: () => {/*console.log('Yes Pressed'), alert("Você Cancelou  "),*/
 
-                await AsyncStorage.setItem('IP_CONEXAO', VARIAVEL);
-                alert(VARIAVEL + " GRAVADO ");
+
+                        APAGAR_POSTAGEM('POSTAGEM'),
+                          APAGAR_NUMERO_CELULAR('NUMERO_CELL')
+                        VARIAVEL_GLOBAL.TELEFONE = "SEM_TELEFONE_USUARIO"
 
 
+                      }
+                    },
+                    {
+                      text: 'Não',
+                      onPress: () => console.log('No Pressed'),
+                      style: 'cancel'
+                    },
+                  ],
+                  { cancelable: false },
+                  //clicking out side of alert will not cancel
+                );
+                //};
+                ///////////////////////////////////////////////////////////////////////////////////////////////////
+                ///////////////////////////////////////////////////////////////////////////////////////////////////
               }}
             >
-              <Text style={{ fontSize: 15, color: '#fff' }} >Definir IP</Text>
+              <Text style={{ fontSize: 15, color: '#fff' }} >Apagar Postagem Interna</Text>
             </TouchableHighlight>
+
+
           </View>
+        }
 
-
-
-          <TouchableHighlight style={{ width: '35%', height: 40, alignItems: 'center', paddingTop: 10, borderWidth: 1, borderRadius: 10, borderColor: 'white' }}
-
-            onPress={async () => {
-
-              ////////////////////////////////////////////////////////////////////////////////////////////////////
-              ////////////////////////////////////////////////////////////////////////////////////////////////////
-              //const twoOptionAlertHandler = () => {
-              //function to make two option alert
-              Alert.alert(
-                //title
-                'Atenção !',
-                //body
-                //'I am two option alert. Do you want to cancel me ?',
-                'Deseja Apagar Total Postagem no AsyncStorage !',
-                [
-                  {
-                    text: 'Sim',
-                    onPress: () => {/*console.log('Yes Pressed'), alert("Você Cancelou  "),*/
-
-
-                      APAGAR_POSTAGEM('POSTAGEM'),
-                        APAGAR_NUMERO_CELULAR('NUMERO_CELL')
-                      VARIAVEL_GLOBAL.TELEFONE = "SEM_TELEFONE_USUARIO"
-
-
-                    }
-                  },
-                  {
-                    text: 'Não',
-                    onPress: () => console.log('No Pressed'),
-                    style: 'cancel'
-                  },
-                ],
-                { cancelable: false },
-                //clicking out side of alert will not cancel
-              );
-              //};
-              ///////////////////////////////////////////////////////////////////////////////////////////////////
-              ///////////////////////////////////////////////////////////////////////////////////////////////////
-            }}
-          >
-            <Text style={{ fontSize: 15, color: '#fff' }} >Apagar Postagem Interna</Text>
-          </TouchableHighlight>
-
-
-        </View>
-      }
-
+      </View>
+      {/** DIVISÃO ENTRE A LISTA DO APLICATIVO E O CABEÇALHO DE BOTÕES ACIMA **/}
 
       {/*PAINEL DE ROLAGEM VERTICAL ABAIXO */}
       {/* <ScrollView style={{ paddingVertical: 1, borderWidth: 0, borderColor: 'orange' }} > */}
-      <View style={{ borderWidth: 0, borderColor: 'orange' }} >
+      <View style={{ borderWidth: 0, borderColor: 'blue', height: (DEFININDO_85_PORCENTO_DE_ALTURA()) }} >
 
 
 
@@ -3181,7 +3211,7 @@ export default function AppTest() {
 
         {produtosEtiquetasExibir
           ?
-          <ProdutosEtiquetas
+          <ProdutosEtiquetas style={{ borderWidth: 5, borderColor: 'blue', height: '100%' }}
             product={produtosS} ARRAY_PRIMEIRAS_URL_IMAGENSS={ARRAY_PRIMEIRAS_URL_IMAGENS_2} ARRAY_PRIMEIRAS_URL_VIDEOSS={ARRAY_PRIMEIRAS_URL_VIDEOS_2}
             LARTITUDE={userPosition.latitude} LORNGITUDE={userPosition.longitude} numero_telefone_usuario={DADOS_TELEFONE} TELA_DE_ORIGEM_E_SITUACA={TELA_DE_ORIGEM_E_SITUACAO}
             remoto_setLicencaExpiradaFalseOrTrue={setLicencaExpiradaFalseOrTrue}
