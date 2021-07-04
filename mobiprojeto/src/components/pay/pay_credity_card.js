@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState, useContext } from 'react';
 
-import { View, Text, SafeAreaView, TouchableOpacity, Alert, TextInput, ScrollView, PermissionsAndroid, TouchableHighlight, Keyboard, Dimensions, Animated } from 'react-native';
+import { ActivityIndicator, Text, SafeAreaView, TouchableOpacity, Alert, TextInput, ScrollView, PermissionsAndroid, TouchableHighlight, Keyboard, Dimensions, Animated, View } from 'react-native';
 
 import { useNavigation } from "@react-navigation/native";
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import GlobalContext from '../../context/UsersContext';
+
 
 //npm i socket.io-client
 import io from 'socket.io-client';
@@ -37,6 +38,15 @@ import {
     StyledIconFontAwesome
 } from './pay_credity_card_css';
 
+
+//npm install react-native-webview
+import { WebView } from 'react-native-webview';
+
+
+// import { Card } from 'react-native-paper';
+function LoadingIndicatorView() {
+    return <ActivityIndicator color='#009b88' size='large' />
+}
 
 // import { TextInputMask } from 'react-native-masked-text';
 
@@ -128,6 +138,141 @@ export default function pay_credity_card(params) {
 
 
 
+        //PROCESSANDO PAGAMENTO REMOTO SERVIDOR MERCADO PAGO ABAIXO
+
+
+        // setnumeroCredCard("1234 5678 9012 3456");
+        // setdataValidade("09/22");
+        // setcodSeguranca("1234");
+        // setnomeCartao("EDERSON FELICIANO CORSATTO");
+        // setcpf_cnpjCard("993.712.351-87");
+
+        numeroCredCard = "1234 5678 9012 3456";
+        dataValidade = "09/22";
+        codSeguranca = "1234";
+        nomeCartao = "EDERSON FELICIANO CORSATTO";
+        cpf_cnpjCard = "993.712.351-87";
+
+        // alert(
+        //     numeroCredCard + "\n" +
+        //     dataValidade + "\n" +
+        //     codSeguranca + "\n" +
+        //     nomeCartao + "\n" +
+        //     cpf_cnpjCard
+        // );
+
+
+
+        var data = new FormData();
+        data.append("Nome", "Ederson Feliciano Corsatto");
+        data.append("Senha", "19591959");
+
+
+
+
+
+        // TENTATIVA 1 FUNCIONAOU COM SUCESSO SEM SER SERVIDOR DO MERCADO PAGO  //////////////////////////////////////////////////////////////////////////////////////////////////
+        // try {
+
+        //     await fetch('http://192.168.0.107:3000/process_payment', {
+
+        //         method: 'post',
+        //         mode: 'no-cors',
+        //         headers: {
+        //             'Accept': 'application/json',
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify(
+        //             {
+        //             // username: 'EDERSON FELICINAO CORSATTO',
+        //             data,
+        //             }
+        //         )
+        //     })
+        //       // ;
+        //         .then((response) => response.json())
+        //         .then((responseJson) => {
+        //             console.log('response object:', responseJson);
+        //             // alert(responseJson);
+        //             alert("SUCESSO => " + JSON.stringify(responseJson));
+        //         })
+        //         .catch((error) => {
+        //             // console.error(error);
+        //             alert("FRACASSOU => " + JSON.stringify(error));
+        //         });
+
+        // } catch (e) {
+        //     // console.log("errosssss "+e);
+        //     alert("errosssss " + e);
+
+        // }
+        ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        // var loading = true;
+        // if (loading) {
+        //     return (
+        //         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        //             <Text style={{ color: 'blue', fontSize: 15 }} >Carregando...</Text>
+        //         </View>
+        //     );
+        // }//if
+
+
+        // TENTATIVA 2 FUNCIONAOU COM SUCESSO //////////////////////////////////////////////////////////////////////////////////////////////////
+        try {
+
+            // await fetch('http://192.168.0.107:3000/process_payment', {
+            await fetch('http://192.168.0.107:8080/process_payment', {
+
+                method: 'post',
+                mode: 'no-cors',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(
+                    {
+                        // data,
+                        numeroCredCard: "1234 5678 9012 3456",
+                        dataValidade: "09/22",
+                        codSeguranca: "1234",
+                        nomeCartao: "EDERSON FELICIANO CORSATTO",
+                        cpf_cnpjCard: "993.712.351-87",
+                    }
+                )
+            })
+                // ;
+                .then((response) => response.json())
+                .then(async (responseJson) => {
+                    console.log('response object:', responseJson);
+
+                    //Criando uma Delay com Promisse Abaixo
+                    // await new Promise((resolve) => setTimeout(resolve, 3000));//COLOCADO UM DELAY SÓ POR TESTE
+
+                    // alert(responseJson);
+                    alert("SUCESSO => " + JSON.stringify(responseJson));
+                })
+                .catch(async (error) => {
+                    // console.error(error);
+
+                    //Criando uma Delay com Promisse Abaixo
+                    // await new Promise((resolve) => setTimeout(resolve, 3000));//COLOCADO UM DELAY SÓ POR TESTE
+                    alert("FRACASSOU => " + JSON.stringify(error));
+                });
+
+        } catch (e) {
+            // console.log("errosssss "+e);
+            alert("errosssss " + e);
+
+        }
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+        return 0;
+        //PROCESSANDO PAGAMENTO REMOTO SERVIDOR MERCADO PAGO ACIMA
+
+
+
+
         //ALTERNANCIA DE ESTADOS USADO SOMENTE PARA TESTES ABAIXO
         var enviandoCondicao = "";
         var valor = Math.floor(Math.random() * 10);
@@ -135,7 +280,7 @@ export default function pay_credity_card(params) {
         if (valor <= 5) {//AQUI É SE FOR APROVADO A COMPRA
 
             if (VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA == "PUBLICACAO" || VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA == "ATIVAR PUBLICACAO") {
-              
+
 
                 /***************************************************************/
                 var tamanho = -1;
@@ -147,7 +292,7 @@ export default function pay_credity_card(params) {
                         tamanho = await VERIFICANDO_SE_POSTAGEM_EXISTE();
                         i++;                    //  increment the counter
                         if (tamanho <= 0) {
-                            
+
                             // console.log("Valor do i => " + i + "  Tamanho =>" + tamanho);
                             myLoop();
                         } else {
@@ -544,174 +689,204 @@ export default function pay_credity_card(params) {
 
     return (
 
+        //         //TELA ORIGINAL ABAIXO
+        //         <SafeAreaView style={[Estilo.App]} >
+
+        //             <ScrollView style={{ width: '100%', height: 'auto', borderWidth: 0 }} >
+
+        //                 <ContainerPrincipal
+        //                     alinhamento_horizontal={'center'}
+        //                     largura={1}
+        //                     altura={1}
+        //                 >
+
+
+        //                     <ViewSeta onPress={() => {
+
+        //                         // navigation.navigate("Screen_pay",{propostas});
+        //                         navigation.goBack(null);
+
+        //                     }} >
+        //                         <StyledIconFontAwesome name='arrow-left' />
+        //                     </ViewSeta>
+
+        //                     <ViewTitulo_1><Txt_1>Adicionar cartão de Débito</Txt_1></ViewTitulo_1>
+
+        //                     <ViewBorda />
+
+        //                     <ViewEspacoAltura />
+        //                     <ViewEspacoAltura />
+
+        //                     <Txt_2>Número do Cartão</Txt_2>
+
+        //                     <TextInputMaskCaixa largura={0.5}
+        //                         type={'credit-card'}
+        //                         value={numeroCredCard}
+        //                         maxLength={19}
+        //                         onChangeText={value => {
+        //                             numeroCredCardF(value);
+        //                             // value = value.replace('.', '');
+        //                             // value = value.replace(',', '.');
+        //                             // numeroCredCardF(Number(value));
+        //                         }}
+        //                     />
+
+        //                     <ViewEspacoAltura />
+
+
+        //                     <View
+        //                         style={{
+        //                             flexDirection: 'column',
+        //                             width: '85%',
+        //                             borderWidth: 0,
+        //                             borderColor: '#fff',
+        //                             /*backgroundColor: 'green'*/
+        //                         }}
+
+        //                     >
+
+
+        //                         <Txt_2>Validade</Txt_2>
+        //                         <TextInputMaskCaixa largura={0.2}
+        //                             type={'datetime'}
+        //                             options={{
+        //                                 format: 'MM/YY'
+        //                             }}
+        //                             value={dataValidade}
+        //                             maxLength={5}
+        //                             onChangeText={value => {
+        //                                 dataValidadeF(value);
+        //                                 // value = value.replace('.', '');
+        //                                 // value = value.replace(',', '.');
+        //                                 // dataValidadeF(Number(value));
+        //                             }}
+        //                         />
+
+
+        //                         <View style={{ height: 20 }} />
+
+
+        //                         <Txt_2>Código de Segurança</Txt_2>
+        //                         <TextInputMaskCaixa largura={0.2}
+        //                             type={'only-numbers'}
+        //                             value={codSeguranca}
+        //                             maxLength={4}
+        //                             onChangeText={value => {
+        //                                 codSegurancaF(value);
+        //                                 // value = value.replace('.', '');
+        //                                 // value = value.replace(',', '.');
+        //                                 // codSegurancaF(Number(value));
+        //                             }}
+        //                         />
+
+        //                     </View>
+
+
+
+        //                     <ViewEspacoAltura />
+
+
+
+        //                     <Txt_2>Nome Impresso no Cartão</Txt_2>
+
+        //                     <TextInputCaixa
+        //                         largura={0.5}
+        //                         onChangeText={nomeCartaoF}
+        //                     />
+
+
+        //                     <ViewEspacoAltura />
+
+
+        //                     <Txt_2>CPF/CNPJ do Titular da Conta</Txt_2>
+
+        //                     <TextInputMaskCaixa largura={0.5}
+
+        //                         type={'cpf'}
+        //                         value={cpf_cnpjCard}
+        //                         maxLength={19}
+        //                         onChangeText={value => {
+        //                             cpf_cnpjCardF(value);
+        //                         }}
+        //                     />
+
+
+        //                     <ViewButtons>
+
+
+        //                         <ButtonCancelarPagar cor_fundo={'#FF5353'}
+
+        //                             onPress={async () => {
+        //                                 // alert("CANCELAR COMPRA COM CARTÃO");
+        //                                 setMenssagemStatusDaCompra(false);
+        //                                 navigation.goBack(null);
+        //                             }}
+        //                         >
+        //                             <Text style={{ fontSize: 15, color: '#fff' }} >Cancelar</Text>
+        //                         </ButtonCancelarPagar>
+
+        //                         <ButtonCancelarPagar cor_fundo={'#36BE54'}
+        //                             onPress={async () => {
+
+        //                                 executarPagamentoComCrediCard();
+
+        //                             }}
+        //                         >
+        //                             <Text style={{ fontSize: 15, color: '#fff' }} >Pagar</Text>
+        //                         </ButtonCancelarPagar>
+
+
+        //                     </ViewButtons>
+
+
+
+        //                 </ContainerPrincipal>
+
+
+        //             </ScrollView>
+
+        //             {menssagemStatusDaCompra && (<Pay_aprovado_reprovado
+        //                 compraAprovadaOuReprovadaRecebid={compraAprovadaOuReprovadaRecebida}
+        //                 ocultar_tela_de_mensagem={ocultar_tela_de_mensagem}
+        //                 executarPagamentoComCrediCard={executarPagamentoComCrediCard}
+        //             />)}
+
+        //             {menssagemProcessamento && (
+        //                 <TelaAguardeProcessamentoPagamento />
+        //             )}
+
+
+        //         </SafeAreaView>
+        //  //TELA ORIGINAL ACIMA
+
+
+        //https://living-sun.com/pt/webview/853834-react-native-detect-click-on-webview-webview-onclick-react-native.html
+
+        //TELA WEBVIEW ABAIXO
         <SafeAreaView style={[Estilo.App]} >
 
-            <ScrollView style={{ width: '100%', height: 'auto', borderWidth: 0 }} >
+            {/* <ScrollView style={{ width: '100%', height: 'auto', borderWidth: 0 }} > */}
 
-                <ContainerPrincipal
-                    alinhamento_horizontal={'center'}
-                    largura={1}
-                    altura={1}
-                >
+            <View style={{  height: '100%', width: '100%', backgroundColor: '#fff9', alignContent: 'center', justifyContent:'center' }}>
+                <View style={{ height: '80%', width: '100%', backgroundColor: '#fff' }}>
 
+                    <WebView
 
-                    <ViewSeta onPress={() => {
+                        originWhitelist={['*']}
+                        // source={{ uri: 'https://www.facebook.com' }}
+                        source={{ uri: 'http://192.168.0.107:8080' }}
+                        renderLoading={LoadingIndicatorView}
+                        startInLoadingState={true}
 
-                        // navigation.navigate("Screen_pay",{propostas});
-                        navigation.goBack(null);
-
-                    }} >
-                        <StyledIconFontAwesome name='arrow-left' />
-                    </ViewSeta>
-
-                    <ViewTitulo_1><Txt_1>Adicionar cartão de Débito</Txt_1></ViewTitulo_1>
-
-                    <ViewBorda />
-
-                    <ViewEspacoAltura />
-                    <ViewEspacoAltura />
-
-                    <Txt_2>Número do Cartão</Txt_2>
-
-                    <TextInputMaskCaixa largura={0.5}
-                        type={'credit-card'}
-                        value={numeroCredCard}
-                        maxLength={19}
-                        onChangeText={value => {
-                            numeroCredCardF(value);
-                            // value = value.replace('.', '');
-                            // value = value.replace(',', '.');
-                            // numeroCredCardF(Number(value));
-                        }}
+                        javaScriptEnabled={true}
                     />
 
-                    <ViewEspacoAltura />
+                </View>
+            </View>
 
 
-                    <View
-                        style={{
-                            flexDirection: 'column',
-                            width: '85%',
-                            borderWidth: 0,
-                            borderColor: '#fff',
-                            /*backgroundColor: 'green'*/
-                        }}
-
-                    >
-
-
-                        <Txt_2>Validade</Txt_2>
-                        <TextInputMaskCaixa largura={0.2}
-                            type={'datetime'}
-                            options={{
-                                format: 'MM/YY'
-                            }}
-                            value={dataValidade}
-                            maxLength={5}
-                            onChangeText={value => {
-                                dataValidadeF(value);
-                                // value = value.replace('.', '');
-                                // value = value.replace(',', '.');
-                                // dataValidadeF(Number(value));
-                            }}
-                        />
-
-
-                        <View style={{ height: 20 }} />
-
-
-                        <Txt_2>Código de Segurança</Txt_2>
-                        <TextInputMaskCaixa largura={0.2}
-                            type={'only-numbers'}
-                            value={codSeguranca}
-                            maxLength={4}
-                            onChangeText={value => {
-                                codSegurancaF(value);
-                                // value = value.replace('.', '');
-                                // value = value.replace(',', '.');
-                                // codSegurancaF(Number(value));
-                            }}
-                        />
-
-                    </View>
-
-
-
-                    <ViewEspacoAltura />
-
-
-
-                    <Txt_2>Nome Impresso no Cartão</Txt_2>
-
-                    <TextInputCaixa
-                        largura={0.5}
-                        onChangeText={nomeCartaoF}
-                    />
-
-
-                    <ViewEspacoAltura />
-
-
-                    <Txt_2>CPF/CNPJ do Titular da Conta</Txt_2>
-
-                    <TextInputMaskCaixa largura={0.5}
-
-                        type={'cpf'}
-                        value={cpf_cnpjCard}
-                        maxLength={19}
-                        onChangeText={value => {
-                            cpf_cnpjCardF(value);
-                        }}
-                    />
-
-
-                    <ViewButtons>
-
-
-                        <ButtonCancelarPagar cor_fundo={'#FF5353'}
-
-                            onPress={async () => {
-                                // alert("CANCELAR COMPRA COM CARTÃO");
-                                setMenssagemStatusDaCompra(false);
-                                navigation.goBack(null);
-                            }}
-                        >
-                            <Text style={{ fontSize: 15, color: '#fff' }} >Cancelar</Text>
-                        </ButtonCancelarPagar>
-
-                        <ButtonCancelarPagar cor_fundo={'#36BE54'}
-                            onPress={async () => {
-
-                                executarPagamentoComCrediCard();
-
-                            }}
-                        >
-                            <Text style={{ fontSize: 15, color: '#fff' }} >Pagar</Text>
-                        </ButtonCancelarPagar>
-
-
-                    </ViewButtons>
-
-
-
-                </ContainerPrincipal>
-
-
-            </ScrollView>
-
-            {menssagemStatusDaCompra && (<Pay_aprovado_reprovado
-                compraAprovadaOuReprovadaRecebid={compraAprovadaOuReprovadaRecebida}
-                ocultar_tela_de_mensagem={ocultar_tela_de_mensagem}
-                executarPagamentoComCrediCard={executarPagamentoComCrediCard}
-            />)}
-
-            {menssagemProcessamento && (
-                <TelaAguardeProcessamentoPagamento />
-            )}
-
-
+            {/* </ScrollView> */}
         </SafeAreaView>
-
 
     );
 

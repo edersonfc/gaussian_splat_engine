@@ -2061,7 +2061,7 @@ export default function AppTest() {
 
 
 
-      } else { setProdutosEtiquetasExibir(false); }//OBBBSERVER03052021
+      } else { setProdutosEtiquetasExibir(false); }//OBBBSERVER 03052021
       /*******************************************/
       /*******************************************/
 

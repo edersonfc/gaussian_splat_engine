@@ -32,10 +32,10 @@ export const ContainerPrincipal = styled.View`
         /* width: 100%; */
         /* height: auto; */
         
-        background-color: #2A3E4A;
+        background-color: #2A3A;
         flex-direction: column;
         align-items: ${props => props.alinhamento_horizontal}; 
-        borderWidth: 0px;
+        borderWidth: 20px;
         /* justify-content: center; */
         /* position: absolute; */
         top: 0;
