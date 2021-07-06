@@ -221,8 +221,8 @@ export default function pay_credity_card(params) {
         // TENTATIVA 2 FUNCIONAOU COM SUCESSO //////////////////////////////////////////////////////////////////////////////////////////////////
         try {
 
-            // await fetch('http://192.168.0.107:3000/process_payment', {
-            await fetch('http://192.168.0.107:8080/process_payment', {
+            await fetch('http://192.168.0.107:3000/process_payment', {
+                // await fetch('http://192.168.0.107:8080/process_payment', {
 
                 method: 'post',
                 mode: 'no-cors',
@@ -251,6 +251,7 @@ export default function pay_credity_card(params) {
 
                     // alert(responseJson);
                     alert("SUCESSO => " + JSON.stringify(responseJson));
+                    setMenssagemProcessamento(false);
                 })
                 .catch(async (error) => {
                     // console.error(error);
@@ -267,7 +268,7 @@ export default function pay_credity_card(params) {
         }
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-        return 0;
+        // return 0;
         //PROCESSANDO PAGAMENTO REMOTO SERVIDOR MERCADO PAGO ACIMA
 
 
@@ -687,7 +688,79 @@ export default function pay_credity_card(params) {
 
 
 
+    async function ENVIANDO_DADOS_DOS_PRODUTOS_PAGINA_DO_WEBVIEW() {
+
+    //   alert(  JSON.stringify( VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE )  );
+    //   alert(  VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE  );
+
+    //   return 0;
+                    
+
+        // TENTATIVA 2 FUNCIONAOU COM SUCESSO //////////////////////////////////////////////////////////////////////////////////////////////////
+        try {
+
+            await fetch('http://192.168.0.107:3000/dados_da_venda', {
+                // await fetch('http://192.168.0.107:8080/process_payment', {
+
+                method: 'post',
+                mode: 'no-cors',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(
+                    {
+                        // numeroCredCard: "1234 5678 9012 3456",
+                        // dataValidade: "09/22",
+                        // codSeguranca: "1234",
+                        // nomeCartao: "EDERSON FELICIANO CORSATTO",
+                        // cpf_cnpjCard: "993.712.351-87",
+
+                       dadosProdutos: JSON.stringify( VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE )
+                    }
+                )
+            })
+                // ;
+                .then((response) => response.json())
+                .then(async (responseJson) => {
+                    console.log('response object:', responseJson);
+
+                    //Criando uma Delay com Promisse Abaixo
+                    // await new Promise((resolve) => setTimeout(resolve, 3000));//COLOCADO UM DELAY SÓ POR TESTE
+
+                    // alert(responseJson);
+                    alert("SUCESSO => " + JSON.stringify(responseJson));
+                    setMenssagemProcessamento(false);
+                })
+                .catch(async (error) => {
+                    // console.error(error);
+
+                    //Criando uma Delay com Promisse Abaixo
+                    // await new Promise((resolve) => setTimeout(resolve, 3000));//COLOCADO UM DELAY SÓ POR TESTE
+                    alert("FRACASSOU => " + JSON.stringify(error));
+                });
+
+        } catch (e) {
+            // console.log("errosssss "+e);
+            alert("errosssss " + e);
+
+        }
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    }
+
+
+
+
+
+
+
+
+
+
+
     return (
+
 
         //         //TELA ORIGINAL ABAIXO
         //         <SafeAreaView style={[Estilo.App]} >
@@ -860,24 +933,61 @@ export default function pay_credity_card(params) {
         //  //TELA ORIGINAL ACIMA
 
 
-        //https://living-sun.com/pt/webview/853834-react-native-detect-click-on-webview-webview-onclick-react-native.html
+        /**************************************************************************************************************************************************/
+        /**************************************************************************************************************************************************/
+        /**************************************************************************************************************************************************/
+        /**************************************************************************************************************************************************/
+        /**************************************************************************************************************************************************/
+        /**************************************************************************************************************************************************/
+
 
         //TELA WEBVIEW ABAIXO
+        //https://living-sun.com/pt/webview/853834-react-native-detect-click-on-webview-webview-onclick-react-native.html
         <SafeAreaView style={[Estilo.App]} >
+
+
 
             {/* <ScrollView style={{ width: '100%', height: 'auto', borderWidth: 0 }} > */}
 
-            <View style={{  height: '100%', width: '100%', backgroundColor: '#fff9', alignContent: 'center', justifyContent:'center' }}>
+            <View style={{ height: '100%', width: '100%', backgroundColor: '#fff9', alignContent: 'center', justifyContent: 'center' }}>
                 <View style={{ height: '80%', width: '100%', backgroundColor: '#fff' }}>
 
-                    <WebView
+                    <WebView  
+                    { ...ENVIANDO_DADOS_DOS_PRODUTOS_PAGINA_DO_WEBVIEW() }
 
                         originWhitelist={['*']}
-                        // source={{ uri: 'https://www.facebook.com' }}
-                        source={{ uri: 'http://192.168.0.107:8080' }}
+                        
+
+                        // source={{ uri: 'http://192.168.0.107:3000/financeira/' }}
+
+
+
+                        source={{ uri: 'http://192.168.0.107:3000/' }}
+
+
+
+                        // source={{
+                        //     // uri: 'http://192.168.0.107:3000/dados_da_venda',
+                        //     uri: 'http://192.168.0.107:3000/',
+                        //     method: 'POST',
+                        //     // headers: {
+                        //     //     'Content-Type': 'application/json',
+                        //     // },
+                        //     body: JSON.stringify(
+                        //         {
+                        //             numeroCredCard: "1234 5678 9012 3456",
+                        //             dataValidade: "09/22",
+                        //             codSeguranca: "1234",
+                        //             nomeCartao: "EDERSON FELICIANO CORSATTO",
+                        //             cpf_cnpjCard: "993.712.351-87",
+                        //         }
+                        //     )
+                        // }}
+
+
+
                         renderLoading={LoadingIndicatorView}
                         startInLoadingState={true}
-
                         javaScriptEnabled={true}
                     />
 
@@ -887,12 +997,20 @@ export default function pay_credity_card(params) {
 
             {/* </ScrollView> */}
         </SafeAreaView>
-
-    );
-
+        //TELA WEBVIEW ACIMA
 
 
-}
+
+
+
+    );//CHAVE PRINCIPAL DO RETURN
+
+
+
+
+
+
+}//CHAVE PRINCIPAL DA  APLICAÇÃO RETURN
 
 
 
