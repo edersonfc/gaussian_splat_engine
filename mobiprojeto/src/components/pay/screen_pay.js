@@ -36,6 +36,7 @@ export default function Screen_pay(params) {
     // alert( JSON.stringify( params.route.params.propostas ) );
     var dados_da_negociacao = JSON.stringify(params.route.params.propostas);
 
+    VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO = dados_da_negociacao;
 
     // alert(   JSON.stringify(  VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE  )  );
     var dados_da_venda = JSON.stringify(VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE);

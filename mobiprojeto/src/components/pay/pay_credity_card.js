@@ -50,9 +50,24 @@ function LoadingIndicatorView() {
 
 // import { TextInputMask } from 'react-native-masked-text';
 
+
+
+// import WebViewBridge from 'react-native-webview-bridge';
+
+// var WebViewBridge = require('react-native-webview-bridge');
+
+// var dados_da_negociacao_publica = "";
+
+
+var dados_da_negociacao = "";
+var dados_da_venda = "";
+
 var segundo = 0;
 
 export default function pay_credity_card(params) {
+
+
+    const [dados_da_negociacao_publica, setDados_da_negociacao_publica] = useState();
 
 
     const navigation = useNavigation();
@@ -60,11 +75,11 @@ export default function pay_credity_card(params) {
     const { VARIAVEL_GLOBAL } = useContext(GlobalContext);
 
     // alert( JSON.stringify( params.route.params.propostas ) );
-    var dados_da_negociacao = JSON.stringify(params.route.params.dados_da_negociacao);
+    dados_da_negociacao = JSON.stringify(params.route.params.dados_da_negociacao);
 
 
     // alert(   JSON.stringify(  VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE  )  );
-    var dados_da_venda = JSON.stringify(VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE);
+    dados_da_venda = JSON.stringify(VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE);
 
 
     dados_da_negociacao = JSON.parse(dados_da_negociacao);
@@ -72,10 +87,15 @@ export default function pay_credity_card(params) {
 
 
     // alert( Object.values( dados_da_negociacao ) );
-    // alert( Object.values( dados_da_venda ) );
+    //  alert( Object.values( dados_da_venda ) );
 
     // alert( Object.keys( dados_da_negociacao ) );
     // alert( Object.keys( dados_da_venda ) );
+
+
+    // alert(  Object.keys( dados_da_negociacao_publica ) );
+    // alert(  Object.values( dados_da_negociacao_publica ) );
+    // alert(   dados_da_negociacao_publica.valor_do_plano );
 
 
 
@@ -690,11 +710,11 @@ export default function pay_credity_card(params) {
 
     async function ENVIANDO_DADOS_DOS_PRODUTOS_PAGINA_DO_WEBVIEW() {
 
-    //   alert(  JSON.stringify( VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE )  );
-    //   alert(  VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE  );
+        //   alert(  JSON.stringify( VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE )  );
+        //   alert(  VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE  );
 
-    //   return 0;
-                    
+        //   return 0;
+
 
         // TENTATIVA 2 FUNCIONAOU COM SUCESSO //////////////////////////////////////////////////////////////////////////////////////////////////
         try {
@@ -716,7 +736,7 @@ export default function pay_credity_card(params) {
                         // nomeCartao: "EDERSON FELICIANO CORSATTO",
                         // cpf_cnpjCard: "993.712.351-87",
 
-                       dadosProdutos: JSON.stringify( VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE )
+                        dadosProdutos: JSON.stringify(VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE)
                     }
                 )
             })
@@ -752,7 +772,12 @@ export default function pay_credity_card(params) {
 
 
 
+    useEffect(() => {
 
+        // 06/07/2021
+        setDados_da_negociacao_publica(dados_da_negociacao);
+
+    }, []);
 
 
 
@@ -943,6 +968,68 @@ export default function pay_credity_card(params) {
 
         //TELA WEBVIEW ABAIXO
         //https://living-sun.com/pt/webview/853834-react-native-detect-click-on-webview-webview-onclick-react-native.html
+        // <SafeAreaView style={[Estilo.App]} >
+
+
+
+        //     {/* <ScrollView style={{ width: '100%', height: 'auto', borderWidth: 0 }} > */}
+
+        //     <View style={{ height: '100%', width: '100%', backgroundColor: '#fff9', alignContent: 'center', justifyContent: 'center' }}>
+        //         <View style={{ height: '80%', width: '100%', backgroundColor: '#fff' }}>
+
+        //             <WebView  
+        //             // { ...ENVIANDO_DADOS_DOS_PRODUTOS_PAGINA_DO_WEBVIEW() }
+
+        //                 originWhitelist={['*']}
+
+
+        //                 // source={{ uri: 'http://192.168.0.107:3000/financeira/' }}
+
+
+
+        //                 source={{ uri: 'http://192.168.0.107:8080/' }}
+        //                 // source={{ uri: 'http://192.168.0.107:3000/' }}
+
+
+
+        //                 // source={{
+        //                 //     // uri: 'http://192.168.0.107:3000/dados_da_venda',
+        //                 //     uri: 'http://192.168.0.107:3000/',
+        //                 //     method: 'POST',
+        //                 //     // headers: {
+        //                 //     //     'Content-Type': 'application/json',
+        //                 //     // },
+        //                 //     body: JSON.stringify(
+        //                 //         {
+        //                 //             numeroCredCard: "1234 5678 9012 3456",
+        //                 //             dataValidade: "09/22",
+        //                 //             codSeguranca: "1234",
+        //                 //             nomeCartao: "EDERSON FELICIANO CORSATTO",
+        //                 //             cpf_cnpjCard: "993.712.351-87",
+        //                 //         }
+        //                 //     )
+        //                 // }}
+
+
+
+        //                 renderLoading={LoadingIndicatorView}
+        //                 startInLoadingState={true}
+        //                 javaScriptEnabled={true}
+        //             />
+
+        //         </View>
+        //     </View>
+
+
+        //     {/* </ScrollView> */}
+        // </SafeAreaView>
+        //TELA WEBVIEW ACIMA
+
+
+
+
+
+        //TELA WEBVIEW ABAIXO
         <SafeAreaView style={[Estilo.App]} >
 
 
@@ -950,45 +1037,58 @@ export default function pay_credity_card(params) {
             {/* <ScrollView style={{ width: '100%', height: 'auto', borderWidth: 0 }} > */}
 
             <View style={{ height: '100%', width: '100%', backgroundColor: '#fff9', alignContent: 'center', justifyContent: 'center' }}>
-                <View style={{ height: '80%', width: '100%', backgroundColor: '#fff' }}>
+                <View style={{ height: '100%', width: '100%', backgroundColor: '#fff' }}>
 
-                    <WebView  
-                    { ...ENVIANDO_DADOS_DOS_PRODUTOS_PAGINA_DO_WEBVIEW() }
+                    <WebView
 
                         originWhitelist={['*']}
-                        
 
-                        // source={{ uri: 'http://192.168.0.107:3000/financeira/' }}
-
-
-
-                        source={{ uri: 'http://192.168.0.107:3000/' }}
-
-
-
-                        // source={{
-                        //     // uri: 'http://192.168.0.107:3000/dados_da_venda',
-                        //     uri: 'http://192.168.0.107:3000/',
-                        //     method: 'POST',
-                        //     // headers: {
-                        //     //     'Content-Type': 'application/json',
-                        //     // },
-                        //     body: JSON.stringify(
-                        //         {
-                        //             numeroCredCard: "1234 5678 9012 3456",
-                        //             dataValidade: "09/22",
-                        //             codSeguranca: "1234",
-                        //             nomeCartao: "EDERSON FELICIANO CORSATTO",
-                        //             cpf_cnpjCard: "993.712.351-87",
-                        //         }
-                        //     )
-                        // }}
-
-
+                        source={{ uri: 'http://192.168.0.107:8080/' }}
+                        // source={{ uri: 'http://192.168.0.107:3000/' }}
 
                         renderLoading={LoadingIndicatorView}
                         startInLoadingState={true}
                         javaScriptEnabled={true}
+
+
+                        domStorageEnabled={true}
+                        // injectedJavaScript={INJETANDO_JAVASCRIPT()}
+                        // injectedJavaScript={jsCode}
+                       
+                        injectedJavaScript={
+
+
+                            `
+//CÓDIGO ABAIXO COLOCA UM DELAY PRA SER EXECUTADO DEPOIS DO CARREGAMENTO DA PÁGINA ABAIXO
+                            setTimeout(() => {
+                                let evt = document.createEvent('Event');
+                                evt.initEvent('load', false, false);
+                                window.dispatchEvent(evt);
+                            }, 300);
+
+
+//CÓDIGO ABAIXO EXECUTA DEPOIS DO CARREGAMENTO DA PÁGINA ABAIXO                           
+                            window.onload = function () {
+                                ALTERAR_PRECOS(${VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO});
+                                // alert("FOI CARREGADO");
+                            }
+
+                            `
+                            
+                            // document.getElementById("unit-price").innerHTML = ${VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO.valor_do_plano};
+                           
+                        }
+
+                        
+                    // injectedJavaScript={
+                    //     `document.getElementById("checkout-btn").addEventListener("click", function () {
+                    //         ALTERAR_PRECOS(${VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO});
+                    //     }); 
+                    //     true;`
+                    // }
+
+
+
                     />
 
                 </View>
