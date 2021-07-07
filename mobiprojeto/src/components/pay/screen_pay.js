@@ -36,7 +36,6 @@ export default function Screen_pay(params) {
     // alert( JSON.stringify( params.route.params.propostas ) );
     var dados_da_negociacao = JSON.stringify(params.route.params.propostas);
 
-    VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO = dados_da_negociacao;
 
     // alert(   JSON.stringify(  VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE  )  );
     var dados_da_venda = JSON.stringify(VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE);
@@ -49,6 +48,15 @@ export default function Screen_pay(params) {
 
     // alert( Object.keys( dados_da_negociacao ) );
     // alert( Object.keys( dados_da_venda ) );
+
+
+
+    //RAAAWWW
+    // alert( VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO );
+    // alert( VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA );
+    // VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO = dados_da_negociacao;
+    // // console.log( VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO );
+    // console.log( Object.keys( VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO ) );
 
 
 
@@ -74,6 +82,20 @@ export default function Screen_pay(params) {
         TAXA = dados_da_negociacao.valor_do_plano;
         //  alert(TAXA);
 
+        // //RAAAWWW
+        // // VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO = dados_da_negociacao;
+        const objetos_da_negociacao =
+        {
+            descricao_da_cobranca: "Anuncio de Bovinos",
+            valor_do_plano: dados_da_negociacao.valor_do_plano
+        };
+        // VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO = JSON.parse( JSON.stringify(objetos_da_negociacao)  );
+        VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO = objetos_da_negociacao;
+        // var telefone = { NUMERO_CELL_J: variavelTelefone }
+        // console.log( VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO);
+        console.log(Object.keys(VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO));
+        // console.log(JSON.stringify(VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO)  );
+
 
     } else {
 
@@ -86,11 +108,11 @@ export default function Screen_pay(params) {
         if (a >= 200000) {
 
             TAXA = "R$ 249,97"
-  
+
         } else if (a > 99999 || a < 200000) {
 
             TAXA = "R$ 149,98"
-            
+
         } else if (a < 99999 || a > 49999) {
             TAXA = "R$ 99,98"
 
@@ -99,6 +121,19 @@ export default function Screen_pay(params) {
             TAXA = "R$ 69,99"
 
         }
+
+        //RAAAWWW
+        //   VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO = dados_da_negociacao;
+        const objetos_da_negociacao =
+        {
+            descricao_da_cobranca: "Taxa Cobrada Nessa Operação",
+            valor_do_plano: TAXA
+        }
+        VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO = objetos_da_negociacao;
+        // var telefone = { NUMERO_CELL_J: variavelTelefone }
+        // console.log( VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO);
+        console.log(Object.keys(VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO));
+        // console.log(JSON.stringify(VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO)  );
 
     }
 

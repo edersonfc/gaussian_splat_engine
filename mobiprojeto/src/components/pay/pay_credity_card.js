@@ -781,7 +781,8 @@ export default function pay_credity_card(params) {
 
 
 
-
+    // var valll =  JSON.stringify(VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO);
+    // var valll = VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO;
 
 
     return (
@@ -1028,10 +1029,8 @@ export default function pay_credity_card(params) {
 
 
 
-
         //TELA WEBVIEW ABAIXO
         <SafeAreaView style={[Estilo.App]} >
-
 
 
             {/* <ScrollView style={{ width: '100%', height: 'auto', borderWidth: 0 }} > */}
@@ -1040,6 +1039,10 @@ export default function pay_credity_card(params) {
                 <View style={{ height: '100%', width: '100%', backgroundColor: '#fff' }}>
 
                     <WebView
+
+                        // {...alert(VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO.descricao_da_cobranca)}
+                        // {...alert(VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO.valor_do_plano)}
+
 
                         originWhitelist={['*']}
 
@@ -1054,32 +1057,36 @@ export default function pay_credity_card(params) {
                         domStorageEnabled={true}
                         // injectedJavaScript={INJETANDO_JAVASCRIPT()}
                         // injectedJavaScript={jsCode}
-                       
+
+                        // ALTERAR_PRECOS(${JSON.stringify(valll)})
+
                         injectedJavaScript={
 
 
                             `
-//CÓDIGO ABAIXO COLOCA UM DELAY PRA SER EXECUTADO DEPOIS DO CARREGAMENTO DA PÁGINA ABAIXO
-                            setTimeout(() => {
-                                let evt = document.createEvent('Event');
-                                evt.initEvent('load', false, false);
-                                window.dispatchEvent(evt);
-                            }, 300);
+                                       
+                    //CÓDIGO ABAIXO EXECUTA DEPOIS DO CARREGAMENTO DA PÁGINA ABAIXO                           
+                    window.onload = function () {
+                        ALTERAR_PRECOS(${JSON.stringify(VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO)})
+                    }      
+                   
+                    
+                    
+                    //CÓDIGO ABAIXO COLOCA UM DELAY PRA SER EXECUTADO DEPOIS DO CARREGAMENTO DA PÁGINA ABAIXO
+                                                setTimeout(() => {
+                                                    let evt = document.createEvent('Event');
+                                                    evt.initEvent('load', false, false);
+                                                    window.dispatchEvent(evt);
+                                                }, 300);
+
+                    `
 
 
-//CÓDIGO ABAIXO EXECUTA DEPOIS DO CARREGAMENTO DA PÁGINA ABAIXO                           
-                            window.onload = function () {
-                                ALTERAR_PRECOS(${VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO});
-                                // alert("FOI CARREGADO");
-                            }
-
-                            `
-                            
-                            // document.getElementById("unit-price").innerHTML = ${VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO.valor_do_plano};
-                           
                         }
 
-                        
+                        mixedContentMode={'compatibility'}
+
+
                     // injectedJavaScript={
                     //     `document.getElementById("checkout-btn").addEventListener("click", function () {
                     //         ALTERAR_PRECOS(${VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO});
