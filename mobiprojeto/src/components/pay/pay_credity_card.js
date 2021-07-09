@@ -779,10 +779,25 @@ export default function pay_credity_card(params) {
 
     }, []);
 
-
-
     // var valll =  JSON.stringify(VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO);
     // var valll = VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO;
+
+
+
+    //COLOCADO 09 07 2021 ESSES METODOS ABAIXO
+    const [ retorno_Webview, setRetorno_Webview] = useState();
+
+    var onMessage = event => {
+        const { data } = event.nativeEvent;
+        // this.setState({ data });
+        setRetorno_Webview({ data });
+        // alert("RETORNO DO WEBVIEW "+retorno_Webview);
+        alert("RETORNO DO WEBVIEW \n\n "+ JSON.stringify( retorno_Webview ) );
+        console.log( "RETORNO DO WEBVIEW \n\n "+ JSON.stringify( retorno_Webview ) );
+      };
+
+
+
 
 
     return (
@@ -1044,47 +1059,95 @@ export default function pay_credity_card(params) {
                         // {...alert(VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO.valor_do_plano)}
 
 
-                        originWhitelist={['*']}
+//COLOCADO 09 07 2021 3 LINHAS ABAIXO
+                        // ref={ref => {
+                        //     // this.webview = ref;
+                        //     WebView = ref;
+                        //   }}
 
-                        source={{ uri: 'http://192.168.0.107:8080/' }}
-                        // source={{ uri: 'http://192.168.0.107:3000/' }}
+
+                        originWhitelist={['*']}
+                        
+
+                        // source={{ uri: "" }}
+                        source={{ uri: "http://192.168.0.107:8080" }}
+                        // source={{ uri: "https://www.mercadopago.com.br/checkout/v1/payment/redirect/1ae00468-4b3f-4a91-aaf4-ece55ede8159/payment-option-form/?preference-id=341626588-ee4ad4d0-3b4f-45a7-be5a-59070c8b6d51&p=4fe553772ccec07e75cfc034fd0ced82#/" }}
+                       
+                        onMessage={onMessage}
+
 
                         renderLoading={LoadingIndicatorView}
-                        startInLoadingState={true}
+                        startInLoadingState={false}
                         javaScriptEnabled={true}
 
 
-                        domStorageEnabled={true}
-                        // injectedJavaScript={INJETANDO_JAVASCRIPT()}
-                        // injectedJavaScript={jsCode}
+
+                        // domStorageEnabled={true}
+
 
                         // ALTERAR_PRECOS(${JSON.stringify(valll)})
+                        // true; // note: this is required, or you'll sometimes get silent failures
+                        // true; // observação: isso é necessário, ou você às vezes obterá falhas silenciosas
+
 
                         injectedJavaScript={
 
 
                             `
-                                       
-                    //CÓDIGO ABAIXO EXECUTA DEPOIS DO CARREGAMENTO DA PÁGINA ABAIXO                           
-                    window.onload = function () {
-                        ALTERAR_PRECOS(${JSON.stringify(VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO)})
-                    }      
-                   
-                    
-                    
-                    //CÓDIGO ABAIXO COLOCA UM DELAY PRA SER EXECUTADO DEPOIS DO CARREGAMENTO DA PÁGINA ABAIXO
-                                                setTimeout(() => {
-                                                    let evt = document.createEvent('Event');
-                                                    evt.initEvent('load', false, false);
-                                                    window.dispatchEvent(evt);
-                                                }, 300);
+                                                    
+                                //CÓDIGO ABAIXO EXECUTA DEPOIS DO CARREGAMENTO DA PÁGINA ABAIXO                           
+                                    window.onload = function () {
+                                        ALTERAR_PRECOS(${JSON.stringify(VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO)})
+                                    }      
+                                
+                                    
+                                //ESSA PARTE ABAIXO ESTÁ CAUSANDO PROBLEMA SOMENTE QUANDO A PÁGINA CHAMADA RETORNA ALGO, FICANDO A PÁGINA EM BRANCO  ABAIXO  
+                                // //CÓDIGO ABAIXO COLOCA UM DELAY PRA SER EXECUTADO DEPOIS DO CARREGAMENTO DA PÁGINA ABAIXO
+                                //                                 setTimeout(() => {
+                                //                                     let evt = document.createEvent('Event');
+                                //                                     evt.initEvent('load', false, false);
+                                //                                     window.dispatchEvent(evt);
+                                //                                 }, 100);
+                                //ESSA PARTE ABAIXO ESTÁ CAUSANDO PROBLEMA SOMENTE QUANDO A PÁGINA CHAMADA RETORNA ALGO, FICANDO A PÁGINA EM BRANCO  ACIMA
+                                    
+                                  
+                                //RECEBENDO MENSAGEM DEVOLTA NO WEBVIEW       
+                                        (function() {
+                                            function wrap(fn) {
+                                                return function wrapper() {
+                                                var res = fn.apply(this, arguments);
+                                                window.ReactNativeWebView.postMessage(window.location.href);
+                                                // RETORNO_DO_WEBVIEW(res);
+                                                // return res;
+                                                }
+                                            }
+                                            history.pushState = wrap(history.pushState);
+                                            history.replaceState = wrap(history.replaceState);
+                                            })();
+                                
 
-                    `
+
+                                // FOI DESATIVADO  ESSA PARTE VER ANALIZAR DEPOIS SE VAI SER UTILIZADO ABAIXO
+                                // if (navigator.appVersion.includes('Android')) {
+                                //     document.addEventListener("message", function (data) {
+                                //         alert("you are in android OS");
+                                //     });
+                                // }
+                                // else {
+                                //     window.addEventListener("message", function (data) {
+                                //         alert("you are in android OS");
+                                //     });
+                                // }
+
+
+                                true;
+
+                                    `
 
 
                         }
 
-                        mixedContentMode={'compatibility'}
+                    // mixedContentMode={'compatibility'}
 
 
                     // injectedJavaScript={
@@ -1093,8 +1156,6 @@ export default function pay_credity_card(params) {
                     //     }); 
                     //     true;`
                     // }
-
-
 
                     />
 
@@ -1112,6 +1173,12 @@ export default function pay_credity_card(params) {
 
     );//CHAVE PRINCIPAL DO RETURN
 
+
+    function RETORNO_DO_WEBVIEW(PARAMETRO) {
+
+        alert(PARAMETRO);
+
+    }
 
 
 

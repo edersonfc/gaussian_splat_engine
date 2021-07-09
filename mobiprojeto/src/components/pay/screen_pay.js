@@ -87,13 +87,13 @@ export default function Screen_pay(params) {
         const objetos_da_negociacao =
         {
             descricao_da_cobranca: "Anuncio de Bovinos",
-            valor_do_plano: dados_da_negociacao.valor_do_plano
+            valor_do_plano: dados_da_negociacao.valor_do_plano,
+            id_do_produto: dados_da_venda.id_J
         };
         // VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO = JSON.parse( JSON.stringify(objetos_da_negociacao)  );
         VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO = objetos_da_negociacao;
-        // var telefone = { NUMERO_CELL_J: variavelTelefone }
         // console.log( VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO);
-        console.log(Object.keys(VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO));
+        // console.log(Object.keys(VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO));
         // console.log(JSON.stringify(VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO)  );
 
 
@@ -127,12 +127,12 @@ export default function Screen_pay(params) {
         const objetos_da_negociacao =
         {
             descricao_da_cobranca: "Taxa Cobrada Nessa Operação",
-            valor_do_plano: TAXA
+            valor_do_plano: TAXA,
+            id_do_produto: dados_da_venda.id_J
         }
         VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO = objetos_da_negociacao;
-        // var telefone = { NUMERO_CELL_J: variavelTelefone }
         // console.log( VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO);
-        console.log(Object.keys(VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO));
+        // console.log(Object.keys(VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO));
         // console.log(JSON.stringify(VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO)  );
 
     }
