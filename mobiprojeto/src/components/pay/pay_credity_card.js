@@ -1092,7 +1092,6 @@ export default function pay_credity_card(params) {
 
                         injectedJavaScript={
 
-
                             `
                                                     
                                 //CÓDIGO ABAIXO EXECUTA DEPOIS DO CARREGAMENTO DA PÁGINA ABAIXO                           
@@ -1143,7 +1142,6 @@ export default function pay_credity_card(params) {
                                 true;
 
                                     `
-
 
                         }
 

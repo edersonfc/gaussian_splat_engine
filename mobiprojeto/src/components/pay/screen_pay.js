@@ -50,6 +50,32 @@ export default function Screen_pay(params) {
     // alert( Object.keys( dados_da_venda ) );
 
 
+    //RAAAWWW
+    // alert(  JSON.stringify(  VARIAVEL_GLOBAL.tempoPostagem_G )  );
+    // alert(typeof VARIAVEL_GLOBAL.tempoPostagem_G);
+
+    var TXT_QUANTIDADE_MESES_DE_ANUNCIOS = "";
+    if (VARIAVEL_GLOBAL.tempoPostagem_G === 30) {
+
+        TXT_QUANTIDADE_MESES_DE_ANUNCIOS = " 1 Mês de ";
+
+    } else if (VARIAVEL_GLOBAL.tempoPostagem_G === 90) {
+
+        TXT_QUANTIDADE_MESES_DE_ANUNCIOS = " 3 Mêses de ";
+
+    } else if (VARIAVEL_GLOBAL.tempoPostagem_G === 180) {
+
+        TXT_QUANTIDADE_MESES_DE_ANUNCIOS = " 6 Mêses de ";
+
+    } else if (VARIAVEL_GLOBAL.tempoPostagem_G === 360) {
+
+        TXT_QUANTIDADE_MESES_DE_ANUNCIOS = " 12 Mêses de ";
+
+    }
+    // alert( TXT_QUANTIDADE_MESES_DE_ANUNCIOS );
+
+
+
 
     //RAAAWWW
     // alert( VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO );
@@ -86,7 +112,7 @@ export default function Screen_pay(params) {
         // // VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO = dados_da_negociacao;
         const objetos_da_negociacao =
         {
-            descricao_da_cobranca: "Anuncio de Bovinos",
+            descricao_da_cobranca: TXT_QUANTIDADE_MESES_DE_ANUNCIOS+"Anuncio de Bovinos nessa Publicação",
             valor_do_plano: dados_da_negociacao.valor_do_plano,
             id_do_produto: dados_da_venda.id_J
         };
