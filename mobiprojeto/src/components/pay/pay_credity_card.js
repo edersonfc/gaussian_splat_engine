@@ -785,15 +785,97 @@ export default function pay_credity_card(params) {
 
 
     //COLOCADO 09 07 2021 ESSES METODOS ABAIXO
-    const [ retorno_Webview, setRetorno_Webview] = useState();
+    const [retorno_Webview, setRetorno_Webview] = useState();
 
     var onMessage = event => {
         const { data } = event.nativeEvent;
         // this.setState({ data });
         setRetorno_Webview({ data });
         // alert("RETORNO DO WEBVIEW "+retorno_Webview);
-        alert("RETORNO DO WEBVIEW \n\n "+ JSON.stringify( retorno_Webview ) );
-        console.log( "RETORNO DO WEBVIEW \n\n "+ JSON.stringify( retorno_Webview ) );
+        alert("RETORNO DO WEBVIEW \n\n " + JSON.stringify(retorno_Webview));
+        console.log("RETORNO DO WEBVIEW \n\n " + JSON.stringify(retorno_Webview));
+    };
+
+
+ 
+
+
+    // useEffect(() => {
+
+    //     var VARIAVEL_DA_FUNCAO_TIMER = function contagem_tempo() { 
+    //         // console.log( "De 1 Em 1 Segundo !" );
+    //         console.log( typeof onMessage );
+    //     }
+    //     setInterval(VARIAVEL_DA_FUNCAO_TIMER, 3000);//INCIAR NOVAMENTE O PROCESSO COM TIMER setInterval
+
+    //     return () => clearInterval(VARIAVEL_DA_FUNCAO_TIMER);
+
+    // }, []);
+
+
+
+
+
+    const webviewRef = React.useRef(null);
+
+    useEffect(() => {
+        // console.log(JSON.stringify(webviewRef));
+        // console.log(webviewRef);
+    }, []);
+
+
+  
+
+    function CHAMADO_PELO_INJECT_JAVASCRIPT(){
+
+        alert("CHAMADO PELO JAVASCRIPT INJECT !");
+    }
+
+
+
+
+    var handleWebViewNavigationStateChange = (newNavState) => {
+        // newNavState looks something like this:
+        // {
+        //   url?: string;
+        //   title?: string;
+        //   loading?: boolean;
+        //   canGoBack?: boolean;
+        //   canGoForward?: boolean;
+        // }
+        const { url } = newNavState;
+        // if (!url) return;
+    
+        // // handle certain doctypes
+        // if (url.includes('.pdf')) {
+        //     WebView.stopLoading();
+        //   // open a modal with the PDF viewer
+        // }
+    
+        // // one way to handle a successful form submit is via query strings
+        // if (url.includes('?message=success')) {
+        //     WebView.stopLoading();
+        //   // maybe close this view?
+        // }
+    
+        // // one way to handle errors is via query string
+        // if (url.includes('?errors=true')) {
+        //     WebView.stopLoading();
+        // }
+    
+        // // redirect somewhere else
+        // if (url.includes('mercadopago')) {
+        // // if (url.includes('google.com')) {
+        //   const newURL = 'https://reactnative.dev/';
+        //   const redirectTo = 'window.location = "' + newURL + '"';
+        //   WebView.injectJavaScript(redirectTo);
+        // }
+
+        if (url.includes('mercadopago')) {
+
+            // alert(url+"\n\n\nTEM LINK DO MERCADO PAGO");
+        }
+
       };
 
 
@@ -1055,11 +1137,16 @@ export default function pay_credity_card(params) {
 
                     <WebView
 
+
+                        bounces={false}
+                        showsHorizontalScrollIndicator={false}
+                        showsVerticalScrollIndicator={false}
+
                         // {...alert(VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO.descricao_da_cobranca)}
                         // {...alert(VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO.valor_do_plano)}
 
 
-//COLOCADO 09 07 2021 3 LINHAS ABAIXO
+                        //COLOCADO 09 07 2021 3 LINHAS ABAIXO
                         // ref={ref => {
                         //     // this.webview = ref;
                         //     WebView = ref;
@@ -1067,12 +1154,12 @@ export default function pay_credity_card(params) {
 
 
                         originWhitelist={['*']}
-                        
+
 
                         // source={{ uri: "" }}
                         source={{ uri: "http://192.168.0.107:8080" }}
                         // source={{ uri: "https://www.mercadopago.com.br/checkout/v1/payment/redirect/1ae00468-4b3f-4a91-aaf4-ece55ede8159/payment-option-form/?preference-id=341626588-ee4ad4d0-3b4f-45a7-be5a-59070c8b6d51&p=4fe553772ccec07e75cfc034fd0ced82#/" }}
-                       
+
                         onMessage={onMessage}
 
 
@@ -1097,6 +1184,12 @@ export default function pay_credity_card(params) {
                                 //CÓDIGO ABAIXO EXECUTA DEPOIS DO CARREGAMENTO DA PÁGINA ABAIXO                           
                                     window.onload = function () {
                                         ALTERAR_PRECOS(${JSON.stringify(VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO)})
+
+                                        var VARIAVEL_DA_FUNCAO_TIMER = function contagem_tempo() { 
+                                            CHAMADO_PELO_INJECT_JAVASCRIPT();
+                                            }
+                                            setInterval(VARIAVEL_DA_FUNCAO_TIMER, 3000);//INCIAR NOVAMENTE O PROCESSO COM TIMER setInterval
+
                                     }      
                                 
                                     
@@ -1117,7 +1210,7 @@ export default function pay_credity_card(params) {
                                                 var res = fn.apply(this, arguments);
                                                 window.ReactNativeWebView.postMessage(window.location.href);
                                                 // RETORNO_DO_WEBVIEW(res);
-                                                // return res;
+                                                return res;
                                                 }
                                             }
                                             history.pushState = wrap(history.pushState);
@@ -1139,6 +1232,16 @@ export default function pay_credity_card(params) {
                                 // }
 
 
+
+
+                                // setTimeout(function () {
+                                //     // window.ReactNativeWebView.postMessage(data)
+                                //     var nodes = document.body.getElementsByTagName('*');
+                                //     alert(nodes);
+                                // }, 3000)
+
+
+
                                 true;
 
                                     `
@@ -1155,6 +1258,11 @@ export default function pay_credity_card(params) {
                     //     true;`
                     // }
 
+                    ref={webviewRef}
+
+                    onNavigationStateChange={handleWebViewNavigationStateChange}
+
+
                     />
 
                 </View>
@@ -1169,14 +1277,21 @@ export default function pay_credity_card(params) {
 
 
 
+
+
+
+
+
+
+
+
+
     );//CHAVE PRINCIPAL DO RETURN
 
 
-    function RETORNO_DO_WEBVIEW(PARAMETRO) {
 
-        alert(PARAMETRO);
 
-    }
+
 
 
 

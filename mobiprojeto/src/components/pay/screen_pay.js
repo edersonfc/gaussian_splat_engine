@@ -210,24 +210,19 @@ export default function Screen_pay(params) {
 
             }} >
                 <StyledIconFontAwesome_2 name='credit-card' />
-                <Txt_5> Cartão de Débito </Txt_5>
+                <Txt_5> Realizar Pagamento </Txt_5>
+                {/* <Txt_5> Cartão de Débito </Txt_5> */}
             </ButtonCartao>
 
             <ViewEspacoAltura />
             <ViewEspacoAltura />
 
-            <ButtonGerarBoleto onPress={() => {
-
+            {/* <ButtonGerarBoleto onPress={() => {
                 alert("Gerar Boleto");
-
-
             }} >
-
                 <StyledIconFontAwesome_2 name='barcode' />
                 <Txt_6>Gerar Boleto   </Txt_6>
-
-
-            </ButtonGerarBoleto>
+            </ButtonGerarBoleto> */}
 
             <ViewEspacoAltura />
             <ViewEspacoAltura />
