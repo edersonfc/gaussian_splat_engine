@@ -107,7 +107,8 @@ export default function pay_aprovado_reprovado(params) {
                         <Txt_1
                             largura={(LARGURA * 0.90)}
                         >
-                            Pagamento Realizado com Sucesso
+                            {/* Pagamento Realizado com Sucesso */}
+                            A Publicação foi Ativada para que Outros Pecuaristas possam ver
                         </Txt_1>
 
                         {/* 4 */}

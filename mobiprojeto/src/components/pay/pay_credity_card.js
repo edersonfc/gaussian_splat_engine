@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, useContext } from 'react';
 
-import { ActivityIndicator, Text, SafeAreaView, TouchableOpacity, Alert, TextInput, ScrollView, PermissionsAndroid, TouchableHighlight, Keyboard, Dimensions, Animated, View } from 'react-native';
+import { AppRegistry, LogBox, ActivityIndicator, Text, SafeAreaView, TouchableOpacity, Alert, TextInput, ScrollView, PermissionsAndroid, TouchableHighlight, Keyboard, Dimensions, Animated, View } from 'react-native';
 
 import { useNavigation } from "@react-navigation/native";
 
@@ -41,6 +41,7 @@ import {
 
 //npm install react-native-webview
 import { WebView } from 'react-native-webview';
+
 
 
 // import { Card } from 'react-native-paper';
@@ -146,46 +147,39 @@ export default function pay_credity_card(params) {
 
 
 
-    async function executarPagamentoComCrediCard() {
+    async function executarPagamentoComCrediCard(status_do_pagamento) {
 
         setMenssagemProcessamento(true);
-        ////FOI DESATIVADO O CONTADOR ABAIXO
-        // function contagem_tempo() { segundo++; }
-        // VARIAVEL_INTERVALO = setInterval(contagem_tempo, 1000);
-        ////FOI DESATIVADO O CONTADOR ACIMA
 
         //AQUI SERÁ PROCESSADO O PAGAMENTO  NO MERCADO PAGO PARTE 1   ABAIXO
-
-
 
         //PROCESSANDO PAGAMENTO REMOTO SERVIDOR MERCADO PAGO ABAIXO
 
 
-        // setnumeroCredCard("1234 5678 9012 3456");
-        // setdataValidade("09/22");
-        // setcodSeguranca("1234");
-        // setnomeCartao("EDERSON FELICIANO CORSATTO");
-        // setcpf_cnpjCard("993.712.351-87");
-
-        numeroCredCard = "1234 5678 9012 3456";
-        dataValidade = "09/22";
-        codSeguranca = "1234";
-        nomeCartao = "EDERSON FELICIANO CORSATTO";
-        cpf_cnpjCard = "993.712.351-87";
-
-        // alert(
-        //     numeroCredCard + "\n" +
-        //     dataValidade + "\n" +
-        //     codSeguranca + "\n" +
-        //     nomeCartao + "\n" +
-        //     cpf_cnpjCard
-        // );
 
 
 
-        var data = new FormData();
-        data.append("Nome", "Ederson Feliciano Corsatto");
-        data.append("Senha", "19591959");
+        // numeroCredCard = "1234 5678 9012 3456";
+        // dataValidade = "09/22";
+        // codSeguranca = "1234";
+        // nomeCartao = "EDERSON FELICIANO CORSATTO";
+        // cpf_cnpjCard = "993.712.351-87";
+
+        // // alert(
+        // //     numeroCredCard + "\n" +
+        // //     dataValidade + "\n" +
+        // //     codSeguranca + "\n" +
+        // //     nomeCartao + "\n" +
+        // //     cpf_cnpjCard
+        // // );
+
+        // var data = new FormData();
+        // data.append("Nome", "Ederson Feliciano Corsatto");
+        // data.append("Senha", "19591959");
+
+
+
+
 
 
 
@@ -238,54 +232,58 @@ export default function pay_credity_card(params) {
         // }//if
 
 
-        // TENTATIVA 2 FUNCIONAOU COM SUCESSO //////////////////////////////////////////////////////////////////////////////////////////////////
-        try {
 
-            await fetch('http://192.168.0.107:3000/process_payment', {
-                // await fetch('http://192.168.0.107:8080/process_payment', {
 
-                method: 'post',
-                mode: 'no-cors',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(
-                    {
-                        // data,
-                        numeroCredCard: "1234 5678 9012 3456",
-                        dataValidade: "09/22",
-                        codSeguranca: "1234",
-                        nomeCartao: "EDERSON FELICIANO CORSATTO",
-                        cpf_cnpjCard: "993.712.351-87",
-                    }
-                )
-            })
-                // ;
-                .then((response) => response.json())
-                .then(async (responseJson) => {
-                    console.log('response object:', responseJson);
 
-                    //Criando uma Delay com Promisse Abaixo
-                    // await new Promise((resolve) => setTimeout(resolve, 3000));//COLOCADO UM DELAY SÓ POR TESTE
 
-                    // alert(responseJson);
-                    alert("SUCESSO => " + JSON.stringify(responseJson));
-                    setMenssagemProcessamento(false);
-                })
-                .catch(async (error) => {
-                    // console.error(error);
+        // // TENTATIVA 2 FUNCIONAOU COM SUCESSO //////////////////////////////////////////////////////////////////////////////////////////////////
+        // try {
 
-                    //Criando uma Delay com Promisse Abaixo
-                    // await new Promise((resolve) => setTimeout(resolve, 3000));//COLOCADO UM DELAY SÓ POR TESTE
-                    alert("FRACASSOU => " + JSON.stringify(error));
-                });
+        //     await fetch('http://192.168.0.107:3000/process_payment', {
+        //         // await fetch('http://192.168.0.107:8080/process_payment', {
 
-        } catch (e) {
-            // console.log("errosssss "+e);
-            alert("errosssss " + e);
+        //         method: 'post',
+        //         mode: 'no-cors',
+        //         headers: {
+        //             'Accept': 'application/json',
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify(
+        //             {
+        //                 // data,
+        //                 numeroCredCard: "1234 5678 9012 3456",
+        //                 dataValidade: "09/22",
+        //                 codSeguranca: "1234",
+        //                 nomeCartao: "EDERSON FELICIANO CORSATTO",
+        //                 cpf_cnpjCard: "993.712.351-87",
+        //             }
+        //         )
+        //     })
+        //         // ;
+        //         .then((response) => response.json())
+        //         .then(async (responseJson) => {
+        //             console.log('response object:', responseJson);
 
-        }
+        //             //Criando uma Delay com Promisse Abaixo
+        //             // await new Promise((resolve) => setTimeout(resolve, 3000));//COLOCADO UM DELAY SÓ POR TESTE
+
+        //             // alert(responseJson);
+        //             alert("SUCESSO => " + JSON.stringify(responseJson));
+        //             setMenssagemProcessamento(false);
+        //         })
+        //         .catch(async (error) => {
+        //             // console.error(error);
+
+        //             //Criando uma Delay com Promisse Abaixo
+        //             // await new Promise((resolve) => setTimeout(resolve, 3000));//COLOCADO UM DELAY SÓ POR TESTE
+        //             alert("FRACASSOU => " + JSON.stringify(error));
+        //         });
+
+        // } catch (e) {
+        //     // console.log("errosssss "+e);
+        //     alert("errosssss " + e);
+
+        // }
         ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
         // return 0;
@@ -296,9 +294,10 @@ export default function pay_credity_card(params) {
 
         //ALTERNANCIA DE ESTADOS USADO SOMENTE PARA TESTES ABAIXO
         var enviandoCondicao = "";
-        var valor = Math.floor(Math.random() * 10);
-        valor = 4;
-        if (valor <= 5) {//AQUI É SE FOR APROVADO A COMPRA
+        // var valor = Math.floor(Math.random() * 10);
+        // valor = 4;
+        // if (valor <= 5) {//AQUI É SE FOR APROVADO A COMPRA
+        if (status_do_pagamento === "aprovado") {//AQUI É SE FOR APROVADO A COMPRA
 
             if (VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA == "PUBLICACAO" || VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA == "ATIVAR PUBLICACAO") {
 
@@ -350,7 +349,8 @@ export default function pay_credity_card(params) {
             }
 
 
-        } else if (valor > 5) { //AQUI É SE FOR REPROVADO A COMPRA
+            // } else if (valor > 5) { //AQUI É SE FOR REPROVADO A COMPRA
+        } else if (status_do_pagamento === "reprovado") { //AQUI É SE FOR REPROVADO A COMPRA
             setMenssagemProcessamento(false);
             enviandoCondicao = "reprovado";
             setCompraAprovadaOuReprovadaRecebida(enviandoCondicao);
@@ -791,26 +791,36 @@ export default function pay_credity_card(params) {
         const { data } = event.nativeEvent;
         // this.setState({ data });
         setRetorno_Webview({ data });
-        // alert("RETORNO DO WEBVIEW "+retorno_Webview);
-        alert("RETORNO DO WEBVIEW \n\n " + JSON.stringify(retorno_Webview));
-        console.log("RETORNO DO WEBVIEW \n\n " + JSON.stringify(retorno_Webview));
+
+        // console.log("RETORNO DO WEBVIEW \n\n " + JSON.stringify(retorno_Webview));
+
     };
 
 
- 
 
 
-    // useEffect(() => {
 
-    //     var VARIAVEL_DA_FUNCAO_TIMER = function contagem_tempo() { 
-    //         // console.log( "De 1 Em 1 Segundo !" );
-    //         console.log( typeof onMessage );
-    //     }
-    //     setInterval(VARIAVEL_DA_FUNCAO_TIMER, 3000);//INCIAR NOVAMENTE O PROCESSO COM TIMER setInterval
 
-    //     return () => clearInterval(VARIAVEL_DA_FUNCAO_TIMER);
 
-    // }, []);
+    var VERFICAR_STATUS_DO_ON_ERROR_DO_WEBVIEW = (PARAMETRO_RETORNO) => {
+
+        // alert( Object.values(PARAMETRO_RETORNO).toString() );
+        // alert( typeof PARAMETRO_RETORNO );
+        // alert(JSON.stringify(PARAMETRO_RETORNO));
+
+        var circularReference = PARAMETRO_RETORNO;
+        // var OBJETO_JSON = JSON.stringify(circularReference, getCircularReplacer());
+        // var OBJETO_JSON = stringifyObject(circularReference);
+
+
+        // // alert(OBJETO_JSON);
+        // console.log(Object.keys(PARAMETRO_RETORNO));
+
+        // Encountered an error loading page
+    }
+
+
+
 
 
 
@@ -824,12 +834,7 @@ export default function pay_credity_card(params) {
     }, []);
 
 
-  
 
-    function CHAMADO_PELO_INJECT_JAVASCRIPT(){
-
-        alert("CHAMADO PELO JAVASCRIPT INJECT !");
-    }
 
 
 
@@ -845,24 +850,24 @@ export default function pay_credity_card(params) {
         // }
         const { url } = newNavState;
         // if (!url) return;
-    
+
         // // handle certain doctypes
         // if (url.includes('.pdf')) {
         //     WebView.stopLoading();
         //   // open a modal with the PDF viewer
         // }
-    
+
         // // one way to handle a successful form submit is via query strings
         // if (url.includes('?message=success')) {
         //     WebView.stopLoading();
         //   // maybe close this view?
         // }
-    
+
         // // one way to handle errors is via query string
         // if (url.includes('?errors=true')) {
         //     WebView.stopLoading();
         // }
-    
+
         // // redirect somewhere else
         // if (url.includes('mercadopago')) {
         // // if (url.includes('google.com')) {
@@ -871,12 +876,29 @@ export default function pay_credity_card(params) {
         //   WebView.injectJavaScript(redirectTo);
         // }
 
+
+
         if (url.includes('mercadopago')) {
 
             // alert(url+"\n\n\nTEM LINK DO MERCADO PAGO");
         }
 
-      };
+        if (url.includes('pagamento_aprovado')) {
+
+            executarPagamentoComCrediCard("aprovado");
+
+        }
+
+
+        if (url.includes('pagamento_reprovado')) {
+
+            executarPagamentoComCrediCard("reprovado");
+
+        }
+
+        // console.log(url);
+
+    };
 
 
 
@@ -1160,6 +1182,7 @@ export default function pay_credity_card(params) {
                         source={{ uri: "http://192.168.0.107:8080" }}
                         // source={{ uri: "https://www.mercadopago.com.br/checkout/v1/payment/redirect/1ae00468-4b3f-4a91-aaf4-ece55ede8159/payment-option-form/?preference-id=341626588-ee4ad4d0-3b4f-45a7-be5a-59070c8b6d51&p=4fe553772ccec07e75cfc034fd0ced82#/" }}
 
+
                         onMessage={onMessage}
 
 
@@ -1185,23 +1208,25 @@ export default function pay_credity_card(params) {
                                     window.onload = function () {
                                         ALTERAR_PRECOS(${JSON.stringify(VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO)})
 
-                                        var VARIAVEL_DA_FUNCAO_TIMER = function contagem_tempo() { 
-                                            CHAMADO_PELO_INJECT_JAVASCRIPT();
-                                            }
-                                            setInterval(VARIAVEL_DA_FUNCAO_TIMER, 3000);//INCIAR NOVAMENTE O PROCESSO COM TIMER setInterval
+                                        // var VARIAVEL_DA_FUNCAO_TIMER = function contagem_tempo() { 
+                                        //     CHAMADO_PELO_INJECT_JAVASCRIPT();
+                                        //     }
+                                        //     setInterval(VARIAVEL_DA_FUNCAO_TIMER, 3000);//INCIAR NOVAMENTE O PROCESSO COM TIMER setInterval
 
                                     }      
                                 
+
                                     
-                                //ESSA PARTE ABAIXO ESTÁ CAUSANDO PROBLEMA SOMENTE QUANDO A PÁGINA CHAMADA RETORNA ALGO, FICANDO A PÁGINA EM BRANCO  ABAIXO  
+                                // ESSA PARTE ABAIXO ESTÁ CAUSANDO PROBLEMA SOMENTE QUANDO A PÁGINA CHAMADA RETORNA ALGO, FICANDO A PÁGINA EM BRANCO  ABAIXO  
                                 // //CÓDIGO ABAIXO COLOCA UM DELAY PRA SER EXECUTADO DEPOIS DO CARREGAMENTO DA PÁGINA ABAIXO
                                 //                                 setTimeout(() => {
                                 //                                     let evt = document.createEvent('Event');
                                 //                                     evt.initEvent('load', false, false);
                                 //                                     window.dispatchEvent(evt);
                                 //                                 }, 100);
-                                //ESSA PARTE ABAIXO ESTÁ CAUSANDO PROBLEMA SOMENTE QUANDO A PÁGINA CHAMADA RETORNA ALGO, FICANDO A PÁGINA EM BRANCO  ACIMA
-                                    
+                                // ESSA PARTE ABAIXO ESTÁ CAUSANDO PROBLEMA SOMENTE QUANDO A PÁGINA CHAMADA RETORNA ALGO, FICANDO A PÁGINA EM BRANCO  ACIMA
+                                   
+                                
                                   
                                 //RECEBENDO MENSAGEM DEVOLTA NO WEBVIEW       
                                         (function() {
@@ -1236,11 +1261,11 @@ export default function pay_credity_card(params) {
 
                                 // setTimeout(function () {
                                 //     // window.ReactNativeWebView.postMessage(data)
-                                //     var nodes = document.body.getElementsByTagName('*');
-                                //     alert(nodes);
+                                //     var elems = document.body.getElementsByTagName("*");
+                                //     alert(elems);
                                 // }, 3000)
 
-
+                                "window.isRNWebView=true"
 
                                 true;
 
@@ -1248,25 +1273,42 @@ export default function pay_credity_card(params) {
 
                         }
 
-                    // mixedContentMode={'compatibility'}
+                        // mixedContentMode={'compatibility'}
 
 
-                    // injectedJavaScript={
-                    //     `document.getElementById("checkout-btn").addEventListener("click", function () {
-                    //         ALTERAR_PRECOS(${VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO});
-                    //     }); 
-                    //     true;`
-                    // }
+                        // injectedJavaScript={
+                        //     `document.getElementById("checkout-btn").addEventListener("click", function () {
+                        //         ALTERAR_PRECOS(${VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO});
+                        //     }); 
+                        //     true;`
+                        // }
 
-                    ref={webviewRef}
+                        ref={webviewRef}
 
-                    onNavigationStateChange={handleWebViewNavigationStateChange}
+                        onNavigationStateChange={handleWebViewNavigationStateChange}
+
+                        onError={VERFICAR_STATUS_DO_ON_ERROR_DO_WEBVIEW}
+
 
 
                     />
 
                 </View>
             </View>
+
+
+
+
+            {menssagemStatusDaCompra && (<Pay_aprovado_reprovado
+                compraAprovadaOuReprovadaRecebid={compraAprovadaOuReprovadaRecebida}
+                ocultar_tela_de_mensagem={ocultar_tela_de_mensagem}
+                executarPagamentoComCrediCard={executarPagamentoComCrediCard}
+            />)}
+
+            {menssagemProcessamento && (
+                <TelaAguardeProcessamentoPagamento />
+            )}
+
 
 
             {/* </ScrollView> */}
@@ -1278,20 +1320,7 @@ export default function pay_credity_card(params) {
 
 
 
-
-
-
-
-
-
-
-
     );//CHAVE PRINCIPAL DO RETURN
-
-
-
-
-
 
 
 
