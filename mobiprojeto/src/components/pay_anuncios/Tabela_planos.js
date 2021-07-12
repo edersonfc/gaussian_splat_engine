@@ -65,9 +65,9 @@ export default function Tabela_planos(props) {
     // var [mes_6_valor_tx, setMes_6_valor_tx]   = useState(299.90);
     // var [mes_12_valor_tx, setMes_12_valor_tx] = useState(569.90);
 
-    var [mes_1_valor_tx, setMes_1_valor_tx] = useState(VARIAVEL_GLOBAL.TABELA_PRECOS_ANUNCIO.MES_1);
-    var [mes_3_valor_tx, setMes_3_valor_tx] = useState(VARIAVEL_GLOBAL.TABELA_PRECOS_ANUNCIO.MES_3);
-    var [mes_6_valor_tx, setMes_6_valor_tx] = useState(VARIAVEL_GLOBAL.TABELA_PRECOS_ANUNCIO.MES_6);
+    var [mes_1_valor_tx, setMes_1_valor_tx]   = useState(VARIAVEL_GLOBAL.TABELA_PRECOS_ANUNCIO.MES_1);
+    var [mes_3_valor_tx, setMes_3_valor_tx]   = useState(VARIAVEL_GLOBAL.TABELA_PRECOS_ANUNCIO.MES_3);
+    var [mes_6_valor_tx, setMes_6_valor_tx]   = useState(VARIAVEL_GLOBAL.TABELA_PRECOS_ANUNCIO.MES_6);
     var [mes_12_valor_tx, setMes_12_valor_tx] = useState(VARIAVEL_GLOBAL.TABELA_PRECOS_ANUNCIO.MES_12);
 
     var [contemNaoContemVideos, setContemNaoContemVideos] = useState("");
@@ -82,9 +82,9 @@ export default function Tabela_planos(props) {
 
 
     var COLUNA_1 = 0.10;
-    var COLUNA_2 = 0.4;
+    var COLUNA_2 = 0.34;
     var COLUNA_3 = 0.10;
-    var COLUNA_4 = 0.2;
+    var COLUNA_4 = 0.29;
 
 
 
@@ -106,54 +106,12 @@ export default function Tabela_planos(props) {
         //  alert( VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.URL_IMAGEN_DADOS_J );
         //  alert( VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.URL_VIDEOS_DADOS_J );
 
-        //    alert( JSON.stringify( imagens_ou_videos ) );//NÃO ESTÁ FUNCIONANDO
+        // alert( JSON.stringify( imagens_ou_videos ) );//NÃO ESTÁ FUNCIONANDO
         // alert( JSON.parse(propostas.imagens_ou_videos).IMAGENS.length );//NÃO ESTÁ FUNCIONANDO 
         // alert( JSON.parse(propostas.imagens_ou_videos).VIDEOS.length );//NÃO ESTÁ FUNCIONANDO
 
         // if (JSON.parse(propostas.imagens_ou_videos).VIDEOS.length > 0) {//NÃO ESTÁ FUNCIONANDO
         if (VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.URL_VIDEOS_DADOS_J.includes(".mp4|")) {
-
-            //     setMes_1_valor_tx((mes_1_valor_tx * 0.8) + mes_1_valor_tx);
-            //     setMes_3_valor_tx((mes_3_valor_tx * 0.8) + mes_3_valor_tx);
-            //     setMes_6_valor_tx((mes_6_valor_tx * 0.8) + mes_6_valor_tx);
-            //    setMes_12_valor_tx((mes_12_valor_tx * 0.8) + mes_12_valor_tx);
-
-
-            // function someAsynFunction(parametro_a_resolver) {
-
-            //     setMes_1_valor_tx(DOUBLE_OU_FLOAT_P_MOEDA(((mes_1_valor_tx * 0.8) + mes_1_valor_tx),/*'R$'*/''));
-            //     setMes_3_valor_tx(DOUBLE_OU_FLOAT_P_MOEDA(((mes_3_valor_tx * 0.8) + mes_3_valor_tx),/*'R$'*/''));
-            //     setMes_6_valor_tx(DOUBLE_OU_FLOAT_P_MOEDA(((mes_6_valor_tx * 0.8) + mes_6_valor_tx),/*'R$'*/''));
-            //     setMes_12_valor_tx(DOUBLE_OU_FLOAT_P_MOEDA(((mes_12_valor_tx * 0.8) + mes_12_valor_tx),/*'R$'*/''));
-
-            //     return new Promise(function (resolve) {
-            //         // setTimeout(function () {
-            //         //     resolve(['comedy', 'drama', 'action'])
-            //         // }, 2000);
-            //         resolve(true);
-            //     });
-
-            // }
-
-
-            // async function CONVERSAO_DE_VALORES_PRA_TABELA() {
-
-            //     var BOOLEANO = await someAsynFunction(null);
-
-            //     if (BOOLEANO) {
-            //         // alert(mes_1_valor_tx);
-            //         setContemNaoContemVideos("Contém");
-            //         // ARRAY_PLANO_VALOR_SELECIONADO = [mes_1_valor_tx, mes_3_valor_tx, mes_6_valor_tx, mes_12_valor_tx];
-
-            //     } else {
-
-            //         alert("Houve erros na Conversão da Tabela de Preços");
-
-            //     }
-
-            // }
-
-            // CONVERSAO_DE_VALORES_PRA_TABELA();
 
 
             setMes_1_valor_tx(DOUBLE_OU_FLOAT_P_MOEDA(((mes_1_valor_tx * 0.8) + mes_1_valor_tx),/*'R$'*/''));
@@ -166,29 +124,18 @@ export default function Tabela_planos(props) {
 
         } else {
 
-            // setMes_1_valor_tx(mes_1_valor_tx);
-            // setMes_3_valor_tx(mes_3_valor_tx);
-            // setMes_6_valor_tx(mes_6_valor_tx);
-            // setMes_12_valor_tx(mes_12_valor_tx);
-
             setMes_1_valor_tx(DOUBLE_OU_FLOAT_P_MOEDA(mes_1_valor_tx,/*'R$'*/''));
             setMes_3_valor_tx(DOUBLE_OU_FLOAT_P_MOEDA(mes_3_valor_tx,/*'R$'*/''));
             setMes_6_valor_tx(DOUBLE_OU_FLOAT_P_MOEDA(mes_6_valor_tx,/*'R$'*/''));
             setMes_12_valor_tx(DOUBLE_OU_FLOAT_P_MOEDA(mes_12_valor_tx,/*'R$'*/''));
 
-
             setContemNaoContemVideos("não Contém");
-
-            // ARRAY_PLANO_VALOR_SELECIONADO = [mes_1_valor_tx, mes_3_valor_tx, mes_6_valor_tx, mes_12_valor_tx];
-
 
         }
 
         valor_do_plano = "";
 
-        // alert(ARRAY_PLANO_VALOR_SELECIONADO);
         // alert(mes_1_valor_tx);
-
 
     }, []);
 
@@ -215,7 +162,7 @@ export default function Tabela_planos(props) {
     //FUNÇÃO ALTERNAR COR COM CLIQUE E RE-CLIQUE no useState COM ARRAY DE BOOLEAN
 
 
-    // useEffect(() => {
+
 
     const alernarTrueFalse = (index) => {
 
@@ -289,12 +236,12 @@ export default function Tabela_planos(props) {
 
             <View style={{ height: 8 }} />
 
-            <View_borda altura={1} largura={LARGURA * 0.8} />
+            <View_borda altura={1} largura={LARGURA * 0.85} />
 
             <View style={{ height: 10 }} />
 
             {/**********************************************************************************/}
-            <View_2 altura={50} largura={LARGURA * 0.8} >
+            <View_2 altura={50} largura={LARGURA * 0.85} >
 
                 <View_2 onPress={() => { alernarTrueFalse(0); }} altura={40} largura={LARGURA * COLUNA_1} >
                     <StyledIconFontAwesome_2 selected={estado_array[0]} name={estado_array[0] ? 'check-circle' : 'circle-thin'} largura={LARGURA * COLUNA_1} />
@@ -314,13 +261,13 @@ export default function Tabela_planos(props) {
 
 
             {/**********************************************************************************/}
-            <View_2 altura={50} largura={LARGURA * 0.8}  >
+            <View_2 altura={50} largura={LARGURA * 0.85}  >
 
                 <View_2 onPress={() => { alernarTrueFalse(1); }} altura={40} largura={LARGURA * COLUNA_1}  >
                     <StyledIconFontAwesome_2 selected={estado_array[1]} name={estado_array[1] ? 'check-circle' : 'circle-thin'} largura={LARGURA * COLUNA_1} />
                 </View_2>
                 <View_2 onPress={() => { alernarTrueFalse(1); }} altura={40} largura={LARGURA * COLUNA_2}  >
-                    <Txt_2 selected={estado_array[1]} altura={30} largura={LARGURA * COLUNA_2} alinhamento={'left'} >3 Mês</Txt_2>
+                    <Txt_2 selected={estado_array[1]} altura={30} largura={LARGURA * COLUNA_2} alinhamento={'left'} >3 Meses</Txt_2>
                 </View_2>
                 <View_2 onPress={() => { alernarTrueFalse(1); }} altura={40} largura={LARGURA * COLUNA_3}  >
                     <Txt_2 selected={estado_array[1]} altura={30} largura={LARGURA * COLUNA_3} alinhamento={'right'} >R$</Txt_2>
@@ -334,13 +281,13 @@ export default function Tabela_planos(props) {
 
 
             {/**********************************************************************************/}
-            <View_2 altura={50} largura={LARGURA * 0.8}  >
+            <View_2 altura={50} largura={LARGURA * 0.85}  >
 
                 <View_2 onPress={() => { alernarTrueFalse(2); }} altura={40} largura={LARGURA * COLUNA_1}  >
                     <StyledIconFontAwesome_2 selected={estado_array[2]} name={estado_array[2] ? 'check-circle' : 'circle-thin'} largura={LARGURA * COLUNA_1} />
                 </View_2>
                 <View_2 onPress={() => { alernarTrueFalse(2); }} altura={40} largura={LARGURA * COLUNA_2}  >
-                    <Txt_2 selected={estado_array[2]} altura={30} largura={LARGURA * COLUNA_2} alinhamento={'left'}  >6 Mês</Txt_2>
+                    <Txt_2 selected={estado_array[2]} altura={30} largura={LARGURA * COLUNA_2} alinhamento={'left'}  >6 Meses</Txt_2>
                 </View_2>
                 <View_2 onPress={() => { alernarTrueFalse(2); }} altura={40} largura={LARGURA * COLUNA_3}  >
                     <Txt_2 selected={estado_array[2]} altura={30} largura={LARGURA * COLUNA_3} alinhamento={'right'} >R$</Txt_2>
@@ -353,13 +300,13 @@ export default function Tabela_planos(props) {
 
 
             {/**********************************************************************************/}
-            <View_2 altura={50} largura={LARGURA * 0.8}  >
+            <View_2 altura={50} largura={LARGURA * 0.85}  >
 
                 <View_2 onPress={() => { alernarTrueFalse(3); }} altura={40} largura={LARGURA * COLUNA_1}  >
                     <StyledIconFontAwesome_2 selected={estado_array[3]} name={estado_array[3] ? 'check-circle' : 'circle-thin'} largura={LARGURA * COLUNA_1} />
                 </View_2>
                 <View_2 onPress={() => { alernarTrueFalse(3); }} altura={40} largura={LARGURA * COLUNA_2}  >
-                    <Txt_2 selected={estado_array[3]} altura={30} largura={LARGURA * COLUNA_2} alinhamento={'left'}  >12 Mês</Txt_2>
+                    <Txt_2 selected={estado_array[3]} altura={30} largura={LARGURA * COLUNA_2} alinhamento={'left'}  >12 Meses</Txt_2>
                 </View_2>
                 <View_2 onPress={() => { alernarTrueFalse(3); }} altura={40} largura={LARGURA * COLUNA_3}  >
                     <Txt_2 selected={estado_array[3]} altura={30} largura={LARGURA * COLUNA_3} alinhamento={'right'} >R$</Txt_2>
