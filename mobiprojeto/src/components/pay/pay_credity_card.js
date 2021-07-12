@@ -52,7 +52,6 @@ function LoadingIndicatorView() {
 // import { TextInputMask } from 'react-native-masked-text';
 
 
-
 // import WebViewBridge from 'react-native-webview-bridge';
 
 // var WebViewBridge = require('react-native-webview-bridge');
@@ -63,7 +62,12 @@ function LoadingIndicatorView() {
 var dados_da_negociacao = "";
 var dados_da_venda = "";
 
+
 var segundo = 0;
+
+
+var dados_do_tentar_novamente;
+
 
 export default function pay_credity_card(params) {
 
@@ -78,13 +82,17 @@ export default function pay_credity_card(params) {
     // alert( JSON.stringify( params.route.params.propostas ) );
     dados_da_negociacao = JSON.stringify(params.route.params.dados_da_negociacao);
 
+  
 
     // alert(   JSON.stringify(  VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE  )  );
     dados_da_venda = JSON.stringify(VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE);
 
 
     dados_da_negociacao = JSON.parse(dados_da_negociacao);
-    dados_da_venda = JSON.parse(dados_da_venda);
+    dados_da_venda      = JSON.parse(dados_da_venda);
+
+
+    dados_do_tentar_novamente = dados_da_negociacao;
 
 
     // alert( Object.values( dados_da_negociacao ) );
@@ -142,7 +150,52 @@ export default function pay_credity_card(params) {
     var [compraAprovadaOuReprovadaRecebida, setCompraAprovadaOuReprovadaRecebida] = useState("");
 
 
-    function ocultar_tela_de_mensagem() { setMenssagemStatusDaCompra(false); }
+  async  function ocultar_tela_de_mensagem(parametro) {
+
+        setMenssagemStatusDaCompra(false);
+
+        if (parametro.includes("cancelar")) {
+
+            // alert("VAI CANCELAR A COMPRA");
+            navigation.goBack(null);
+            navigation.goBack(null);
+            navigation.goBack(null);
+
+        } else if (parametro.includes("tentar_novamente")) {
+
+            // alert("TENTAR COMPRAR NOVAMENTE");
+            // //TENTANDO COLOCAR MAIS ATRIBUTOS NO OBJETO JSON ABAIXO
+            // for (var i = 0; i < dados_do_tentar_novamente.length; i++) {
+            // dados_do_tentar_novamente[i] = { ...dados_do_tentar_novamente[i], bate_e_volta:"go_to_pay_credity_card" };
+            // }
+            var json_with_atributy_add =  await AsynFunctionAddMoreAtributyInJson(dados_do_tentar_novamente)
+
+            var propostas = json_with_atributy_add;
+            //  //TENTANDO COLOCAR MAIS ATRIBUTOS NO OBJETO JSON ACIMA
+       
+            //Linha Abaixo Delay de 3 Segundos
+            // await new Promise((resolve) => setTimeout(resolve, 2000));
+
+            navigation.navigate("Screen_pay", { propostas });
+        }
+
+    }
+
+
+
+
+    var AsynFunctionAddMoreAtributyInJson = function (parametro_a_resolver) {
+
+        parametro_a_resolver.bate_e_volta = "go_to_pay_credity_card";
+
+        return new Promise(function (resolve) {
+            // setTimeout(function () {
+            //     resolve(['comedy', 'drama', 'action'])
+            // }, 2000);
+            resolve(parametro_a_resolver);
+        });
+    }
+
 
 
 
@@ -772,8 +825,9 @@ export default function pay_credity_card(params) {
 
 
 
-    useEffect(() => {
 
+
+    useEffect(() => {
         // 06/07/2021
         setDados_da_negociacao_publica(dados_da_negociacao);
 
@@ -781,6 +835,11 @@ export default function pay_credity_card(params) {
 
     // var valll =  JSON.stringify(VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO);
     // var valll = VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO;
+
+
+
+
+
 
 
 
@@ -807,12 +866,9 @@ export default function pay_credity_card(params) {
         // alert( Object.values(PARAMETRO_RETORNO).toString() );
         // alert( typeof PARAMETRO_RETORNO );
         // alert(JSON.stringify(PARAMETRO_RETORNO));
-
-        var circularReference = PARAMETRO_RETORNO;
+        // var circularReference = PARAMETRO_RETORNO;
         // var OBJETO_JSON = JSON.stringify(circularReference, getCircularReplacer());
         // var OBJETO_JSON = stringifyObject(circularReference);
-
-
         // // alert(OBJETO_JSON);
         // console.log(Object.keys(PARAMETRO_RETORNO));
 
@@ -825,17 +881,14 @@ export default function pay_credity_card(params) {
 
 
 
-
     const webviewRef = React.useRef(null);
+
+    r => this.webview = r
 
     useEffect(() => {
         // console.log(JSON.stringify(webviewRef));
         // console.log(webviewRef);
     }, []);
-
-
-
-
 
 
 
@@ -899,6 +952,10 @@ export default function pay_credity_card(params) {
         // console.log(url);
 
     };
+
+
+
+
 
 
 
@@ -1160,6 +1217,7 @@ export default function pay_credity_card(params) {
                     <WebView
 
 
+
                         bounces={false}
                         showsHorizontalScrollIndicator={false}
                         showsVerticalScrollIndicator={false}
@@ -1168,11 +1226,6 @@ export default function pay_credity_card(params) {
                         // {...alert(VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO.valor_do_plano)}
 
 
-                        //COLOCADO 09 07 2021 3 LINHAS ABAIXO
-                        // ref={ref => {
-                        //     // this.webview = ref;
-                        //     WebView = ref;
-                        //   }}
 
 
                         originWhitelist={['*']}
@@ -1287,8 +1340,7 @@ export default function pay_credity_card(params) {
 
                         onNavigationStateChange={handleWebViewNavigationStateChange}
 
-                        onError={VERFICAR_STATUS_DO_ON_ERROR_DO_WEBVIEW}
-
+                        // onError={VOLTAR_PRA_TELA_ANTERIOR}
 
 
                     />

@@ -26,6 +26,22 @@ import {
 var TAXA = ""
 
 
+
+var AsynFunctionAddMoreAtributyInJson = function (parametro_a_resolver) {
+
+    delete parametro_a_resolver['bate_e_volta'] //REMOVENDO ATRIBUTO bate_e_volta do file JSON
+
+    return new Promise(function (resolve) {
+        // setTimeout(function () {
+        //     resolve(['comedy', 'drama', 'action'])
+        // }, 2000);
+        resolve(parametro_a_resolver);
+    });
+}
+
+
+
+
 export default function Screen_pay(params) {
 
 
@@ -35,6 +51,29 @@ export default function Screen_pay(params) {
 
     // alert( JSON.stringify( params.route.params.propostas ) );
     var dados_da_negociacao = JSON.stringify(params.route.params.propostas);
+
+
+       //RAAAWWW
+    // console.log(dados_da_negociacao);
+    if (dados_da_negociacao.includes("go_to_pay_credity_card")) {
+
+        // alert("EXECUTANDO FUNCIONANDO");
+
+        async function asyncFuncao() {
+       
+        //     // return 0;
+ 
+            var dados_com_atributo_removido = await AsynFunctionAddMoreAtributyInJson(dados_da_negociacao);
+            // alert("CHAMAR A TELA DO \n WEBVIEW NOVAMENTE");
+            // alert(dados_com_atributo_removido);
+            // return 0;
+
+            dados_da_negociacao = dados_com_atributo_removido;
+            navigation.navigate("pay_credity_card", { dados_da_negociacao });
+
+        }
+        asyncFuncao();
+    }
 
 
     // alert(   JSON.stringify(  VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE  )  );
@@ -112,7 +151,7 @@ export default function Screen_pay(params) {
         // // VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO = dados_da_negociacao;
         const objetos_da_negociacao =
         {
-            descricao_da_cobranca: TXT_QUANTIDADE_MESES_DE_ANUNCIOS+"Anuncio de Bovinos nessa Publicação",
+            descricao_da_cobranca: TXT_QUANTIDADE_MESES_DE_ANUNCIOS + "Anuncio de Bovinos nessa Publicação",
             valor_do_plano: dados_da_negociacao.valor_do_plano,
             id_do_produto: dados_da_venda.id_J
         };

@@ -198,7 +198,7 @@ export default function pay_aprovado_reprovado(params) {
                                 altura={50}
                                 cor_fundo={'#FF5353'}
 
-                                onPress={() => {  /*navigation.goBack(null);*/ params.ocultar_tela_de_mensagem(); }}
+                                onPress={() => {  /*navigation.goBack(null);*/ params.ocultar_tela_de_mensagem("cancelar"); }}
 
                             >
 
@@ -222,7 +222,12 @@ export default function pay_aprovado_reprovado(params) {
                                 <Txt_2
                                     largura={(LARGURA * 0.5)}
                                     altura={30}
-                                    onPress={() => { params.executarPagamentoComCrediCard(); }}
+                                    onPress={() => { 
+                                       
+                                        // params.executarPagamentoComCrediCard();
+                                        params.ocultar_tela_de_mensagem("tentar_novamente");
+                                    
+                                    }}
                                 >
                                     Tentar Novamente
                                 </Txt_2>

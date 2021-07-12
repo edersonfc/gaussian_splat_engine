@@ -71,7 +71,8 @@ export default function telaAguardeProcessamentoPagamento() {
                 justifyContent: 'center', alignItems: 'center'
             }} >
 
-                <Text style={{ fontSize: 25, color: '#fff' }} >Processando o Pagamento !</Text>
+                {/* <Text style={{ fontSize: 25, color: '#fff' }} >Processando o Pagamento !</Text> */}
+                <Text style={{ fontSize: 25, color: '#fff' }} >Ativando esta Publicação !</Text>
 
                 <Animated.View style={{ transform: [{ rotate: spin }] }} >
                     <Icon name='spinner' style={{ fontSize: 90, color:'#FFF' }} />
