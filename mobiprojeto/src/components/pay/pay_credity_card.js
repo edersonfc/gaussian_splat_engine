@@ -830,6 +830,7 @@ export default function pay_credity_card(params) {
     useEffect(() => {
         // 06/07/2021
         setDados_da_negociacao_publica(dados_da_negociacao);
+        LogBox.ignoreLogs(["Encountered an error loading page"]);
 
     }, []);
 

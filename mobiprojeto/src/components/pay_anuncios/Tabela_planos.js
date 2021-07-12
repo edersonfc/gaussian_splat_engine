@@ -102,41 +102,106 @@ export default function Tabela_planos(props) {
 
 
     useEffect(() => {
+        //RAAAWWWW
+        //  alert( VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.URL_IMAGEN_DADOS_J );
+        //  alert( VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.URL_VIDEOS_DADOS_J );
+
+        //    alert( JSON.stringify( imagens_ou_videos ) );//NÃO ESTÁ FUNCIONANDO
+        // alert( JSON.parse(propostas.imagens_ou_videos).IMAGENS.length );//NÃO ESTÁ FUNCIONANDO 
+        // alert( JSON.parse(propostas.imagens_ou_videos).VIDEOS.length );//NÃO ESTÁ FUNCIONANDO
+
+        // if (JSON.parse(propostas.imagens_ou_videos).VIDEOS.length > 0) {//NÃO ESTÁ FUNCIONANDO
+        if (VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.URL_VIDEOS_DADOS_J.includes(".mp4|")) {
+
+            //     setMes_1_valor_tx((mes_1_valor_tx * 0.8) + mes_1_valor_tx);
+            //     setMes_3_valor_tx((mes_3_valor_tx * 0.8) + mes_3_valor_tx);
+            //     setMes_6_valor_tx((mes_6_valor_tx * 0.8) + mes_6_valor_tx);
+            //    setMes_12_valor_tx((mes_12_valor_tx * 0.8) + mes_12_valor_tx);
 
 
-        // alert( JSON.parse(propostas.imagens_ou_videos).IMAGENS.length );
-        // alert( JSON.parse(propostas.imagens_ou_videos).VIDEOS.length );
+            // function someAsynFunction(parametro_a_resolver) {
 
-        if (JSON.parse(propostas.imagens_ou_videos).VIDEOS.length > 0) {
+            //     setMes_1_valor_tx(DOUBLE_OU_FLOAT_P_MOEDA(((mes_1_valor_tx * 0.8) + mes_1_valor_tx),/*'R$'*/''));
+            //     setMes_3_valor_tx(DOUBLE_OU_FLOAT_P_MOEDA(((mes_3_valor_tx * 0.8) + mes_3_valor_tx),/*'R$'*/''));
+            //     setMes_6_valor_tx(DOUBLE_OU_FLOAT_P_MOEDA(((mes_6_valor_tx * 0.8) + mes_6_valor_tx),/*'R$'*/''));
+            //     setMes_12_valor_tx(DOUBLE_OU_FLOAT_P_MOEDA(((mes_12_valor_tx * 0.8) + mes_12_valor_tx),/*'R$'*/''));
 
-            setMes_1_valor_tx((mes_1_valor_tx * 0.8) + mes_1_valor_tx);
-            setMes_3_valor_tx((mes_3_valor_tx * 0.8) + mes_3_valor_tx);
-            setMes_6_valor_tx((mes_6_valor_tx * 0.8) + mes_6_valor_tx);
-            setMes_12_valor_tx((mes_12_valor_tx * 0.8) + mes_12_valor_tx);
+            //     return new Promise(function (resolve) {
+            //         // setTimeout(function () {
+            //         //     resolve(['comedy', 'drama', 'action'])
+            //         // }, 2000);
+            //         resolve(true);
+            //     });
 
-            // alert(mes_1_valor_tx);
+            // }
+
+
+            // async function CONVERSAO_DE_VALORES_PRA_TABELA() {
+
+            //     var BOOLEANO = await someAsynFunction(null);
+
+            //     if (BOOLEANO) {
+            //         // alert(mes_1_valor_tx);
+            //         setContemNaoContemVideos("Contém");
+            //         // ARRAY_PLANO_VALOR_SELECIONADO = [mes_1_valor_tx, mes_3_valor_tx, mes_6_valor_tx, mes_12_valor_tx];
+
+            //     } else {
+
+            //         alert("Houve erros na Conversão da Tabela de Preços");
+
+            //     }
+
+            // }
+
+            // CONVERSAO_DE_VALORES_PRA_TABELA();
+
+
+            setMes_1_valor_tx(DOUBLE_OU_FLOAT_P_MOEDA(((mes_1_valor_tx * 0.8) + mes_1_valor_tx),/*'R$'*/''));
+            setMes_3_valor_tx(DOUBLE_OU_FLOAT_P_MOEDA(((mes_3_valor_tx * 0.8) + mes_3_valor_tx),/*'R$'*/''));
+            setMes_6_valor_tx(DOUBLE_OU_FLOAT_P_MOEDA(((mes_6_valor_tx * 0.8) + mes_6_valor_tx),/*'R$'*/''));
+            setMes_12_valor_tx(DOUBLE_OU_FLOAT_P_MOEDA(((mes_12_valor_tx * 0.8) + mes_12_valor_tx),/*'R$'*/''));
 
             setContemNaoContemVideos("Contém");
 
-            ARRAY_PLANO_VALOR_SELECIONADO = [mes_1_valor_tx, mes_3_valor_tx, mes_6_valor_tx, mes_12_valor_tx];
 
         } else {
 
-            setMes_1_valor_tx(mes_1_valor_tx);
-            setMes_3_valor_tx(mes_3_valor_tx);
-            setMes_6_valor_tx(mes_6_valor_tx);
-            setMes_12_valor_tx(mes_12_valor_tx);
+            // setMes_1_valor_tx(mes_1_valor_tx);
+            // setMes_3_valor_tx(mes_3_valor_tx);
+            // setMes_6_valor_tx(mes_6_valor_tx);
+            // setMes_12_valor_tx(mes_12_valor_tx);
+
+            setMes_1_valor_tx(DOUBLE_OU_FLOAT_P_MOEDA(mes_1_valor_tx,/*'R$'*/''));
+            setMes_3_valor_tx(DOUBLE_OU_FLOAT_P_MOEDA(mes_3_valor_tx,/*'R$'*/''));
+            setMes_6_valor_tx(DOUBLE_OU_FLOAT_P_MOEDA(mes_6_valor_tx,/*'R$'*/''));
+            setMes_12_valor_tx(DOUBLE_OU_FLOAT_P_MOEDA(mes_12_valor_tx,/*'R$'*/''));
+
 
             setContemNaoContemVideos("não Contém");
 
-            ARRAY_PLANO_VALOR_SELECIONADO = [mes_1_valor_tx, mes_3_valor_tx, mes_6_valor_tx, mes_12_valor_tx];
+            // ARRAY_PLANO_VALOR_SELECIONADO = [mes_1_valor_tx, mes_3_valor_tx, mes_6_valor_tx, mes_12_valor_tx];
+
 
         }
 
         valor_do_plano = "";
 
+        // alert(ARRAY_PLANO_VALOR_SELECIONADO);
+        // alert(mes_1_valor_tx);
+
 
     }, []);
+
+
+
+    useEffect(() => {
+
+        ARRAY_PLANO_VALOR_SELECIONADO = [mes_1_valor_tx, mes_3_valor_tx, mes_6_valor_tx, mes_12_valor_tx];
+
+        // alert(ARRAY_PLANO_VALOR_SELECIONADO);
+
+    }, [[mes_1_valor_tx, mes_3_valor_tx, mes_6_valor_tx, mes_12_valor_tx]]);
+
 
 
 
@@ -163,7 +228,7 @@ export default function Tabela_planos(props) {
                 setEstado_array(ARRAY_SELECIONADOS);
 
                 // alert(ARRAY_PLANO_VALOR_SELECIONADO[i]);
-                valor_do_plano = DOUBLE_OU_FLOAT_P_MOEDA(ARRAY_PLANO_VALOR_SELECIONADO[i], 'R$');
+                valor_do_plano = ARRAY_PLANO_VALOR_SELECIONADO[i];
 
                 if (index === 0) { VARIAVEL_GLOBAL.tempoPostagem_G = 30 }
                 else if (index === 1) { VARIAVEL_GLOBAL.tempoPostagem_G = 90 }
@@ -176,10 +241,7 @@ export default function Tabela_planos(props) {
                 setEstado_array(ARRAY_SELECIONADOS);
 
             }
-
-
         });
-
     };
 
 
@@ -313,7 +375,7 @@ export default function Tabela_planos(props) {
             <Txt_3 altura={70} largura={LARGURA} >
                 ATENÇÃO ! {"\n"}
                 Publicações que contém vídeos {"\n"}
-                custa  50% porcento amais.
+                custa  80% porcento amais.
             </Txt_3>
 
             <View style={{ height: 10 }} />
@@ -344,18 +406,18 @@ export default function Tabela_planos(props) {
 
                     } else {
 
-                      ////ABAIXO FOI DESATIVADO OBSERVAR SE O CÓDIGO É DESNECESSARIO DEPOIS
-                                // if (!VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA.includes("ATIVAR PUBLICACAO") &&
-                                //     !VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA.includes("TAXA") ) {
+                        ////ABAIXO FOI DESATIVADO OBSERVAR SE O CÓDIGO É DESNECESSARIO DEPOIS
+                        // if (!VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA.includes("ATIVAR PUBLICACAO") &&
+                        //     !VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA.includes("TAXA") ) {
 
-                                //         alert(VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA);
+                        //         alert(VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA);
 
-                                //     VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "PUBLICACAO";
-                                // }
-                     ////ACIMA FOI DESATIVADO OBSERVAR SE O CÓDIGO É DESNECESSARIO DEPOIS
+                        //     VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "PUBLICACAO";
+                        // }
+                        ////ACIMA FOI DESATIVADO OBSERVAR SE O CÓDIGO É DESNECESSARIO DEPOIS
 
-                                // alert("TIPO É => "+VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA);
-                                // return 0;
+                        // alert("TIPO É => "+VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA);
+                        // return 0;
 
 
                         navigation.navigate("Screen_pay", { propostas });
