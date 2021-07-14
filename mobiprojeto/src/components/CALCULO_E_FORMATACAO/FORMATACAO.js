@@ -398,7 +398,7 @@ function FORMATAR_PARA_MOEDA_DEFINITIVO_AO_DIGITAR(VALOR_RECEBIDO_1) {
 
 
 
-function EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(RECEBE_PARAMETRO) {
+async function EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(RECEBE_PARAMETRO) {
 
     var DATAS_INGLES = "";
     var DATAS_PORTUGUES = "";
@@ -435,7 +435,7 @@ function EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(RECEBE_PARAMETRO) {
         }//FOR
 
 
-    } catch (e) { }
+    } catch (e) { alert("ERRO AQUI => " + e); return 0; }
 
     //alert(RECEBE_PARAMETRO);
 
@@ -582,12 +582,31 @@ function QUANTIDADES_VEZES_PRECOS(quantidades, precos) {
 
 
 
+async function EXTRAIR_CELULARES_DE_TEXTO(conteudo_que_contem_celulares_ARRAY) {
+
+    // var ARRAY_DE_RETORNO = new Array();
+    try {
+        // {"NUMERO_CELL_J":"(12) 34567-8901"}
+        var regex = new RegExp(/\(\d{2}\)\s\d{5,5}-?\d{4}/g);//REGEX PARA TELEFONE CELULAR
+        // conteudo_que_contem_celulares = conteudo_que_contem_celulares.match(regex)[0];
+        conteudo_que_contem_celulares_ARRAY = conteudo_que_contem_celulares_ARRAY.match(regex);
+
+           return conteudo_que_contem_celulares_ARRAY;
+
+    } catch (error) { return alert(error); console.log(error); }
+
+
+}
+
+
+
+
 export {
     arrayUnique, arrayUnique_2, pegar_somente_valores_de_JSON, pegar_somente_nome_dos_campos_de_JSON, converter_Array_para_JSON,
     data_hora_e_segundo_completo, data_completa, hora_e_segundo_completo, data_hora_e_segundo_completo_ingles, data_hora_e_segundo_sem_separador, FORMATAR_AO_DIGITAR_USANDO_MASCARA,
     Distancia_entre_2_geolocalizacao, TRANFORMAR_P_CAMINHO_ABSOLUTO, REMOVER_ITENS_NULOS_DO_ARRAY, extrair_nome_de_Arquivo_da_url, Badge, FORMATAR_PARA_MOEDA_DEFINITIVO_AO_DIGITAR,
     data_completa_ingles, EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES, EXTRAIR_DATA_PORTUGUES_E_CONVERTER_P_INGLES, MOEDA_P_DOUBLE_OU_FLOAT, DOUBLE_OU_FLOAT_P_MOEDA,
-    VALIDAR_CPF, QUANTIDADES_VEZES_PRECOS
+    VALIDAR_CPF, QUANTIDADES_VEZES_PRECOS, EXTRAIR_CELULARES_DE_TEXTO
 }
 
 

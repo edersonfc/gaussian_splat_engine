@@ -3,7 +3,7 @@ import { Alert, View, Text, TextInput, SafeAreaView, TouchableOpacity, Pressable
 import { color, Value } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Estilo from './estilo';
-import { data_hora_e_segundo_completo_ingles, data_hora_e_segundo_completo, data_hora_e_segundo_sem_separador } from '../components/CALCULO_E_FORMATACAO/FORMATACAO';
+import { data_hora_e_segundo_completo_ingles, data_hora_e_segundo_completo, data_hora_e_segundo_sem_separador, EXTRAIR_CELULARES_DE_TEXTO } from '../components/CALCULO_E_FORMATACAO/FORMATACAO';
 //import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { ScrollView } from 'react-native-gesture-handler';
@@ -21,6 +21,7 @@ import GlobalContext from '../context/UsersContext';
 import Celular_colocar from './Celular_colocar';
 
 import { useNavigation } from "@react-navigation/native";
+
 
 
 //VARIAVEL GLOBAL FORA DO METODO EXPORT PRINCIPA DA TELA ABAIXO
@@ -79,7 +80,9 @@ export default function MensagensPropostas(param) {
     //VARIAVEIS DOS PARAMETROS RECEBIDOS ACIMA
 
 
+    var vendedor_ou_comprador = [];
 
+    var USUARIO_CELL_E_VENDEDOR_OU_COMPRADOR = "";
 
 
     if (propostasS != null) {
@@ -87,6 +90,20 @@ export default function MensagensPropostas(param) {
         try {
             //propostasS = JSON.stringify( propostasS );
             propostasss = JSON.parse(propostasS);
+            vendedor_ou_comprador.push(propostasss[0].numero_telefone_vendedor);
+
+
+
+            if (VARIAVEL_GLOBAL.TELEFONE == vendedor_ou_comprador[0]) {
+                USUARIO_CELL_E_VENDEDOR_OU_COMPRADOR = "VENDEDOR";
+            } else if (VARIAVEL_GLOBAL.TELEFONE != vendedor_ou_comprador[0]) {
+                USUARIO_CELL_E_VENDEDOR_OU_COMPRADOR = "COMPRADOR";
+            }//IF
+
+            // alert(USUARIO_CELL_E_VENDEDOR_OU_COMPRADOR);
+
+
+
         } catch (error) { alert("identication of error  " + error) }
 
         //alert(propostasss[1].data_hora_proposta);//FUNCIONANDO PERFEITAMENTE
@@ -97,7 +114,6 @@ export default function MensagensPropostas(param) {
 
     //VARIAVEIS DE ESTADOS  ABAIXO
     //alert(  propostasss.length )
-    var vendedor_ou_comprador = [];
     const [estado_vc_outro, setEstado_vc_outro] = useState(vendedor_ou_comprador);
     const [propostass, setPropostas] = useState(propostasss);
     const [visivel_true_false, setVisivel_true_false] = useState(false);
@@ -118,6 +134,9 @@ export default function MensagensPropostas(param) {
     var ARRAY_PROPOSTA_BOOLEAN = [];
     var ARRAY_RESPOSTA_BOOLEAN = [];
     var ARRAY_CAIXA_RESPOSTA_BOOLEAN = [];
+
+    var ARRAY_CELULARES_DAS_MENSAGENS = [];
+    var ARRAY_CONTEUDO__DAS_MENSAGENS = [];
 
     //EFFECTS ABAIXO
     useEffect(() => {
@@ -556,6 +575,131 @@ export default function MensagensPropostas(param) {
 
 
 
+    function SUBSTITUIR_NUMEROS_DE_CELULARES_DO_CORPO_DA_MENSAGEM_POR_NOMES(CONTEUDO_DA_MENSAGEM) {
+
+
+        // 3º ETAPA, CONTEUDO COM DATA EM PORTUGUES E NUMEROS DE CELULARES SUBSTITUIDOS POR PALAVRAS "Você, Vendedor ou Comprador"
+        //    var CONTEUDO_COM_DATA_EM_PORTUGUES =  EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(propostasss[index].conteudo_da_proposta);
+        var CONTEUDO_COM_DATA_EM_PORTUGUES = EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(CONTEUDO_DA_MENSAGEM);
+        // EXTRAIR_CELULARES_DE_TEXTO();
+
+        // return ARRAY_CELULARES_DAS_MENSAGENS[0];
+        return CONTEUDO_COM_DATA_EM_PORTUGUES;
+    }
+
+
+
+    useEffect(() => {
+
+        async function FUNCAO_ASSINCRONA_PRINCIPAL() {
+            // var RETORNO_ARRAY_CELULARES = new Array();
+            // ARRAY_CELULARES_DAS_MENSAGENS
+            // ARRAY_CONTEUDO__DAS_MENSAGENS
+
+            // alert( JSON.stringify(propostasss) );
+            // alert( propostasss[0].numero_telefone_vendedor );
+            // alert( propostasss[0].numero_telefone_comprador );
+
+            // 1º ETAPA, COLETANDO NUMERO DE CELULARES DAS MENSAGENS E CRIANDO UM ARRAY DE CELULARES
+            async function PRIMEIRA_ETAPA() {
+
+                if (propostasss.length > 0) {
+
+                    propostasss.map(async (Array, index) => {
+                        ARRAY_CELULARES_DAS_MENSAGENS.push(await EXTRAIR_CELULARES_DE_TEXTO(propostasss[index].conteudo_da_proposta));
+                        // ARRAY_CELULARES_DAS_MENSAGENS.push( propostasss[index].conteudo_da_proposta );
+                    });
+
+                }//IF
+
+                // alert(propostasss.length)
+                // alert( propostasss[1].conteudo_da_proposta );
+
+            }//FUNCAO
+
+            await PRIMEIRA_ETAPA()
+
+            // alert(ARRAY_CELULARES_DAS_MENSAGENS);
+
+
+
+
+
+            async function SEGUNDA_ETAPA() {
+
+                if (typeof vendedor_ou_comprador[0] !== "undefined") {
+
+                    // alert(USUARIO_CELL_E_VENDEDOR_OU_COMPRADOR);
+
+                    var todas_mensagens = JSON.stringify(propostasss);
+                    // alert( todas_mensagens );
+                    todas_mensagens = EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(todas_mensagens);
+                    // console.log(todas_mensagens);
+
+                    if (USUARIO_CELL_E_VENDEDOR_OU_COMPRADOR === "VENDEDOR") {
+
+
+                        // var REPLACE = new RegExp(VARIAVEL_GLOBAL.TELEFONE, "g");
+                        // todas_mensagens = todas_mensagens.replace(REPLACE, "Você");
+                        // console.log(todas_mensagens);
+
+
+                        // var a = VARIAVEL_GLOBAL.TELEFONE.toString()
+                        // var regex = new RegExp("(67) 99324-4226", "g");
+                        // todas_mensagens = todas_mensagens.replace(regex, "Você");
+                        // alert(todas_mensagens);
+
+                        todas_mensagens = todas_mensagens.replace("VARIAVEL_GLOBAL.TELEFONE", "Você");
+                        alert(todas_mensagens);
+
+
+                    } else if (USUARIO_CELL_E_VENDEDOR_OU_COMPRADOR === "COMPRADOR") {
+
+                    }//IF
+
+
+
+                }
+
+
+            }//FUNCAO
+
+            await SEGUNDA_ETAPA()
+
+
+        }
+
+        FUNCAO_ASSINCRONA_PRINCIPAL();
+
+
+
+
+
+        // ////////////////////////////////////////////////////////////
+        // var someAsynFunction = function (parametro_a_resolver) {
+
+        //     parametro_a_resolver.bate_e_volta = "go_to_pay_credity_card";
+
+        //     return new Promise(function (resolve) {
+        //         // setTimeout(function () {
+        //         //     resolve(['comedy', 'drama', 'action'])
+        //         // }, 2000);
+        //         resolve(parametro_a_resolver);
+        //     });
+
+        // }
+
+        // //////////////////////////////////////////////////////////////
+
+
+
+
+
+        // }, [DATA_CHEIA_INGLES]);
+    }, []);
+
+
+
 
     return (
 
@@ -625,6 +769,7 @@ export default function MensagensPropostas(param) {
                                         } else {
 
                                             //ENVIAR PROPOSTA CHAMANDO FUNÇÃO DO PAI AQUI
+                                            //  alert(conteudoDaProposta);   return 0;
                                             param.funcao_remota_enivar_proposta(conteudoDaProposta);
                                             //alert(VARIAVEL_GLOBAL.TELEFONE);
                                             Keyboard.dismiss();
@@ -725,11 +870,12 @@ export default function MensagensPropostas(param) {
 
                     propostasss.map((propostas, index) => (
 
-                        DATA_PORTUGUES_CABECALHO = EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(propostasss[index].data_hora_proposta),
+                        // DATA_PORTUGUES_CABECALHO = EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(propostasss[index].data_hora_proposta),
                         DATA_CHEIA_INGLES = EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(propostasss[index].conteudo_da_proposta),
+                        // DATA_CHEIA_INGLES = SUBSTITUIR_NUMEROS_DE_CELULARES_DO_CORPO_DA_MENSAGEM_POR_NOMES(propostasss[index].conteudo_da_proposta),
 
                         //alert(  propostasss[1].conteudo_da_proposta  ),  // RGB(42,62,74)  backgroundColor: '#2A3E49'
-                        vendedor_ou_comprador[index] = "Comprador",
+                        // vendedor_ou_comprador[index] = "Comprador",
                         //vendedor_ou_comprador.push(FUNCAO_QUE_IDENTIFICA_SE_E_VENDEDOR_OU_COMPRADOR(propostasss[index].numero_telefone_vendedor, propostasss[index].numero_telefone_comprador)),
 
                         visivel_true_false && (
@@ -740,63 +886,10 @@ export default function MensagensPropostas(param) {
                                 {/* CONTAINER DA ETIQUETA DA MENSAGEM ABAIXO  Pressable */}
                                 <TouchableOpacity style={{ padding: 5, width: '100%', height: 'auto', alignItems: 'center', backgroundColor: 'rgb(' + COR_FUNDO_MENSAGEN + ')', borderWidth: 0, borderColor: 'RGB(' + COR_FUNDO_MENSAGEN + ')', borderRadius: 15 }}
 
-                                    {...(async () => {
-                                        //FOI DESATIVADO E TROCADO PELO CÓDIGO COM MARCAÇÃO  SUPLANTADO765  
-                                        /*
-                                       VENDEDOR        = propostasss[index].numero_telefone_vendedor;
-                                       COMPRADOR       = propostasss[index].numero_telefone_comprador;
-                                       USUARIO_CELL    = numero_CelularUsuario;
-                                       VENDA_OU_COMPRA = propostasss[index].comprador_ou_vendedor;
-                                       //alert( propostasss[index].numero_telefone_vendedor +" | "+ propostasss[index].numero_telefone_comprador );
-    
-                                       //alert(VENDA_OU_COMPRA);
-                                      
-                                       // useEffect(() => {
-                                       if (VENDEDOR === USUARIO_CELL && COMPRADOR === USUARIO_CELL && VENDA_OU_COMPRA === "VENDEDOR") {
-    
-                                           vendedor_ou_comprador[index] = "Você é VENDEDOR";
-    
-                                       } else if (VENDEDOR !== USUARIO_CELL && COMPRADOR === USUARIO_CELL && VENDA_OU_COMPRA === "COMPRADOR") {
-    
-                                           vendedor_ou_comprador[index] = "Você é COMPRADOR";
-    
-                                       } else if (VENDEDOR !== USUARIO_CELL && COMPRADOR !== USUARIO_CELL && VENDA_OU_COMPRA === "VENDEDOR") {
-    
-                                           vendedor_ou_comprador[index] = "Vendedor";
-    
-    
-                                       } else if (VENDEDOR !== USUARIO_CELL && COMPRADOR !== USUARIO_CELL && VENDA_OU_COMPRA === "COMPRADOR") {
-    
-                                           vendedor_ou_comprador[index] = "Outro Comprador";
-    
-                                       }//else if
-                                       // }, []);
-                                     
-    
-                                      
-                                       if (VENDEDOR === USUARIO_CELL){
-    
-                                           //vendedor_ou_comprador[index] = "VEND---EDOR";
-    
-                                       }if (COMPRADOR === USUARIO_CELL){
-    
-                                           //vendedor_ou_comprador[index] = "COM---PRADOR";
-    
-                                       }
-                                       
-                                       //propostasss[index].conteudo_da_proposta
-                                       //alert(propostasss[index].conteudo_da_proposta);
-                                       
-                                         */
-
-                                    })()}
-
-
                                     //FECHAR CAIXA RESPONDER SE TIVER ABERTO ABAIXO
                                     onPress={(e) => {
 
                                         if (responderTaTrue_or_False == true) {
-
 
                                             //alert("FOI PRESSIONADO NO CONTAINE DA MENSAGEM !");
                                             setFormulario_enviar_proposta_true_false(oldState => !oldState)
@@ -827,17 +920,8 @@ export default function MensagensPropostas(param) {
                                                 {
                                                     text: 'Sim',
                                                     onPress: () => {
-                                                        /*
-                                                         //console.log('Yes Pressed'), alert("Você Cancelou  "),
-                                                         //atualizar_json(produtos, index, DESCRICAO_ARRAY, DISTANCIA_ARRAY)
-                                                         alernarTrueFalse2(index),
-                                                         CANCELAR_VENDA_OU_COMPRA(IP_DO_SERVIDOR, compra_ou_venda, CELULAR_COMPRADOR_OU_VENDEDOR, ID_DA_POSTAGEM, USUARIO_DO_TELEFONE)
-                                                         */
 
-                                                        //alert("VOCÊ ESCOLHEU APAGAR ESSA MENSAGEM !");
                                                         //alert(propostas.cod_automatico);
-
-
                                                         // alert(propostas.conteudo_da_proposta);
 
                                                         if (JSON.stringify(propostasss).includes("Compra e Venda Fechada</")) {
@@ -866,21 +950,11 @@ export default function MensagensPropostas(param) {
 
                                     }}
 
-
                                 >
 
 
                                     <View style={{ width: '85%', height: 'auto', backgroundColor: 'rgb(' + COR_FUNDO_MENSAGEN + ')', borderWidth: 0, borderColor: 'yellow' }} >
 
-
-
-
-                                        <Text style={htmlStyles.cabecalho} > {vendedor_ou_comprador[index] + "   " + (EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(data_hora_e_segundo_completo_ingles()))} </Text>
-
-                                        <View style={{ height: 5 }} />
-
-
-                                        {/*  <Text style={{ color: '#FFF' }} > {propostasss[index].conteudo_da_proposta} </Text>  */}
 
                                         <HTMLView
                                             key={index}
@@ -890,6 +964,7 @@ export default function MensagensPropostas(param) {
                                             value={
                                                 //propostasss[index].conteudo_da_proposta
                                                 DATA_CHEIA_INGLES
+                                                // "<a>EDERSON FELICIANO CORSATTO"
                                             }
                                         />
 
@@ -1018,7 +1093,9 @@ export default function MensagensPropostas(param) {
                                                         RESPOSTAS =
                                                             propostasss[index].conteudo_da_proposta +
                                                             "\n" +
-                                                            '<cabecalho>' + vendedor_ou_comprador[index] + "  " + data_hora_e_segundo_completo_ingles() + '</cabecalho>' +
+                                                            // '<cabecalho>' + vendedor_ou_comprador[index] + "  " + data_hora_e_segundo_completo_ingles() + '</cabecalho>' +
+                                                            // ADICIONADO EM 13 07 2021
+                                                            '<cabecalho>' + VARIAVEL_GLOBAL.TELEFONE + "  " + data_hora_e_segundo_completo_ingles() + '</cabecalho>' +
                                                             conteudoDaResposta +
                                                             "\n";
                                                         //SEM HTML ACIMA

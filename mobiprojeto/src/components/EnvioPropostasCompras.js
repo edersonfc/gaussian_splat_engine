@@ -12,7 +12,7 @@ import MensagensPropostas from './MensagensPropostas';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { data_hora_e_segundo_completo_ingles, data_hora_e_segundo_completo, data_hora_e_segundo_sem_separador } from '../components/CALCULO_E_FORMATACAO/FORMATACAO';
+import { data_hora_e_segundo_completo_ingles, data_hora_e_segundo_completo, data_hora_e_segundo_sem_separador, EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES } from '../components/CALCULO_E_FORMATACAO/FORMATACAO';
 
 
 
@@ -333,7 +333,7 @@ export default function EnvioPropostasCompras(props) {
 
 
     ////////ENVIAR PROPOSTA ABAIXO
-    function ENVIAR_PROPOSTA(funcao_remota_enivar_proposta) {
+     async function ENVIAR_PROPOSTA(funcao_remota_enivar_proposta) {
 
 
         
@@ -342,6 +342,16 @@ export default function EnvioPropostasCompras(props) {
 
         //obreserve
         var conteudoDaProposta = funcao_remota_enivar_proposta;
+
+
+        // <cabecalho>Comprador  2021-7-12 23:45:48</cabecalho>
+        // ADICIONADO EM 13 07 2021
+        //  conteudoDaProposta = "<cabecalho>"+VARIAVEL_GLOBAL.TELEFONE + "  " + data_hora_e_segundo_completo() +"</cabecalho>"  + conteudoDaProposta;
+
+        var  data_ingles_para_portugues = await  EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES( data_hora_e_segundo_completo_ingles() );
+        // alert( data_ingles_para_portugues ); return 0;
+        conteudoDaProposta = "<cabecalho>"+VARIAVEL_GLOBAL.TELEFONE + "  " + data_ingles_para_portugues +"</cabecalho>"  + conteudoDaProposta;
+
         //propostasss
 
         //returns a random integer from 0 to 9999  in line  below
@@ -400,7 +410,8 @@ export default function EnvioPropostasCompras(props) {
 
                 }//IF
         //alert(  comprador_ou_vendedor  );
-        //alert(VARIAVEL_GLOBAL.TELEFONE)
+        // alert(VARIAVEL_GLOBAL.TELEFONE); return 0;
+        // conteudoDaProposta = VARIAVEL_GLOBAL.TELEFONE + conteudoDaProposta;
 
         /* SEGUNDA TENTATIVA QUE TAMBÉM FUNCIONA ABAIXO */
         Axios.get(IP_DO_SERVIDOR + 'insert_propostas', {
