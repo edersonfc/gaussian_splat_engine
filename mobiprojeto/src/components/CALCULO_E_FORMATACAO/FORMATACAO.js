@@ -593,8 +593,40 @@ async function EXTRAIR_CELULARES_DE_TEXTO(conteudo_que_contem_celulares_ARRAY) {
 
            return conteudo_que_contem_celulares_ARRAY;
 
-    } catch (error) { return alert(error); console.log(error); }
+    } catch (error) { /*return alert(error);*/ console.log(error); }
 
+}
+
+
+
+
+function EXTRAIR_CELULARES_DE_TEXTO_2(conteudo_que_contem_celulares_ARRAY) {
+
+    try {
+        // {"NUMERO_CELL_J":"(12) 34567-8901"}
+        // var regex = new RegExp(/\(\d{2}\)\s\d{5,5}-?\d{4}/g);//REGEX PARA TELEFONE CELULAR
+        var regex = new RegExp(/\d{2}\d{5,5}-?\d{4}/g);
+        // conteudo_que_contem_celulares = conteudo_que_contem_celulares.match(regex)[0];
+        conteudo_que_contem_celulares_ARRAY = conteudo_que_contem_celulares_ARRAY.match(regex);
+
+      // console.log(conteudo_que_contem_celulares_ARRAY);
+     return conteudo_que_contem_celulares_ARRAY;
+
+    } catch (error) { console.log(error); }
+
+}
+
+
+
+
+
+
+
+function DEIXAR_SOMENTE_NUMEROS(PARAMENTRO) {
+
+    var somente_numeros = PARAMENTRO.toString().replace(/\W/g, "")
+    // console.log(somente_numeros);
+    return somente_numeros;
 
 }
 
@@ -606,7 +638,7 @@ export {
     data_hora_e_segundo_completo, data_completa, hora_e_segundo_completo, data_hora_e_segundo_completo_ingles, data_hora_e_segundo_sem_separador, FORMATAR_AO_DIGITAR_USANDO_MASCARA,
     Distancia_entre_2_geolocalizacao, TRANFORMAR_P_CAMINHO_ABSOLUTO, REMOVER_ITENS_NULOS_DO_ARRAY, extrair_nome_de_Arquivo_da_url, Badge, FORMATAR_PARA_MOEDA_DEFINITIVO_AO_DIGITAR,
     data_completa_ingles, EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES, EXTRAIR_DATA_PORTUGUES_E_CONVERTER_P_INGLES, MOEDA_P_DOUBLE_OU_FLOAT, DOUBLE_OU_FLOAT_P_MOEDA,
-    VALIDAR_CPF, QUANTIDADES_VEZES_PRECOS, EXTRAIR_CELULARES_DE_TEXTO
+    VALIDAR_CPF, QUANTIDADES_VEZES_PRECOS, EXTRAIR_CELULARES_DE_TEXTO, EXTRAIR_CELULARES_DE_TEXTO_2, DEIXAR_SOMENTE_NUMEROS
 }
 
 

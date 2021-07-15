@@ -12,7 +12,7 @@ import MensagensPropostas from './MensagensPropostas';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { data_hora_e_segundo_completo_ingles, data_hora_e_segundo_completo, data_hora_e_segundo_sem_separador, EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES } from '../components/CALCULO_E_FORMATACAO/FORMATACAO';
+import { data_hora_e_segundo_completo_ingles, data_hora_e_segundo_completo, data_hora_e_segundo_sem_separador, EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES, DEIXAR_SOMENTE_NUMEROS } from '../components/CALCULO_E_FORMATACAO/FORMATACAO';
 
 
 
@@ -350,7 +350,7 @@ export default function EnvioPropostasCompras(props) {
 
         var  data_ingles_para_portugues = await  EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES( data_hora_e_segundo_completo_ingles() );
         // alert( data_ingles_para_portugues ); return 0;
-        conteudoDaProposta = "<cabecalho>"+VARIAVEL_GLOBAL.TELEFONE + "  " + data_ingles_para_portugues +"</cabecalho>"  + conteudoDaProposta;
+        conteudoDaProposta = "<cabecalho>"+DEIXAR_SOMENTE_NUMEROS(VARIAVEL_GLOBAL.TELEFONE) + "  " + data_ingles_para_portugues +"</cabecalho>"  + conteudoDaProposta;
 
         //propostasss
 
