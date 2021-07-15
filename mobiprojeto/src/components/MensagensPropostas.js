@@ -588,17 +588,7 @@ export default function MensagensPropostas(param) {
 
 
 
-    function SUBSTITUIR_NUMEROS_DE_CELULARES_DO_CORPO_DA_MENSAGEM_POR_NOMES(CONTEUDO_DA_MENSAGEM) {
-
-
-        // 3º ETAPA, CONTEUDO COM DATA EM PORTUGUES E NUMEROS DE CELULARES SUBSTITUIDOS POR PALAVRAS "Você, Vendedor ou Comprador"
-        //    var CONTEUDO_COM_DATA_EM_PORTUGUES =  EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(propostasss[index].conteudo_da_proposta);
-        var CONTEUDO_COM_DATA_EM_PORTUGUES = EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(CONTEUDO_DA_MENSAGEM);
-        // EXTRAIR_CELULARES_DE_TEXTO();
-
-        // return ARRAY_CELULARES_DAS_MENSAGENS[0];
-        return CONTEUDO_COM_DATA_EM_PORTUGUES;
-    }
+ 
 
 
 
@@ -798,7 +788,6 @@ export default function MensagensPropostas(param) {
 
 
                                         CELULARES_POR_MESAGEM_array_local.map((array, jjj) => {
-
                                 
                                             if (TELEFONE_USUARIO_TRABALHADO == CELULARES_POR_MESAGEM_array_local[jjj]) {
                                                 ARRAY_CONTEUDO__DAS_MENSAGENS[iii] = ARRAY_CONTEUDO__DAS_MENSAGENS[iii].replace(CELULARES_POR_MESAGEM_array_local[jjj], "Você");
@@ -812,6 +801,8 @@ export default function MensagensPropostas(param) {
 
                                         });//map()
 
+                                        // SOMENTE PARA AUDITORIA ESSA METODO LINHA ABAIXO
+                                        // DATA_CHEIA_INGLES = EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(propostasss[index].conteudo_da_proposta);
 
 
                                     } else if (USUARIO_CELL_E_VENDEDOR_OU_COMPRADOR === "COMPRADOR") {

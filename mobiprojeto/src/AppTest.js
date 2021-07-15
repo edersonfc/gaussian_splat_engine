@@ -31,7 +31,7 @@ import Geolocation from 'react-native-geolocation-service';
 
 import { useNetInfo } from '@react-native-community/netinfo';
 
-import { arrayUnique, arrayUnique_2, pegar_somente_valores_de_JSON, converter_Array_para_JSON, data_hora_e_segundo_sem_separador, data_hora_e_segundo_completo, data_completa, FORMATAR_AO_DIGITAR_USANDO_MASCARA, Distancia_entre_2_geolocalizacao, REMOVER_ITENS_NULOS_DO_ARRAY, extrair_nome_de_Arquivo_da_url, Badge, hora_e_segundo_completo } from './components/CALCULO_E_FORMATACAO/FORMATACAO';
+import { arrayUnique, arrayUnique_2, pegar_somente_valores_de_JSON, converter_Array_para_JSON, data_hora_e_segundo_sem_separador, data_hora_e_segundo_completo, data_completa, FORMATAR_AO_DIGITAR_USANDO_MASCARA, Distancia_entre_2_geolocalizacao, REMOVER_ITENS_NULOS_DO_ARRAY, extrair_nome_de_Arquivo_da_url, EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES, data_completa_ingles } from './components/CALCULO_E_FORMATACAO/FORMATACAO';
 
 
 //DO BANCO DE DADOS IMPORTAÇÃO
@@ -2611,6 +2611,12 @@ export default function AppTest() {
     // console.log((ALTURA_DA_TELA * 90) / 100);
     return (ALTURA_DA_TELA * 94) / 100;
   }
+
+
+
+
+  
+
 
 
 
