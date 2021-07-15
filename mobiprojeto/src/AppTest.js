@@ -3185,7 +3185,7 @@ export default function AppTest() {
                     },
                     {
                       text: 'Não',
-                      onPress: () => console.log('No Pressed'),
+                      onPress: () => {/*console.log('No Pressed')*/},
                       style: 'cancel'
                     },
                   ],

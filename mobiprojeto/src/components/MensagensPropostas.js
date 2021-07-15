@@ -588,7 +588,7 @@ export default function MensagensPropostas(param) {
 
 
 
- 
+
 
 
 
@@ -730,8 +730,33 @@ export default function MensagensPropostas(param) {
 
                                     } else {
 
-                                        //COMPRAR DIRETO FUNÇÃO AQUI NESSE ONPRESS
-                                        param.funcao_remota_enivar_comprar_direto();
+                                        Alert.alert(
+                                            //title
+                                            'Atenção !',
+                                            //body
+                                            //'I am two option alert. Do you want to cancel me ?',
+                                            'Deseja Realizar esta Compra !',
+                                            [
+                                                {
+                                                    text: 'Sim',
+                                                    onPress: () => {
+                                                        //TAREFAZ AQUI ABAIXO
+                                                        //COMPRAR DIRETO FUNÇÃO AQUI NESSE ONPRESS
+                                                        param.funcao_remota_enivar_comprar_direto();
+                                                        //TAREFAZ AQUI ACIMA
+                                                    }
+                                                },
+                                                {
+                                                    text: 'Não',
+                                                    onPress: () => {/*console.log('No Pressed')*/},
+                                                    style: 'cancel'
+                                                },
+                                            ],
+                                            { cancelable: false },
+                                            //clicking out side of alert will not cancel
+                                        );
+
+
 
                                     }
 
@@ -788,7 +813,7 @@ export default function MensagensPropostas(param) {
 
 
                                         CELULARES_POR_MESAGEM_array_local.map((array, jjj) => {
-                                
+
                                             if (TELEFONE_USUARIO_TRABALHADO == CELULARES_POR_MESAGEM_array_local[jjj]) {
                                                 ARRAY_CONTEUDO__DAS_MENSAGENS[iii] = ARRAY_CONTEUDO__DAS_MENSAGENS[iii].replace(CELULARES_POR_MESAGEM_array_local[jjj], "Você");
                                                 DATA_CHEIA_INGLES = EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(ARRAY_CONTEUDO__DAS_MENSAGENS[iii]);
@@ -810,7 +835,7 @@ export default function MensagensPropostas(param) {
 
                                         CELULARES_POR_MESAGEM_array_local.map((array, jjj) => {
 
-                                
+
                                             if (TELEFONE_USUARIO_TRABALHADO == CELULARES_POR_MESAGEM_array_local[jjj]) {
                                                 ARRAY_CONTEUDO__DAS_MENSAGENS[iii] = ARRAY_CONTEUDO__DAS_MENSAGENS[iii].replace(CELULARES_POR_MESAGEM_array_local[jjj], "Você");
                                                 DATA_CHEIA_INGLES = EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(ARRAY_CONTEUDO__DAS_MENSAGENS[iii]);
@@ -899,7 +924,7 @@ export default function MensagensPropostas(param) {
                                                 },
                                                 {
                                                     text: 'Não',
-                                                    onPress: () => console.log('No Pressed'),
+                                                    onPress: () => {/*console.log('No Pressed')*/},
                                                     style: 'cancel'
                                                 },
                                             ],

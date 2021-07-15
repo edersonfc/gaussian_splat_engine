@@ -567,6 +567,7 @@ export default function DetalhesProdutos(props) {
                                     var numero_telefone_comprador = '{"NUMERO_CELL_J":"' + NUMERO_CELL_DO_USUARIO + '"}';//ESTA LINHA CONCERTA A FORMATAÇÃO DO Nº DO CELULAR PONDO DENTRO OBJETO JSON NESSE FORMATO PARA NÃO DAR ERRO NA GRAVAÇÃO DO BANCO DE DADOS
                                     //alert(index+"  #  "+numero_telefone +"  #  "+  id_da_postagem +"  #  "+  numero_telefone_comprador)
                                     navigation.navigate("EnvioPropostasCompras", { index, numero_telefone, id_da_postagem, numero_telefone_comprador });
+                                    VARIAVEL_GLOBAL.FAZER_PROPOSTA = fazer_ou_ver_proposta;
                                     /**/
 
                                 } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
@@ -747,20 +748,44 @@ export default function DetalhesProdutos(props) {
 
                                                 //alert(numero_telefone_comprador);
 
-                                                // try {
+                                                Alert.alert(
+                                                    //title
+                                                    'Atenção !',
+                                                    //body
+                                                    //'I am two option alert. Do you want to cancel me ?',
+                                                    'Deseja Realizar esta Compra !',
+                                                    [
+                                                        {
+                                                            text: 'Sim',
+                                                            onPress: async () => {
+                                                                //TAREFAZ AQUI ABAIXO
 
-                                                    await Axios.get(IP_DO_SERVIDOR + 'comprar_direto', {
-                                                        params: {
-                                                            numero_telefone_J: numero_telefone_J,
-                                                            id_J: id_J,
-                                                            comprador_J: numero_telefone_comprador
-                                                        }
+                                                                try {
 
-                                                        },  setComprar_ou_deletar("Comprado"),  alert("Compra Realizada... Entraremos em Contato !")  );
-                                                    
-                               
-                                                // } catch (error) { alert("Falha ao Comprar !"); }
+                                                                    await Axios.get(IP_DO_SERVIDOR + 'comprar_direto', {
+                                                                        params: {
+                                                                            numero_telefone_J: numero_telefone_J,
+                                                                            id_J: id_J,
+                                                                            comprador_J: numero_telefone_comprador
+                                                                        }
 
+                                                                    }, setComprar_ou_deletar("Comprado"), alert("Compra Realizada... Entraremos em Contato !"));
+
+
+                                                                } catch (error) { alert("Falha ao Comprar !"); }
+
+                                                                //TAREFAZ AQUI ACIMA
+                                                            }
+                                                        },
+                                                        {
+                                                            text: 'Não',
+                                                            onPress: () => {/*console.log('No Pressed')*/},
+                                                            style: 'cancel'
+                                                        },
+                                                    ],
+                                                    { cancelable: false },
+                                                    //clicking out side of alert will not cancel
+                                                );
 
                                             } else {
                                                 //alert("Cadastre o Telefone pra poder Comprar ou Vender !");
@@ -823,7 +848,6 @@ export default function DetalhesProdutos(props) {
                                     VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE = produtos;
 
                                     navigation.navigate("EnvioPropostasCompras", { index, numero_telefone, id_da_postagem, numero_telefone_comprador });
-
 
 
 
@@ -1187,7 +1211,7 @@ export default function DetalhesProdutos(props) {
                 },
                 {
                     text: 'Não',
-                    onPress: () => console.log('No Pressed'),
+                    onPress: () => {/*console.log('No Pressed')*/},
                     style: 'cancel'
                 },
             ],
@@ -1275,7 +1299,7 @@ export default function DetalhesProdutos(props) {
                 },
                 {
                     text: 'Não',
-                    onPress: () => console.log('No Pressed'),
+                    onPress: () => {/*console.log('No Pressed')*/},
                     style: 'cancel'
                 },
             ],

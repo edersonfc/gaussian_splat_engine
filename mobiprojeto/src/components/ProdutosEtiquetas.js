@@ -837,7 +837,7 @@ DESATIVAR DEPOIS ACIMA */
                             },
                             {
                               text: 'Não',
-                              onPress: () => console.log('No Pressed'),
+                              onPress: () => {/*console.log('No Pressed')*/},
                               style: 'cancel'
                             },
                           ],
