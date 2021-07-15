@@ -606,333 +606,6 @@ export default function MensagensPropostas(param) {
 
 
 
-    // //////////////////////////////////////////////////////////////////////////
-    // var [conteudo_mensagemState, setConteudo_mensagemState] = useState("");
-
-    // useEffect(() => {
-
-    //     // var ARRAY_CELULARES_DAS_MENSAGENS = [];
-    //     // var ARRAY_CONTEUDO__DAS_MENSAGENS = [];
-    //     // var ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR = [];
-
-
-    //     var CONTEUDO_INCREMENTO = "";
-
-    //     // alert(propostasss[0].conteudo_da_proposta);
-    //     // return 0;
-
-    //     var TELEFONE_USUARIO_TRABALHADO = "";
-
-
-    //     // if (typeof propostasss !== "undefined") {
-
-    //     async function FUNCAO_ASSINCRONA_PRINCIPAL() {
-
-    //         TELEFONE_USUARIO_TRABALHADO = DEIXAR_SOMENTE_NUMEROS(VARIAVEL_GLOBAL.TELEFONE.toString());
-
-    //         // var RETORNO_ARRAY_CELULARES = new Array();
-    //         // ARRAY_CELULARES_DAS_MENSAGENS
-    //         // ARRAY_CONTEUDO__DAS_MENSAGENS
-
-    //         // 1º ETAPA, COLETANDO NUMERO DE CELULARES DAS MENSAGENS E CRIANDO UM ARRAY DE CELULARES
-    //         async function PRIMEIRA_ETAPA() {
-
-    //             if (propostasss.length > 0) {
-
-    //                 // ARRAY_CELULARES_DAS_MENSAGENS.length = 0;
-    //                 // ARRAY_CONTEUDO__DAS_MENSAGENS.length = 0;
-    //                 // ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR.length = 0;
-
-    //                 // propostasss.map(async (Array, index) => {
-    //                 //    ARRAY_CELULARES_DAS_MENSAGENS.push(await EXTRAIR_CELULARES_DE_TEXTO_2(propostasss[index].conteudo_da_proposta));
-    //                 //     ARRAY_CONTEUDO__DAS_MENSAGENS.push(propostasss[index].conteudo_da_proposta);
-    //                 //     ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR.push(propostasss[index].conteudo_da_proposta);
-    //                 // });
-    //                 ARRAY_CONTEUDO__DAS_MENSAGENS.map(async (Array, index) => {
-    //                         ARRAY_CELULARES_DAS_MENSAGENS.push(await EXTRAIR_CELULARES_DE_TEXTO_2(ARRAY_CONTEUDO__DAS_MENSAGENS[index]));
-    //                         ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR.push(ARRAY_CONTEUDO__DAS_MENSAGENS[index]);
-    //                 });
-
-
-
-
-
-    //             }//IF
-
-
-    //         }//FUNCAO  PRIMEIRA_ETAPA();
-
-    //         await PRIMEIRA_ETAPA();
-
-    //         // alert(ARRAY_CELULARES_DAS_MENSAGENS);
-
-    //         async function SEGUNDA_ETAPA() {
-
-
-    //             // if (typeof vendedor_ou_comprador[0] !== "undefined") {
-    //             // if (propostasss.length > 0) {
-    //             if (typeof vendedor_ou_comprador[0] !== "undefined" || propostasss.length > 0) {
-
-
-
-    //                 if (USUARIO_CELL_E_VENDEDOR_OU_COMPRADOR === "VENDEDOR") {
-
-
-    //                     /***************************************************************************************************/
-    //                     /***************************************************************************************************/
-    //                     /***************************************************************************************************/
-
-    //                     // alert( TELEFONE_USUARIO_TRABALHADO);
-    //                     for (var i = 0; i < ARRAY_CONTEUDO__DAS_MENSAGENS.length; i++) {
-
-    //                         //  alert( ARRAY_CONTEUDO__DAS_MENSAGENS.length );
-
-    //                         var CELULARES_POR_MESAGEM_array_local = ARRAY_CELULARES_DAS_MENSAGENS[i];
-
-
-    //                         //  alert( CELULARES_POR_MESAGEM_array_local.length );
-
-
-
-    //                         for (var j = 0; j < CELULARES_POR_MESAGEM_array_local.length; j++) {
-
-    //                             // console.log(CELULARES_POR_MESAGEM_array_local[j]);  
-    //                             // alert(TELEFONE_USUARIO_TRABALHADO);
-
-
-    //                             if (TELEFONE_USUARIO_TRABALHADO == CELULARES_POR_MESAGEM_array_local[j]) {
-
-
-
-    //                                 // ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR[i] = ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR[i].replace(CELULARES_POR_MESAGEM_array_local[j], "Você");
-    //                                 ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR.splice(i, 0, ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR[i].replace(CELULARES_POR_MESAGEM_array_local[j], "Você"));
-    //                                 // console.log("É IGUAL => " + i + " " + ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR[i] + "\n\n");
-
-    //                                 // alert( ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR[i] );
-    //                                 setRETORNO_CONTEUDO_TEXTO(ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR[j]);
-
-    //                             }//IF
-
-    //                             else if (TELEFONE_USUARIO_TRABALHADO != CELULARES_POR_MESAGEM_array_local[j]) {
-
-    //                                 // ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR[i] = ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR[i].replace(CELULARES_POR_MESAGEM_array_local[j], "Comprador");
-    //                                 ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR.splice(i, 0, ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR[i].replace(CELULARES_POR_MESAGEM_array_local[j], "Comprador"));
-    //                                 // console.log("É DIFERENTE => " + i + " " + ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR[i] + "\n\n");
-
-    //                                 // alert( CELULARES_POR_MESAGEM_array_local)
-    //                                 // alert( ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR[i])
-
-    //                                 setRETORNO_CONTEUDO_TEXTO(ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR[j]);
-
-    //                             }//IF
-
-    //                             // CONTEUDO_INCREMENTO = ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR[i];
-    //                             // setRETORNO_CONTEUDO_TEXTO(CONTEUDO_INCREMENTO);
-
-    //                         }//FOR
-
-
-
-
-    //                     }//FOR
-
-    //                     // ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR.map((array, index) => {
-    //                     //     CONTEUDO_INCREMENTO = ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR[index];
-    //                     //     setRETORNO_CONTEUDO_TEXTO(CONTEUDO_INCREMENTO);
-
-    //                     // });
-
-
-
-    //                 } else if (USUARIO_CELL_E_VENDEDOR_OU_COMPRADOR === "COMPRADOR") {
-
-
-    //                     // alert(ARRAY_CONTEUDO__DAS_MENSAGENS);
-
-
-    //                 }//IF
-
-
-    //             }
-
-
-    //         }//FUNCAO  SEGUNDA_ETAPA();
-
-
-    //         // await SEGUNDA_ETAPA();
-
-
-    //         // alert(ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR);
-    //         // setRETORNO_CONTEUDO_TEXTO(ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR);
-
-    //         // alert(ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR);
-
-    //         console.log(ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR);
-
-    //     }// function
-
-
-    //     FUNCAO_ASSINCRONA_PRINCIPAL();
-
-
-
-    // }, []);
-    // //////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-    // useEffect(() => {
-    //     console.log(ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR);
-    // }, [RETORNO_CONTEUDO_TEXTO]);
-
-
-    // useEffect(() => {
-
-    //     alert(ARRAY_CONTEUDO__DAS_MENSAGENS);
-
-    // }, []);
-
-
-
-
-
-
-
-
-    /*******************************************************************************************************************************************/
-    /*******************************************************************************************************************************************/
-    /*******************************************************************************************************************************************/
-    /*******************************************************************************************************************************************/
-
-
-
-
-    async function COMFORMANDO_A_IDENTIFICACAO_DAS_MENSAGENS(parametros_recebidos_1) {
-
-        function AsynFunction() {
-
-            return new Promise(function (resolve) {
-
-                var TELEFONE_USUARIO_TRABALHADO = "";
-
-                ARRAY_CELULARES_DAS_MENSAGENS.push(EXTRAIR_CELULARES_DE_TEXTO_2(parametros_recebidos_1));
-                ARRAY_CONTEUDO__DAS_MENSAGENS.push(parametros_recebidos_1);
-                ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR.push(parametros_recebidos_1);
-
-
-                if (typeof vendedor_ou_comprador[0] !== "undefined") {
-
-                    TELEFONE_USUARIO_TRABALHADO = DEIXAR_SOMENTE_NUMEROS(VARIAVEL_GLOBAL.TELEFONE.toString());
-
-                    if (USUARIO_CELL_E_VENDEDOR_OU_COMPRADOR === "VENDEDOR") {
-
-
-                        // alert( TELEFONE_USUARIO_TRABALHADO.length);
-
-                        // for (var i = 0; i < ARRAY_CONTEUDO__DAS_MENSAGENS.length; i++) {
-                        ARRAY_CONTEUDO__DAS_MENSAGENS.map((array, i) => {
-
-                            //  alert( ARRAY_CONTEUDO__DAS_MENSAGENS.length );
-
-                            var CELULARES_POR_MESAGEM_array_local = [ARRAY_CELULARES_DAS_MENSAGENS[i]];
-                            //  alert( CELULARES_POR_MESAGEM_array_local.length );
-
-                            // for (var j = 0; j < CELULARES_POR_MESAGEM_array_local.length; j++) {
-                            CELULARES_POR_MESAGEM_array_local.map((array, j) => {
-
-                                // console.log(CELULARES_POR_MESAGEM_array_local[j]);  
-
-                                if (TELEFONE_USUARIO_TRABALHADO == CELULARES_POR_MESAGEM_array_local[j]) {
-
-                                    ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR[i] = ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR[i].replace(CELULARES_POR_MESAGEM_array_local[j], "Você");
-                                    // console.log("É IGUAL => " + i + " " + ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR[i] + "\n\n");
-                                    // RETORNO_CONTEUDO_TEXTO = ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR[i];
-                                    // setRETORNO_CONTEUDO_TEXTO(ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR[i]);
-
-                                }//IF
-
-                                else if (TELEFONE_USUARIO_TRABALHADO != CELULARES_POR_MESAGEM_array_local[j]) {
-
-                                    ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR[i] = ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR[i].replace(CELULARES_POR_MESAGEM_array_local[j], "Comprador");
-                                    // console.log("É DIFERENTE => " + i + " " + ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR[i] + "\n\n");
-                                    // RETORNO_CONTEUDO_TEXTO = ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR[i];
-                                    // setRETORNO_CONTEUDO_TEXTO(ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR[i]);
-
-                                }//IF
-                                setRETORNO_CONTEUDO_TEXTO(ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR[i]);
-
-                                // alert( ARRAY_CELULARES_DAS_MENSAGENS.length );
-
-                                // }//FOR
-
-                            });//map()
-
-                            // }//FOR
-
-                        });//map()
-
-                        // ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR.map((array, index) => {
-                        //     RETORNO_CONTEUDO_TEXTO = ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR[index];
-                        // });
-
-
-
-                    } else if (USUARIO_CELL_E_VENDEDOR_OU_COMPRADOR === "COMPRADOR") {
-
-
-                        // alert(ARRAY_CONTEUDO__DAS_MENSAGENS);
-
-
-                    }//IF
-
-
-                }// if (typeof vendedor_ou_comprador[0] !== "undefined") {
-
-
-
-
-
-                // alert(RETORNO_CONTEUDO_TEXTO);
-                // return RETORNO_CONTEUDO_TEXTO;
-
-                resolve(RETORNO_CONTEUDO_TEXTO);
-
-            });
-
-        }// AsynFunction(
-
-        return AsynFunction();
-
-
-    }// COMFORMANDO_A_IDENTIFICACAO_DAS_MENSAGENS
-
-
-
-
-    // useEffect(() => {
-    //     if (propostasss.length > 0) {
-    //         propostasss.map(async(array, index) => {
-    //             console.log(await COMFORMANDO_A_IDENTIFICACAO_DAS_MENSAGENS(propostasss[index].conteudo_da_proposta));
-    //         });//map
-    //     }//IF
-    // }, []);
-
-
-
-    /*******************************************************************************************************************************************/
-    /*******************************************************************************************************************************************/
-    /*******************************************************************************************************************************************/
-    /*******************************************************************************************************************************************/
-
-
-
-
-
-
-
-
     return (
 
         <View style={{ width: '100%', height: '90%', alignItems: 'center', justifyContent: 'center', backgroundColor: '#2A3E4A' }}
@@ -1104,13 +777,8 @@ export default function MensagensPropostas(param) {
 
 
                         // DATA_CHEIA_INGLES = EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(propostasss[index].conteudo_da_proposta),
-                        // DATA_CHEIA_INGLES = COMFORMANDO_A_IDENTIFICACAO_DAS_MENSAGENS(propostasss[index].conteudo_da_proposta),
-                        // DATA_CHEIA_INGLES = ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR[index],
-
-
 
                         ARRAY_CONTEUDO__DAS_MENSAGENS.push(propostasss[index].conteudo_da_proposta),
-
 
 
                         {
@@ -1129,46 +797,45 @@ export default function MensagensPropostas(param) {
                                     if (USUARIO_CELL_E_VENDEDOR_OU_COMPRADOR === "VENDEDOR") {
 
 
-
                                         CELULARES_POR_MESAGEM_array_local.map((array, jjj) => {
 
-                                            // console.log(CELULARES_POR_MESAGEM_array_local[j]);  
-
+                                
                                             if (TELEFONE_USUARIO_TRABALHADO == CELULARES_POR_MESAGEM_array_local[jjj]) {
-
                                                 ARRAY_CONTEUDO__DAS_MENSAGENS[iii] = ARRAY_CONTEUDO__DAS_MENSAGENS[iii].replace(CELULARES_POR_MESAGEM_array_local[jjj], "Você");
-                                                DATA_CHEIA_INGLES =  ARRAY_CONTEUDO__DAS_MENSAGENS[iii];
-
+                                                DATA_CHEIA_INGLES = EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(ARRAY_CONTEUDO__DAS_MENSAGENS[iii]);
                                             }//IF 
 
                                             else if (TELEFONE_USUARIO_TRABALHADO != CELULARES_POR_MESAGEM_array_local[jjj]) {
-
                                                 ARRAY_CONTEUDO__DAS_MENSAGENS[iii] = ARRAY_CONTEUDO__DAS_MENSAGENS[iii].replace(CELULARES_POR_MESAGEM_array_local[jjj], "Comprador");
-                                                DATA_CHEIA_INGLES =  ARRAY_CONTEUDO__DAS_MENSAGENS[iii];
+                                                DATA_CHEIA_INGLES = EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(ARRAY_CONTEUDO__DAS_MENSAGENS[iii]);
                                             }//IF
 
                                         });//map()
 
 
 
-                                        // ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR.map((array, index) => {
-                                        //     RETORNO_CONTEUDO_TEXTO = ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR[index];
-                                        // });
-
-
-
                                     } else if (USUARIO_CELL_E_VENDEDOR_OU_COMPRADOR === "COMPRADOR") {
 
 
-                                        // alert(ARRAY_CONTEUDO__DAS_MENSAGENS);
+                                        CELULARES_POR_MESAGEM_array_local.map((array, jjj) => {
+
+                                
+                                            if (TELEFONE_USUARIO_TRABALHADO == CELULARES_POR_MESAGEM_array_local[jjj]) {
+                                                ARRAY_CONTEUDO__DAS_MENSAGENS[iii] = ARRAY_CONTEUDO__DAS_MENSAGENS[iii].replace(CELULARES_POR_MESAGEM_array_local[jjj], "Você");
+                                                DATA_CHEIA_INGLES = EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(ARRAY_CONTEUDO__DAS_MENSAGENS[iii]);
+                                            }//IF 
+
+                                            else if (TELEFONE_USUARIO_TRABALHADO != CELULARES_POR_MESAGEM_array_local[jjj]) {
+                                                ARRAY_CONTEUDO__DAS_MENSAGENS[iii] = ARRAY_CONTEUDO__DAS_MENSAGENS[iii].replace(CELULARES_POR_MESAGEM_array_local[jjj], "Vendedor");
+                                                DATA_CHEIA_INGLES = EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(ARRAY_CONTEUDO__DAS_MENSAGENS[iii]);
+                                            }//IF
+
+                                        });//map()                                   
 
 
                                     }//IF
 
                                     /****************************************************************************** */
-                                    //    DATA_CHEIA_INGLES = ARRAY_CONTEUDO__DAS_MENSAGENS[iii];
-                                    // DATA_CHEIA_INGLES = COMFORMANDO_A_IDENTIFICACAO_DAS_MENSAGENS(ARRAY_CONTEUDO__DAS_MENSAGENS[iii]);
-                                    // DATA_CHEIA_INGLES = COMFORMANDO_A_IDENTIFICACAO_DAS_MENSAGENS(propostasss[index].conteudo_da_proposta)
 
                                 })
 
