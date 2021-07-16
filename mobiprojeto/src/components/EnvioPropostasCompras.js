@@ -285,7 +285,7 @@ export default function EnvioPropostasCompras(props) {
 
 
         var telefone_do_usuario_txt = VARIAVEL_GLOBAL.TELEFONE.toString();
-        telefone_do_usuario_txt = telefone_do_usuario_txt.replace(/([\[])|([\]])/g,'');
+        telefone_do_usuario_txt = telefone_do_usuario_txt.replace(/([\[])|([\]])/g, '');
 
 
 
@@ -311,8 +311,8 @@ export default function EnvioPropostasCompras(props) {
 
             // if (DEU_ERRO_SIM_NAO_TALVEZ === "NAO") {
 
-                VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
-                VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = true;
+            VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
+            VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = true;
 
             // }
 
@@ -333,10 +333,10 @@ export default function EnvioPropostasCompras(props) {
 
 
     ////////ENVIAR PROPOSTA ABAIXO
-     async function ENVIAR_PROPOSTA(funcao_remota_enivar_proposta) {
+    async function ENVIAR_PROPOSTA(funcao_remota_enivar_proposta) {
 
 
-        
+
 
         VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = true;
 
@@ -348,9 +348,9 @@ export default function EnvioPropostasCompras(props) {
         // ADICIONADO EM 13 07 2021
         //  conteudoDaProposta = "<cabecalho>"+VARIAVEL_GLOBAL.TELEFONE + "  " + data_hora_e_segundo_completo() +"</cabecalho>"  + conteudoDaProposta;
 
-        var  data_ingles_para_portugues = await  EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES( data_hora_e_segundo_completo_ingles() );
+        var data_ingles_para_portugues = await EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(data_hora_e_segundo_completo_ingles());
         // alert( data_ingles_para_portugues ); return 0;
-        conteudoDaProposta = "<cabecalho>"+DEIXAR_SOMENTE_NUMEROS(VARIAVEL_GLOBAL.TELEFONE) + "  " + data_ingles_para_portugues +"</cabecalho>"  + conteudoDaProposta;
+        conteudoDaProposta = "<cabecalho>" + DEIXAR_SOMENTE_NUMEROS(VARIAVEL_GLOBAL.TELEFONE) + "  " + data_ingles_para_portugues + "</cabecalho>" + conteudoDaProposta;
 
         //propostasss
 
@@ -386,9 +386,9 @@ export default function EnvioPropostasCompras(props) {
 
         ////AUSDIT 23/05/2021 SUBSTITUIU AS 2 LINHAS ACIMA
         var COMPRADOR = VARIAVEL_GLOBAL.TELEFONE.toString();
-        COMPRADOR = COMPRADOR.replace(/([\[])|([\]])/g,'');
+        COMPRADOR = COMPRADOR.replace(/([\[])|([\]])/g, '');
         numero_CelularUsuario = VARIAVEL_GLOBAL.TELEFONE.toString();
-        COMPRADOR = COMPRADOR.replace(/([\[])|([\]])/g,'');
+        COMPRADOR = COMPRADOR.replace(/([\[])|([\]])/g, '');
 
 
         /**/
@@ -453,17 +453,30 @@ export default function EnvioPropostasCompras(props) {
         //alert( index+"   "+numero_telefone+"   "+id_da_postagem );
         var numero_telefone_J = numero_telefone;
         var id_J = id_da_postagem;
-        try {
-            //await api.get('/comprar_direto', {
-            await Axios.get(IP_DO_SERVIDOR + 'comprar_direto', {
-                params: {
-                    numero_telefone_J: numero_telefone_J,
-                    id_J: id_J,
-                    comprador_J: numero_telefone_comprador
-                }
-            }, alert("Compra Realizada... Entraremos em Contato !"));
 
-        } catch (error) { alert(" erro_$87Sw==> " + error) }
+        // try {  var resposta
+
+        var retorno = await Axios.get(IP_DO_SERVIDOR + 'comprar_direto', {
+            params: {
+                numero_telefone_J: numero_telefone_J,
+                id_J: id_J,
+                comprador_J: numero_telefone_comprador
+            }
+            // }, alert("Compra Realizada... Entraremos em Contato !")); TROCADO PELAS 5 LINHAS ABAIXO
+
+        });
+
+        if ((await retorno.data.status) === "sucesso") {
+
+            alert("Compra Realizada... Entraremos em Contato !");
+
+        } else if ((await retorno.data.status) === "falha") {
+
+            alert("Falha ao Comprar, Tente novamente !");
+
+        }
+
+        // } catch (error) { alert("Falha ao Comprar, Tente novamente !") }
     }//function COMPRAR_DIRETO(){                    
     ////////COMPRAR DIRETO ACIMA
 

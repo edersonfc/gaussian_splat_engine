@@ -760,26 +760,38 @@ export default function DetalhesProdutos(props) {
                                                             onPress: async () => {
                                                                 //TAREFAZ AQUI ABAIXO
 
-                                                                try {
+                                                                // try {
 
-                                                                    await Axios.get(IP_DO_SERVIDOR + 'comprar_direto', {
-                                                                        params: {
-                                                                            numero_telefone_J: numero_telefone_J,
-                                                                            id_J: id_J,
-                                                                            comprador_J: numero_telefone_comprador
-                                                                        }
+                                                                var retorno = await Axios.get(IP_DO_SERVIDOR + 'comprar_direto', {
+                                                                    params: {
+                                                                        numero_telefone_J: numero_telefone_J,
+                                                                        id_J: id_J,
+                                                                        comprador_J: numero_telefone_comprador
+                                                                    }
+                                                                    // }, setComprar_ou_deletar("Comprado"), alert("Compra Realizada... Entraremos em Contato !") ); //TROCADO PELAS 7 LINHAS ABAIXO
 
-                                                                    }, setComprar_ou_deletar("Comprado"), alert("Compra Realizada... Entraremos em Contato !"));
+                                                                });
+
+                                                                if ((await retorno.data.status) === "sucesso") {
+
+                                                                    setComprar_ou_deletar("Comprado");
+                                                                    alert("Compra Realizada... Entraremos em Contato !");
+
+                                                                } else if ((await retorno.data.status) === "falha") {
+
+                                                                    alert("Falha ao Comprar, Tente novamente !");
+
+                                                                }
 
 
-                                                                } catch (error) { alert("Falha ao Comprar !"); }
+                                                               // } catch (error) { alert("Falha ao Comprar, Tente novamente !"); }
 
                                                                 //TAREFAZ AQUI ACIMA
                                                             }
                                                         },
                                                         {
                                                             text: 'Não',
-                                                            onPress: () => {/*console.log('No Pressed')*/},
+                                                            onPress: () => {/*console.log('No Pressed')*/ },
                                                             style: 'cancel'
                                                         },
                                                     ],
@@ -1211,7 +1223,7 @@ export default function DetalhesProdutos(props) {
                 },
                 {
                     text: 'Não',
-                    onPress: () => {/*console.log('No Pressed')*/},
+                    onPress: () => {/*console.log('No Pressed')*/ },
                     style: 'cancel'
                 },
             ],
@@ -1299,7 +1311,7 @@ export default function DetalhesProdutos(props) {
                 },
                 {
                     text: 'Não',
-                    onPress: () => {/*console.log('No Pressed')*/},
+                    onPress: () => {/*console.log('No Pressed')*/ },
                     style: 'cancel'
                 },
             ],
