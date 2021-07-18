@@ -54,6 +54,7 @@ export default function navegacaoFotos(props) {
     //ARRY_URL_IMAGENS.length = 0;
     //ARRY_URL_IMAGENS = URL.split("|");
 
+    const [botaoApagarTrueFalse, setBotaoApagarTrueFalse] = useState(false);//ADICIONADO EM 17 07 2021
 
     /**/
     //RESPONSÁVEL POR CARREGAR PRIMEIRO TODAS DAS FUNÇÕES DO APLICATIVO ABAIXO 
@@ -71,6 +72,14 @@ export default function navegacaoFotos(props) {
 
         //PreencherLista();
 
+
+        //COLOCADO EM 17 07 2021 ABAIXO
+        // if (VARIAVEL_GLOBAL.TELEFON != VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.numero_telefone_J) {
+            if (VARIAVEL_GLOBAL.TELA_ORIGEM.includes("Postar") ){
+                setBotaoApagarTrueFalse(true);
+            } else { setBotaoApagarTrueFalse(false); }
+        //COLOCADO EM 17 07 2021 ACIMA
+
         setAndar(index_id);
 
         setUrl_strings(IMAGENS);
@@ -82,19 +91,31 @@ export default function navegacaoFotos(props) {
 
 
 
-    const [ largura_tela,      setLargura_tela  ] = useState(Dimensions.get('window').width);
-    const [ altura_tela,       setAltura_tela   ] = useState(Dimensions.get('window').height);
+    const [largura_tela, setLargura_tela] = useState(Dimensions.get('window').width);
+    const [altura_tela, setAltura_tela] = useState(Dimensions.get('window').height);
 
-    const [ altura_20_porcento, setAltura_20_porcento  ] = useState(0);
+    const [altura_20_porcento, setAltura_20_porcento] = useState(0);
 
-        useEffect(() => {
+   
+    
+  
 
-            setAltura_20_porcento( ((largura_tela * 20) / 100) );
 
-        });
+    useEffect(() => {
 
- 
+        setAltura_20_porcento(((largura_tela * 20) / 100));
 
+        // alert(VARIAVEL_GLOBAL.TELEFONE);
+        // alert( VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.numero_telefone_J );
+        //alert( VARIAVEL_GLOBAL.TELEFONE +" \n "+ VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.numero_telefone_J );
+           
+
+        // alert( VARIAVEL_GLOBAL.TELA_ORIGEM );
+
+    });
+
+
+  
 
 
 
@@ -108,16 +129,16 @@ export default function navegacaoFotos(props) {
             {/* MUDANDO A ORIENTAÇÃO DA TELA PRA PAISAGEM ABAIXO  coloca dentro da View principal que fica dentro do return*/}
             <ScreenOrientation
                 orientation={LANDSCAPE_LEFT}
-                // orientation={PORTRAIT}
-                // onChange={orientation => console.log('onChange', orientation)}
-                // onDeviceChange={orientation => console.log('onDeviceChange', orientation) }
-           
+            // orientation={PORTRAIT}
+            // onChange={orientation => console.log('onChange', orientation)}
+            // onDeviceChange={orientation => console.log('onDeviceChange', orientation) }
+
             />
             {/* MUDANDO A ORIENTAÇÃO DA TELA PRA PAISAGEM ACIMA   coloca dentro da View principal que fica dentro do return */}
 
 
             {/* { SETAR_ALTURA_DA_FAIXA_DE_NAVEGACAO() } */}
-       
+
 
 
             {/*NAVEGADOR DAS FOTOS ABAIXO*/}
@@ -136,7 +157,7 @@ export default function navegacaoFotos(props) {
 
                 {/* paddingTop: '142%' => POSIÇÃO RETRATO */}
                 {/*BOTÕES CONTROLE ABAIXO  rgba(230,200,50,0)  */}
-                <View style={{ justifyContent: 'flex-end',  width: '100%', height: '100%', backgroundColor: 'rgba(230,200,50,0)', position: 'absolute', paddingBottom: '0%' /*, paddingTop: '41%'*/ }} >
+                <View style={{ justifyContent: 'flex-end', width: '100%', height: '100%', backgroundColor: 'rgba(230,200,50,0)', position: 'absolute', paddingBottom: '0%' /*, paddingTop: '41%'*/ }} >
                     <View style={{ width: '100%', height: altura_20_porcento, alignItems: 'center', alignContent: 'center', backgroundColor: 'rgba(0,0,0,0.5)' }}>
                         <View style={{ flexDirection: 'row', height: '100%', alignItems: 'center', alignContent: 'center', backgroundColor: 'rgba(0,72,204,0.0)' }} >
 
@@ -144,8 +165,8 @@ export default function navegacaoFotos(props) {
                             <TouchableOpacity style={{ width: '20%' }}
                                 //onPress={() => this.takePicture(camera)
                                 onPress={() => {
-                                    
-                                    
+
+
                                     setAndar(andar = andar - 1);
                                     if (andar > -1) {
                                         setUrl_strings(ARRY_URL_IMAGENS[andar])
@@ -157,44 +178,53 @@ export default function navegacaoFotos(props) {
                                     }
 
 
-                                } }
-                               
+                                }}
+
                                 style={styles.capture}>
                                 <Icon name='arrow-left' style={styles.fontIcone} />
 
                             </TouchableOpacity>
 
 
+                            {botaoApagarTrueFalse ?
 
-                            <TouchableOpacity style={{ width: '20%' }}
-                               
-                                onPress={() => {
+                                <TouchableOpacity style={{ width: '20%' }}
 
-                                    /* */
-                                    ARRY_URL_IMAGENS.splice(ARRY_URL_IMAGENS.indexOf(ARRY_URL_IMAGENS[andar]), 1);
+                                    onPress={() => {
+                                        /* */
+                                        ARRY_URL_IMAGENS.splice(ARRY_URL_IMAGENS.indexOf(ARRY_URL_IMAGENS[andar]), 1);
 
-                                    alert('Imagem Apagada')
-                                    andar = andar - 1;
-                                    setAndar(andar);
-
-                                    if (andar == -1) {
-                                        andar = andar + 1;
+                                        alert('Imagem Apagada')
+                                        andar = andar - 1;
                                         setAndar(andar);
-                                        setUrl_strings(ARRY_URL_IMAGENS[andar])
 
-                                    } else {
-                                        setUrl_strings(ARRY_URL_IMAGENS[andar])
-                                    }
-                                   
-                                    // alert( JSON.stringify(VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT)  );
-                                   
+                                        if (andar == -1) {
+                                            andar = andar + 1;
+                                            setAndar(andar);
+                                            setUrl_strings(ARRY_URL_IMAGENS[andar])
 
-                                } }
-                               
-                                style={styles.capture}>
-                                <Text style={styles.fontBotao} >Apagar{/*andar*/} {/*tamanho_array = {ARRY_URL_IMAGENS.length*/} </Text>
+                                        } else {
+                                            setUrl_strings(ARRY_URL_IMAGENS[andar])
+                                        }
 
-                            </TouchableOpacity>
+                                        // alert( JSON.stringify(VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT)  );
+
+
+                                    }}
+
+                                    style={styles.capture}>
+                                    <Text style={[styles.fontBotao]} >Apagar{/*andar*/} {/*tamanho_array = {ARRY_URL_IMAGENS.length*/} </Text>
+
+                                </TouchableOpacity>
+
+                                : []}
+
+
+
+
+
+
+
 
                             {/**********/}
                             <TouchableOpacity style={{ width: '20%' }}
@@ -224,7 +254,7 @@ export default function navegacaoFotos(props) {
                                     }//IF
 
 
-                                    if (VARIAVEL_GLOBAL.TELA_ORIGEM == "Principal" || VARIAVEL_GLOBAL.TELA_ORIGEM == "ComprasVendas") {
+                                    if (VARIAVEL_GLOBAL.TELA_ORIGEM == "Principal" || VARIAVEL_GLOBAL.TELA_ORIGEM == "ComprasVendas" || VARIAVEL_GLOBAL.TELA_ORIGEM == "nenhuma") {
 
                                         navigation.goBack(URL_FOTOS); //ATIVAR DEPOIS
 
