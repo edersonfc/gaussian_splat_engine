@@ -680,13 +680,11 @@ export default function MensagensPropostas(param) {
                                                             alert("Compra e Venda Fechada ! \n Não é possivel Emviar Mensagem de Proposta !");
                                                         } else {
                                                             //ENVIAR PROPOSTA CHAMANDO FUNÇÃO DO PAI AQUI
-                                                            setWaitingisible(true);
-                                                            
+                                                                                                                
                                                             param.funcao_remota_enivar_proposta(conteudoDaProposta);
                                                             Keyboard.dismiss();
                                                             VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
 
-                                                            setWaitingisible(false);
                                                         }//IF ELSE
                                                         /////////////////////////
                                                         //TAREFAZ AQUI ACIMA

@@ -66,7 +66,7 @@ export default class CameraScreen extends React.Component { //LINHA TROCADO PELA
       quality: RNCamera.Constants.VideoQuality['288p'],
     },
     isRecording: false,
-    canDetectFaces: false,
+    canDetectFaces: true,
     canDetectText: false,
     canDetectBarcode: false,
     faces: [],

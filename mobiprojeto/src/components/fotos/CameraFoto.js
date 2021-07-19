@@ -56,7 +56,7 @@ export default function CameraFoto(props) {
     const { VARIAVEL_GLOBAL } = useContext(GlobalContext);
 
 
-    const [ waitingVisible, setWaitingisible] = useState(false);
+    const [waitingVisible, setWaitingisible] = useState(false);
 
 
     // var IncrementoDecremento = -1;
@@ -220,17 +220,17 @@ export default function CameraFoto(props) {
     return (
 
 
+
         <View style={styles.container}>
 
-
+            <ScreenOrientation orientation={LANDSCAPE_LEFT} />
 
             {/* MUDANDO A ORIENTAÇÃO DA TELA PRA PAISAGEM ABAIXO  coloca dentro da View principal que fica dentro do return*/}
-            <ScreenOrientation
-                orientation={LANDSCAPE_LEFT}
-            // orientation={PORTRAIT}
+            {/* </View><ScreenOrientation  orientation={LANDSCAPE_LEFT} */}
+            {/* // orientation={PORTRAIT}
             // onChange={orientation => console.log('onChange', orientation)}
             // onDeviceChange={orientation => console.log('onDeviceChange', orientation)}
-            />
+            // /> */}
             {/* MUDANDO A ORIENTAÇÃO DA TELA PRA PAISAGEM ACIMA   coloca dentro da View principal que fica dentro do return */}
 
 
@@ -254,48 +254,79 @@ export default function CameraFoto(props) {
                         buttonPositive: 'Ok',
                         buttonNegative: 'Cancel',
                     }}
+
+                    onPress={() => { alert("EXECUTANDO DIRETO NO RNCamera !"); }}
                 >
-                    {({ camera, status, recordAudioPermissionStatus }) => {
-                        if (status !== 'READY') return <PendingView />;
-                        return (
 
-                            <View style={{ width: '100%', height: 'auto', backgroundColor: 'rgba(0,0,0,0.5)' }} >
 
-                                <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
-                                    <TouchableOpacity
-                                        //onPress={() => this.takePicture(camera)
-                                        onPress={async () => {
+                    {
+                        ({ camera, status, recordAudioPermissionStatus }) => {
 
-                                            setWaitingisible(true);
+                            // if (status !== 'READY') return <PendingView />;
+                            if (status !== 'READY') {
 
-                                            await takePicture(camera)
-                                              .then( () =>{ 
-                                              //alert(data.uri)
-                                              // alert(andar);
+                                // return <PendingView />;
+                                return <Waiting paremetroEnviado={"Aguarde ..."} ORIENTACAO={"LANDSCAPE_LEFT"} />
 
-                                              setWaitingisible(false);
+                            } else {
 
-                                              });
-                                           
 
-                                        } }
-                                       
-                                        style={styles.capture}>
-                                        <Text style={styles.fontBotao}  >Tirar Foto</Text>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
+                                return (
+                                    <View
+                                        style={{
+                                            flexDirection: 'row',
+                                            width: '100%',
+                                            // height: Math.round(Dimensions.get('window').height),
+                                            height: '100%',
+                                            backgroundColor: 'rgba(190,190,0,0)',
+                                            alignItems: 'flex-end',
+                                            justifyContent: 'center',
+                                            position: 'absolute',
+                                            top: 0
+                                        }}
+                                    >
+                                        <View style={{ width: '100%', height: 'auto', backgroundColor: 'rgba(0,0,0,0.5)' }} >
 
-                        );
-                    }}
+                                            <View style={{ flex: 0, flexDirection: 'row', justifyContent: 'center' }}>
+                                                <TouchableOpacity
+                                                    //onPress={() => this.takePicture(camera)
+                                                    onPress={async () => {
+
+                                                        setWaitingisible(true);
+
+                                                        await takePicture(camera)
+                                                            .then(() => {
+                                                                //alert(data.uri)
+                                                                // alert(andar);
+                                                                setWaitingisible(false);
+
+                                                            });//.then( ()
+
+
+                                                    }}
+
+                                                    style={styles.capture}>
+                                                    <Text style={styles.fontBotao}  >Tirar Foto</Text>
+                                                </TouchableOpacity>
+                                            </View>
+                                        </View>
+
+                                    </View>
+
+                                );//return (
+
+                            }//IF ELSE
+
+                        }//({ camera, status, recordAudioPermissionStatus }) => {
+                    }
                 </RNCamera>
+
 
             }
 
             {/*NAVEGADOR DAS FOTOS ABAIXO*/}
             {navegarFoto &&   /* PRINCIPAL NAVEGAÇÃO */
 
-                /*<View style={[ style={ width: '100%', height: '100%', alignItems: 'center', alignContent: 'center', backgroundColor: 'gray'}, {transform: [{ rotateY: "45deg" }, { rotateZ: "45deg" }]}  ]}  >*/
                 <View style={[style = { width: '100%', height: '100%', alignItems: 'center', alignContent: 'center', backgroundColor: 'gray' }]}  >
 
 
@@ -456,7 +487,7 @@ export default function CameraFoto(props) {
             {/*NAVEGADOR DAS FOTOS ACIMA*/}
 
 
-            { waitingVisible && (<Waiting paremetroEnviado={"Fotografando... "} ORIENTACAO={"LANDSCAPE_LEFT"} />)  } 
+            {waitingVisible && (<Waiting paremetroEnviado={"Fotografando... "} ORIENTACAO={"LANDSCAPE_LEFT"} />)}
 
 
         </View>
