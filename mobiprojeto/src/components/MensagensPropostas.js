@@ -22,6 +22,8 @@ import Celular_colocar from './Celular_colocar';
 
 import { useNavigation } from "@react-navigation/native";
 
+import Waiting from '../components/Waiting';
+
 
 
 //VARIAVEL GLOBAL FORA DO METODO EXPORT PRINCIPA DA TELA ABAIXO
@@ -52,6 +54,11 @@ var COR_FUNDO_MENSAGEN = "34,43,54"; //COR MAIS ESCURA
 
 export default function MensagensPropostas(param) {
 
+
+    const { VARIAVEL_GLOBAL } = useContext(GlobalContext);
+
+    const [waitingVisible, setWaitingisible] = useState(false);
+
     // var RETORNO_CONTEUDO_TEXTO = "";
     const [RETORNO_CONTEUDO_TEXTO, setRETORNO_CONTEUDO_TEXTO] = useState("");
 
@@ -64,7 +71,7 @@ export default function MensagensPropostas(param) {
     // ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR.length = 0;
 
 
-    const { VARIAVEL_GLOBAL } = useContext(GlobalContext);
+
 
     const navigation = useNavigation();
 
@@ -653,26 +660,48 @@ export default function MensagensPropostas(param) {
 
                             {formulario_enviar_proposta_true_false && (
                                 <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center', width: '45%', borderRadius: 20, borderColor: '#fff', borderWidth: 1 }}
-                                    onPress={() => {
+                                    onPress={async () => {
 
-                                        // alert(JSON.stringify(propostasss));
-                                        // ////////////////////////
-                                        if (JSON.stringify(propostasss).includes("Compra e Venda Fechada</")) {
+                                        /************************************************************************************************/
+                                        /************************************************************************************************/
+                                        /************************************************************************************************/
+                                        /**/
+                                        if (conteudoDaProposta != "" &&
+                                            conteudoDaProposta != null ||
+                                            typeof conteudoDaProposta != "undefined") {
+                                            try {
+                                                var regex = new RegExp(/\w/g);
+                                                var TXT = conteudoDaProposta.match(regex)[0];
+                                                if (conteudoDaProposta.includes(TXT)) {
+                                                    if (conteudoDaProposta.length >= 6) {
+                                                        //TAREFAZ AQUI ABAIXO
+                                                        //////////////////////////
+                                                        if (JSON.stringify(propostasss).includes("Compra e Venda Fechada</")) {
+                                                            alert("Compra e Venda Fechada ! \n Não é possivel Emviar Mensagem de Proposta !");
+                                                        } else {
+                                                            //ENVIAR PROPOSTA CHAMANDO FUNÇÃO DO PAI AQUI
+                                                            setWaitingisible(true);
+                                                            
+                                                            param.funcao_remota_enivar_proposta(conteudoDaProposta);
+                                                            Keyboard.dismiss();
+                                                            VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
 
-                                            alert("Compra e Venda Fechada ! \n Não é possivel Emviar Mensagem de Proposta !");
+                                                            setWaitingisible(false);
+                                                        }//IF ELSE
+                                                        /////////////////////////
+                                                        //TAREFAZ AQUI ACIMA
+                                                    } else { alert("Proposta muito Curta !"); }
+                                                }//IF ELSE
+                                            } catch (e) { alert("O Campo não pode ser vazio !"); }
+                                        }//IF ELSE
+                                        else { alert("O Campo não pode ser \n vazio !"); }
 
-                                        } else {
+                                        // alert(conteudoDaProposta);
+                                        ////////////////////
 
-                                            //ENVIAR PROPOSTA CHAMANDO FUNÇÃO DO PAI AQUI
-                                            //  alert(conteudoDaProposta);   return 0;
-                                            param.funcao_remota_enivar_proposta(conteudoDaProposta);
-                                            //alert(VARIAVEL_GLOBAL.TELEFONE);
-                                            Keyboard.dismiss();
-                                            VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
-
-                                        }
-                                        /////////////////////////
-
+                                        /************************************************************************************************/
+                                        /************************************************************************************************/
+                                        /************************************************************************************************/
 
                                     }}
                                 >
@@ -748,7 +777,7 @@ export default function MensagensPropostas(param) {
                                                 },
                                                 {
                                                     text: 'Não',
-                                                    onPress: () => {/*console.log('No Pressed')*/},
+                                                    onPress: () => {/*console.log('No Pressed')*/ },
                                                     style: 'cancel'
                                                 },
                                             ],
@@ -888,51 +917,45 @@ export default function MensagensPropostas(param) {
 
                                         }//IF            
                                     }}
-                                    //FECHAR CAIXA RESPONDER SE TIVER ABERTO ACIMA
+                                //FECHAR CAIXA RESPONDER SE TIVER ABERTO ACIMA
 
+                                // //FOI DESATIVADO O DELETAR MENSAGEM NO CHAT ABAIXO  18 07 2021
+                                //                                     onLongPress={(e) => {
 
-                                    onLongPress={(e) => {
+                                //                                         //alert("FOI MANTIDO PRESSIONADO");
+                                //                                         Alert.alert(
+                                //                                             //title
+                                //                                             'Atenção !',
+                                //                                             //body
+                                //                                             //'I am two option alert. Do you want to cancel me ?',
+                                //                                             'Deseja Apagar essa Mensagem ?',
+                                //                                             [
+                                //                                                 {
+                                //                                                     text: 'Sim',
+                                //                                                     onPress: () => {
 
-                                        //alert("FOI MANTIDO PRESSIONADO");
-                                        Alert.alert(
-                                            //title
-                                            'Atenção !',
-                                            //body
-                                            //'I am two option alert. Do you want to cancel me ?',
-                                            'Deseja Apagar essa Mensagem ?',
-                                            [
-                                                {
-                                                    text: 'Sim',
-                                                    onPress: () => {
+                                //                                                         if (JSON.stringify(propostasss).includes("Compra e Venda Fechada</")) {
+                                //                                                             alert("Compra e Venda Fechada ! \n Não é possivel Excluir a Mensagem da Proposta !");
+                                //                                                         } else {
+                                //                                                             // alert("VAI APAGAR ESSA PROPOSTA");
+                                //                                                             param.funcao_remota_deletar_proposta(propostas.cod_automatico, propostas.numero_telefone_vendedor, propostas.numero_telefone_comprador);
+                                //                                                             VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
+                                //                                                         }
 
-                                                        //alert(propostas.cod_automatico);
-                                                        // alert(propostas.conteudo_da_proposta);
+                                //                                                     }
+                                //                                                 },
+                                //                                                 {
+                                //                                                     text: 'Não',
+                                //                                                     onPress: () => {/*console.log('No Pressed')*/ },
+                                //                                                     style: 'cancel'
+                                //                                                 },
+                                //                                             ],
+                                //                                             { cancelable: false },
+                                //                                             //clicking out side of alert will not cancel
+                                //                                         );
 
-                                                        if (JSON.stringify(propostasss).includes("Compra e Venda Fechada</")) {
-
-                                                            alert("Compra e Venda Fechada ! \n Não é possivel Excluir a Mensagem da Proposta !");
-
-                                                        } else {
-
-                                                            // alert("VAI APAGAR ESSA PROPOSTA");
-                                                            param.funcao_remota_deletar_proposta(propostas.cod_automatico, propostas.numero_telefone_vendedor, propostas.numero_telefone_comprador);
-                                                            VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
-
-                                                        }
-
-                                                    }
-                                                },
-                                                {
-                                                    text: 'Não',
-                                                    onPress: () => {/*console.log('No Pressed')*/},
-                                                    style: 'cancel'
-                                                },
-                                            ],
-                                            { cancelable: false },
-                                            //clicking out side of alert will not cancel
-                                        );
-
-                                    }}
+                                //                                     }}
+                                // //FOI DESATIVADO O DELETAR MENSAGEM NO CHAT ACIMA  18 07 2021
 
                                 >
 
@@ -1050,48 +1073,79 @@ export default function MensagensPropostas(param) {
 
                                                     onPress={async () => {
 
-                                                        Keyboard.dismiss();
-                                                        alernarTrueFalseCaixaResponderF(index);
-                                                        alernarTrueFalseBotaoResponderF(index);
-                                                        //param.funcao_resposta_da_proposta(0);
-                                                        //param.funcao_resposta_da_proposta();
-
-                                                        // alert( propostasss[index].cod_automatico+"\n"+  propostasss[index].conteudo_da_proposta+"\n"+ vendedor_ou_comprador[index] +"  "+data_hora_e_segundo_completo_ingles() +"\n"+conteudoDaResposta );
-
-                                                        var ID_PROPOSTAS = propostasss[index].cod_automatico;
-
-                                                        var PRIMEIRA_PROPOSTA = propostasss[index].conteudo_da_proposta;
-
-                                                        var topo_html = '<html><body>';
-                                                        var bottom_html = '</body></html>';
-
-                                                        var RESPOSTAS = '';
+                                                        /************************************************************************************************/
+                                                        /************************************************************************************************/
+                                                        /************************************************************************************************/
+                                                        if (conteudoDaResposta != "" &&
+                                                            conteudoDaResposta != null ||
+                                                            typeof conteudoDaResposta != "undefined") {
+                                                            try {
+                                                                var regex = new RegExp(/\w/g);
+                                                                var TXT = conteudoDaResposta.match(regex)[0];
+                                                                if (conteudoDaResposta.includes(TXT)) {
+                                                                    if (conteudoDaResposta.length >= 2) {
+                                                                        //TAREFAZ AQUI ABAIXO
 
 
-                                                        //DEFININDO SE É COMPRADOR OU VENDEDOR NA HORA DE RESPONDER ABAIXO
-                                                        VENDEDOR = propostasss[index].numero_telefone_vendedor;
-                                                        COMPRADOR = propostasss[index].numero_telefone_comprador;
-                                                        vendedor_ou_comprador[index] =
-                                                            FUNCAO_QUE_IDENTIFICA_SE_E_VENDEDOR_OU_COMPRADOR(propostasss[index].numero_telefone_vendedor, propostasss[index].numero_telefone_comprador)
-                                                        //DEFININDO SE É COMPRADOR OU VENDEDOR NA HORA DE RESPONDER ACIMA
+                                                                        Keyboard.dismiss();
+                                                                        alernarTrueFalseCaixaResponderF(index);
+                                                                        alernarTrueFalseBotaoResponderF(index);
+                                                                        //param.funcao_resposta_da_proposta(0);
+                                                                        //param.funcao_resposta_da_proposta();
+
+                                                                        // alert( propostasss[index].cod_automatico+"\n"+  propostasss[index].conteudo_da_proposta+"\n"+ vendedor_ou_comprador[index] +"  "+data_hora_e_segundo_completo_ingles() +"\n"+conteudoDaResposta );
+
+                                                                        var ID_PROPOSTAS = propostasss[index].cod_automatico;
+
+                                                                        var PRIMEIRA_PROPOSTA = propostasss[index].conteudo_da_proposta;
+
+                                                                        var topo_html = '<html><body>';
+                                                                        var bottom_html = '</body></html>';
+
+                                                                        var RESPOSTAS = '';
 
 
-                                                        //SEM HTML ABAIXO
-                                                        RESPOSTAS =
-                                                            propostasss[index].conteudo_da_proposta +
-                                                            "\n" +
-                                                            // '<cabecalho>' + vendedor_ou_comprador[index] + "  " + data_hora_e_segundo_completo_ingles() + '</cabecalho>' +
-                                                            // ADICIONADO EM 13 07 2021
-                                                            '<cabecalho>' + DEIXAR_SOMENTE_NUMEROS(VARIAVEL_GLOBAL.TELEFONE) + "  " + data_hora_e_segundo_completo_ingles() + '</cabecalho>' +
-                                                            conteudoDaResposta +
-                                                            "\n";
-                                                        //SEM HTML ACIMA
-                                                        /**/
+                                                                        //DEFININDO SE É COMPRADOR OU VENDEDOR NA HORA DE RESPONDER ABAIXO
+                                                                        VENDEDOR = propostasss[index].numero_telefone_vendedor;
+                                                                        COMPRADOR = propostasss[index].numero_telefone_comprador;
+                                                                        vendedor_ou_comprador[index] =
+                                                                            FUNCAO_QUE_IDENTIFICA_SE_E_VENDEDOR_OU_COMPRADOR(propostasss[index].numero_telefone_vendedor, propostasss[index].numero_telefone_comprador)
+                                                                        //DEFININDO SE É COMPRADOR OU VENDEDOR NA HORA DE RESPONDER ACIMA
 
-                                                        //alert(RESPOSTAS);
-                                                        param.funcao_resposta_da_proposta(ID_PROPOSTAS, RESPOSTAS, VENDEDOR, COMPRADOR);
 
-                                                        VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
+                                                                        //SEM HTML ABAIXO
+                                                                        RESPOSTAS =
+                                                                            propostasss[index].conteudo_da_proposta +
+                                                                            "\n" +
+                                                                            // '<cabecalho>' + vendedor_ou_comprador[index] + "  " + data_hora_e_segundo_completo_ingles() + '</cabecalho>' +
+                                                                            // ADICIONADO EM 13 07 2021
+                                                                            '<cabecalho>' + DEIXAR_SOMENTE_NUMEROS(VARIAVEL_GLOBAL.TELEFONE) + "  " + data_hora_e_segundo_completo_ingles() + '</cabecalho>' +
+                                                                            conteudoDaResposta +
+                                                                            "\n";
+                                                                        //SEM HTML ACIMA
+                                                                        /**/
+
+                                                                        //alert(RESPOSTAS);
+                                                                        param.funcao_resposta_da_proposta(ID_PROPOSTAS, RESPOSTAS, VENDEDOR, COMPRADOR);
+
+                                                                        VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
+
+
+
+                                                                        //TAREFAZ AQUI ACIMA
+                                                                    } else { alert("Resposta muito Curta !"); }
+                                                                }//IF ELSE
+                                                            } catch (e) { alert("O Campo não pode ser vazio !"); }
+                                                        }//IF ELSE
+                                                        else { alert("O Campo não pode ser vazio !"); }
+                                                        /************************************************************************************************/
+                                                        /************************************************************************************************/
+                                                        /************************************************************************************************/
+
+
+
+
+
 
                                                     }}//do onPress()    
                                                 >
@@ -1126,6 +1180,9 @@ export default function MensagensPropostas(param) {
             {colocar_celular_visivel_or_invisivel && (
                 <Celular_colocar tela_chamada={"tela_proposta"} OCULTAR_TELA_TELEFONE_PROPOSTA_remoto={OCULTAR_TELA_TELEFONE_PROPOSTA} />
             )}
+
+
+            {waitingVisible && (<Waiting paremetroEnviado={"Aguarde ..."} ORIENTACAO={"PORTRAIT"} />)}
 
 
         </View>

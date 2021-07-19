@@ -592,10 +592,20 @@ export default function DetalhesProdutos(props) {
 
                                 if (VARIAVEL_GLOBAL.LICENCA_USO === "liberado" || VARIAVEL_GLOBAL.TELEFONE === "SEM_TELEFONE_USUARIO") {
 
-                                    DELETAR_POSTAGEM_NO_BANCO_DE_DADOS();
+
+                                    if (comprar_ou_deletar == "Vendido") {
+
+                                        CANCELAMENTO_DE_COMPRA_E_VENDA();
+
+                                    } else {
+
+                                        DELETAR_POSTAGEM_NO_BANCO_DE_DADOS();
+
+                                    }
+
+
 
                                 } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
-
                                     setLicencaExpiradaFalseOrTrue(true);
                                 }
 
@@ -784,7 +794,7 @@ export default function DetalhesProdutos(props) {
                                                                 }
 
 
-                                                               // } catch (error) { alert("Falha ao Comprar, Tente novamente !"); }
+                                                                // } catch (error) { alert("Falha ao Comprar, Tente novamente !"); }
 
                                                                 //TAREFAZ AQUI ACIMA
                                                             }

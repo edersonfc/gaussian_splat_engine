@@ -15,6 +15,11 @@ import ImageResizer from 'react-native-image-resizer';
 
 import GlobalContext from '../../context/UsersContext';
 
+// import LicencaExpirada from './components/Waiting';
+
+import Waiting from '../../components/Waiting';
+
+
 
 
 const PendingView = () => (
@@ -49,6 +54,10 @@ export default function CameraFoto(props) {
 
 
     const { VARIAVEL_GLOBAL } = useContext(GlobalContext);
+
+
+    const [ waitingVisible, setWaitingisible] = useState(false);
+
 
     // var IncrementoDecremento = -1;
     // var IncrementoDecremento = VARIAVEL_GLOBAL.INDICE_GLOBAL_IMAGENS_VIDEOS;
@@ -257,12 +266,20 @@ export default function CameraFoto(props) {
                                         //onPress={() => this.takePicture(camera)
                                         onPress={async () => {
 
-                                            await takePicture(camera);
-                                            //alert(data.uri)
-                                            // alert(andar);
+                                            setWaitingisible(true);
 
-                                        }
-                                        }
+                                            await takePicture(camera)
+                                              .then( () =>{ 
+                                              //alert(data.uri)
+                                              // alert(andar);
+
+                                              setWaitingisible(false);
+
+                                              });
+                                           
+
+                                        } }
+                                       
                                         style={styles.capture}>
                                         <Text style={styles.fontBotao}  >Tirar Foto</Text>
                                     </TouchableOpacity>
@@ -438,6 +455,8 @@ export default function CameraFoto(props) {
             }
             {/*NAVEGADOR DAS FOTOS ACIMA*/}
 
+
+            { waitingVisible && (<Waiting paremetroEnviado={"Fotografando... "} ORIENTACAO={"LANDSCAPE_LEFT"} />)  } 
 
 
         </View>

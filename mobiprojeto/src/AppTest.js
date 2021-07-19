@@ -53,6 +53,9 @@ import FILTRO_PESQUISA_CATEGORIA from './components/FILTRO_PESQUISA_CATEGORIAS';
 
 import LicencaExpirada from './components/LicencaExpirada';
 
+import Waiting from './components/Waiting';
+
+
 
 
 // import TelaWeb from './components/arquivosHtml/TelaWeb';
@@ -268,6 +271,8 @@ var array_publicacoes_expiradas = [];
 
 
 export default function AppTest() {
+
+  const [ waitingVisible, setWaitingisible] = useState(false);
 
   var datos = "";
 
@@ -3471,6 +3476,8 @@ export default function AppTest() {
 
 
       {/* <TelaSplash /> */}
+
+       { waitingVisible && (<Waiting paremetroEnviado={"Aguarde ..."} ORIENTACAO={"PORTRAIT"} />)  }
 
 
     </SafeAreaView   >
