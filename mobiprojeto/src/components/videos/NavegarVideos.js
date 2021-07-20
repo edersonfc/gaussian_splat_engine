@@ -142,7 +142,7 @@ export default function NavegarVideos(props) {//#1#
         setCurrentTime(0);
         if (Platform.OS === 'android') {
             setPlayerState(PLAYER_STATES.PAUSED);
-            setPaused(true);
+            setPaused(false);
         } else {
             setPlayerState(PLAYER_STATES.PLAYING);
             setPaused(false);
@@ -170,7 +170,8 @@ export default function NavegarVideos(props) {//#1#
 
     useEffect(() => {
         // 20/07/2021
-        LogBox.ignoreLogs(["componentWillReceiveProps has been renamed, and is not recommended for use. See https://reactjs.org/link/unsafe-component-lifecycles for details."]);
+        // LogBox.ignoreLogs(["componentWillReceiveProps has been renamed, and is not recommended for use. See https://reactjs.org/link/unsafe-component-lifecycles for details."]);
+        LogBox.ignoreLogs(["componentWillReceiveProps has been renamed"]);
     }, []);
 
 
