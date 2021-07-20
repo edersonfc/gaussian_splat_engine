@@ -111,6 +111,10 @@ export default function Tabela_planos(props) {
         // alert( JSON.parse(propostas.imagens_ou_videos).VIDEOS.length );//NÃO ESTÁ FUNCIONANDO
 
         // if (JSON.parse(propostas.imagens_ou_videos).VIDEOS.length > 0) {//NÃO ESTÁ FUNCIONANDO
+
+        //vraaauuu
+        // alert( JSON.stringify( VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.URL_VIDEOS_DADOS_J ) ); return 0;
+
         if (VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.URL_VIDEOS_DADOS_J.includes(".mp4|")) {
 
 

@@ -1545,6 +1545,7 @@ export default function Postar(props) {
 
                                 //DESATIVAR ESSA LINHA DEPOIS ABAIXO
 
+                                
                                 await CONTANDO_QUANTIDADE_DE_POSTAGENS();
 
                                 // console.log(VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS);
@@ -2030,7 +2031,7 @@ export default function Postar(props) {
         var id_J = data_hora_e_segundo_sem_separador() + random + "   ";
         var data_J = data_completa();
 
-        var LATITUDE_J = userPosition.latitude;
+        var LATITUDE_J  = userPosition.latitude;
         var LONGITUDE_J = userPosition.longitude;
 
         var URL_IMAGEN_DADOS_J = URL_IMAGEN_DADOS;
@@ -2091,8 +2092,8 @@ export default function Postar(props) {
                     data_A: data_J,
                     LATITUDE_A: LATITUDE_J,
                     LONGITUDE_A: LONGITUDE_J,
-                    URL_IMAGEN_DADOS_A: URL_IMAGEN_DADOS_J,
-                    URL_VIDEOS_DADOS_A: URL_VIDEOS_DADOS_J,
+                    URL_IMAGEN_DADOS_J: URL_IMAGEN_DADOS_J,
+                    URL_VIDEOS_DADOS_J: URL_VIDEOS_DADOS_J,
                     corMacho_A: corMacho_J,
                     corFemea_A: corFemea_J,
                     cor_0_12_A: cor_0_12_J,
@@ -2124,8 +2125,8 @@ export default function Postar(props) {
                     tempoPostagem_A: tempoPostagem_J
                 }
 
-
-
+//vraaauuu
+// alert( JSON.stringify( VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE )  ); return 0;
 
         //Preencher o OBJETO JSON caso não esteja VAZIO ABAIXO
         dadosPostagem = await MOSTRAR_POSTAGENS();
@@ -2304,6 +2305,8 @@ export default function Postar(props) {
             // VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE  = "";
             // VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE  =  data_object;
 
+
+            // alert(VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE); return 0;
 
             if (VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS > VARIAVEL_GLOBAL.PARAMETROS_QUANTIDADE_DE_POSTAGEMS) {
 
