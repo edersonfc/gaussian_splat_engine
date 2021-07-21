@@ -98,12 +98,13 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { useNavigation } from "@react-navigation/native";
 
-var URLs_Fotos = new Array();//#1#
 
-// const VideoPlayer = () => {
-export default function NavegarVideos(props) {//#1#
+// const VideoPlayer = (props) => {
+const NavegarVideos = (props) => {//#1#
+    // export default function NavegarVideos(props) {//#1#
 
-
+    const [posicaoPaisagem, setPosicaoPaisagem] = useState('LANDSCAPE_LEFT');
+    const [posicao, setPosicao] = useState(true);
 
     /*****************************************************************/
 
@@ -114,9 +115,6 @@ export default function NavegarVideos(props) {//#1#
     //alert(URL_Video);//#1#
     /*****************************************************************/
 
-    // The video we will play on the player.
-    // const video = require('../assets/video.mp4');
-    // const video = require(URL_Video);//#1#
 
     const videoPlayer = useRef(null);
     const [duration, setDuration] = useState(0);
@@ -168,17 +166,42 @@ export default function NavegarVideos(props) {//#1#
     };
 
 
+
+    var [icone, setIcone] = useState(false);
+
+
     useEffect(() => {
-        // 20/07/2021
-        // LogBox.ignoreLogs(["componentWillReceiveProps has been renamed, and is not recommended for use. See https://reactjs.org/link/unsafe-component-lifecycles for details."]);
-        LogBox.ignoreLogs(["componentWillReceiveProps has been renamed"]);
-    }, []);
+
+        function MUDAR_POSICAO() {
+
+            if (posicao === true) {
+
+                setPosicaoPaisagem('LANDSCAPE_LEFT');
+
+            } else if (posicao === false) {
+
+                setPosicaoPaisagem('PORTRAIT');
+
+            }//else if
+
+        }//function MUDAR_POSICAO()
+
+        MUDAR_POSICAO();
+
+    }, [posicao]);
+
+
+
+
+
+
 
 
     return (
 
         <View>
-            <ScreenOrientation orientation={LANDSCAPE_LEFT} />
+
+            <ScreenOrientation orientation={posicaoPaisagem} />
             <Video
                 onEnd={onEnd}
                 onLoad={onLoad}
@@ -193,6 +216,8 @@ export default function NavegarVideos(props) {//#1#
 
                 maxBitRate={5000}
             />
+
+
             <MediaControls
                 isFullScreen={false}
                 duration={duration}
@@ -208,13 +233,30 @@ export default function NavegarVideos(props) {//#1#
             />
 
 
-            <TouchableOpacity style={{ width: '100%', height: 50, backgroundColor: 'rgba(0,0,0,0.5)', borderWidth: 0, borderColor: 'yellow', position: 'absolute' }}
-                onPress={() => { navigation.goBack(null); }}
-            >
-                <View style={{flexDirection:'row' }}>
-                    <Icon style={{  height: 50, marginLeft: 20, fontSize: 35, color: 'white', borderWidth: 0, borderColor: 'yellow', textAlignVertical:'center' }} name='arrow-left' />
-                    <Text style={{  height: 50, marginLeft:  5, fontSize: 15, color: 'white', borderWidth: 0, borderColor: 'yellow', textAlignVertical:'center' }} >Voltar</Text>
-                </View>
+            <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 50, backgroundColor: 'rgba(0,0,0,0.5)', borderWidth: 0, borderColor: 'yellow', position: 'absolute' }} >
+
+
+                <TouchableOpacity style={{ flexDirection: 'row', width: '50%', justifyContent: 'center' }} onPress={() => { navigation.goBack(null); }}   >
+                    <Icon style={{ height: 50, marginLeft: 30, fontSize: 35, color: 'white', borderWidth: 0, borderColor: 'yellow', textAlignVertical: 'center' }} name='arrow-left' />
+                    <Text style={{ height: 50, marginLeft: 5, fontSize: 15, color: 'white', borderWidth: 0, borderColor: 'yellow', textAlignVertical: 'center' }} >Voltar</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={{ flexDirection: 'row', width: '50%', justifyContent: 'center', borderWidth: 0, borderColor: 'green' }}
+                    onPress={() => {
+                        setPosicao(oldState => !oldState);
+                        setIcone(oldState => !oldState);
+
+                    }}  >
+
+                    {icone ?
+                        <Icon style={{ height: 50, marginLeft: 20, fontSize: 35, color: 'white', borderWidth: 0, borderColor: 'yellow', textAlignVertical: 'center' }} name='repeat' />
+                        :
+                        <Icon style={{ height: 50, marginLeft: 20, fontSize: 35, color: 'white', borderWidth: 0, borderColor: 'yellow', textAlignVertical: 'center' }} name='rotate-left' />
+                    }
+
+                </TouchableOpacity>
+
+
             </TouchableOpacity>
 
 
@@ -236,3 +278,4 @@ const styles = StyleSheet.create({
 });
 
 // export default VideoPlayer;
+export default NavegarVideos;
