@@ -77,13 +77,13 @@
 //FOI DESATIVADO ACIMA O REPRODUTOR DE VIDEO E TROCADO PELO  CÓDIGO ABAIXO
 
 
+/***************************************************************************************************************/
+/***************************************************************************************************************/
+/***************************************************************************************************************/
+/***************************************************************************************************************/
+/***************************************************************************************************************/
+/***************************************************************************************************************/
 
-/***************************************************************************************************************/
-/***************************************************************************************************************/
-/***************************************************************************************************************/
-/***************************************************************************************************************/
-/***************************************************************************************************************/
-/***************************************************************************************************************/
 
 import React, { useState, useRef, useEffect } from 'react';
 import { LogBox, StyleSheet, View, Text, Platform, TouchableOpacity } from 'react-native';
@@ -118,11 +118,13 @@ const NavegarVideos = (props) => {//#1#
 
     const videoPlayer = useRef(null);
     const [duration, setDuration] = useState(0);
-    const [paused, setPaused] = useState(true);
+    const [paused, setPaused] = useState(false);
 
     const [currentTime, setCurrentTime] = useState(0);
     const [playerState, setPlayerState] = useState(PLAYER_STATES.PAUSED);
     const [isLoading, setIsLoading] = useState(true);
+
+    const [E_BUFFER, setE_BUFFER] = useState(true);
 
     const onSeek = (seek) => {
         videoPlayer?.current.seek(seek);
@@ -158,6 +160,14 @@ const NavegarVideos = (props) => {//#1#
         setIsLoading(false);
     };
 
+    //TENTANDO IMPLEMENTAR BUFFER AQUI ABAIXO
+    const onBuffer = (data) => {
+        if (E_BUFFER) {
+            setE_BUFFER(data.onBuffer);
+        }
+    };
+    //TENTANDO IMPLEMENTAR BUFFER AQUI ACIMA
+
     const onLoadStart = () => setIsLoading(true);
 
     const onEnd = () => {
@@ -169,23 +179,15 @@ const NavegarVideos = (props) => {//#1#
 
     var [icone, setIcone] = useState(false);
 
-
     useEffect(() => {
 
         function MUDAR_POSICAO() {
-
             if (posicao === true) {
-
                 setPosicaoPaisagem('LANDSCAPE_LEFT');
-
             } else if (posicao === false) {
-
                 setPosicaoPaisagem('PORTRAIT');
-
             }//else if
-
         }//function MUDAR_POSICAO()
-
         MUDAR_POSICAO();
 
     }, [posicao]);
@@ -214,7 +216,15 @@ const NavegarVideos = (props) => {//#1#
                 source={{ uri: URL_Video }}
                 style={styles.backgroundVideo}
 
-                maxBitRate={5000}
+
+                // progressUpdateInterval={250}//#2#
+
+                // maxBitRate={5000}
+
+                // onBuffer={this.onBuffer}//#2#   
+                onBuffer={onBuffer}//#2#   
+
+
             />
 
 
@@ -236,24 +246,29 @@ const NavegarVideos = (props) => {//#1#
             <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 50, backgroundColor: 'rgba(0,0,0,0.5)', borderWidth: 0, borderColor: 'yellow', position: 'absolute' }} >
 
 
-                <TouchableOpacity style={{ flexDirection: 'row', width: '50%', justifyContent: 'center' }} onPress={() => { navigation.goBack(null); }}   >
+                <TouchableOpacity style={{ flexDirection: 'row', width: '40%', justifyContent: 'center' }} onPress={() => { navigation.goBack(null); }}   >
                     <Icon style={{ height: 50, marginLeft: 30, fontSize: 35, color: 'white', borderWidth: 0, borderColor: 'yellow', textAlignVertical: 'center' }} name='arrow-left' />
                     <Text style={{ height: 50, marginLeft: 5, fontSize: 15, color: 'white', borderWidth: 0, borderColor: 'yellow', textAlignVertical: 'center' }} >Voltar</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity style={{ flexDirection: 'row', width: '50%', justifyContent: 'center', borderWidth: 0, borderColor: 'green' }}
+
+                <View style={{ flexDirection: 'row', width: '20%', justifyContent: 'center' }}>
+                    <Text style={{ height: 50, marginLeft: 5, fontSize: 15, color: 'white', borderWidth: 0, borderColor: 'yellow', textAlignVertical: 'center' }} >{currentTime}</Text>
+                </View>
+
+
+                <TouchableOpacity style={{ flexDirection: 'row', width: '40%', justifyContent: 'center', borderWidth: 0, borderColor: 'green' }}
                     onPress={() => {
                         setPosicao(oldState => !oldState);
                         setIcone(oldState => !oldState);
-
                     }}  >
 
+                    <Text style={{ height: 50, marginLeft: 0, fontSize: 15, color: 'white', borderWidth: 0, borderColor: 'yellow', textAlignVertical: 'center' }} >Girar</Text>
                     {icone ?
-                        <Icon style={{ height: 50, marginLeft: 20, fontSize: 35, color: 'white', borderWidth: 0, borderColor: 'yellow', textAlignVertical: 'center' }} name='repeat' />
+                        <Icon style={{ height: 50, marginLeft: 5, fontSize: 35, color: 'white', borderWidth: 0, borderColor: 'yellow', textAlignVertical: 'center' }} name='repeat' />
                         :
-                        <Icon style={{ height: 50, marginLeft: 20, fontSize: 35, color: 'white', borderWidth: 0, borderColor: 'yellow', textAlignVertical: 'center' }} name='rotate-left' />
+                        <Icon style={{ height: 50, marginLeft: 5, fontSize: 35, color: 'white', borderWidth: 0, borderColor: 'yellow', textAlignVertical: 'center' }} name='rotate-left' />
                     }
-
                 </TouchableOpacity>
 
 

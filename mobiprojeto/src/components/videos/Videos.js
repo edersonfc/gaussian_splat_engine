@@ -5,7 +5,6 @@ import {
   Text,
   View,
   TouchableOpacity,
-  Slider,
   TouchableWithoutFeedback,
   Dimensions,
 } from 'react-native';
@@ -64,6 +63,7 @@ export default class CameraScreen extends React.Component { //LINHA TROCADO PELA
       mute: false,
       maxDuration: 30,
       quality: RNCamera.Constants.VideoQuality['288p'],
+      videoBitrate: 4000000
     },
     isRecording: false,
     canDetectFaces: false,
