@@ -1232,7 +1232,7 @@ export default function AppTest() {
         //console.log( response.data.length );
         var tamanho = response.data.length;
 
-        if (tamanho == 0) {
+        if (tamanho === 0) {
           //console.log( "GRAVAR" );
           /* METODO DE SELECT REMOTO NO BANCO DE DADOS ONLINE ACIMA */
 
@@ -3182,7 +3182,7 @@ export default function AppTest() {
 
 
                         APAGAR_POSTAGEM('POSTAGEM'),
-                          APAGAR_NUMERO_CELULAR('NUMERO_CELL')
+                          // APAGAR_NUMERO_CELULAR('NUMERO_CELL')
                         VARIAVEL_GLOBAL.TELEFONE = "SEM_TELEFONE_USUARIO"
 
 

@@ -16,6 +16,9 @@ import { useNavigation } from "@react-navigation/native";
 //import RNFetchBlob from 'react-native-fetch-blob'; //FOI DESATIVADO MAS TÁ FUNCIONANDO
 //import { Thumbnail } from 'react-native-thumbnail-video';// FOI DESATIVADO SÓ FUNCIONA PRA YOUTUBE
 import Video from 'react-native-video';
+// import Video from './videos/Videos';
+
+import MediaControls, { PLAYER_STATES } from 'react-native-media-controls';
 //import VideoPlayer from 'react-native-video-controls';
 
 
@@ -381,8 +384,8 @@ export default function ProdutosEtiquetas(param) {
 
     // alert(VARIAVEL_GLOBAL.TELA_ATUAL)
 
-        // console.log("TAMANHO LISTA PRODUTOS => "+typeof produtosss );
-        // console.log("TAMANHO LISTA PRODUTOS => "+produtosss.length );
+    // console.log("TAMANHO LISTA PRODUTOS => "+typeof produtosss );
+    // console.log("TAMANHO LISTA PRODUTOS => "+produtosss.length );
 
   }, []);
 
@@ -587,6 +590,16 @@ export default function ProdutosEtiquetas(param) {
 
 
 
+    // const [isBuffering, setIsBuffering] = useState(true);
+    // onBuffer({ isBuffering }: { isBuffering: boolean }) {
+    //   this.setState({ isBuffering });
+    // };
+
+    const onBuffer = () => {
+      // setIsBuffering(true);
+      return true;
+    };
+
     return (
       /**********************************************************************************/
       /**********************************************************************************/
@@ -681,8 +694,8 @@ export default function ProdutosEtiquetas(param) {
                   valor.includes(".JPEG") || valor.includes(".PNG") ||
                   valor.includes(".jpeg") || valor.includes(".png") ||
                   valor.includes(".jpg") || valor.includes(".JPG")
-                ){           
-               
+                ) {
+
                   //setContainer_foto_video(true);
                   container_foto_video = true;
                   //alert("IMAGEM");
@@ -713,10 +726,31 @@ export default function ProdutosEtiquetas(param) {
 
                   />
                   :
-                  <Video key={index}
+                  // <Video 
+                  //   key={index}
+                  //   style={{ width: '100%', height: '100%', borderRadius: 10 }}
+                  //   source={{ uri: ARRAY_PRIMEIRAS_URL_VIDEOS_RECEBIDO[index] }}
+                  //   // source={ 'https://www.youtube.com/watch?v=LKukjF4eXLc' }
+                  // />
+
+
+                  // https://github.com/react-native-video/react-native-video#android-installation
+                  <Video
+                    key={index}
+                    source={{ uri: ARRAY_PRIMEIRAS_URL_VIDEOS_RECEBIDO[index] }}  // Can be a URL or a local file.
+                    // source={{ uri: 'https://www.youtube.com/watch?v=LKukjF4eXLc' }}
+                    // ref={(ref) => {
+                    //   this.player = ref
+                    // }}                                      // Store reference
+                    onBuffer={onBuffer}                // Callback when remote video is buffering
+                    // onError={this.videoError}               // Callback when video cannot be loaded
+
+                    // bitrate={4000000}
+                    bitrate={1000000}
                     style={{ width: '100%', height: '100%', borderRadius: 10 }}
-                    source={{ uri: ARRAY_PRIMEIRAS_URL_VIDEOS_RECEBIDO[index] }}
                   />
+
+
                 /* ATIVAR DEPOIS PORQUE ESTÁ FUNCIONANDO ACIMA */
               }
 
@@ -837,7 +871,7 @@ DESATIVAR DEPOIS ACIMA */
                             },
                             {
                               text: 'Não',
-                              onPress: () => {/*console.log('No Pressed')*/},
+                              onPress: () => {/*console.log('No Pressed')*/ },
                               style: 'cancel'
                             },
                           ],
@@ -893,27 +927,27 @@ DESATIVAR DEPOIS ACIMA */
 
                       var PAGINAS_PARTE_INICIAL = //"<html> <body> <img src=" + VIDEO + " alt='GadoApp' width='500' height='600'> </body> </html>"
 
-                          "<!DOCTYPE HTML> " +
-                            " <head> " +
-                            "   <meta content='text/html; charset=utf-8' http-equiv='Content-Type'> " +
-                            "   <title>HTML5 Vídeo</title> " +
-                            " </head> " +
+                        "<!DOCTYPE HTML> " +
+                        " <head> " +
+                        "   <meta content='text/html; charset=utf-8' http-equiv='Content-Type'> " +
+                        "   <title>HTML5 Vídeo</title> " +
+                        " </head> " +
 
-                            " <body> " +
-                            " <div> " +
-                            "    <button onclick='document.getElementById('player').play()'>Play</button> " +
-                            "    <button onclick='document.getElementById('player').pause()'>Pause</button> " +
-                            "    <button onclick='document.getElementById('player').volume+=0.1'>Aumentar volume</button> " +
-                            "    <button onclick='document.getElementById('player').volume-=0.1'>Diminuir volume</button> " +
-                            " </div> " +
+                        " <body> " +
+                        " <div> " +
+                        "    <button onclick='document.getElementById('player').play()'>Play</button> " +
+                        "    <button onclick='document.getElementById('player').pause()'>Pause</button> " +
+                        "    <button onclick='document.getElementById('player').volume+=0.1'>Aumentar volume</button> " +
+                        "    <button onclick='document.getElementById('player').volume-=0.1'>Diminuir volume</button> " +
+                        " </div> " +
 
-                            "   <audio id='player' autoplay='autoplay' controls='controls'> " +
-                            "     <source src='"+VIDEO+"' type='video/​mp4' /> " +
-                            "     seu navegador não suporta HTML5 " +
-                            "   </audio> " +
+                        "   <audio id='player' autoplay='autoplay' controls='controls'> " +
+                        "     <source src='" + VIDEO + "' type='video/​mp4' /> " +
+                        "     seu navegador não suporta HTML5 " +
+                        "   </audio> " +
 
-                            "  </body> " +
-                            "  </html> ";
+                        "  </body> " +
+                        "  </html> ";
 
                       onShare(PAGINAS_PARTE_INICIAL);
 
@@ -1012,7 +1046,7 @@ DESATIVAR DEPOIS ACIMA */
       <Animated.FlatList style={{
         flex: 1,
         paddingTop: SPACING,
-      
+
       }}
 
         onScroll={Animated.event(

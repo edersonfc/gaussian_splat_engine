@@ -184,7 +184,7 @@ export default function EnvioPropostasCompras(props) {
 
         var telefone_destino = "";
 
-        if (VARIAVEL_GLOBAL.TELEFONE == VENDEDOR_R) {
+        if (VARIAVEL_GLOBAL.TELEFONE === VENDEDOR_R) {
 
             telefone_destino = COMPRADOR_R;
 
@@ -274,7 +274,7 @@ export default function EnvioPropostasCompras(props) {
 
         var telefone_destino = "";
 
-        if (VENDEDOR_R == VARIAVEL_GLOBAL.TELEFONE) {
+        if (VENDEDOR_R === VARIAVEL_GLOBAL.TELEFONE) {
 
             telefone_destino = COMPRADOR_R;
 

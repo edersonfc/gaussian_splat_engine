@@ -162,9 +162,10 @@ const NavegarVideos = (props) => {//#1#
 
     //TENTANDO IMPLEMENTAR BUFFER AQUI ABAIXO
     const onBuffer = (data) => {
-        if (E_BUFFER) {
-            setE_BUFFER(data.onBuffer);
-        }
+        // if (E_BUFFER) {
+        //     setE_BUFFER(data.onBuffer);
+        // }
+        return true;
     };
     //TENTANDO IMPLEMENTAR BUFFER AQUI ACIMA
 
@@ -204,6 +205,7 @@ const NavegarVideos = (props) => {//#1#
         <View>
 
             <ScreenOrientation orientation={posicaoPaisagem} />
+            {/* https://github.com/react-native-video/react-native-video#android-installation */}
             <Video
                 onEnd={onEnd}
                 onLoad={onLoad}

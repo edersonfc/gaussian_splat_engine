@@ -252,7 +252,7 @@ export default function DetalhesProdutos(props) {
         pegar_ip();
 
 
-        if (produtos.numero_telefone_J == NUMERO_CELL_DO_USUARIO) {
+        if (produtos.numero_telefone_J === NUMERO_CELL_DO_USUARIO) {
 
             //alert("FOI VOCÊ QUEM POSTOU ESSA POSTAGEM");
             setComprador_ou_vendedor(false);
@@ -403,7 +403,7 @@ export default function DetalhesProdutos(props) {
                         onPress={async () => {
 
 
-                            if (VARIAVEL_GLOBAL.TELA_TERCEIRA == "nenhuma" || VARIAVEL_GLOBAL.TELA_ORIGEM == "Principal") {
+                            if (VARIAVEL_GLOBAL.TELA_TERCEIRA === "nenhuma" || VARIAVEL_GLOBAL.TELA_ORIGEM === "Principal") {
                                 // if (tela_pra_voltar.includes('Principal')) {
 
                                 VARIAVEL_GLOBAL.TELA_ATUAL = "Principal";
@@ -415,7 +415,7 @@ export default function DetalhesProdutos(props) {
 
                             }
 
-                            else if (VARIAVEL_GLOBAL.TELA_TERCEIRA == "ComprasVendas" || VARIAVEL_GLOBAL.TELA_ORIGEM == "ComprasVendas") {
+                            else if (VARIAVEL_GLOBAL.TELA_TERCEIRA === "ComprasVendas" || VARIAVEL_GLOBAL.TELA_ORIGEM === "ComprasVendas") {
 
 
                                 VARIAVEL_GLOBAL.TELA_ATUAL = "ComprasVendas";
@@ -593,7 +593,7 @@ export default function DetalhesProdutos(props) {
                                 if (VARIAVEL_GLOBAL.LICENCA_USO === "liberado" || VARIAVEL_GLOBAL.TELEFONE === "SEM_TELEFONE_USUARIO") {
 
 
-                                    if (comprar_ou_deletar == "Vendido") {
+                                    if (comprar_ou_deletar === "Vendido") {
 
                                         CANCELAMENTO_DE_COMPRA_E_VENDA();
 
@@ -742,7 +742,7 @@ export default function DetalhesProdutos(props) {
 
 
 
-                                    if (comprador_ou_vendedor == true) {
+                                    if (comprador_ou_vendedor === true) {
                                         //var index = parseInt(INDICE_PRINCIPAL_JSON);
                                         var numero_telefone = produtos.numero_telefone_J;
                                         var id_da_postagem = produtos.id_J;
@@ -811,7 +811,7 @@ export default function DetalhesProdutos(props) {
 
                                             } else {
                                                 //alert("Cadastre o Telefone pra poder Comprar ou Vender !");
-                                                if (NUMERO_CELL_DO_USUARIO == "" && comprar_ou_deletar != "Comprado" && comprar_ou_deletar != "Vendido") {
+                                                if (NUMERO_CELL_DO_USUARIO === "" && comprar_ou_deletar != "Comprado" && comprar_ou_deletar != "Vendido") {
                                                     setColocar_celular_visivel_or_invisivel(true);
                                                 } else {
 
@@ -824,7 +824,7 @@ export default function DetalhesProdutos(props) {
 
                                     } else {
 
-                                        if (comprar_ou_deletar == "Comprado" || comprar_ou_deletar == "Vendido") {
+                                        if (comprar_ou_deletar === "Comprado" || comprar_ou_deletar === "Vendido") {
 
                                             //alert("Deseja Realmente Cancelar essa Compra e Venda !!! ");
                                             CANCELAMENTO_DE_COMPRA_E_VENDA();
@@ -1177,7 +1177,7 @@ export default function DetalhesProdutos(props) {
                         obj_JSON.map((obj_JSON_AS, item) => {
                             //console.log(item + " = " + obj_JSON[item].id_J);
 
-                            if (obj_JSON[item].id_J == id_postagem) {
+                            if (obj_JSON[item].id_J === id_postagem) {
 
                                 //REMOVER ITEM PELO INDICE DO OBJETO JSON
                                 obj_JSON.splice(obj_JSON.indexOf(obj_JSON[item]), 1);
@@ -1274,7 +1274,7 @@ export default function DetalhesProdutos(props) {
         /*******************/
         var compra_ou_venda = "";
 
-        if ({ comprar_ou_deletar } == "Comprado") {
+        if ({ comprar_ou_deletar } === "Comprado") {
 
             compra_ou_venda = "Compra";
             CELULAR_COMPRADOR_OU_VENDEDOR = JSON.stringify(JSON.parse(VARIAVEL_GLOBAL.TODOS_OS_PRODUTOS)[INDICE_PRINCIPAL_JSON].numero_telefone_J).replace(/(\")|(\s)/g, '');

@@ -63,6 +63,7 @@ export default class CameraScreen extends React.Component { //LINHA TROCADO PELA
       mute: false,
       maxDuration: 30,
       quality: RNCamera.Constants.VideoQuality['288p'],
+      // quality: RNCamera.Constants.VideoQuality['480p'],
       videoBitrate: 4000000
     },
     isRecording: false,
@@ -171,6 +172,7 @@ export default class CameraScreen extends React.Component { //LINHA TROCADO PELA
           //alert(data.uri);
           //var URLs_Videos = data.uri;
           
+          // https://github.com/react-native-video/react-native-video#android-installation
           //var URLs_Fotos = new Array();
           URLs_Videos.push(data.uri);
           var URL_VIDEOS = '';

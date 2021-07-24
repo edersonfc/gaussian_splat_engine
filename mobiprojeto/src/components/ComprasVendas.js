@@ -122,10 +122,10 @@ export default function ComprasVendas(props) {
 
 
 
-        if (CHAMAR_ALTERNANCIA_BOOLEAN == true) {
+        if (CHAMAR_ALTERNANCIA_BOOLEAN === true) {
 
             // if (ComprasVendas == 'Vendas') {
-            if (comprasOuVendasFlag == 'Vendas') {
+            if (comprasOuVendasFlag === 'Vendas') {
 
                 setComprasOuVendas('Vendas')
                 setAlternaComprasVendas('Compras')
@@ -137,7 +137,7 @@ export default function ComprasVendas(props) {
 
 
                 // } else if (ComprasVendas == 'Compras') {
-            } else if (comprasOuVendasFlag == 'Compras') {
+            } else if (comprasOuVendasFlag === 'Compras') {
 
                 setComprasOuVendas('Compras')
                 setAlternaComprasVendas('Vendas')
@@ -149,7 +149,7 @@ export default function ComprasVendas(props) {
 
 
                 // } else if (ComprasVendas == 'Postagens') {
-            } else if (comprasOuVendasFlag == 'Postagens') {
+            } else if (comprasOuVendasFlag === 'Postagens') {
 
                 setComprasOuVendas('Postagens')
                 setExibe_botao_refresh(false)
@@ -158,7 +158,7 @@ export default function ComprasVendas(props) {
 
             }
 
-            CHAMAR_ALTERNANCIA_BOOLEAN == false;
+            CHAMAR_ALTERNANCIA_BOOLEAN === false;
 
 
 
@@ -182,17 +182,17 @@ export default function ComprasVendas(props) {
         ADICIONAR_PRODUTOS_por_ARRAY(true);
 
         // if (ComprasVendas == 'Vendas') {
-        if (comprasOuVendasFlag == 'Vendas') {
+        if (comprasOuVendasFlag === 'Vendas') {
 
             setComprasOuVendas('Vendas')
             setAlternaComprasVendas('Compras')
 
-        } else if (comprasOuVendasFlag == 'Compras') {
+        } else if (comprasOuVendasFlag === 'Compras') {
 
             setComprasOuVendas('Compras')
             setAlternaComprasVendas('Vendas')
 
-        } else if (comprasOuVendasFlag == 'Postagens') {
+        } else if (comprasOuVendasFlag === 'Postagens') {
 
             setComprasOuVendas('Postagens')
             setExibe_botao_refresh(false)

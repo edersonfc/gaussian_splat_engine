@@ -116,7 +116,7 @@ export default function MensagensPropostas(param) {
 
                 vendedor_ou_comprador.push(propostasss[0].numero_telefone_vendedor);
 
-                if (VARIAVEL_GLOBAL.TELEFONE == vendedor_ou_comprador[0]) {
+                if (VARIAVEL_GLOBAL.TELEFONE === vendedor_ou_comprador[0]) {
                     USUARIO_CELL_E_VENDEDOR_OU_COMPRADOR = "VENDEDOR";
                 } else if (VARIAVEL_GLOBAL.TELEFONE != vendedor_ou_comprador[0]) {
                     USUARIO_CELL_E_VENDEDOR_OU_COMPRADOR = "COMPRADOR";
@@ -250,13 +250,13 @@ export default function MensagensPropostas(param) {
 
 
                 //ESTÁ FUNCIONANDO ABAIXO
-                if (VENDEDOR == USUARIO_CELL) {
+                if (VENDEDOR === USUARIO_CELL) {
 
                     // setAceitar_proposta_true_falseF(I);
                     // setResponder_proposta_true_falseF(I);
 
                 }
-                else if (COMPRADOR == USUARIO_CELL) {
+                else if (COMPRADOR === USUARIO_CELL) {
 
                     setAceitar_proposta_true_falseF(I);
                     //setResponder_proposta_true_falseF(I);

@@ -28,7 +28,7 @@ export default function Celular_colocar(params) {
 
         // sdfsdfsd({{}})
 
-        if (STORAGE_SOMENTE == false) {
+        if (STORAGE_SOMENTE === false) {
 
             ///////////////////////////////////////////////////////////////////  
             var DEU_ERRO_SIM_OU_NAO = "NAO";
@@ -56,7 +56,7 @@ export default function Celular_colocar(params) {
 
             // alert(STORAGE_SOMENTE);
             // alert(DEU_ERRO_SIM_OU_NAO);
-            if (DEU_ERRO_SIM_OU_NAO == "NAO") {
+            if (DEU_ERRO_SIM_OU_NAO === "NAO") {
 
                 //ARMAZENANDO NO STORAGE DE DADOS ABAIXO
                 await AsyncStorage.setItem('NUMERO_CELL', JSON.stringify(data_object))
@@ -76,7 +76,7 @@ export default function Celular_colocar(params) {
 
 
 
-        if (STORAGE_SOMENTE == true) {
+        if (STORAGE_SOMENTE === true) {
 
             VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
             //ARMAZENANDO NO STORAGE DE DADOS ABAIXO
@@ -195,7 +195,7 @@ export default function Celular_colocar(params) {
                                     var telefone = { NUMERO_CELL_J: variavelTelefone }
 
                                     var TELA_QUE_CHAMOU = params.tela_chamada;
-                                    if (TELA_QUE_CHAMOU == "tela_proposta") {
+                                    if (TELA_QUE_CHAMOU === "tela_proposta") {
 
                                         //alert(TELA_QUE_CHAMOU);
 
@@ -280,10 +280,10 @@ export default function Celular_colocar(params) {
                             onPress={() => {
 
                                 var TELA_QUE_CHAMOU = params.tela_chamada;
-                                if (TELA_QUE_CHAMOU == "tela_proposta") {
+                                if (TELA_QUE_CHAMOU === "tela_proposta") {
                                     params.OCULTAR_TELA_TELEFONE_PROPOSTA_remoto();
                                     navigation.goBack(null);
-                                } else if (TELA_QUE_CHAMOU == "tela_DetalhesProdutos") {
+                                } else if (TELA_QUE_CHAMOU === "tela_DetalhesProdutos") {
                                     VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
                                     params.OCULTAR_TELA_TELEFONE_FUNCAO_REMOTA();
                                 }
@@ -423,11 +423,11 @@ export default function Celular_colocar(params) {
                                                         var telefone = { NUMERO_CELL_J: variavelTelefone.replace(/\"/g, '') }
                                                         await GRAVAR_NUMERO_DO_CELL(telefone, true);
                                                         var TELA_QUE_CHAMOU = params.tela_chamada;
-                                                        if (TELA_QUE_CHAMOU == "tela_proposta") {
+                                                        if (TELA_QUE_CHAMOU === "tela_proposta") {
                                                             VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
                                                             params.OCULTAR_TELA_TELEFONE_PROPOSTA_remoto();
                                                             navigation.goBack(null);
-                                                        } else if (TELA_QUE_CHAMOU == "tela_DetalhesProdutos") {
+                                                        } else if (TELA_QUE_CHAMOU === "tela_DetalhesProdutos") {
                                                             VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
                                                             params.OCULTAR_TELA_TELEFONE_FUNCAO_REMOTA();
                                                         }

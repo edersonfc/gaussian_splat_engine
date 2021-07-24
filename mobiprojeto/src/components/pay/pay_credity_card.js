@@ -674,7 +674,7 @@ export default function pay_credity_card(params) {
 
         var telefone_destino = "";
 
-        if (VENDEDOR_R == VARIAVEL_GLOBAL.TELEFONE) {
+        if (VENDEDOR_R === VARIAVEL_GLOBAL.TELEFONE) {
 
             telefone_destino = COMPRADOR_R;
 

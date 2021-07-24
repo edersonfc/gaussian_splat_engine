@@ -204,11 +204,11 @@ export default function Estatistica(props) {
         if (compras == null || compras == NaN) { compras = 0; }
 
 
-        if (postagens == 0) { setPostagem_cor("#2A3E4A") } else { setPostagem_cor("#F89A0E") }
+        if (postagens === 0) { setPostagem_cor("#2A3E4A") } else { setPostagem_cor("#F89A0E") }
 
-        if (vendas == 0) { setVendas_cor("#2A3E4A") } else { setVendas_cor("#377A4E") }
+        if (vendas === 0) { setVendas_cor("#2A3E4A") } else { setVendas_cor("#377A4E") }
 
-        if (compras == 0) { setCompras_cor("#2A3E4A") } else { setCompras_cor("#FF5353") }
+        if (compras === 0) { setCompras_cor("#2A3E4A") } else { setCompras_cor("#FF5353") }
 
         data[0] = postagens;
         data[1] = vendas;
