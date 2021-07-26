@@ -14,7 +14,7 @@ import android.content.res.Configuration;
 import com.rnfs.RNFSPackage;  // <--- import 
 
 //28032021
-import com.tkporter.sendsms.SendSMSPackage;
+// import com.tkporter.sendsms.SendSMSPackage;
 
 
 public class MainActivity extends ReactActivity {
@@ -45,7 +45,7 @@ public class MainActivity extends ReactActivity {
 public void onActivityResult(int requestCode, int resultCode, Intent data) {
     super.onActivityResult(requestCode, resultCode, data);
     //probably some other stuff here
-    SendSMSPackage.getInstance().onActivityResult(requestCode, resultCode, data);
+    // SendSMSPackage.getInstance().onActivityResult(requestCode, resultCode, data);
 }
 
 

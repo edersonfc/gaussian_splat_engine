@@ -6,7 +6,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { TextInputMask } from 'react-native-masked-text';
 import Axios from 'axios';
 import GlobalContext from '../context/UsersContext';
-import SendSMS from 'react-native-sms';
+// import SendSMS from 'react-native-sms';
 
 import { data_completa_ingles } from './CALCULO_E_FORMATACAO/FORMATACAO';
 import fi from 'date-fns/esm/locale/fi/index.js';
@@ -115,27 +115,27 @@ export default function Celular_colocar(params) {
 
 
 
-    //ENVIO DE MENSAGEM SMS PELO CELULAR ABAIXO
-    //some stuff
-    function ENVIAR_SMS(telefone_numero) {
-        SendSMS.send({
-            // body: 'The default body of the SMS!',
-            // body: 'SMS App BovSatMobile ! Para Recuperação de Uso, Digite esse Código:5478 no Caixa do App.',
-            body: 'SMS App GadoMobile ! Para Recuperação de Uso, Digite esse Código:5478 no Caixa do App.',
-            // recipients: ['0123456789', '9876543210'],
-            // recipients: ['67998442660'],
-            // recipients: ['+5567998442660'],
-            //recipients: ['(67) 99211-3340'],
-            recipients: [telefone_numero],
-            successTypes: ['sent', 'queued'],
-            allowAndroidSendWithoutReadPermission: true
-        }, (completed, cancelled, error) => {
+    // //ENVIO DE MENSAGEM SMS PELO CELULAR ABAIXO
+    // //some stuff
+    // function ENVIAR_SMS(telefone_numero) {
+    //     SendSMS.send({
+    //         // body: 'The default body of the SMS!',
+    //         // body: 'SMS App BovSatMobile ! Para Recuperação de Uso, Digite esse Código:5478 no Caixa do App.',
+    //         body: 'SMS App GadoMobile ! Para Recuperação de Uso, Digite esse Código:5478 no Caixa do App.',
+    //         // recipients: ['0123456789', '9876543210'],
+    //         // recipients: ['67998442660'],
+    //         // recipients: ['+5567998442660'],
+    //         //recipients: ['(67) 99211-3340'],
+    //         recipients: [telefone_numero],
+    //         successTypes: ['sent', 'queued'],
+    //         allowAndroidSendWithoutReadPermission: true
+    //     }, (completed, cancelled, error) => {
 
-            console.log('SMS Callback: completed: ' + completed + ' cancelled: ' + cancelled + 'error: ' + error);
+    //         console.log('SMS Callback: completed: ' + completed + ' cancelled: ' + cancelled + 'error: ' + error);
 
-        });
-    }
-    //ENVIO DE MENSAGEM DE SMS PELO CELULAR ACIMA
+    //     });
+    // }
+    // //ENVIO DE MENSAGEM DE SMS PELO CELULAR ACIMA
 
 
     var [ocultarMostrarClique, setOcultarMostrarClique] = useState(true);
@@ -248,7 +248,7 @@ export default function Celular_colocar(params) {
                                         if (DADO_RETORNO_STRING != "[]" && VARIAVEL_GLOBAL.LIBERAR_GRAVACAO_TELEFONE_SEM_NUMERO == false) {
 
                                             alert("Já Existe um Usuário Cadastrado com Esse numero ! ");
-                                            ENVIAR_SMS(telefone);
+                                            // ENVIAR_SMS(telefone);
 
                                         } else {
 

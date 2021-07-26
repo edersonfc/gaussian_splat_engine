@@ -215,12 +215,12 @@ dependencies {
 
 // add >> 25072021 ABAIXO
     // New version
-def multidex_version = "2.0.1"
-implementation 'androidx.multidex:multidex:$multidex_version'
+//def multidex_version = "2.0.1"
+// implementation 'androidx.multidex:multidex:$multidex_version'
 // add >> 25072021  ACIMA
 
-
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
+//    implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0" // add >> 25072021
+implementation 'androidx.appcompat:appcompat:1.3.0' // add >> 26072021
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
       exclude group:'com.facebook.fbjni'
