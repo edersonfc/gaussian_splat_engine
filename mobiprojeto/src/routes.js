@@ -22,7 +22,9 @@ import NavegarVideos from './components/videos/NavegarVideos';
 import MAPA from './components/MAPA';
 import MapaGoogle from './components/MapaGoogle';
 import Estatistica from './components/Estatistica';
-import Screen_pay from './components/pay/Screen_pay';
+import Screen_pay from './components/pay/screen_pay';
+
+
 
 import pay_credity_card from './components/pay/pay_credity_card';
 import Tabela_planos from './components/pay_anuncios/Tabela_planos';

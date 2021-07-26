@@ -210,6 +210,16 @@ dependencies {
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
+    
+    // compile 'com.android.support:multidex:1.0.1'// add >> 25072021
+
+// add >> 25072021 ABAIXO
+    // New version
+def multidex_version = "2.0.1"
+implementation 'androidx.multidex:multidex:$multidex_version'
+// add >> 25072021  ACIMA
+
+
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
 
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {

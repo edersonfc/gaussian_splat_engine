@@ -13,7 +13,8 @@ import DETALHES from './DetalhesProdutos';
 
 import { useNavigation } from "@react-navigation/native";
 
-//import RNFetchBlob from 'react-native-fetch-blob'; //FOI DESATIVADO MAS TÁ FUNCIONANDO
+//import RNFetchBlob from 'react-native-fetch-blob'; FOI DESATIVADO MAS TÁ FUNCIONANDO  ATENÇÃO foi substituido pelo debaixo pelos Criadores
+// import RNFetchBlob from 'rn-fetch-blob'; //FOI DESATIVADO MAS TÁ FUNCIONANDO
 //import { Thumbnail } from 'react-native-thumbnail-video';// FOI DESATIVADO SÓ FUNCIONA PRA YOUTUBE
 import Video from 'react-native-video';
 // import Video from './videos/Videos';

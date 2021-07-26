@@ -1,4 +1,5 @@
-import RNFetchBlob from 'react-native-fetch-blob';
+// import RNFetchBlob from 'react-native-fetch-blob';//ATENÇÃO foi substituido pelo debaixo pelos Desenvolvedores
+import RNFetchBlob from 'rn-fetch-blob'; //FOI DESATIVADO MAS TÁ FUNCIONANDO
 
 import { Text, View } from 'react-native';
 

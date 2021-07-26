@@ -33,7 +33,8 @@ var RNFS = require('react-native-fs');
 
 import DocumentPicker from 'react-native-document-picker';
 
-//import RNFetchBlob from 'react-native-fetch-blob'; FOI DESATIVADO MAS TÁ FUNCIONANDO
+//import RNFetchBlob from 'react-native-fetch-blob'; FOI DESATIVADO MAS TÁ FUNCIONANDO  ATENÇÃO foi substituido pelo debaixo pelos Criadores
+// import RNFetchBlob from 'rn-fetch-blob'; //FOI DESATIVADO MAS TÁ FUNCIONANDO
 
 import Geolocation from 'react-native-geolocation-service';
 
