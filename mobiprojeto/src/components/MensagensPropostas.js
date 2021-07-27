@@ -824,9 +824,9 @@ export default function MensagensPropostas(param) {
                         ARRAY_CONTEUDO__DAS_MENSAGENS.push(propostasss[index].conteudo_da_proposta),
 
 
+                       
                         {
-                            ...(async () => { //trocado pelo Abaixo
-                            // ...( () => {
+                            ...(async () => { 
                                 // DATA_CHEIA_INGLES = await COMFORMANDO_A_IDENTIFICACAO_DAS_MENSAGENS(propostasss[index].conteudo_da_proposta)
                                 // DATA_CHEIA_INGLES = ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR[index]
                                 // alert(propostasss[index].conteudo_da_proposta);
