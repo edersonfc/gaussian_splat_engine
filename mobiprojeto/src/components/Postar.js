@@ -1548,9 +1548,7 @@ export default function Postar(props) {
 
                                 
                                 await CONTANDO_QUANTIDADE_DE_POSTAGENS();
-
                                 // console.log(VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS);
-
                                 await PEGAR_NUMERO_DO_CELL();// GOBACK HERE
 
                                 if (VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS > VARIAVEL_GLOBAL.PARAMETROS_QUANTIDADE_DE_POSTAGEMS) {

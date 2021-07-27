@@ -833,33 +833,35 @@ export default function MensagensPropostas(param) {
 
                                 ARRAY_CONTEUDO__DAS_MENSAGENS.map(async (ar, iii) => {
 
-                                    var CELULARES_POR_MESAGEM_array_local = EXTRAIR_CELULARES_DE_TEXTO_2(ARRAY_CONTEUDO__DAS_MENSAGENS[iii]);
+                                    var CELULARES_POR_MESAGEM_array_local = {};
+
+                                    CELULARES_POR_MESAGEM_array_local =  EXTRAIR_CELULARES_DE_TEXTO_2(ARRAY_CONTEUDO__DAS_MENSAGENS[iii]);
                                     /********************************************************************************************** */
 
-                                    if (USUARIO_CELL_E_VENDEDOR_OU_COMPRADOR === "VENDEDOR") {
+                                    if (USUARIO_CELL_E_VENDEDOR_OU_COMPRADOR === "VENDEDOR" ) {
 
-
-                                        CELULARES_POR_MESAGEM_array_local.map((array, jjj) => {
+try{
+                                        CELULARES_POR_MESAGEM_array_local.map( (array, jjj) => {
 
                                             if (TELEFONE_USUARIO_TRABALHADO == CELULARES_POR_MESAGEM_array_local[jjj]) {
                                                 ARRAY_CONTEUDO__DAS_MENSAGENS[iii] = ARRAY_CONTEUDO__DAS_MENSAGENS[iii].replace(CELULARES_POR_MESAGEM_array_local[jjj], "Você");
-                                                DATA_CHEIA_INGLES = EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(ARRAY_CONTEUDO__DAS_MENSAGENS[iii]);
+                                                DATA_CHEIA_INGLES =  EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(ARRAY_CONTEUDO__DAS_MENSAGENS[iii]);
                                             }//IF 
 
                                             else if (TELEFONE_USUARIO_TRABALHADO != CELULARES_POR_MESAGEM_array_local[jjj]) {
                                                 ARRAY_CONTEUDO__DAS_MENSAGENS[iii] = ARRAY_CONTEUDO__DAS_MENSAGENS[iii].replace(CELULARES_POR_MESAGEM_array_local[jjj], "Comprador");
-                                                DATA_CHEIA_INGLES = EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(ARRAY_CONTEUDO__DAS_MENSAGENS[iii]);
+                                                DATA_CHEIA_INGLES =  EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(ARRAY_CONTEUDO__DAS_MENSAGENS[iii]);
                                             }//IF
-
+                                        
                                         });//map()
-
+}catch(error){ /*console.log("Deu Erro !");*/ }
                                         // SOMENTE PARA AUDITORIA ESSA METODO LINHA ABAIXO
                                         // DATA_CHEIA_INGLES = EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(propostasss[index].conteudo_da_proposta);
 
 
                                     } else if (USUARIO_CELL_E_VENDEDOR_OU_COMPRADOR === "COMPRADOR") {
 
-
+ try{
                                         CELULARES_POR_MESAGEM_array_local.map((array, jjj) => {
 
 
@@ -874,7 +876,7 @@ export default function MensagensPropostas(param) {
                                             }//IF
 
                                         });//map()                                   
-
+  }catch(error){ /*console.log("Deu Erro !");*/ }
 
                                     }//IF
 

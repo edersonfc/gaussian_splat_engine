@@ -23,6 +23,9 @@ import Axios from 'axios';
 import GlobalContext from '../context/UsersContext';
 
 
+import Waiting from './Waiting';
+
+
 var Propostas_rows = [];
 var CONTEUDO_DAS_PROPOSTAS = "";
 var VALOR_DO_CAMPO_JSON = "";
@@ -35,6 +38,10 @@ var ESTATUS_SE_TA_ONLINE_OU_OFFLINE = "";
 var INTERVALO_PESQUISA_PROPOSTAS = "";
 
 export default function EnvioPropostasCompras(props) {
+
+    const [waitingVisible, setWaitingisible] = useState(false);
+
+    const [mensagemDoAguarde, setMensagemDoAguarde] = useState("Aguarde");
 
     const { VARIAVEL_GLOBAL } = useContext(GlobalContext);
 
@@ -270,6 +277,9 @@ export default function EnvioPropostasCompras(props) {
     //RESPONDER AS PROPOSTAS ABAIXO
     async function RESPOSTA_DE_PROPOSTAS(id_resposta_proposta, resposta_da_proposta, VENDEDOR_R, COMPRADOR_R) {
 
+        setMensagemDoAguarde("Enviando");
+        setWaitingisible(true);
+
         VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = true;
 
         var telefone_destino = "";
@@ -314,6 +324,8 @@ export default function EnvioPropostasCompras(props) {
             VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
             VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = true;
 
+            myLoop();
+
             // }
 
             // alert("RESPONDENDO ABAIXO");
@@ -335,8 +347,8 @@ export default function EnvioPropostasCompras(props) {
     ////////ENVIAR PROPOSTA ABAIXO
     async function ENVIAR_PROPOSTA(funcao_remota_enivar_proposta) {
 
-
-
+        setMensagemDoAguarde("Enviando");
+        setWaitingisible(true);
 
         VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = true;
 
@@ -439,6 +451,8 @@ export default function EnvioPropostasCompras(props) {
 
         VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
 
+        myLoop();
+
     }// function ENVIAR_PROPOSTA(){
     /////////ENVIAR PROPOSTA ACIMA
 
@@ -519,8 +533,31 @@ export default function EnvioPropostasCompras(props) {
 
         /**/
 
+      
     }//function RESPOSTA_DE_PROPOSTAS()
     //UPDATE ACEITAR PROPOSTA DO COMPRADOR ACIMA 'rgb(255,255,255,0)'
+
+
+
+    /***************************************************************/
+    var i = 1;                  //  set your counter to 1
+    function myLoop() {         //  create a loop function
+        setTimeout(async function () {   //  call a 3s setTimeout when the loop is called
+            //TAREFAZ ABAIXO
+            setWaitingisible(true);
+            //TAREFAZ ACIMA  
+            i++;  //...increment the counter
+            if (VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO === "Atualizar-Tela-Proposta") {
+                //CHAMADA RECURSIVA
+                myLoop();
+            } else {
+                //TAREFAZ ABAIXO
+                setWaitingisible(false);
+                //TAREFAZ ACIMA  
+            }   //...setTimeout()
+        }, 1000)
+    }
+    /***************************************************************/
 
 
 
@@ -546,6 +583,8 @@ export default function EnvioPropostasCompras(props) {
                 funcao_remota_enivar_proposta={ENVIAR_PROPOSTA} funcao_remota_enivar_comprar_direto={COMPRAR_DIRETO}
                 funcao_remota_deletar_proposta={DELETAR_PROPOSTAS} funcao_remota_aceitar_proposta={ACEITAR_PROPOSTA}
             />
+
+            {waitingVisible && (<Waiting paremetroEnviado={mensagemDoAguarde+" ..."} ORIENTACAO={"PORTRAIT"} />)}
 
         </SafeAreaView >
 
