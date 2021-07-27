@@ -191,7 +191,7 @@ export default function EnvioPropostasCompras(props) {
 
         var telefone_destino = "";
 
-        if (VARIAVEL_GLOBAL.TELEFONE === VENDEDOR_R) {
+        if (VARIAVEL_GLOBAL.TELEFONE.toString() === VENDEDOR_R.toString()) {
 
             telefone_destino = COMPRADOR_R;
 
@@ -284,7 +284,7 @@ export default function EnvioPropostasCompras(props) {
 
         var telefone_destino = "";
 
-        if (VENDEDOR_R === VARIAVEL_GLOBAL.TELEFONE) {
+        if (VENDEDOR_R.toString() === VARIAVEL_GLOBAL.TELEFONE.toString()) {
 
             telefone_destino = COMPRADOR_R;
 
@@ -405,18 +405,18 @@ export default function EnvioPropostasCompras(props) {
 
         /**/
         var comprador_ou_vendedor = "";
-        if (VENDEDOR === numero_CelularUsuario) {
+        if (VENDEDOR.toString() === numero_CelularUsuario.toString()) {
 
             comprador_ou_vendedor = "VENDEDOR";
 
         } else//IF
-            if (COMPRADOR === VENDEDOR) {
+            if (COMPRADOR.toString() === VENDEDOR.toString()) {
 
                 comprador_ou_vendedor = "VENDEDOR";
 
             } else//IF
 
-                if (COMPRADOR === numero_CelularUsuario) {
+                if (COMPRADOR.toString() === numero_CelularUsuario.toString()) {
 
                     comprador_ou_vendedor = "COMPRADOR";
 
@@ -480,11 +480,11 @@ export default function EnvioPropostasCompras(props) {
 
         });
 
-        if ((await retorno.data.status) === "sucesso") {
+        if ((await retorno.data.status).toString() === "sucesso") {
 
             alert("Compra Realizada... Entraremos em Contato !");
 
-        } else if ((await retorno.data.status) === "falha") {
+        } else if ((await retorno.data.status).toString() === "falha") {
 
             alert("Falha ao Comprar, Tente novamente !");
 

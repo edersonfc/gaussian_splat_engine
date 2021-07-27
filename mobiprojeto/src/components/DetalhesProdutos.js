@@ -219,10 +219,10 @@ export default function DetalhesProdutos(props) {
 
         try {
             //ESTATUS_SE_TA_ONLINE_OU_OFFLINE = await AsyncStorage.getItem('ESTATUS_SE_TA_ONLINE');
-            ESTATUS_SE_TA_ONLINE_OU_OFFLINE = VARIAVEL_GLOBAL.CONEXAO_DO_APP;
+            ESTATUS_SE_TA_ONLINE_OU_OFFLINE = VARIAVEL_GLOBAL.CONEXAO_DO_APP.toString();
             //alert(ESTATUS_SE_TA_ONLINE_OU_OFFLINE);
 
-            if (ESTATUS_SE_TA_ONLINE_OU_OFFLINE === 'ON-LINE') {
+            if (ESTATUS_SE_TA_ONLINE_OU_OFFLINE.toString() === 'ON-LINE') {
 
                 VERIFICAR_LISTA_DE_FAVORITOS_NO_BANCO_DE_DADOS_REMOTO();
 
@@ -251,8 +251,9 @@ export default function DetalhesProdutos(props) {
         setTipos_de_gados_states(TIPOS_DE_GADOS);
         pegar_ip();
 
+        // alert(produtos.numero_telefone_J)
 
-        if (produtos.numero_telefone_J === NUMERO_CELL_DO_USUARIO) {
+        if (produtos.numero_telefone_J.toString() === NUMERO_CELL_DO_USUARIO.toString()) {
 
             //alert("FOI VOCÊ QUEM POSTOU ESSA POSTAGEM");
             setComprador_ou_vendedor(false);
@@ -454,7 +455,7 @@ export default function DetalhesProdutos(props) {
                                     //setMuda_cor(oldState => !oldState)
                                     //alert("É FAVORITO");
 
-                                    if (ESTATUS_SE_TA_ONLINE_OU_OFFLINE === 'ON-LINE') {
+                                    if (ESTATUS_SE_TA_ONLINE_OU_OFFLINE.toString() === 'ON-LINE') {
 
                                         try {
                                             setMuda_cor(false);
@@ -782,12 +783,12 @@ export default function DetalhesProdutos(props) {
 
                                                                 });
 
-                                                                if ((await retorno.data.status) === "sucesso") {
+                                                                if ((await retorno.data.status.toString()) === "sucesso") {
 
                                                                     setComprar_ou_deletar("Comprado");
                                                                     alert("Compra Realizada... Entraremos em Contato !");
 
-                                                                } else if ((await retorno.data.status) === "falha") {
+                                                                } else if ((await retorno.data.status.toString()) === "falha") {
 
                                                                     alert("Falha ao Comprar, Tente novamente !");
 
@@ -811,7 +812,7 @@ export default function DetalhesProdutos(props) {
 
                                             } else {
                                                 //alert("Cadastre o Telefone pra poder Comprar ou Vender !");
-                                                if (NUMERO_CELL_DO_USUARIO === "" && comprar_ou_deletar != "Comprado" && comprar_ou_deletar != "Vendido") {
+                                                if (NUMERO_CELL_DO_USUARIO.toString() === "" && comprar_ou_deletar != "Comprado" && comprar_ou_deletar != "Vendido") {
                                                     setColocar_celular_visivel_or_invisivel(true);
                                                 } else {
 
@@ -824,7 +825,7 @@ export default function DetalhesProdutos(props) {
 
                                     } else {
 
-                                        if (comprar_ou_deletar === "Comprado" || comprar_ou_deletar === "Vendido") {
+                                        if (comprar_ou_deletar.toString() === "Comprado" || comprar_ou_deletar.toString() === "Vendido") {
 
                                             //alert("Deseja Realmente Cancelar essa Compra e Venda !!! ");
                                             CANCELAMENTO_DE_COMPRA_E_VENDA();
@@ -1177,7 +1178,7 @@ export default function DetalhesProdutos(props) {
                         obj_JSON.map((obj_JSON_AS, item) => {
                             //console.log(item + " = " + obj_JSON[item].id_J);
 
-                            if (obj_JSON[item].id_J === id_postagem) {
+                            if (obj_JSON[item].id_J.toString() === id_postagem.toString()) {
 
                                 //REMOVER ITEM PELO INDICE DO OBJETO JSON
                                 obj_JSON.splice(obj_JSON.indexOf(obj_JSON[item]), 1);
@@ -1274,7 +1275,7 @@ export default function DetalhesProdutos(props) {
         /*******************/
         var compra_ou_venda = "";
 
-        if ({ comprar_ou_deletar } === "Comprado") {
+        if ( comprar_ou_deletar.toString()  === "Comprado") {
 
             compra_ou_venda = "Compra";
             CELULAR_COMPRADOR_OU_VENDEDOR = JSON.stringify(JSON.parse(VARIAVEL_GLOBAL.TODOS_OS_PRODUTOS)[INDICE_PRINCIPAL_JSON].numero_telefone_J).replace(/(\")|(\s)/g, '');

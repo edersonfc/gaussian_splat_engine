@@ -116,9 +116,9 @@ export default function MensagensPropostas(param) {
 
                 vendedor_ou_comprador.push(propostasss[0].numero_telefone_vendedor);
 
-                if (VARIAVEL_GLOBAL.TELEFONE === vendedor_ou_comprador[0]) {
+                if (VARIAVEL_GLOBAL.TELEFONE.toString() === vendedor_ou_comprador[0].toString()) {
                     USUARIO_CELL_E_VENDEDOR_OU_COMPRADOR = "VENDEDOR";
-                } else if (VARIAVEL_GLOBAL.TELEFONE != vendedor_ou_comprador[0]) {
+                } else if (VARIAVEL_GLOBAL.TELEFONE.toString() != vendedor_ou_comprador[0].toString()) {
                     USUARIO_CELL_E_VENDEDOR_OU_COMPRADOR = "COMPRADOR";
                 }//IF
 
@@ -250,13 +250,13 @@ export default function MensagensPropostas(param) {
 
 
                 //ESTÁ FUNCIONANDO ABAIXO
-                if (VENDEDOR === USUARIO_CELL) {
+                if (VENDEDOR.toString() === USUARIO_CELL.toString()) {
 
                     // setAceitar_proposta_true_falseF(I);
                     // setResponder_proposta_true_falseF(I);
 
                 }
-                else if (COMPRADOR === USUARIO_CELL) {
+                else if (COMPRADOR.toString() === USUARIO_CELL.toString()) {
 
                     setAceitar_proposta_true_falseF(I);
                     //setResponder_proposta_true_falseF(I);
@@ -588,6 +588,7 @@ export default function MensagensPropostas(param) {
 
         }
 
+    // }, [containerProposta_Visivel_Invisivel, visivel_true_false, VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO]);
     }, [containerProposta_Visivel_Invisivel, visivel_true_false]);
 
 
@@ -824,7 +825,8 @@ export default function MensagensPropostas(param) {
 
 
                         {
-                            ...(async () => {
+                            ...(async () => { //trocado pelo Abaixo
+                            // ...( () => {
                                 // DATA_CHEIA_INGLES = await COMFORMANDO_A_IDENTIFICACAO_DAS_MENSAGENS(propostasss[index].conteudo_da_proposta)
                                 // DATA_CHEIA_INGLES = ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR[index]
                                 // alert(propostasss[index].conteudo_da_proposta);
@@ -833,36 +835,38 @@ export default function MensagensPropostas(param) {
 
                                 ARRAY_CONTEUDO__DAS_MENSAGENS.map(async (ar, iii) => {
 
-                                    var CELULARES_POR_MESAGEM_array_local = {};
+                                    // var CELULARES_POR_MESAGEM_array_local = {};
 
-                                    CELULARES_POR_MESAGEM_array_local =  EXTRAIR_CELULARES_DE_TEXTO_2(ARRAY_CONTEUDO__DAS_MENSAGENS[iii]);
+                                    var CELULARES_POR_MESAGEM_array_local =  EXTRAIR_CELULARES_DE_TEXTO_2(ARRAY_CONTEUDO__DAS_MENSAGENS[iii]);
                                     /********************************************************************************************** */
 
-                                    if (USUARIO_CELL_E_VENDEDOR_OU_COMPRADOR === "VENDEDOR" ) {
+                                    if (USUARIO_CELL_E_VENDEDOR_OU_COMPRADOR.toString() === "VENDEDOR" ) {
 
-try{
-                                        CELULARES_POR_MESAGEM_array_local.map( (array, jjj) => {
+// try{
+                                        CELULARES_POR_MESAGEM_array_local.map(async (array, jjj) => {
+
+                                            // alert(CELULARES_POR_MESAGEM_array_local);
 
                                             if (TELEFONE_USUARIO_TRABALHADO == CELULARES_POR_MESAGEM_array_local[jjj]) {
-                                                ARRAY_CONTEUDO__DAS_MENSAGENS[iii] = ARRAY_CONTEUDO__DAS_MENSAGENS[iii].replace(CELULARES_POR_MESAGEM_array_local[jjj], "Você");
+                                                ARRAY_CONTEUDO__DAS_MENSAGENS[iii] =  ARRAY_CONTEUDO__DAS_MENSAGENS[iii].replace(CELULARES_POR_MESAGEM_array_local[jjj], "Você");
                                                 DATA_CHEIA_INGLES =  EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(ARRAY_CONTEUDO__DAS_MENSAGENS[iii]);
                                             }//IF 
 
                                             else if (TELEFONE_USUARIO_TRABALHADO != CELULARES_POR_MESAGEM_array_local[jjj]) {
-                                                ARRAY_CONTEUDO__DAS_MENSAGENS[iii] = ARRAY_CONTEUDO__DAS_MENSAGENS[iii].replace(CELULARES_POR_MESAGEM_array_local[jjj], "Comprador");
+                                                ARRAY_CONTEUDO__DAS_MENSAGENS[iii] =  ARRAY_CONTEUDO__DAS_MENSAGENS[iii].replace(CELULARES_POR_MESAGEM_array_local[jjj], "Comprador");
                                                 DATA_CHEIA_INGLES =  EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(ARRAY_CONTEUDO__DAS_MENSAGENS[iii]);
                                             }//IF
                                         
                                         });//map()
-}catch(error){ /*console.log("Deu Erro !");*/ }
+// }catch(error){  }
                                         // SOMENTE PARA AUDITORIA ESSA METODO LINHA ABAIXO
                                         // DATA_CHEIA_INGLES = EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(propostasss[index].conteudo_da_proposta);
 
 
-                                    } else if (USUARIO_CELL_E_VENDEDOR_OU_COMPRADOR === "COMPRADOR") {
+                                    } else if (USUARIO_CELL_E_VENDEDOR_OU_COMPRADOR.toString() === "COMPRADOR") {
 
- try{
-                                        CELULARES_POR_MESAGEM_array_local.map((array, jjj) => {
+//  try{
+                                        CELULARES_POR_MESAGEM_array_local.map(async (array, jjj) => {
 
 
                                             if (TELEFONE_USUARIO_TRABALHADO == CELULARES_POR_MESAGEM_array_local[jjj]) {
@@ -876,7 +880,7 @@ try{
                                             }//IF
 
                                         });//map()                                   
-  }catch(error){ /*console.log("Deu Erro !");*/ }
+//   }catch(error){ }
 
                                     }//IF
 

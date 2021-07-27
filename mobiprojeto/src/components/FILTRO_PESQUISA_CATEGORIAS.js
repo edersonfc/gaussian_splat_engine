@@ -455,13 +455,13 @@ export default function FILTRO_PESQUISA_CATEGORIAS(props) {
                                 categorias_Objetos.Obj_VacasParidas;
 
 
-                            if (VARIAVEL_GLOBAL.TELA_ATUAL === "Principal") {
+                            if (VARIAVEL_GLOBAL.TELA_ATUAL.toString() === "Principal") {
 
                                 // alert("FILTRO NA TELA PRINCIPAL");
                                 props.PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH_REMOTO(DADOS_DOS_FILTROS_FULLTEXT_SEARCH);
 
 
-                            } else if (VARIAVEL_GLOBAL.TELA_ATUAL === "ComprasVendas") {
+                            } else if (VARIAVEL_GLOBAL.TELA_ATUAL.toString() === "ComprasVendas") {
                                 // alert("FILTRO NA TELA COMPRA E VENDA");
                                 props.PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH_REMOTO_2(DADOS_DOS_FILTROS_FULLTEXT_SEARCH);
 

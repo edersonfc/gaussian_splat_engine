@@ -350,7 +350,7 @@ export default function pay_credity_card(params) {
         // var valor = Math.floor(Math.random() * 10);
         // valor = 4;
         // if (valor <= 5) {//AQUI É SE FOR APROVADO A COMPRA
-        if (status_do_pagamento === "aprovado") {//AQUI É SE FOR APROVADO A COMPRA
+        if (status_do_pagamento.toString() === "aprovado") {//AQUI É SE FOR APROVADO A COMPRA
 
             if (VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA == "PUBLICACAO" || VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA == "ATIVAR PUBLICACAO") {
 
@@ -403,7 +403,7 @@ export default function pay_credity_card(params) {
 
 
             // } else if (valor > 5) { //AQUI É SE FOR REPROVADO A COMPRA
-        } else if (status_do_pagamento === "reprovado") { //AQUI É SE FOR REPROVADO A COMPRA
+        } else if (status_do_pagamento.toString() === "reprovado") { //AQUI É SE FOR REPROVADO A COMPRA
             setMenssagemProcessamento(false);
             enviandoCondicao = "reprovado";
             setCompraAprovadaOuReprovadaRecebida(enviandoCondicao);
@@ -674,7 +674,7 @@ export default function pay_credity_card(params) {
 
         var telefone_destino = "";
 
-        if (VENDEDOR_R === VARIAVEL_GLOBAL.TELEFONE) {
+        if (VENDEDOR_R.toString() === VARIAVEL_GLOBAL.TELEFONE) {
 
             telefone_destino = COMPRADOR_R;
 
@@ -716,7 +716,7 @@ export default function pay_credity_card(params) {
             // console.log(JSON_OBJETO);
 
 
-            if (DEU_ERRO_SIM_NAO_TALVEZ === "NAO") {
+            if (DEU_ERRO_SIM_NAO_TALVEZ.toString() === "NAO") {
 
                 await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + 'comprar_direto', {
                     params: {

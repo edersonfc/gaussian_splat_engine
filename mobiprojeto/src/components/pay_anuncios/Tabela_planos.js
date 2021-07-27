@@ -351,7 +351,7 @@ export default function Tabela_planos(props) {
             <View_touchable_1 largura={LARGURA * 0.3} altura={ALTURA * 0.07} cor_borda={'#25E7DB'}
                 onPress={(e) => {
 
-                    if (valor_do_plano === "") {
+                    if (valor_do_plano.toString() === "") {
 
                         alert("É necessário Escolher um Plano na Tabela de Preços !");
 

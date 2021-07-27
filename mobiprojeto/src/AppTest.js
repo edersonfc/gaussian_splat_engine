@@ -1855,7 +1855,7 @@ export default function AppTest() {
 
     } else {
 
-      if (fonte === "menuLateral") {
+      if (fonte.toString() === "menuLateral") {
         setbotoePropostasRecebidas(false);
         setbotoePropostasEnviadas(true);
         PROPOSTAS_RESPONDIDAS_RECENTES("menuLateral");
@@ -1891,7 +1891,7 @@ export default function AppTest() {
 
       // alert("Não Tem Propostas Enviadas !"); return false; 
 
-      if (fonte === "menuLateral") {
+      if (fonte.toString() === "menuLateral") {
         setbotoePropostasRecebidas(false);
         setbotoePropostasEnviadas(false);
         setbotoePropostasAceitas(true);
@@ -2654,11 +2654,11 @@ export default function AppTest() {
                 onPress={() => {
 
 
-                  if (VARIAVEL_GLOBAL.LICENCA_USO === "liberado" || VARIAVEL_GLOBAL.TELEFONE === "SEM_TELEFONE_USUARIO") {
+                  if (VARIAVEL_GLOBAL.LICENCA_USO.toString() === "liberado" || VARIAVEL_GLOBAL.TELEFONE === "SEM_TELEFONE_USUARIO") {
 
                     setExibeMenu(oldState => !oldState);
 
-                  } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
+                  } else if (VARIAVEL_GLOBAL.LICENCA_USO.toString() === "bloqueado") {
 
                     setLicencaExpiradaFalseOrTrue(true);
                   }
@@ -2736,7 +2736,7 @@ export default function AppTest() {
 
                   // } else {   }
 
-                  if (VARIAVEL_GLOBAL.LICENCA_USO === "liberado" || VARIAVEL_GLOBAL.TELEFONE === "SEM_TELEFONE_USUARIO") {
+                  if (VARIAVEL_GLOBAL.LICENCA_USO.toString() === "liberado" || VARIAVEL_GLOBAL.TELEFONE.toString() === "SEM_TELEFONE_USUARIO") {
 
                     VARIAVEL_GLOBAL.TELA_ATUAL = "Postar";
                     VARIAVEL_GLOBAL.TELA_ORIGEM = "Principal";
@@ -2748,7 +2748,7 @@ export default function AppTest() {
                     //navigation.navigate("Postar",{URL})
                     navigation.navigate("Postar", { URL_FOTOS, URL_VIDEOS, })
 
-                  } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
+                  } else if (VARIAVEL_GLOBAL.LICENCA_USO.toString() === "bloqueado") {
 
                     setLicencaExpiradaFalseOrTrue(true);
 
@@ -3181,9 +3181,9 @@ export default function AppTest() {
                       onPress: () => {/*console.log('Yes Pressed'), alert("Você Cancelou  "),*/
 
 
-                        APAGAR_POSTAGEM('POSTAGEM'),
-                          // APAGAR_NUMERO_CELULAR('NUMERO_CELL')
-                        VARIAVEL_GLOBAL.TELEFONE = "SEM_TELEFONE_USUARIO"
+                        APAGAR_POSTAGEM('POSTAGEM');
+                        APAGAR_NUMERO_CELULAR('NUMERO_CELL');
+                        VARIAVEL_GLOBAL.TELEFONE = "SEM_TELEFONE_USUARIO";
 
 
                       }
