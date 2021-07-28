@@ -272,7 +272,7 @@ var array_publicacoes_expiradas = [];
 
 export default function AppTest() {
 
-  const [ waitingVisible, setWaitingisible] = useState(false);
+  const [waitingVisible, setWaitingisible] = useState(false);
 
   var datos = "";
 
@@ -2620,7 +2620,7 @@ export default function AppTest() {
 
 
 
-  
+
 
 
 
@@ -2784,10 +2784,11 @@ export default function AppTest() {
 
             <View style={{ flex: 1, flexDirection: 'row', height: 30 }}>
 
-              <View style={[Estilo.borda_geral, style = { width: '35%', alignItems: 'flex-start', flexDirection: 'row' }]}  >
+              <View style={[Estilo.borda_geral, style = { borderWidth: 0, width: '30%', alignItems: 'flex-start', flexDirection: 'row' }]}  >
 
 
                 <TouchableOpacity style={{ width: '80%', height: 'auto', borderWidth: 0, justifyContent: 'flex-end', alignItems: 'center' }}
+
                   onPress={() => {
 
                     if (!corIconeFiltro) {
@@ -2802,7 +2803,6 @@ export default function AppTest() {
                       filtro_ativado_sim_ou_nao = false;
 
                     }
-
 
                     setCorIconeFiltro(oldState => !oldState);
 
@@ -2821,10 +2821,7 @@ export default function AppTest() {
               </View>
 
 
-
-
-
-              <View style={[Estilo.borda_geral, style = { flexDirection: 'row', width: '35%', alignItems: 'flex-start' }]}  >
+              <View style={[Estilo.borda_geral, style = { flexDirection: 'row', width: '28%', alignItems: 'flex-start' }]}  >
 
                 {/* ABIAXO 2 muda_cor_checkado */}
                 {/* 
@@ -2900,46 +2897,47 @@ export default function AppTest() {
               </View>
 
 
-
-              <View style={[Estilo.borda_geral, Estilo.centralizar_horizontalmente, style = { width: '30%', alignItems: 'flex-end' }]} >
+              <View style={[Estilo.borda_geral, Estilo.centralizar_horizontalmente, style = { borderWidth: 0, width: '42%', alignItems: 'flex-end' }]} >
                 {/*<Icon name='heart' style={[Estilo.icones_grande, Estilo.icones_clicado, Estilo.borda_geral]} />*/}
 
 
                 {/* COLOCANDO NUMERO ENCIMA DE UM ICONE  #25E7DB */}
-                <TouchableOpacity style={{ width: 55, height: 'auto', borderWidth: 0, justifyContent: 'flex-start', alignItems: 'flex-end' }}
-                  onPress={() => {
+                <View style={{ width: 90, height: 'auto', borderWidth: 0, borderColor: 'green', justifyContent: 'center', alignItems: 'center' }}>
+                  <TouchableOpacity style={{ width: 80, height: 'auto', borderColor: 'red', borderWidth: 0, justifyContent: 'flex-start', alignItems: 'center' }}
+                    onPress={() => {
+                      //alert(somatorio_notificacao_numero);
+                      if (somatorio_notificacao_numero == 0) {
+                        alert("Nenhuma Notificação !");
+                      } else {
+                        setLargura_tela_notificacao(new Animated.Value(0));
+                        setMenu_aviso_visivel_or_invisivel(true)
+                      }//else if
 
-                    //alert(somatorio_notificacao_numero);
-                    if (somatorio_notificacao_numero == 0) {
-                      alert("Nenhuma Notificação !");
-                    } else {
-                      setLargura_tela_notificacao(new Animated.Value(0));
-                      setMenu_aviso_visivel_or_invisivel(true)
-                    }//else if
+                    }}
+                  >
 
-                  }}
-                >
-
-                  {notificacao_visivel_true_false ?
-                    <Text style={{
-                      width: 20, height: 20, borderRadius: 50,
-                      color: 'white', fontWeight: "bold", fontSize: 10, backgroundColor: 'red',
-                      position: 'absolute', zIndex: 10, textAlign: 'center', justifyContent: 'center'
-                    }} >{somatorio_notificacao_numero}
-                    </Text>
-                    : []
-                  }
-                  <View>
-                    <Icon name='bell' nativeID='notificacao' style={[Estilo.icones_medio, style = { paddingRight: 10 }]} />
-                  </View>
-                  <Text style={{ fontSize: 10, color: 'white' }}>Notificação</Text>
-
-                </TouchableOpacity>
+                    {notificacao_visivel_true_false ?
+                      <View style={{ paddingLeft: 25, width: '100%', height: 'auto', borderWidth: 0, alignItems: 'center', position: 'absolute', zIndex: 10 }} >
+                        <Text style={{
+                          width: 20, height: 20, borderRadius: 50,
+                          color: 'white', fontWeight: "bold", fontSize: 10, backgroundColor: 'red',
+                          textAlign: 'center', justifyContent: 'center'
+                        }} >{somatorio_notificacao_numero}
+                        </Text>
+                      </View>
+                      : []
+                    }
+                    <View style={{ width: '100%', flexDirection: 'column', borderWidth: 0, alignItems: 'center' }} >
+                      <Icon name='bell' nativeID='notificacao' style={[Estilo.icones_medio, style = { paddingRight: 0, textAlign: 'center', borderWidth: 0, width: '100%' }]} />
+                      <Text style={{ fontSize: 10, color: 'white', textAlign: 'center', borderWidth: 0, width: '100%' }}>Notificação</Text>
+                    </View>
+                  </TouchableOpacity>
+                </View>
 
                 <View style={{ width: 20 }} />
 
                 {/* CORAÇÃO ABAIXO*/}
-                <TouchableOpacity style={{ width: 'auto', height: 'auto', borderWidth: 0 }} >
+                <TouchableOpacity style={{ flexDirection: 'column', width: 'auto', height: 'auto', borderWidth: 0, alignItems: 'center' }} >
                   <View style={{ width: 'auto', borderWidth: 0 }}>
                     {muda_cor
                       ? <Icon name='heart' nativeID='Favorito'
@@ -3190,7 +3188,7 @@ export default function AppTest() {
                     },
                     {
                       text: 'Não',
-                      onPress: () => {/*console.log('No Pressed')*/},
+                      onPress: () => {/*console.log('No Pressed')*/ },
                       style: 'cancel'
                     },
                   ],
@@ -3477,7 +3475,7 @@ export default function AppTest() {
 
       {/* <TelaSplash /> */}
 
-       { waitingVisible && (<Waiting paremetroEnviado={"Aguarde ..."} ORIENTACAO={"PORTRAIT"} />)  }
+      {waitingVisible && (<Waiting paremetroEnviado={"Aguarde ..."} ORIENTACAO={"PORTRAIT"} />)}
 
 
     </SafeAreaView   >
