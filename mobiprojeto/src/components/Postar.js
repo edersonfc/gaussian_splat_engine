@@ -1464,101 +1464,117 @@ export default function Postar(props) {
                             onPress={async () => {
 
 
-                                // var MACHO = "";
-                                // var FEMEA = "";
-                                // var IDADE_DO_GADO = "";
-                                // var TIPOS_DE_GADOS_MACHOS = "";
-                                // var TIPOS_DE_GADOS_FEMEAS = "";
+                                //CÓDIGO PRINCIPAL ABAIXO do ON-PRESS
+                                var MACHO = "";
+                                var FEMEA = "";
+                                var IDADE_DO_GADO = "";
+                                var TIPOS_DE_GADOS_MACHOS = "";
+                                var TIPOS_DE_GADOS_FEMEAS = "";
 
-                                // var ARRAY_KEYS = Object.keys(categorias_Objetos)
+                                var ARRAY_KEYS = Object.keys(categorias_Objetos)
 
-                                // ARRAY_KEYS.map((empty, index) => {
+                                ARRAY_KEYS.map((empty, index) => {
 
-                                //     if (index == 0) {
-                                //         MACHO = JSON.stringify(categorias_Objetos[ARRAY_KEYS[0]]).replace(/['"]+/g, '')
-                                //     }
-                                //     if (index == 1) {
-                                //         FEMEA = JSON.stringify(categorias_Objetos[ARRAY_KEYS[1]]).replace(/['"]+/g, '')
-                                //     }
-                                //     if (index >= 2 && index <= 5) {
-                                //         IDADE_DO_GADO += JSON.stringify(categorias_Objetos[ARRAY_KEYS[index]]).replace(/['"]+/g, '')
-                                //     }
-                                //     if (index >= 6 && index <= 10) {
-                                //         TIPOS_DE_GADOS_MACHOS += JSON.stringify(categorias_Objetos[ARRAY_KEYS[index]]).replace(/['"]+/g, '')
-                                //     }
-                                //     if (index >= 11 && index <= 17) {
-                                //         TIPOS_DE_GADOS_FEMEAS += JSON.stringify(categorias_Objetos[ARRAY_KEYS[index]]).replace(/['"]+/g, '')
-                                //     }
+                                    if (index == 0) {
+                                        MACHO = JSON.stringify(categorias_Objetos[ARRAY_KEYS[0]]).replace(/['"]+/g, '')
+                                    }
+                                    if (index == 1) {
+                                        FEMEA = JSON.stringify(categorias_Objetos[ARRAY_KEYS[1]]).replace(/['"]+/g, '')
+                                    }
+                                    if (index >= 2 && index <= 5) {
+                                        IDADE_DO_GADO += JSON.stringify(categorias_Objetos[ARRAY_KEYS[index]]).replace(/['"]+/g, '')
+                                    }
+                                    if (index >= 6 && index <= 10) {
+                                        TIPOS_DE_GADOS_MACHOS += JSON.stringify(categorias_Objetos[ARRAY_KEYS[index]]).replace(/['"]+/g, '')
+                                    }
+                                    if (index >= 11 && index <= 17) {
+                                        TIPOS_DE_GADOS_FEMEAS += JSON.stringify(categorias_Objetos[ARRAY_KEYS[index]]).replace(/['"]+/g, '')
+                                    }
 
-                                // });
+                                });
 
-                                // // console.log(MACHO + "  " + FEMEA + "  " + IDADE_DO_GADO + "  " + TIPOS_DE_GADOS_MACHOS + "  " + TIPOS_DE_GADOS_FEMEAS);
+                                // console.log(MACHO + "  " + FEMEA + "  " + IDADE_DO_GADO + "  " + TIPOS_DE_GADOS_MACHOS + "  " + TIPOS_DE_GADOS_FEMEAS);
 
-                                // if (MACHO + FEMEA !== "") {
+                                if (MACHO + FEMEA !== "") {
 
-                                //     //LIMPAR VARIAVEIS QUE SÓ TEM VALOR ZERO ABAIXO
-                                //     if (outrasErasAnterior == '0') { outrasErasAnterior = ""; }
-                                //     if (outrasErasPosterior == '0') { outrasErasPosterior = ""; }
-                                //     if (quantidadeCabecasOuPesos == '0') { quantidadeCabecasOuPesos = ""; }
-                                //     //LIMPAR VARIAVEIS QUE SÓ TEM VALOR ZERO ACIMA
-
-
-
-                                //     if (((IDADE_DO_GADO + outrasErasAnterior + outrasErasPosterior) !== "")) {
-
-                                //         if ((TIPOS_DE_GADOS_MACHOS) !== "" || (TIPOS_DE_GADOS_FEMEAS) !== "") {
-
-                                //             if (
-                                //                 MACHO !== "" && TIPOS_DE_GADOS_MACHOS !== "" && FEMEA !== "" && TIPOS_DE_GADOS_FEMEAS !== ""
-                                //                 || MACHO !== "" && TIPOS_DE_GADOS_MACHOS !== "" && FEMEA === "" && TIPOS_DE_GADOS_FEMEAS === ""
-                                //                 || MACHO === "" && TIPOS_DE_GADOS_MACHOS === "" && FEMEA !== "" && TIPOS_DE_GADOS_FEMEAS !== ""
-
-                                //             ) {
-
-                                //                 if (descricoesGerais != "") {
-
-                                //                     if (precoSugerido != "") {
-
-                                //                         if (quantidadeCabecasOuPesos != "") {
-
-                                //                             //alert("TODAS AS ETAPAS ESTÃO OK");
-                                //                             // PEGAR_NUMERO_DO_CELL();
-                                //                             // // navigation.goBack(null);
-                                //                             navigation.navigate("Tabela_planos", null );
+                                    //LIMPAR VARIAVEIS QUE SÓ TEM VALOR ZERO ABAIXO
+                                    if (outrasErasAnterior == '0') { outrasErasAnterior = ""; }
+                                    if (outrasErasPosterior == '0') { outrasErasPosterior = ""; }
+                                    if (quantidadeCabecasOuPesos == '0') { quantidadeCabecasOuPesos = ""; }
+                                    //LIMPAR VARIAVEIS QUE SÓ TEM VALOR ZERO ACIMA
 
 
 
-                                //                         } else { alert("Quantidade de Cabeças Não Preenchido !") }
+                                    if (((IDADE_DO_GADO + outrasErasAnterior + outrasErasPosterior) !== "")) {
 
-                                //                     } else { alert("Preço Sugerido Não foi Preenchido !") }
+                                        if ((TIPOS_DE_GADOS_MACHOS) !== "" || (TIPOS_DE_GADOS_FEMEAS) !== "") {
 
-                                //                 } else { alert("Descrição Não foi Preenchido !") }
+                                            if (
+                                                MACHO !== "" && TIPOS_DE_GADOS_MACHOS !== "" && FEMEA !== "" && TIPOS_DE_GADOS_FEMEAS !== ""
+                                                || MACHO !== "" && TIPOS_DE_GADOS_MACHOS !== "" && FEMEA === "" && TIPOS_DE_GADOS_FEMEAS === ""
+                                                || MACHO === "" && TIPOS_DE_GADOS_MACHOS === "" && FEMEA !== "" && TIPOS_DE_GADOS_FEMEAS !== ""
 
-                                //             } else { alert("Sexo do Gado Incompativo com os Tipos de Gado !") }
+                                            ) {
 
-                                //         } else { alert("Falta Escolher Tipo de Gado !") }
+                                                if (descricoesGerais != "") {
 
-                                //     } else { alert("Falta Escolher Idade do Gado !") }
+                                                    if (precoSugerido != "") {
 
-                                // } else { alert("Falta Escolher o Sexo do Gado !") }
+                                                        if (quantidadeCabecasOuPesos != "") {
 
 
 
-                                //DESATIVAR ESSA LINHA DEPOIS ABAIXO
+                                                            //TAREFAZ AQUI ABAIXO
+                                                            await CONTANDO_QUANTIDADE_DE_POSTAGENS();
+                                                            // console.log(VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS);
+                                                            await PEGAR_NUMERO_DO_CELL();// GOBACK HERE
 
-                                
-                                await CONTANDO_QUANTIDADE_DE_POSTAGENS();
-                                // console.log(VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS);
-                                await PEGAR_NUMERO_DO_CELL();// GOBACK HERE
+                                                            if (VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS > VARIAVEL_GLOBAL.PARAMETROS_QUANTIDADE_DE_POSTAGEMS) {
+                                                                VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "PUBLICACAO";
+                                                                // venda_status_J = 'pendente';
+                                                                const produto = { IMAGENS: VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT, VIDEOS: VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT }
+                                                                navigation.navigate("Tabela_planos", { precoSugerido, quantidadeCabecasOuPesos, produto });
+                                                            }//if
+                                                            //TAREFAZ AQUI ACIMA
 
-                                if (VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS > VARIAVEL_GLOBAL.PARAMETROS_QUANTIDADE_DE_POSTAGEMS) {
-                                        VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "PUBLICACAO";
-                                        // venda_status_J = 'pendente';
-                                        const produto = { IMAGENS: VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT, VIDEOS: VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT }
-                                        navigation.navigate("Tabela_planos", { precoSugerido, quantidadeCabecasOuPesos, produto });
-                                }//if
 
-                                //DESATIVAR ESSA LINHA DEPOIS ACIMA
+
+                                                        } else { alert("Quantidade de Cabeças Não Preenchido !") }
+
+                                                    } else { alert("Preço Sugerido Não foi Preenchido !") }
+
+                                                } else { alert("Descrição Não foi Preenchido !") }
+
+                                            } else { alert("Sexo do Gado Incompativo com os Tipos de Gado !") }
+
+                                        } else { alert("Falta Escolher Tipo de Gado !") }
+
+                                    } else { alert("Falta Escolher Idade do Gado !") }
+
+                                } else { alert("Falta Escolher o Sexo do Gado !") }
+                                //CÓDIGO PRINCIPAL ACIMA do ON-PRESS
+
+
+
+
+    /**********************************************************************************************/
+    //DESATIVAR ESSA LINHA DEPOIS ABAIXO é USADO SÓ PARA PRODUÇÃO ESSE TRECHO ABAIXO                             
+     
+                                // await CONTANDO_QUANTIDADE_DE_POSTAGENS();
+                                // // console.log(VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS);
+                                // await PEGAR_NUMERO_DO_CELL();// GOBACK HERE
+
+                                // if (VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS > VARIAVEL_GLOBAL.PARAMETROS_QUANTIDADE_DE_POSTAGEMS) {
+                                //     VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "PUBLICACAO";
+                                //     // venda_status_J = 'pendente';
+                                //     const produto = { IMAGENS: VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT, VIDEOS: VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT }
+                                //     navigation.navigate("Tabela_planos", { precoSugerido, quantidadeCabecasOuPesos, produto });
+                                // }//if
+
+    //DESATIVAR ESSA LINHA DEPOIS ACIMA é USADO SÓ PARA PRODUÇÃO ESSE TRECHO ACIMA    
+    /**********************************************************************************************/
+
+
 
 
 
@@ -2030,7 +2046,7 @@ export default function Postar(props) {
         var id_J = data_hora_e_segundo_sem_separador() + random + "   ";
         var data_J = data_completa();
 
-        var LATITUDE_J  = userPosition.latitude;
+        var LATITUDE_J = userPosition.latitude;
         var LONGITUDE_J = userPosition.longitude;
 
         var URL_IMAGEN_DADOS_J = URL_IMAGEN_DADOS;
@@ -2085,47 +2101,47 @@ export default function Postar(props) {
         id_J = id_J.replace(/\s+/g, "");
 
         VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE =
-                {
-                    numero_telefone_A: numero_telefone_J,
-                    id_A: id_J,
-                    data_A: data_J,
-                    LATITUDE_A: LATITUDE_J,
-                    LONGITUDE_A: LONGITUDE_J,
-                    URL_IMAGEN_DADOS_J: URL_IMAGEN_DADOS_J,
-                    URL_VIDEOS_DADOS_J: URL_VIDEOS_DADOS_J,
-                    corMacho_A: corMacho_J,
-                    corFemea_A: corFemea_J,
-                    cor_0_12_A: cor_0_12_J,
-                    cor_12_24_A: cor_12_24_J,
-                    cor_24_36_A: cor_24_36_J,
-                    corAcima_36_A: corAcima_36_J,
-                    outrasErasAnterior_A: outrasErasAnterior_J,
-                    outrasErasPosterior_A: outrasErasPosterior_J,
-                    corBezerros_A: corBezerros_J,
-                    corGarrotes_A: corGarrotes_J,
-                    corTourunos_A: corTourunos_J,
-                    corBois_A: corBois_J,
-                    corBoisGordos_A: corBoisGordos_J,
-                    corBezerras_A: corBezerras_J,
-                    corNovilhas_A: corNovilhas_J,
-                    corVacasBoiadeiras_A: corVacasBoiadeiras_J,
-                    corVacas_A: corVacas_J,
-                    corVacasGordas_A: corVacasGordas_J,
-                    corVacasPrenhas_A: corVacasPrenhas_J,
-                    corVacasParidas_A: corVacasParidas_J,
-                    descricoesGerais_A: descricoesGerais_J,
-                    precoSugerido_A: precoSugerido_J,
-                    quantidadeCabecasOuPesos_A: quantidadeCabecasOuPesos_J,
-                    aprovado_postagem_A: aprovado_postagem_J,
-                    favorito_A: favorito_J,
-                    venda_status_A: venda_status_J,
-                    comprador_A: comprador_J,
-                    ta_online_A: ta_online_J,
-                    tempoPostagem_A: tempoPostagem_J
-                }
+        {
+            numero_telefone_A: numero_telefone_J,
+            id_A: id_J,
+            data_A: data_J,
+            LATITUDE_A: LATITUDE_J,
+            LONGITUDE_A: LONGITUDE_J,
+            URL_IMAGEN_DADOS_J: URL_IMAGEN_DADOS_J,
+            URL_VIDEOS_DADOS_J: URL_VIDEOS_DADOS_J,
+            corMacho_A: corMacho_J,
+            corFemea_A: corFemea_J,
+            cor_0_12_A: cor_0_12_J,
+            cor_12_24_A: cor_12_24_J,
+            cor_24_36_A: cor_24_36_J,
+            corAcima_36_A: corAcima_36_J,
+            outrasErasAnterior_A: outrasErasAnterior_J,
+            outrasErasPosterior_A: outrasErasPosterior_J,
+            corBezerros_A: corBezerros_J,
+            corGarrotes_A: corGarrotes_J,
+            corTourunos_A: corTourunos_J,
+            corBois_A: corBois_J,
+            corBoisGordos_A: corBoisGordos_J,
+            corBezerras_A: corBezerras_J,
+            corNovilhas_A: corNovilhas_J,
+            corVacasBoiadeiras_A: corVacasBoiadeiras_J,
+            corVacas_A: corVacas_J,
+            corVacasGordas_A: corVacasGordas_J,
+            corVacasPrenhas_A: corVacasPrenhas_J,
+            corVacasParidas_A: corVacasParidas_J,
+            descricoesGerais_A: descricoesGerais_J,
+            precoSugerido_A: precoSugerido_J,
+            quantidadeCabecasOuPesos_A: quantidadeCabecasOuPesos_J,
+            aprovado_postagem_A: aprovado_postagem_J,
+            favorito_A: favorito_J,
+            venda_status_A: venda_status_J,
+            comprador_A: comprador_J,
+            ta_online_A: ta_online_J,
+            tempoPostagem_A: tempoPostagem_J
+        }
 
-//vraaauuu
-// alert( JSON.stringify( VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE )  ); return 0;
+        //vraaauuu
+        // alert( JSON.stringify( VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE )  ); return 0;
 
         //Preencher o OBJETO JSON caso não esteja VAZIO ABAIXO
         dadosPostagem = await MOSTRAR_POSTAGENS();
@@ -2140,7 +2156,7 @@ export default function Postar(props) {
 
         //alert(dadosPostagem);
 
-        console.log("#1=>"+id_J);
+        console.log("#1=>" + id_J);
 
         if (dadosPostagem != null) {
 
@@ -2253,7 +2269,7 @@ export default function Postar(props) {
         alert(DADO_CONVERTIDOS_PRA_ARRAY);
         */
 
-        console.log("#2=>"+id_J);
+        console.log("#2=>" + id_J);
 
         ARMAZENAR_POSTAGEM_SEGUNTA_ETAPA(dadosPostagem);
 

@@ -12,7 +12,10 @@ import MensagensPropostas from './MensagensPropostas';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { data_hora_e_segundo_completo_ingles, data_hora_e_segundo_completo, data_hora_e_segundo_sem_separador, EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES, DEIXAR_SOMENTE_NUMEROS } from '../components/CALCULO_E_FORMATACAO/FORMATACAO';
+import {
+     data_hora_e_segundo_completo_ingles, data_hora_e_segundo_completo, data_hora_e_segundo_sem_separador, EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES, DEIXAR_SOMENTE_NUMEROS
+     ,EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES_ASYNC, REGULARIZANDO_DATAS_COM_FORMATO_DE_ZEROS_CORRETAMENTE, REGULARIZANDO_HORAS_COM_FORMATO_DE_ZEROS_CORRETAMENTE
+ } from '../components/CALCULO_E_FORMATACAO/FORMATACAO';
 
 
 
@@ -277,6 +280,10 @@ export default function EnvioPropostasCompras(props) {
     //RESPONDER AS PROPOSTAS ABAIXO
     async function RESPOSTA_DE_PROPOSTAS(id_resposta_proposta, resposta_da_proposta, VENDEDOR_R, COMPRADOR_R) {
 
+
+        // alert(resposta_da_proposta); return 0;
+        // resposta_da_proposta = EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(resposta_da_proposta);
+
         setMensagemDoAguarde("Enviando");
         setWaitingisible(true);
 
@@ -347,32 +354,33 @@ export default function EnvioPropostasCompras(props) {
     ////////ENVIAR PROPOSTA ABAIXO
     async function ENVIAR_PROPOSTA(funcao_remota_enivar_proposta) {
 
-        setMensagemDoAguarde("Enviando");
-        setWaitingisible(true);
+        let STATUS_DO_SERVIDOR = ""
 
         VARIAVEL_GLOBAL.BUSCAR_NOTIFICACAO = true;
-
+     
         //obreserve
         var conteudoDaProposta = funcao_remota_enivar_proposta;
 
-
-        // <cabecalho>Comprador  2021-7-12 23:45:48</cabecalho>
         // ADICIONADO EM 13 07 2021
         //  conteudoDaProposta = "<cabecalho>"+VARIAVEL_GLOBAL.TELEFONE + "  " + data_hora_e_segundo_completo() +"</cabecalho>"  + conteudoDaProposta;
 
-        var data_ingles_para_portugues = await EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(data_hora_e_segundo_completo_ingles());
-        // alert( data_ingles_para_portugues ); return 0;
-        conteudoDaProposta = "<cabecalho>" + DEIXAR_SOMENTE_NUMEROS(VARIAVEL_GLOBAL.TELEFONE) + "  " + data_ingles_para_portugues + "</cabecalho>" + conteudoDaProposta;
+        // var data_ingles_para_portugues = await EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES_ASYNC(data_hora_e_segundo_completo_ingles());
+        let DATA_PORTUGUES_FORMATO_CORRETO = REGULARIZANDO_DATAS_COM_FORMATO_DE_ZEROS_CORRETAMENTE(data_hora_e_segundo_completo());
+        let HORA_PORTUGUES_FORMATO_CORRETO = REGULARIZANDO_HORAS_COM_FORMATO_DE_ZEROS_CORRETAMENTE(data_hora_e_segundo_completo());  
+       
+        conteudoDaProposta = "<cabecalho>" + DEIXAR_SOMENTE_NUMEROS(VARIAVEL_GLOBAL.TELEFONE) + "  " + DATA_PORTUGUES_FORMATO_CORRETO + " - " + HORA_PORTUGUES_FORMATO_CORRETO + "</cabecalho>" + conteudoDaProposta;
+        // conteudoDaProposta = "<cabecalho>" + DEIXAR_SOMENTE_NUMEROS(VARIAVEL_GLOBAL.TELEFONE) + "  " + EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES_ASYNC(data_hora_e_segundo_completo_ingles()) + "</cabecalho>" + conteudoDaProposta;
+
+        setMensagemDoAguarde("Enviando");
+        setWaitingisible(true);
 
         //propostasss
 
         //returns a random integer from 0 to 9999  in line  below
         var random = Math.floor(Math.random() * 10000);
-
         //AQUI VAI AS VARIAVEIS QUE VAI COMPOR O JSON ABAIXO
         var data_e_hora_ingles = data_hora_e_segundo_completo_ingles();
         var id_J = id_da_postagem;
-
         //var id_proposta = "";
         //if(propostasss.length <= 0){
         var id_proposta = random + data_hora_e_segundo_sem_separador();
@@ -384,7 +392,7 @@ export default function EnvioPropostasCompras(props) {
         //numero_telefone
         //numero_telefone_comprador
         //conteudoDaProposta
-        var postagem_vista_vendedor = "0";
+        var postagem_vista_vendedor  = "0";
         var postagem_vista_comprador = "1";
         //AQUI VAI AS VARIAVEIS QUE VAI COMPOR O JSON ACIMA
 
@@ -406,29 +414,22 @@ export default function EnvioPropostasCompras(props) {
         /**/
         var comprador_ou_vendedor = "";
         if (VENDEDOR.toString() === numero_CelularUsuario.toString()) {
-
             comprador_ou_vendedor = "VENDEDOR";
-
-        } else//IF
-            if (COMPRADOR.toString() === VENDEDOR.toString()) {
-
-                comprador_ou_vendedor = "VENDEDOR";
-
-            } else//IF
-
-                if (COMPRADOR.toString() === numero_CelularUsuario.toString()) {
-
-                    comprador_ou_vendedor = "COMPRADOR";
-
-                }//IF
+        } else if (COMPRADOR.toString() === VENDEDOR.toString()) {
+            comprador_ou_vendedor = "VENDEDOR";
+        } else if (COMPRADOR.toString() === numero_CelularUsuario.toString()) {
+            comprador_ou_vendedor = "COMPRADOR";
+        }//IF
         //alert(  comprador_ou_vendedor  );
         // alert(VARIAVEL_GLOBAL.TELEFONE); return 0;
         // conteudoDaProposta = VARIAVEL_GLOBAL.TELEFONE + conteudoDaProposta;
 
+
         /* SEGUNDA TENTATIVA QUE TAMBÉM FUNCIONA ABAIXO */
-        Axios.get(IP_DO_SERVIDOR + 'insert_propostas', {
+        STATUS_DO_SERVIDOR = await Axios.get(IP_DO_SERVIDOR + 'insert_propostas', {
             params: {
-                data_e_hora_ingles_J: data_e_hora_ingles,
+                // data_e_hora_ingles_J: data_e_hora_ingles,
+                data_e_hora_ingles_J: data_hora_e_segundo_completo_ingles(),
                 id_da_postagem_J: id_da_postagem,
                 id_proposta_J: id_proposta,
                 numero_telefone_J: numero_telefone,
@@ -444,14 +445,30 @@ export default function EnvioPropostasCompras(props) {
 
         }, //INSERT_PROPOSTAS()
 
-        ).catch((err) => {
-            alert(err)
-        });
+        );
+
+        // alert( JSON.stringify( STATUS_DO_SERVIDOR.data ) );
+        // alert( STATUS_DO_SERVIDOR.data.toString() );
+       
+
+        if ((await STATUS_DO_SERVIDOR.data.toString()) === "Created") {
+         
+            // alert("Proposta Enviada Com Sucesso !");
+            VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
+            myLoop();
+
+        } else {
+
+            alert("Falhou o Envio de Proposta ! \n Tente Novamente !");
+        }
+
+
+        // .catch((err) => {
+        //     alert(err)
+        // });
         /* SEGUNDA TENTATIVA QUE TAMBÉM FUNCIONA ACIMA */
 
-        VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
 
-        myLoop();
 
     }// function ENVIAR_PROPOSTA(){
     /////////ENVIAR PROPOSTA ACIMA
@@ -533,7 +550,7 @@ export default function EnvioPropostasCompras(props) {
 
         /**/
 
-      
+
     }//function RESPOSTA_DE_PROPOSTAS()
     //UPDATE ACEITAR PROPOSTA DO COMPRADOR ACIMA 'rgb(255,255,255,0)'
 
@@ -584,7 +601,7 @@ export default function EnvioPropostasCompras(props) {
                 funcao_remota_deletar_proposta={DELETAR_PROPOSTAS} funcao_remota_aceitar_proposta={ACEITAR_PROPOSTA}
             />
 
-            {waitingVisible && (<Waiting paremetroEnviado={mensagemDoAguarde+" ..."} ORIENTACAO={"PORTRAIT"} />)}
+            {waitingVisible && (<Waiting paremetroEnviado={mensagemDoAguarde + " ..."} ORIENTACAO={"PORTRAIT"} />)}
 
         </SafeAreaView >
 

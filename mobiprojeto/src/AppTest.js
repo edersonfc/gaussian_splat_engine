@@ -72,17 +72,30 @@ import DeviceInfo from 'react-native-device-info';
 
 //VARIAVÉIS GLOBAIS ABAIXO
 
+//NO SERVIDOR REMOTO DIGITALOCEAN
+var IP_DO_SERVIDOR    = "http://159.89.87.76:3000/";
+var IP_DO_SERVIDOR_IO = "http://159.89.87.76:3001/";
+// var IP_DO_SERVIDOR_IO =  IP_DO_SERVIDOR;
+
+
+//NO SERVIDOR DO MEU NOTEBOOK CASA DA MÃE  ABAIXO
+// var IP_DO_SERVIDOR    = "http://192.168.0.107:3000/";
+// var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3001/";
+// var IP_DO_SERVIDOR_IO =  IP_DO_SERVIDOR;
 
 
 
 //NO SERVIDOR DO MEU NOTEBOOK CASA DA MÃE  ABAIXO
-// var IP_DO_SERVIDOR = "http://192.168.0.107:3000/";
-// var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3001/";
+// var IP_DO_SERVIDOR    = "http://localhost:3000/";
+// var IP_DO_SERVIDOR_IO = "http://localhost:3001/";
+
+
+
+
 
 //NO SERVIDOR REMOTO HEROKU ABAIXO
-var IP_DO_SERVIDOR    = "https://gado-app-back-end.herokuapp.com/";
-var IP_DO_SERVIDOR_IO = "https://gado-app-back-end.herokuapp.com:3001/";
-
+// var IP_DO_SERVIDOR    = "https://gado-app-back-end.herokuapp.com/";
+// var IP_DO_SERVIDOR_IO = "https://gado-app-back-end.herokuapp.com/";
 
 //ERA NO SERVIDOR REMOTO DA AWS ABAIXO
 // var IP_DO_SERVIDOR    = "http://18.221.55.248:3000/";

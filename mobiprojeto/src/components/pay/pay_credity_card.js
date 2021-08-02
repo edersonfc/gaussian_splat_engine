@@ -1227,14 +1227,15 @@ export default function pay_credity_card(params) {
                         // {...alert(VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO.valor_do_plano)}
 
 
-
-
                         originWhitelist={['*']}
 
 
                         // source={{ uri: "" }}
-                        source={{ uri: "http://192.168.0.107:8080" }}
-                        // source={{ uri: "https://www.mercadopago.com.br/checkout/v1/payment/redirect/1ae00468-4b3f-4a91-aaf4-ece55ede8159/payment-option-form/?preference-id=341626588-ee4ad4d0-3b4f-45a7-be5a-59070c8b6d51&p=4fe553772ccec07e75cfc034fd0ced82#/" }}
+                        // source={{ uri: "http://192.168.0.107:8080" }}
+                        
+                        // source={{ uri: "https://servidor-recebimento-mp.herokuapp.com/" }} //FOI DESATIVADO SERVIDOR DO HEROKU
+                        source={{ uri: "http://159.89.87.76:8080/" }}// => SERVIDOR DA DIGITALOCEAN
+                        
 
 
                         onMessage={onMessage}

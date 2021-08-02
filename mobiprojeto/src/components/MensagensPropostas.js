@@ -3,7 +3,10 @@ import { Alert, View, Text, TextInput, SafeAreaView, TouchableOpacity, Pressable
 import { color, Value } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Estilo from './estilo';
-import { data_hora_e_segundo_completo_ingles, data_hora_e_segundo_completo, data_hora_e_segundo_sem_separador, EXTRAIR_CELULARES_DE_TEXTO, EXTRAIR_CELULARES_DE_TEXTO_2, DEIXAR_SOMENTE_NUMEROS } from '../components/CALCULO_E_FORMATACAO/FORMATACAO';
+import {
+    data_hora_e_segundo_completo_ingles, data_hora_e_segundo_completo, data_hora_e_segundo_sem_separador, EXTRAIR_CELULARES_DE_TEXTO, EXTRAIR_CELULARES_DE_TEXTO_2, DEIXAR_SOMENTE_NUMEROS,
+    REGULARIZANDO_DATAS_COM_FORMATO_DE_ZEROS_CORRETAMENTE, REGULARIZANDO_HORAS_COM_FORMATO_DE_ZEROS_CORRETAMENTE
+} from '../components/CALCULO_E_FORMATACAO/FORMATACAO';
 //import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { ScrollView } from 'react-native-gesture-handler';
@@ -522,11 +525,17 @@ export default function MensagensPropostas(param) {
         vendedor_ou_comprador[index] = "Vendedor";
         //DEFININDO SE É COMPRADOR OU VENDEDOR NA HORA DE RESPONDER ACIMA
 
+
+        let DATA_PORTUGUES_FORMATO_CORRETO = REGULARIZANDO_DATAS_COM_FORMATO_DE_ZEROS_CORRETAMENTE(data_hora_e_segundo_completo());
+        let HORA_PORTUGUES_FORMATO_CORRETO = REGULARIZANDO_HORAS_COM_FORMATO_DE_ZEROS_CORRETAMENTE(data_hora_e_segundo_completo());       
+
+
         //SEM HTML ABAIXO
         RESPOSTAS =
             propostasss[index].conteudo_da_proposta +
             "\n" +
-            '<a>' + vendedor_ou_comprador[index] + "  " + data_hora_e_segundo_completo_ingles() + '</a>' +
+            // '<a>' + vendedor_ou_comprador[index] + "  " + data_hora_e_segundo_completo_ingles() + '</a>' +
+            '<a>' + vendedor_ou_comprador[index] + "  " + DATA_PORTUGUES_FORMATO_CORRETO + " - " + HORA_PORTUGUES_FORMATO_CORRETO + '</a>' +
             conteudoDaResposta +
             '<b> Proposta Aceita !</b>' +
             '<c> Compra e Venda Fechada</c>';
@@ -588,7 +597,7 @@ export default function MensagensPropostas(param) {
 
         }
 
-    // }, [containerProposta_Visivel_Invisivel, visivel_true_false, VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO]);
+        // }, [containerProposta_Visivel_Invisivel, visivel_true_false, VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO]);
     }, [containerProposta_Visivel_Invisivel, visivel_true_false]);
 
 
@@ -681,10 +690,10 @@ export default function MensagensPropostas(param) {
                                                             alert("Compra e Venda Fechada ! \n Não é possivel Emviar Mensagem de Proposta !");
                                                         } else {
                                                             //ENVIAR PROPOSTA CHAMANDO FUNÇÃO DO PAI AQUI
-                                                                                                                
+
                                                             param.funcao_remota_enivar_proposta(conteudoDaProposta);
                                                             Keyboard.dismiss();
-                                                            VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
+                                                            // VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta"; FOI DESATIVADO PORQUE JÁ EXISTE NO METODO CHAMADO ACIMA
 
                                                         }//IF ELSE
                                                         /////////////////////////
@@ -824,9 +833,9 @@ export default function MensagensPropostas(param) {
                         ARRAY_CONTEUDO__DAS_MENSAGENS.push(propostasss[index].conteudo_da_proposta),
 
 
-                       
+
                         {
-                            ...(async () => { 
+                            ...(async () => {
                                 // DATA_CHEIA_INGLES = await COMFORMANDO_A_IDENTIFICACAO_DAS_MENSAGENS(propostasss[index].conteudo_da_proposta)
                                 // DATA_CHEIA_INGLES = ARRAY_CONTEUDO__DAS_MENSAGENS_PRO_MOSTRADOR[index]
                                 // alert(propostasss[index].conteudo_da_proposta);
@@ -837,50 +846,50 @@ export default function MensagensPropostas(param) {
 
                                     // var CELULARES_POR_MESAGEM_array_local = {};
 
-                                    var CELULARES_POR_MESAGEM_array_local =  EXTRAIR_CELULARES_DE_TEXTO_2(ARRAY_CONTEUDO__DAS_MENSAGENS[iii]);
+                                    var CELULARES_POR_MESAGEM_array_local = EXTRAIR_CELULARES_DE_TEXTO_2(ARRAY_CONTEUDO__DAS_MENSAGENS[iii]);
                                     /********************************************************************************************** */
 
-                                    if (USUARIO_CELL_E_VENDEDOR_OU_COMPRADOR.toString() === "VENDEDOR" ) {
+                                    if (USUARIO_CELL_E_VENDEDOR_OU_COMPRADOR.toString() === "VENDEDOR") {
 
-// try{
-                                        CELULARES_POR_MESAGEM_array_local.map(async (array, jjj) => {
+                                        try {
+                                            CELULARES_POR_MESAGEM_array_local.map((array, jjj) => {
 
-                                            // alert(CELULARES_POR_MESAGEM_array_local);
+                                                // alert(CELULARES_POR_MESAGEM_array_local);
 
-                                            if (TELEFONE_USUARIO_TRABALHADO == CELULARES_POR_MESAGEM_array_local[jjj]) {
-                                                ARRAY_CONTEUDO__DAS_MENSAGENS[iii] =  ARRAY_CONTEUDO__DAS_MENSAGENS[iii].replace(CELULARES_POR_MESAGEM_array_local[jjj], "Você");
-                                                DATA_CHEIA_INGLES =  EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(ARRAY_CONTEUDO__DAS_MENSAGENS[iii]);
-                                            }//IF 
+                                                if (TELEFONE_USUARIO_TRABALHADO == CELULARES_POR_MESAGEM_array_local[jjj]) {
+                                                    ARRAY_CONTEUDO__DAS_MENSAGENS[iii] = ARRAY_CONTEUDO__DAS_MENSAGENS[iii].replace(CELULARES_POR_MESAGEM_array_local[jjj], "Você");
+                                                    DATA_CHEIA_INGLES = EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(ARRAY_CONTEUDO__DAS_MENSAGENS[iii]);
+                                                }//IF 
 
-                                            else if (TELEFONE_USUARIO_TRABALHADO != CELULARES_POR_MESAGEM_array_local[jjj]) {
-                                                ARRAY_CONTEUDO__DAS_MENSAGENS[iii] =  ARRAY_CONTEUDO__DAS_MENSAGENS[iii].replace(CELULARES_POR_MESAGEM_array_local[jjj], "Comprador");
-                                                DATA_CHEIA_INGLES =  EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(ARRAY_CONTEUDO__DAS_MENSAGENS[iii]);
-                                            }//IF
-                                        
-                                        });//map()
-// }catch(error){  }
+                                                else if (TELEFONE_USUARIO_TRABALHADO != CELULARES_POR_MESAGEM_array_local[jjj]) {
+                                                    ARRAY_CONTEUDO__DAS_MENSAGENS[iii] = ARRAY_CONTEUDO__DAS_MENSAGENS[iii].replace(CELULARES_POR_MESAGEM_array_local[jjj], "Comprador");
+                                                    DATA_CHEIA_INGLES = EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(ARRAY_CONTEUDO__DAS_MENSAGENS[iii]);
+                                                }//IF
+
+                                            });//map()
+                                        } catch (error) { console.log("ERRRRO AQUI 1 " + error); }
                                         // SOMENTE PARA AUDITORIA ESSA METODO LINHA ABAIXO
                                         // DATA_CHEIA_INGLES = EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(propostasss[index].conteudo_da_proposta);
 
 
                                     } else if (USUARIO_CELL_E_VENDEDOR_OU_COMPRADOR.toString() === "COMPRADOR") {
 
-//  try{
-                                        CELULARES_POR_MESAGEM_array_local.map(async (array, jjj) => {
+                                        try {
+                                            CELULARES_POR_MESAGEM_array_local.map((array, jjj) => {
 
 
-                                            if (TELEFONE_USUARIO_TRABALHADO == CELULARES_POR_MESAGEM_array_local[jjj]) {
-                                                ARRAY_CONTEUDO__DAS_MENSAGENS[iii] = ARRAY_CONTEUDO__DAS_MENSAGENS[iii].replace(CELULARES_POR_MESAGEM_array_local[jjj], "Você");
-                                                DATA_CHEIA_INGLES = EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(ARRAY_CONTEUDO__DAS_MENSAGENS[iii]);
-                                            }//IF 
+                                                if (TELEFONE_USUARIO_TRABALHADO == CELULARES_POR_MESAGEM_array_local[jjj]) {
+                                                    ARRAY_CONTEUDO__DAS_MENSAGENS[iii] = ARRAY_CONTEUDO__DAS_MENSAGENS[iii].replace(CELULARES_POR_MESAGEM_array_local[jjj], "Você");
+                                                    DATA_CHEIA_INGLES = EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(ARRAY_CONTEUDO__DAS_MENSAGENS[iii]);
+                                                }//IF 
 
-                                            else if (TELEFONE_USUARIO_TRABALHADO != CELULARES_POR_MESAGEM_array_local[jjj]) {
-                                                ARRAY_CONTEUDO__DAS_MENSAGENS[iii] = ARRAY_CONTEUDO__DAS_MENSAGENS[iii].replace(CELULARES_POR_MESAGEM_array_local[jjj], "Vendedor");
-                                                DATA_CHEIA_INGLES = EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(ARRAY_CONTEUDO__DAS_MENSAGENS[iii]);
-                                            }//IF
+                                                else if (TELEFONE_USUARIO_TRABALHADO != CELULARES_POR_MESAGEM_array_local[jjj]) {
+                                                    ARRAY_CONTEUDO__DAS_MENSAGENS[iii] = ARRAY_CONTEUDO__DAS_MENSAGENS[iii].replace(CELULARES_POR_MESAGEM_array_local[jjj], "Vendedor");
+                                                    DATA_CHEIA_INGLES = EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(ARRAY_CONTEUDO__DAS_MENSAGENS[iii]);
+                                                }//IF
 
-                                        });//map()                                   
-//   }catch(error){ }
+                                            });//map()                                   
+                                        } catch (error) { console.log("ERRRRO AQUI 2 " + error); }
 
                                     }//IF
 
@@ -921,44 +930,44 @@ export default function MensagensPropostas(param) {
 
                                         }//IF            
                                     }}
-                                //FECHAR CAIXA RESPONDER SE TIVER ABERTO ACIMA
+                                    //FECHAR CAIXA RESPONDER SE TIVER ABERTO ACIMA
 
-                                // //FOI DESATIVADO O DELETAR MENSAGEM NO CHAT ABAIXO  18 07 2021
-                                //                                     onLongPress={(e) => {
+                                    // //FOI DESATIVADO O DELETAR MENSAGEM NO CHAT ABAIXO  18 07 2021
+                                    onLongPress={(e) => {
 
-                                //                                         //alert("FOI MANTIDO PRESSIONADO");
-                                //                                         Alert.alert(
-                                //                                             //title
-                                //                                             'Atenção !',
-                                //                                             //body
-                                //                                             //'I am two option alert. Do you want to cancel me ?',
-                                //                                             'Deseja Apagar essa Mensagem ?',
-                                //                                             [
-                                //                                                 {
-                                //                                                     text: 'Sim',
-                                //                                                     onPress: () => {
+                                        //alert("FOI MANTIDO PRESSIONADO");
+                                        Alert.alert(
+                                            //title
+                                            'Atenção !',
+                                            //body
+                                            //'I am two option alert. Do you want to cancel me ?',
+                                            'Deseja Apagar essa Mensagem ?',
+                                            [
+                                                {
+                                                    text: 'Sim',
+                                                    onPress: () => {
 
-                                //                                                         if (JSON.stringify(propostasss).includes("Compra e Venda Fechada</")) {
-                                //                                                             alert("Compra e Venda Fechada ! \n Não é possivel Excluir a Mensagem da Proposta !");
-                                //                                                         } else {
-                                //                                                             // alert("VAI APAGAR ESSA PROPOSTA");
-                                //                                                             param.funcao_remota_deletar_proposta(propostas.cod_automatico, propostas.numero_telefone_vendedor, propostas.numero_telefone_comprador);
-                                //                                                             VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
-                                //                                                         }
+                                                        if (JSON.stringify(propostasss).includes("Compra e Venda Fechada</")) {
+                                                            alert("Compra e Venda Fechada ! \n Não é possivel Excluir a Mensagem da Proposta !");
+                                                        } else {
+                                                            // alert("VAI APAGAR ESSA PROPOSTA");
+                                                            param.funcao_remota_deletar_proposta(propostas.cod_automatico, propostas.numero_telefone_vendedor, propostas.numero_telefone_comprador);
+                                                            VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
+                                                        }
 
-                                //                                                     }
-                                //                                                 },
-                                //                                                 {
-                                //                                                     text: 'Não',
-                                //                                                     onPress: () => {/*console.log('No Pressed')*/ },
-                                //                                                     style: 'cancel'
-                                //                                                 },
-                                //                                             ],
-                                //                                             { cancelable: false },
-                                //                                             //clicking out side of alert will not cancel
-                                //                                         );
+                                                    }
+                                                },
+                                                {
+                                                    text: 'Não',
+                                                    onPress: () => {/*console.log('No Pressed')*/ },
+                                                    style: 'cancel'
+                                                },
+                                            ],
+                                            { cancelable: false },
+                                            //clicking out side of alert will not cancel
+                                        );
 
-                                //                                     }}
+                                    }}
                                 // //FOI DESATIVADO O DELETAR MENSAGEM NO CHAT ACIMA  18 07 2021
 
                                 >
@@ -1116,6 +1125,9 @@ export default function MensagensPropostas(param) {
                                                                             FUNCAO_QUE_IDENTIFICA_SE_E_VENDEDOR_OU_COMPRADOR(propostasss[index].numero_telefone_vendedor, propostasss[index].numero_telefone_comprador)
                                                                         //DEFININDO SE É COMPRADOR OU VENDEDOR NA HORA DE RESPONDER ACIMA
 
+                                                                        // REGULARIZANDO_DATAS_COM_FORMATO_DE_ZEROS_CORRETAMENTE
+                                                                        let DATA_PORTUGUES_FORMATO_CORRETO = REGULARIZANDO_DATAS_COM_FORMATO_DE_ZEROS_CORRETAMENTE(data_hora_e_segundo_completo());
+                                                                        let HORA_PORTUGUES_FORMATO_CORRETO = REGULARIZANDO_HORAS_COM_FORMATO_DE_ZEROS_CORRETAMENTE(data_hora_e_segundo_completo());
 
                                                                         //SEM HTML ABAIXO
                                                                         RESPOSTAS =
@@ -1123,7 +1135,8 @@ export default function MensagensPropostas(param) {
                                                                             "\n" +
                                                                             // '<cabecalho>' + vendedor_ou_comprador[index] + "  " + data_hora_e_segundo_completo_ingles() + '</cabecalho>' +
                                                                             // ADICIONADO EM 13 07 2021
-                                                                            '<cabecalho>' + DEIXAR_SOMENTE_NUMEROS(VARIAVEL_GLOBAL.TELEFONE) + "  " + data_hora_e_segundo_completo_ingles() + '</cabecalho>' +
+
+                                                                            '<cabecalho>' + DEIXAR_SOMENTE_NUMEROS(VARIAVEL_GLOBAL.TELEFONE) + "  " + DATA_PORTUGUES_FORMATO_CORRETO + " - " + HORA_PORTUGUES_FORMATO_CORRETO + '</cabecalho>' +
                                                                             conteudoDaResposta +
                                                                             "\n";
                                                                         //SEM HTML ACIMA

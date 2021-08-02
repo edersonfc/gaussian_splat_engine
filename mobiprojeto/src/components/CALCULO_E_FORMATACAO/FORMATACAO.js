@@ -398,7 +398,7 @@ function FORMATAR_PARA_MOEDA_DEFINITIVO_AO_DIGITAR(VALOR_RECEBIDO_1) {
 
 
 
-
+//
 function EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(RECEBE_PARAMETRO) {
 
     var DATAS_INGLES = "";
@@ -409,7 +409,8 @@ function EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(RECEBE_PARAMETRO) {
 
     var regex;
     try {
-        regex = new RegExp(/(\d{4}\-\d{2}\-\d{2})|(\d{2}\/\d{2}\/\d{4})|(\d{4}\-\d{1}\-\d{2})/g);
+        // regex = new RegExp(/(\d{4}\-\d{2}\-\d{2})|(\d{2}\/\d{2}\/\d{4})|(\d{4}\-\d{1}\-\d{2})/g);
+        regex = new RegExp(/(\d{4}\-\d{2}\-\d{2})|(\d{4}\-\d{1}\-\d{2})|(\d{4}\-\d{2}\-\d{1})|(\d{4}\-\d{1}\-\d{1})|(\d{2}\-\d{2}\-\d{4})|(\d{1}\-\d{2}\-\d{4})|(\d{2}\-\d{1}\-\d{4})|(\d{1}\-\d{1}\-\d{4})/g);
         //RECEBE_PARAMETRO = RECEBE_PARAMETRO.match(regex)[0];
         DATAS_INGLES = RECEBE_PARAMETRO.match(regex);
     } catch (e) { RECEBE_PARAMETRO = e; }
@@ -452,6 +453,13 @@ function EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES(RECEBE_PARAMETRO) {
 
 
 
+
+
+
+
+
+
+
 function EXTRAIR_DATA_PORTUGUES_E_CONVERTER_P_INGLES(RECEBE_PARAMETRO) {
 
     var DATAS_PORTUGUES = "";
@@ -462,8 +470,7 @@ function EXTRAIR_DATA_PORTUGUES_E_CONVERTER_P_INGLES(RECEBE_PARAMETRO) {
 
     var regex;
     try {
-        // regex = new RegExp(/(\d{4}\-\d{2}\-\d{2})|(\d{2}\/\d{2}\/\d{4})|(\d{4}\-\d{1}\-\d{2})/g);
-        regex = new RegExp(/(\d{2}\-\d{2}\-\d{4})|(\d{2}\/\d{2}\/\d{4})|(\d{2}\-\d{2}\-\d{2})|(\d{2}\/\d{2}\/\d{2})/g);
+        regex = new RegExp(/(\d{4}\-\d{2}\-\d{2})|(\d{4}\-\d{1}\-\d{2})|(\d{4}\-\d{2}\-\d{1})|(\d{4}\-\d{1}\-\d{1})|(\d{2}\-\d{2}\-\d{4})|(\d{1}\-\d{2}\-\d{4})|(\d{2}\-\d{1}\-\d{4})|(\d{1}\-\d{1}\-\d{4})/g);
         //RECEBE_PARAMETRO = RECEBE_PARAMETRO.match(regex)[0];
         DATAS_PORTUGUES = RECEBE_PARAMETRO.match(regex);
     } catch (e) { RECEBE_PARAMETRO = e; }
@@ -502,6 +509,219 @@ function EXTRAIR_DATA_PORTUGUES_E_CONVERTER_P_INGLES(RECEBE_PARAMETRO) {
     return RECEBE_PARAMETRO;
 
 }
+
+
+
+
+
+
+
+
+// async function EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES_ASYNC(RECEBE_PARAMETRO) {
+var EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES_ASYNC = function (RECEBE_PARAMETRO) {
+
+    // alert(RECEBE_PARAMETRO); return 0;
+    // console.log(RECEBE_PARAMETRO);
+
+    var DATAS_INGLES = "";
+    var DATAS_PORTUGUES = "";
+    var ANO = "";
+    var DIA = "";
+    var MES = "";
+
+    var regex;
+    try {
+        regex = new RegExp(/(\d{4}\-\d{2}\-\d{2})|(\d{4}\-\d{1}\-\d{2})|(\d{4}\-\d{2}\-\d{1})|(\d{4}\-\d{1}\-\d{1})|(\d{2}\-\d{2}\-\d{4})|(\d{1}\-\d{2}\-\d{4})|(\d{2}\-\d{1}\-\d{4})|(\d{1}\-\d{1}\-\d{4})/g);
+        //RECEBE_PARAMETRO = RECEBE_PARAMETRO.match(regex)[0];
+        DATAS_INGLES = RECEBE_PARAMETRO.match(regex);
+    } catch (e) { RECEBE_PARAMETRO = e; }
+
+    try {
+
+        for (var i = 0; i < DATAS_INGLES.length; i++) {
+
+            DATAS_PORTUGUES = DATAS_INGLES[i].split("-");
+            ANO = DATAS_PORTUGUES[0];
+            MES = DATAS_PORTUGUES[1];
+            DIA = DATAS_PORTUGUES[2];
+
+            if (MES.length == 1) { MES = "0" + MES }
+            if (DIA.length == 1) { DIA = "0" + DIA }
+
+            DATAS_PORTUGUES = DIA + "-" + MES + "-" + ANO;
+
+            try { RECEBE_PARAMETRO = RECEBE_PARAMETRO.replace(/(\d{4}\-\d{1}\-\d{2})/g, DATAS_PORTUGUES); } catch (error) { }
+            try { RECEBE_PARAMETRO = RECEBE_PARAMETRO.replace(/(\d{4}\-\d{2}\-\d{2})/g, DATAS_PORTUGUES); } catch (error) { }
+            try { RECEBE_PARAMETRO = RECEBE_PARAMETRO.replace(/(\d{4}\-\d{1}\-\d{1})/g, DATAS_PORTUGUES); } catch (error) { }
+            try { RECEBE_PARAMETRO = RECEBE_PARAMETRO.replace(/(\d{4}\-\d{2}\-\d{1})/g, DATAS_PORTUGUES); } catch (error) { }
+
+        }//FOR
+
+
+    } catch (e) { alert("ERRO AQUI bnm => " + e); return 0; }
+
+
+
+    //alert(RECEBE_PARAMETRO);
+    //DATA_CHEIA_INGLES = RECEBE_PARAMETRO;
+    // return RECEBE_PARAMETRO;
+
+
+
+    return new Promise(function (resolve) {
+        // setTimeout(function () {
+        //     resolve(['comedy', 'drama', 'action'])
+        // }, 2000);
+
+        // resolve( JSON.stringify( RECEBE_PARAMETRO ) );
+        // alert( RECEBE_PARAMETRO );
+        resolve(RECEBE_PARAMETRO);
+    });
+
+
+
+}
+
+
+
+
+
+
+
+
+
+/*******************************************************************************************/
+
+function REGULARIZANDO_DATAS_COM_FORMATO_DE_ZEROS_CORRETAMENTE(RECEBE_PARAMETRO) {
+
+    // alert(RECEBE_PARAMETRO); return 0;
+    // var RECEBE_PARAMETRO = "08-01-2021 17:14:27    5-07-2021 17:14:27     08-1-2021 17:4:27   8-1-2021 17:14:27    ";
+
+    RECEBE_PARAMETRO = RECEBE_PARAMETRO .replace(/[\-]/g," ");
+    RECEBE_PARAMETRO = RECEBE_PARAMETRO .replace(/["/"]/g,"-");
+
+    // alert(RECEBE_PARAMETRO);
+
+    var DATA_FORMATADO = {};
+ 
+    var DATAS_PORTUGUES = "";
+  
+    var ANO = "";
+    var DIA = "";
+    var MES = "";
+  
+
+
+    var regex_data;
+    try {
+        // regex_data = new RegExp(/(\d{2}\-\d{2}\-\d{4})|(\d{1}\-\d{1}\-\d{4})|(\d{1}\-\d{2}\-\d{4})|(\d{2}\-\d{1}\-\d{4})/g);
+        // regex_data = new RegExp(/(\d{1,2}\-\d{1,2}\-\d{4}\s*\d{1,2}\:\d{1,2}\:\d{1,2})/g);
+        regex_data = new RegExp(/(\d{1,2}\-\d{1,2}\-\d{4})/g);
+        // regex_data = new RegExp(/(\d{1,2}\:\d{1,2}\:\d{1,2})/g);
+
+        //RECEBE_PARAMETRO = RECEBE_PARAMETRO.match(regex_data)[0];
+        DATAS_PORTUGUES = RECEBE_PARAMETRO.match(regex_data);
+
+
+        for (var i = 0; i < DATAS_PORTUGUES.length; i++) {
+
+            DATA_FORMATADO = DATAS_PORTUGUES[i].split("-");
+            ANO = DATA_FORMATADO[2];
+            MES = DATA_FORMATADO[1];
+            DIA = DATA_FORMATADO[0];
+
+            if (MES.length == 1) { MES = "0" + MES }
+            if (DIA.length == 1) { DIA = "0" + DIA }
+
+            DATA_FORMATADO = DIA + "-" + MES + "-" + ANO;
+
+            // console.log(DATA_FORMATADO);
+
+        }//FOR
+
+          // console.log(DATA_FORMATADO);
+        return DATA_FORMATADO;
+
+    } catch (e) { RECEBE_PARAMETRO = e; }
+
+}
+
+/*******************************************************************************************/
+
+
+
+function REGULARIZANDO_HORAS_COM_FORMATO_DE_ZEROS_CORRETAMENTE(RECEBE_PARAMETRO) {
+
+    // alert(RECEBE_PARAMETRO); return 0;
+    // var RECEBE_PARAMETRO = "08-01-2021 17:14:27    5-07-2021 17:14:27     08-1-2021 17:4:27   8-1-2021 17:14:27    ";
+
+    RECEBE_PARAMETRO = RECEBE_PARAMETRO .replace(/[\-]/g," ");
+    // RECEBE_PARAMETRO = RECEBE_PARAMETRO .replace(/["/"]/g,"-");
+
+    // alert(RECEBE_PARAMETRO);
+ 
+    var HORAS_IRREGULAR = "";
+    var HORA_FORMATADO = {};
+
+  
+    var HORA = "";
+    var MINUTO = "";
+    var SEGUNDO = "";
+
+
+    var regex_data;
+    try {
+        // regex_data = new RegExp(/(\d{2}\-\d{2}\-\d{4})|(\d{1}\-\d{1}\-\d{4})|(\d{1}\-\d{2}\-\d{4})|(\d{2}\-\d{1}\-\d{4})/g);
+        // regex_data = new RegExp(/(\d{1,2}\-\d{1,2}\-\d{4}\s*\d{1,2}\:\d{1,2}\:\d{1,2})/g);
+        // regex_data = new RegExp(/(\d{1,2}\-\d{1,2}\-\d{4})/g);
+        regex_data = new RegExp(/(\d{1,2}\:\d{1,2}\:\d{1,2})/g);
+
+        //RECEBE_PARAMETRO = RECEBE_PARAMETRO.match(regex_data)[0];
+        HORAS_IRREGULAR = RECEBE_PARAMETRO.match(regex_data);
+
+
+        for (var i = 0; i < HORAS_IRREGULAR.length; i++) {
+
+
+            HORA_FORMATADO = HORAS_IRREGULAR[i].split(":");
+            HORA = HORA_FORMATADO[0];
+            MINUTO = HORA_FORMATADO[1];
+            SEGUNDO = HORA_FORMATADO[2];
+
+            if (HORA.length == 1) { HORA = "0" + HORA }
+            if (MINUTO.length == 1) { MINUTO = "0" + MINUTO }
+            if (SEGUNDO.length == 1) { SEGUNDO = "0" + SEGUNDO }
+
+         
+            // console.log(DATA_FORMATADO);
+
+        }//FOR
+
+        HORA_FORMATADO = HORA + ":" + MINUTO + ":" + SEGUNDO;
+
+        // console.log(DATA_FORMATADO);
+        return HORA_FORMATADO;
+
+    } catch (e) { RECEBE_PARAMETRO = e; }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -592,7 +812,7 @@ async function EXTRAIR_CELULARES_DE_TEXTO(conteudo_que_contem_celulares_ARRAY) {
         // conteudo_que_contem_celulares = conteudo_que_contem_celulares.match(regex)[0];
         conteudo_que_contem_celulares_ARRAY = conteudo_que_contem_celulares_ARRAY.match(regex);
 
-           return conteudo_que_contem_celulares_ARRAY;
+        return conteudo_que_contem_celulares_ARRAY;
 
     } catch (error) { /*return alert(error);*/ console.log(error); }
 
@@ -610,8 +830,8 @@ function EXTRAIR_CELULARES_DE_TEXTO_2(conteudo_que_contem_celulares_ARRAY) {
         // conteudo_que_contem_celulares = conteudo_que_contem_celulares.match(regex)[0];
         conteudo_que_contem_celulares_ARRAY = conteudo_que_contem_celulares_ARRAY.match(regex);
 
-      // console.log(conteudo_que_contem_celulares_ARRAY);
-     return conteudo_que_contem_celulares_ARRAY;
+        // console.log(conteudo_que_contem_celulares_ARRAY);
+        return conteudo_que_contem_celulares_ARRAY;
 
     } catch (error) { console.log(error); }
 
@@ -639,7 +859,8 @@ export {
     data_hora_e_segundo_completo, data_completa, hora_e_segundo_completo, data_hora_e_segundo_completo_ingles, data_hora_e_segundo_sem_separador, FORMATAR_AO_DIGITAR_USANDO_MASCARA,
     Distancia_entre_2_geolocalizacao, TRANFORMAR_P_CAMINHO_ABSOLUTO, REMOVER_ITENS_NULOS_DO_ARRAY, extrair_nome_de_Arquivo_da_url, Badge, FORMATAR_PARA_MOEDA_DEFINITIVO_AO_DIGITAR,
     data_completa_ingles, EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES, EXTRAIR_DATA_PORTUGUES_E_CONVERTER_P_INGLES, MOEDA_P_DOUBLE_OU_FLOAT, DOUBLE_OU_FLOAT_P_MOEDA,
-    VALIDAR_CPF, QUANTIDADES_VEZES_PRECOS, EXTRAIR_CELULARES_DE_TEXTO, EXTRAIR_CELULARES_DE_TEXTO_2, DEIXAR_SOMENTE_NUMEROS
+    VALIDAR_CPF, QUANTIDADES_VEZES_PRECOS, EXTRAIR_CELULARES_DE_TEXTO, EXTRAIR_CELULARES_DE_TEXTO_2, DEIXAR_SOMENTE_NUMEROS,
+    EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES_ASYNC, REGULARIZANDO_DATAS_COM_FORMATO_DE_ZEROS_CORRETAMENTE, REGULARIZANDO_HORAS_COM_FORMATO_DE_ZEROS_CORRETAMENTE
 }
 
 
