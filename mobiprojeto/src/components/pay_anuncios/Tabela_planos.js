@@ -379,9 +379,9 @@ export default function Tabela_planos(props) {
 
                 }}
             >
-                <Txt_4 cor_txt={'#25E7DB'} >
-                    Postar
-                </Txt_4>
+                <Txt_4 cor_txt={'#25E7DB'}>Postar</Txt_4>
+                  
+              
 
             </View_touchable_1>
 

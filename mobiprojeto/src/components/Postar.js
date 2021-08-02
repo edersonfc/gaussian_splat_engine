@@ -828,12 +828,6 @@ export default function Postar(props) {
 
 
 
-
-
-
-
-
-
     return (
 
 
@@ -1523,6 +1517,7 @@ export default function Postar(props) {
                                                         if (quantidadeCabecasOuPesos != "") {
 
 
+                                                        
 
                                                             //TAREFAZ AQUI ABAIXO
                                                             await CONTANDO_QUANTIDADE_DE_POSTAGENS();
@@ -1531,6 +1526,7 @@ export default function Postar(props) {
 
                                                             if (VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS > VARIAVEL_GLOBAL.PARAMETROS_QUANTIDADE_DE_POSTAGEMS) {
                                                                 VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "PUBLICACAO";
+                                                                VARIAVEL_GLOBAL.PUBLICACAO_EM_PROCESSO = "ENVIANDO";
                                                                 // venda_status_J = 'pendente';
                                                                 const produto = { IMAGENS: VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT, VIDEOS: VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT }
                                                                 navigation.navigate("Tabela_planos", { precoSugerido, quantidadeCabecasOuPesos, produto });
@@ -2102,8 +2098,8 @@ export default function Postar(props) {
 
         VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE =
         {
-            numero_telefone_A: numero_telefone_J,
-            id_A: id_J,
+            numero_telefone_J: numero_telefone_J,
+            id_J: id_J,
             data_A: data_J,
             LATITUDE_A: LATITUDE_J,
             LONGITUDE_A: LONGITUDE_J,
@@ -2156,7 +2152,7 @@ export default function Postar(props) {
 
         //alert(dadosPostagem);
 
-        console.log("#1=>" + id_J);
+        // console.log("#1=>" + id_J);
 
         if (dadosPostagem != null) {
 
@@ -2261,6 +2257,7 @@ export default function Postar(props) {
             }];
 
 
+          
         }
 
         /*
@@ -2269,7 +2266,7 @@ export default function Postar(props) {
         alert(DADO_CONVERTIDOS_PRA_ARRAY);
         */
 
-        console.log("#2=>" + id_J);
+        // console.log("#2=>" + id_J);
 
         ARMAZENAR_POSTAGEM_SEGUNTA_ETAPA(dadosPostagem);
 
@@ -2326,7 +2323,7 @@ export default function Postar(props) {
             if (VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS > VARIAVEL_GLOBAL.PARAMETROS_QUANTIDADE_DE_POSTAGEMS) {
 
                 // alert("VAI CHAMAR FORMA DE PAGAMENTO");//
-                console.log("VAI CHAMAR FORMA DE PAGAMENTO");
+                // console.log("VAI CHAMAR FORMA DE PAGAMENTO");
                 try {
                     await INSERINDO_NO_BANCO_DE_DADOS_POSTAGENS_OFF_LINE_2();
                 } catch (error) { console.log(error); }

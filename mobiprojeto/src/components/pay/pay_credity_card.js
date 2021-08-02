@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState, useContext } from 'react';
 
-import { 
-         AppRegistry, LogBox, ActivityIndicator, Text, SafeAreaView, TouchableOpacity, Alert, TextInput, ScrollView, PermissionsAndroid, TouchableHighlight, Keyboard, Dimensions, Animated, View 
-       } from 'react-native';
+import {
+    AppRegistry, LogBox, ActivityIndicator, Text, SafeAreaView, TouchableOpacity, Alert, TextInput, ScrollView, PermissionsAndroid, TouchableHighlight, Keyboard, Dimensions, Animated, View
+} from 'react-native';
 
 import { useNavigation } from "@react-navigation/native";
 
@@ -18,7 +18,7 @@ import io from 'socket.io-client';
 import {
     QUANTIDADES_VEZES_PRECOS, MOEDA_P_DOUBLE_OU_FLOAT,
     data_completa, data_completa_ingles, data_hora_e_segundo_completo_ingles
-    , data_hora_e_segundo_completo, REGULARIZANDO_DATAS_COM_FORMATO_DE_ZEROS_CORRETAMENTE, REGULARIZANDO_HORAS_COM_FORMATO_DE_ZEROS_CORRETAMENTE 
+    , data_hora_e_segundo_completo, REGULARIZANDO_DATAS_COM_FORMATO_DE_ZEROS_CORRETAMENTE, REGULARIZANDO_HORAS_COM_FORMATO_DE_ZEROS_CORRETAMENTE
 } from '../CALCULO_E_FORMATACAO/FORMATACAO';
 
 
@@ -45,7 +45,7 @@ import {
 //npm install react-native-webview
 import { WebView } from 'react-native-webview';
 
-
+import Waiting from '../Waiting';
 
 // import { Card } from 'react-native-paper';
 function LoadingIndicatorView() {
@@ -85,14 +85,14 @@ export default function pay_credity_card(params) {
     // alert( JSON.stringify( params.route.params.propostas ) );
     dados_da_negociacao = JSON.stringify(params.route.params.dados_da_negociacao);
 
-  
+
 
     // alert(   JSON.stringify(  VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE  )  );
     dados_da_venda = JSON.stringify(VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE);
 
 
     dados_da_negociacao = JSON.parse(dados_da_negociacao);
-    dados_da_venda      = JSON.parse(dados_da_venda);
+    dados_da_venda = JSON.parse(dados_da_venda);
 
 
     dados_do_tentar_novamente = dados_da_negociacao;
@@ -153,7 +153,7 @@ export default function pay_credity_card(params) {
     var [compraAprovadaOuReprovadaRecebida, setCompraAprovadaOuReprovadaRecebida] = useState("");
 
 
-  async  function ocultar_tela_de_mensagem(parametro) {
+    async function ocultar_tela_de_mensagem(parametro) {
 
         setMenssagemStatusDaCompra(false);
 
@@ -171,11 +171,11 @@ export default function pay_credity_card(params) {
             // for (var i = 0; i < dados_do_tentar_novamente.length; i++) {
             // dados_do_tentar_novamente[i] = { ...dados_do_tentar_novamente[i], bate_e_volta:"go_to_pay_credity_card" };
             // }
-            var json_with_atributy_add =  await AsynFunctionAddMoreAtributyInJson(dados_do_tentar_novamente)
+            var json_with_atributy_add = await AsynFunctionAddMoreAtributyInJson(dados_do_tentar_novamente)
 
             var propostas = json_with_atributy_add;
             //  //TENTANDO COLOCAR MAIS ATRIBUTOS NO OBJETO JSON ACIMA
-       
+
             //Linha Abaixo Delay de 3 Segundos
             // await new Promise((resolve) => setTimeout(resolve, 2000));
 
@@ -430,7 +430,7 @@ export default function pay_credity_card(params) {
         // if (segund >= 20) {
 
 
-        if (typeof dados_da_venda.id_A === "undefined") {
+        if (typeof dados_da_venda.id_J === "undefined") {
 
 
             /***************************************/
@@ -463,9 +463,9 @@ export default function pay_credity_card(params) {
 
                 const response = await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + 'se_postagem_esta_online', {
                     params: {
-                        numero_telefone_J: dados_da_venda.numero_telefone_A,
-                        // id_J: "QWT" + dados_da_venda.id_A
-                        id_J: dados_da_venda.id_A
+                        numero_telefone_J: dados_da_venda.numero_telefone_J,
+                        // id_J: "QWT" + dados_da_venda.id_J
+                        id_J: dados_da_venda.id_J
                     }
                 });
 
@@ -500,8 +500,8 @@ export default function pay_credity_card(params) {
 
         // alert( Object.values( dados_da_negociacao ) );
         // alert( JSON.stringify(VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE) );
-        // alert( dados_da_venda.numero_telefone_A );
-        // alert( dados_da_venda.id_A );
+        // alert( dados_da_venda.numero_telefone_J );
+        // alert( dados_da_venda.id_J );
         // alert( VARIAVEL_GLOBAL.tempoPostagem_G );
         // venda_status_J = 'aberta'
         // tempoPostagem_J = 360
@@ -509,7 +509,7 @@ export default function pay_credity_card(params) {
 
 
         //1º
-        if (typeof dados_da_venda.id_A === "undefined") {
+        if (typeof dados_da_venda.id_J === "undefined") {
 
 
             /***************************************/
@@ -560,8 +560,8 @@ export default function pay_credity_card(params) {
 
                     params: {
                         data_J: data_completa_ingles(),
-                        telefoneDoUsuario: dados_da_venda.numero_telefone_A,
-                        id_J: dados_da_venda.id_A,
+                        telefoneDoUsuario: dados_da_venda.numero_telefone_J,
+                        id_J: dados_da_venda.id_J,
                         venda_status_J: 'aberta',
                         tempoPostagem_J: VARIAVEL_GLOBAL.tempoPostagem_G
                     }
@@ -642,7 +642,7 @@ export default function pay_credity_card(params) {
 
 
         let DATA_PORTUGUES_FORMATO_CORRETO = REGULARIZANDO_DATAS_COM_FORMATO_DE_ZEROS_CORRETAMENTE(data_hora_e_segundo_completo());
-        let HORA_PORTUGUES_FORMATO_CORRETO = REGULARIZANDO_HORAS_COM_FORMATO_DE_ZEROS_CORRETAMENTE(data_hora_e_segundo_completo());   
+        let HORA_PORTUGUES_FORMATO_CORRETO = REGULARIZANDO_HORAS_COM_FORMATO_DE_ZEROS_CORRETAMENTE(data_hora_e_segundo_completo());
 
 
         //SEM HTML ABAIXO
@@ -861,12 +861,10 @@ export default function pay_credity_card(params) {
         setRetorno_Webview({ data });
 
         // console.log("RETORNO DO WEBVIEW \n\n " + JSON.stringify(retorno_Webview));
-
     };
 
 
-
-
+    const [waitingVisible, setWaitingisible] = useState(false);
 
 
 
@@ -895,8 +893,11 @@ export default function pay_credity_card(params) {
     r => this.webview = r
 
     useEffect(() => {
-        // console.log(JSON.stringify(webviewRef));
-        // console.log(webviewRef);
+
+        // console.log( Object.keys( VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE ) ); 
+        // console.log(  VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE.id_J );  
+        // console.log(  VARIAVEL_GLOBAL.PRODUTO_JSON_SENDO_MANIPULADO_ATUALMENTE );  
+        
     }, []);
 
 
@@ -941,21 +942,16 @@ export default function pay_credity_card(params) {
 
 
         if (url.includes('mercadopago')) {
-
             // alert(url+"\n\n\nTEM LINK DO MERCADO PAGO");
         }
 
         if (url.includes('pagamento_aprovado')) {
-
             executarPagamentoComCrediCard("aprovado");
-
         }
 
 
         if (url.includes('pagamento_reprovado')) {
-
             executarPagamentoComCrediCard("reprovado");
-
         }
 
         // console.log(url);
@@ -964,9 +960,7 @@ export default function pay_credity_card(params) {
 
 
 
-
-
-
+ 
 
 
 
@@ -1214,58 +1208,57 @@ export default function pay_credity_card(params) {
 
 
 
-        //TELA WEBVIEW ABAIXO
-        <SafeAreaView style={[Estilo.App]} >
-
-
-            {/* <ScrollView style={{ width: '100%', height: 'auto', borderWidth: 0 }} > */}
-
-            <View style={{ height: '100%', width: '100%', backgroundColor: '#fff9', alignContent: 'center', justifyContent: 'center' }}>
-                <View style={{ height: '100%', width: '100%', backgroundColor: '#fff' }}>
-
-                    <WebView
 
 
 
-                        bounces={false}
-                        showsHorizontalScrollIndicator={false}
-                        showsVerticalScrollIndicator={false}
+        // waitingVisible ?
+        //     <SafeAreaView style={[Estilo.App]} >
+        //         <Waiting paremetroEnviado={"Aguarde ..."} ORIENTACAO={"PORTRAIT"} />
+        //     </SafeAreaView>
+        //     :
 
-                        // {...alert(VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO.descricao_da_cobranca)}
-                        // {...alert(VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO.valor_do_plano)}
-
-
-                        originWhitelist={['*']}
-
-
-                        // source={{ uri: "" }}
-                        // source={{ uri: "http://192.168.0.107:8080" }}
-                        
-                        // source={{ uri: "https://servidor-recebimento-mp.herokuapp.com/" }} //FOI DESATIVADO SERVIDOR DO HEROKU
-                        source={{ uri: "http://159.89.87.76:8080/" }}// => SERVIDOR DA DIGITALOCEAN
-                        
+            //TELA WEBVIEW ABAIXO
+            <SafeAreaView style={[Estilo.App]} >
 
 
-                        onMessage={onMessage}
+                {/* <ScrollView style={{ width: '100%', height: 'auto', borderWidth: 0 }} > */}
+
+                <View style={{ height: '100%', width: '100%', backgroundColor: '#fff9', alignContent: 'center', justifyContent: 'center' }}>
+                    <View style={{ height: '100%', width: '100%', backgroundColor: '#fff' }}>
+
+                        <WebView
+
+                            bounces={false}
+                            showsHorizontalScrollIndicator={false}
+                            showsVerticalScrollIndicator={false}
+
+                            // {...alert(VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO.descricao_da_cobranca)}
+                            // {...alert(VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO.valor_do_plano)}
+
+                            originWhitelist={['*']}
+
+                            // source={{ uri: "" }}
+                            // source={{ uri: "http://192.168.0.107:8080" }}
+
+                            // source={{ uri: "https://servidor-recebimento-mp.herokuapp.com/" }} //FOI DESATIVADO SERVIDOR DO HEROKU
+                            source={{ uri: "http://159.89.87.76:8080/" }}// => SERVIDOR DA DIGITALOCEAN
+
+                            onMessage={onMessage}
+
+                            renderLoading={LoadingIndicatorView}
+                            startInLoadingState={false}
+                            javaScriptEnabled={true}
+
+                            // domStorageEnabled={true}
+
+                            // ALTERAR_PRECOS(${JSON.stringify(valll)})
+                            // true; // note: this is required, or you'll sometimes get silent failures
+                            // true; // observação: isso é necessário, ou você às vezes obterá falhas silenciosas
 
 
-                        renderLoading={LoadingIndicatorView}
-                        startInLoadingState={false}
-                        javaScriptEnabled={true}
+                            injectedJavaScript={
 
-
-
-                        // domStorageEnabled={true}
-
-
-                        // ALTERAR_PRECOS(${JSON.stringify(valll)})
-                        // true; // note: this is required, or you'll sometimes get silent failures
-                        // true; // observação: isso é necessário, ou você às vezes obterá falhas silenciosas
-
-
-                        injectedJavaScript={
-
-                            `
+                                `
                                                     
                                 //CÓDIGO ABAIXO EXECUTA DEPOIS DO CARREGAMENTO DA PÁGINA ABAIXO                           
                                     window.onload = function () {
@@ -1334,47 +1327,44 @@ export default function pay_credity_card(params) {
 
                                     `
 
-                        }
+                            }
 
-                        // mixedContentMode={'compatibility'}
+                            // mixedContentMode={'compatibility'}
 
 
-                        // injectedJavaScript={
-                        //     `document.getElementById("checkout-btn").addEventListener("click", function () {
-                        //         ALTERAR_PRECOS(${VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO});
-                        //     }); 
-                        //     true;`
-                        // }
+                            // injectedJavaScript={
+                            //     `document.getElementById("checkout-btn").addEventListener("click", function () {
+                            //         ALTERAR_PRECOS(${VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO});
+                            //     }); 
+                            //     true;`
+                            // }
 
-                        ref={webviewRef}
+                            ref={webviewRef}
 
-                        onNavigationStateChange={handleWebViewNavigationStateChange}
+                            onNavigationStateChange={handleWebViewNavigationStateChange}
 
                         // onError={VOLTAR_PRA_TELA_ANTERIOR}
 
 
-                    />
+                        />
 
+                    </View>
                 </View>
-            </View>
 
 
+                {menssagemStatusDaCompra && (<Pay_aprovado_reprovado
+                    compraAprovadaOuReprovadaRecebid={compraAprovadaOuReprovadaRecebida}
+                    ocultar_tela_de_mensagem={ocultar_tela_de_mensagem}
+                    executarPagamentoComCrediCard={executarPagamentoComCrediCard}
+                />)}
+
+                {menssagemProcessamento && (
+                    <TelaAguardeProcessamentoPagamento />
+                )}
 
 
-            {menssagemStatusDaCompra && (<Pay_aprovado_reprovado
-                compraAprovadaOuReprovadaRecebid={compraAprovadaOuReprovadaRecebida}
-                ocultar_tela_de_mensagem={ocultar_tela_de_mensagem}
-                executarPagamentoComCrediCard={executarPagamentoComCrediCard}
-            />)}
-
-            {menssagemProcessamento && (
-                <TelaAguardeProcessamentoPagamento />
-            )}
-
-
-
-            {/* </ScrollView> */}
-        </SafeAreaView>
+                {/* </ScrollView> */}
+            </SafeAreaView>
         //TELA WEBVIEW ACIMA
 
 

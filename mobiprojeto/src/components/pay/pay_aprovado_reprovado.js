@@ -144,10 +144,19 @@ export default function pay_aprovado_reprovado(params) {
 
                                     VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "";
                                     VARIAVEL_GLOBAL.SOMENTE_UMA_VEZ = true;
-                                    navigation.goBack(null);
-                                    navigation.goBack(null);
-                                    navigation.goBack(null);
 
+                                    //ADCIONADO 02/08/2021
+                                    VARIAVEL_GLOBAL.INDICE_GLOBAL_IMAGENS_VIDEOS = -1;
+                                    VARIAVEL_GLOBAL.CONTADOR_GLOBAL = 55;
+
+                                    //DESATIVADO ABAIXO 02/08/2021
+                                    // navigation.goBack(null);
+                                    // navigation.goBack(null);
+                                    // navigation.goBack(null);
+                                    // navigation.goBack(null);
+
+                                    // navigation.navigate("TelaPrincipal", { produto });
+                                    navigation.navigate("TelaPrincipal", null);
 
                                 }
                             }}

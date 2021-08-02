@@ -73,7 +73,7 @@ import DeviceInfo from 'react-native-device-info';
 //VARIAVÉIS GLOBAIS ABAIXO
 
 //NO SERVIDOR REMOTO DIGITALOCEAN
-var IP_DO_SERVIDOR    = "http://159.89.87.76:3000/";
+var IP_DO_SERVIDOR = "http://159.89.87.76:3000/";
 var IP_DO_SERVIDOR_IO = "http://159.89.87.76:3001/";
 // var IP_DO_SERVIDOR_IO =  IP_DO_SERVIDOR;
 
@@ -2485,6 +2485,8 @@ export default function AppTest() {
 
 
 
+  const [chamarTelaPostarDepoisDaPostagem, setchamarTelaPostarDepoisDaPostagem] = useState(VARIAVEL_GLOBAL.PUBLICACAO_EM_PROCESSO);
+
 
 
 
@@ -2637,6 +2639,41 @@ export default function AppTest() {
 
 
 
+  function CHAMAR_NOVAMENTE_A_TELA_DE_POSTAGEM() {
+
+    VARIAVEL_GLOBAL.TELA_ATUAL = "Postar";
+    VARIAVEL_GLOBAL.TELA_ORIGEM = "Principal";
+    VARIAVEL_GLOBAL.TELA_TERCEIRA = "nenhuma";
+
+    VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length = 0;
+    VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT.length = 0;
+
+    VARIAVEL_GLOBAL.PUBLICACAO_EM_PROCESSO = "NAO_ENVIADO";
+
+    var URL_FOTOS = "file:///zerar_postagem";
+    var URL_VIDEOS = "file:///";
+    navigation.navigate("Postar", { URL_FOTOS, URL_VIDEOS, });
+
+    // setchamarTelaPostarDepoisDaPostagem("NAO_ENVIADO");
+
+  }
+
+
+
+  useEffect(() => {
+
+    if (VARIAVEL_GLOBAL.PUBLICACAO_EM_PROCESSO === "ENVIADO") { //ENVIADO
+           CHAMAR_NOVAMENTE_A_TELA_DE_POSTAGEM();
+    }
+
+  }, []);
+  // }, [chamarTelaPostarDepoisDaPostagem,VARIAVEL_GLOBAL.PUBLICACAO_EM_PROCESSO]);
+
+
+
+
+
+
 
 
 
@@ -2761,7 +2798,7 @@ export default function AppTest() {
                     VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT.length = 0;
 
                     //navigation.navigate("Postar",{URL})
-                    navigation.navigate("Postar", { URL_FOTOS, URL_VIDEOS, })
+                    navigation.navigate("Postar", { URL_FOTOS, URL_VIDEOS, });
 
                   } else if (VARIAVEL_GLOBAL.LICENCA_USO.toString() === "bloqueado") {
 
