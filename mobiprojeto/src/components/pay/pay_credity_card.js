@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState, useContext } from 'react';
 
-import { AppRegistry, LogBox, ActivityIndicator, Text, SafeAreaView, TouchableOpacity, Alert, TextInput, ScrollView, PermissionsAndroid, TouchableHighlight, Keyboard, Dimensions, Animated, View } from 'react-native';
+import { 
+         AppRegistry, LogBox, ActivityIndicator, Text, SafeAreaView, TouchableOpacity, Alert, TextInput, ScrollView, PermissionsAndroid, TouchableHighlight, Keyboard, Dimensions, Animated, View 
+       } from 'react-native';
 
 import { useNavigation } from "@react-navigation/native";
 
@@ -16,6 +18,7 @@ import io from 'socket.io-client';
 import {
     QUANTIDADES_VEZES_PRECOS, MOEDA_P_DOUBLE_OU_FLOAT,
     data_completa, data_completa_ingles, data_hora_e_segundo_completo_ingles
+    , data_hora_e_segundo_completo, REGULARIZANDO_DATAS_COM_FORMATO_DE_ZEROS_CORRETAMENTE, REGULARIZANDO_HORAS_COM_FORMATO_DE_ZEROS_CORRETAMENTE 
 } from '../CALCULO_E_FORMATACAO/FORMATACAO';
 
 
@@ -637,13 +640,18 @@ export default function pay_credity_card(params) {
         COMPRADOR = dados_da_negociacao.numero_telefone_vendedor;
         //DEFININDO SE É COMPRADOR OU VENDEDOR NA HORA DE RESPONDER ACIMA
 
+
+        let DATA_PORTUGUES_FORMATO_CORRETO = REGULARIZANDO_DATAS_COM_FORMATO_DE_ZEROS_CORRETAMENTE(data_hora_e_segundo_completo());
+        let HORA_PORTUGUES_FORMATO_CORRETO = REGULARIZANDO_HORAS_COM_FORMATO_DE_ZEROS_CORRETAMENTE(data_hora_e_segundo_completo());   
+
+
         //SEM HTML ABAIXO
         RESPOSTAS =
             // propostasss[index].conteudo_da_proposta + DESATIVADO
             dados_da_negociacao.conteudo_da_proposta +
             "\n" +
-            // '<a>' + vendedor_ou_comprador[index] + "  " + data_hora_e_segundo_completo_ingles() + '</a>' + DESATIVADO
-            '<a>' + "Vendedor" + "  " + data_hora_e_segundo_completo_ingles() + '</a>' +
+            // '<a>' + "Vendedor" + "  " + data_hora_e_segundo_completo_ingles() + '</a>' +
+            '<a>' + "Vendedor" + "  " + DATA_PORTUGUES_FORMATO_CORRETO + " - " + HORA_PORTUGUES_FORMATO_CORRETO + '</a>' +
             // conteudoDaResposta + DESATIVADO
             // dados_da_negociacao.conteudo_da_proposta +
             '<b> Proposta Aceita !</b>' +
