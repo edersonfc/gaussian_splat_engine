@@ -229,7 +229,9 @@ export default function ProdutosEtiquetas(param) {
     try { URL_VIDEO = ARRAY_PRIMEIRAS_URL_VIDEOS_RECEBIDO[ii] } catch (error) { URL_VIDEO = ""; }
 
 
-    if (URL_IMAGEM.includes(".JPEG") || URL_IMAGEM.includes(".png")) {
+    if (URL_IMAGEM.toUpperCase().includes(".JPEG") || 
+        URL_IMAGEM.toUpperCase().includes(".JPG") ||
+        URL_IMAGEM.toUpperCase().includes(".PNG")) {
 
       //setimagem_url_unica_View_visivel(true);
       ARRAY_QUE_VAI_MOSTRAR_AS_MINIATURAS.push(String(ARRAY_PRIMEIRAS_URL_IMAGENS_RECEBIDO[ii]).replace(" ", ""));

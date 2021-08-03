@@ -650,9 +650,11 @@ export default function DetalhesProdutos(props) {
                                 //alert(ARRAY_DE_IMAGENS_E_VIDEOS[index]);
                                 var FOTO_OU_VIDEO = ARRAY_DE_IMAGENS_E_VIDEOS[index];
 
-
-
-                                if (FOTO_OU_VIDEO.includes(".JPEG") || FOTO_OU_VIDEO.includes(".png")) {
+                                if (
+                                    FOTO_OU_VIDEO.toUpperCase().includes('.JPEG') ||
+                                    FOTO_OU_VIDEO.toUpperCase().includes('.JPG')  ||
+                                    FOTO_OU_VIDEO.toUpperCase().includes('.PNG')
+                                ) {
 
                                     // alert("VAI CHAMAR TELA DE NAVEGAÇÃO")
                                     var ARRY_URL_IMAGENS = URL_IMAGENS;
@@ -678,7 +680,11 @@ export default function DetalhesProdutos(props) {
                             {...(() => {
 
                                 var valor = ARRAY_DE_IMAGENS_E_VIDEOS[index];
-                                if (valor.includes(".JPEG") || valor.includes(".png")) {
+                                if (
+                                    valor.toUpperCase().includes(".JPEG") || 
+                                    valor.toUpperCase().includes(".JPG")  || 
+                                    valor.toUpperCase().includes(".PNG")  
+                                 ) {
                                     //setIcone_foto_video(true);
                                     icone_foto_video = true;
                                     container_foto_video = true;
@@ -1275,7 +1281,7 @@ export default function DetalhesProdutos(props) {
         /*******************/
         var compra_ou_venda = "";
 
-        if ( comprar_ou_deletar.toString()  === "Comprado") {
+        if (comprar_ou_deletar.toString() === "Comprado") {
 
             compra_ou_venda = "Compra";
             CELULAR_COMPRADOR_OU_VENDEDOR = JSON.stringify(JSON.parse(VARIAVEL_GLOBAL.TODOS_OS_PRODUTOS)[INDICE_PRINCIPAL_JSON].numero_telefone_J).replace(/(\")|(\s)/g, '');

@@ -927,10 +927,11 @@ export default function Postar(props) {
                                 //alert(CAMINHO);
                                 //console.log(CAMINHO);
 
-
-
-                                //if (CAMINHO.includes('image%')) {  FOI DESATIVADO EM 31/10/2020
-                                if (CAMINHO.includes('.JPEG') || CAMINHO.includes('.png')) {
+                                if (
+                                    CAMINHO.toUpperCase().includes('.JPEG') ||
+                                    CAMINHO.toUpperCase().includes('.JPG') ||
+                                    CAMINHO.toUpperCase().includes('.PNG')
+                                ) {
 
                                     /**/
                                     //CAMINHO = CAMINHO+'|';   VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT
@@ -941,10 +942,7 @@ export default function Postar(props) {
                                     // for (var i = 0; i < ARRY_URL_IMAGENS.length; i++) {
                                     for (var i = 0; i < VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length; i++) {
 
-
-
                                         URL_FOTOS += VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[i] + '|';
-
 
                                     }//for
                                     navigation.navigate("Postar", { URL_FOTOS, URL_VIDEOS });
@@ -1456,106 +1454,123 @@ export default function Postar(props) {
                         <TouchableHighlight style={{ width: '35%', height: 40, alignItems: 'center', paddingTop: 10, borderWidth: 1, borderRadius: 10, borderColor: 'white' }}
 
                             onPress={async () => {
+                                // let SE_TEM_IMAGEM_OU_VIDEO = VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length + VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT.length;
 
+                                if (
+                                    !URL_FOTOS.toUpperCase().includes(".JPEG") &&
+                                    !URL_FOTOS.toUpperCase().includes(".JPG") &&
+                                    !URL_FOTOS.toUpperCase().includes(".PNG") &&
+                                    !URL_VIDEOS.toUpperCase().includes(".MP4")
+                                ) {
+                                    alert("Falta Imagens ou Videos !");
+                                } else {
+                                    //  alert("VAI REALIZAR A POSTAGEM !  ");
 
-                                //CÓDIGO PRINCIPAL ABAIXO do ON-PRESS
-                                var MACHO = "";
-                                var FEMEA = "";
-                                var IDADE_DO_GADO = "";
-                                var TIPOS_DE_GADOS_MACHOS = "";
-                                var TIPOS_DE_GADOS_FEMEAS = "";
+                                    //CÓDIGO PRINCIPAL ABAIXO do ON-PRESS
+                                    var MACHO = "";
+                                    var FEMEA = "";
+                                    var IDADE_DO_GADO = "";
+                                    var TIPOS_DE_GADOS_MACHOS = "";
+                                    var TIPOS_DE_GADOS_FEMEAS = "";
 
-                                var ARRAY_KEYS = Object.keys(categorias_Objetos)
+                                    var ARRAY_KEYS = Object.keys(categorias_Objetos)
 
-                                ARRAY_KEYS.map((empty, index) => {
+                                    ARRAY_KEYS.map((empty, index) => {
 
-                                    if (index == 0) {
-                                        MACHO = JSON.stringify(categorias_Objetos[ARRAY_KEYS[0]]).replace(/['"]+/g, '')
-                                    }
-                                    if (index == 1) {
-                                        FEMEA = JSON.stringify(categorias_Objetos[ARRAY_KEYS[1]]).replace(/['"]+/g, '')
-                                    }
-                                    if (index >= 2 && index <= 5) {
-                                        IDADE_DO_GADO += JSON.stringify(categorias_Objetos[ARRAY_KEYS[index]]).replace(/['"]+/g, '')
-                                    }
-                                    if (index >= 6 && index <= 10) {
-                                        TIPOS_DE_GADOS_MACHOS += JSON.stringify(categorias_Objetos[ARRAY_KEYS[index]]).replace(/['"]+/g, '')
-                                    }
-                                    if (index >= 11 && index <= 17) {
-                                        TIPOS_DE_GADOS_FEMEAS += JSON.stringify(categorias_Objetos[ARRAY_KEYS[index]]).replace(/['"]+/g, '')
-                                    }
+                                        if (index == 0) {
+                                            MACHO = JSON.stringify(categorias_Objetos[ARRAY_KEYS[0]]).replace(/['"]+/g, '')
+                                        }
+                                        if (index == 1) {
+                                            FEMEA = JSON.stringify(categorias_Objetos[ARRAY_KEYS[1]]).replace(/['"]+/g, '')
+                                        }
+                                        if (index >= 2 && index <= 5) {
+                                            IDADE_DO_GADO += JSON.stringify(categorias_Objetos[ARRAY_KEYS[index]]).replace(/['"]+/g, '')
+                                        }
+                                        if (index >= 6 && index <= 10) {
+                                            TIPOS_DE_GADOS_MACHOS += JSON.stringify(categorias_Objetos[ARRAY_KEYS[index]]).replace(/['"]+/g, '')
+                                        }
+                                        if (index >= 11 && index <= 17) {
+                                            TIPOS_DE_GADOS_FEMEAS += JSON.stringify(categorias_Objetos[ARRAY_KEYS[index]]).replace(/['"]+/g, '')
+                                        }
 
-                                });
+                                    });
 
-                                // console.log(MACHO + "  " + FEMEA + "  " + IDADE_DO_GADO + "  " + TIPOS_DE_GADOS_MACHOS + "  " + TIPOS_DE_GADOS_FEMEAS);
+                                    // console.log(MACHO + "  " + FEMEA + "  " + IDADE_DO_GADO + "  " + TIPOS_DE_GADOS_MACHOS + "  " + TIPOS_DE_GADOS_FEMEAS);
 
-                                if (MACHO + FEMEA !== "") {
+                                    if (MACHO + FEMEA !== "") {
 
-                                    //LIMPAR VARIAVEIS QUE SÓ TEM VALOR ZERO ABAIXO
-                                    if (outrasErasAnterior == '0') { outrasErasAnterior = ""; }
-                                    if (outrasErasPosterior == '0') { outrasErasPosterior = ""; }
-                                    if (quantidadeCabecasOuPesos == '0') { quantidadeCabecasOuPesos = ""; }
-                                    //LIMPAR VARIAVEIS QUE SÓ TEM VALOR ZERO ACIMA
-
-
-
-                                    if (((IDADE_DO_GADO + outrasErasAnterior + outrasErasPosterior) !== "")) {
-
-                                        if ((TIPOS_DE_GADOS_MACHOS) !== "" || (TIPOS_DE_GADOS_FEMEAS) !== "") {
-
-                                            if (
-                                                MACHO !== "" && TIPOS_DE_GADOS_MACHOS !== "" && FEMEA !== "" && TIPOS_DE_GADOS_FEMEAS !== ""
-                                                || MACHO !== "" && TIPOS_DE_GADOS_MACHOS !== "" && FEMEA === "" && TIPOS_DE_GADOS_FEMEAS === ""
-                                                || MACHO === "" && TIPOS_DE_GADOS_MACHOS === "" && FEMEA !== "" && TIPOS_DE_GADOS_FEMEAS !== ""
-
-                                            ) {
-
-                                                if (descricoesGerais != "") {
-
-                                                    if (precoSugerido != "") {
-
-                                                        if (quantidadeCabecasOuPesos != "") {
-
-
-                                                        
-
-                                                            //TAREFAZ AQUI ABAIXO
-                                                            await CONTANDO_QUANTIDADE_DE_POSTAGENS();
-                                                            // console.log(VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS);
-                                                            await PEGAR_NUMERO_DO_CELL();// GOBACK HERE
-
-                                                            if (VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS > VARIAVEL_GLOBAL.PARAMETROS_QUANTIDADE_DE_POSTAGEMS) {
-                                                                VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "PUBLICACAO";
-                                                                VARIAVEL_GLOBAL.PUBLICACAO_EM_PROCESSO = "ENVIANDO";
-                                                                // venda_status_J = 'pendente';
-                                                                const produto = { IMAGENS: VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT, VIDEOS: VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT }
-                                                                navigation.navigate("Tabela_planos", { precoSugerido, quantidadeCabecasOuPesos, produto });
-                                                            }//if
-                                                            //TAREFAZ AQUI ACIMA
+                                        //LIMPAR VARIAVEIS QUE SÓ TEM VALOR ZERO ABAIXO
+                                        if (outrasErasAnterior == '0') { outrasErasAnterior = ""; }
+                                        if (outrasErasPosterior == '0') { outrasErasPosterior = ""; }
+                                        if (quantidadeCabecasOuPesos == '0') { quantidadeCabecasOuPesos = ""; }
+                                        //LIMPAR VARIAVEIS QUE SÓ TEM VALOR ZERO ACIMA
 
 
 
-                                                        } else { alert("Quantidade de Cabeças Não Preenchido !") }
+                                        if (((IDADE_DO_GADO + outrasErasAnterior + outrasErasPosterior) !== "")) {
 
-                                                    } else { alert("Preço Sugerido Não foi Preenchido !") }
+                                            if ((TIPOS_DE_GADOS_MACHOS) !== "" || (TIPOS_DE_GADOS_FEMEAS) !== "") {
 
-                                                } else { alert("Descrição Não foi Preenchido !") }
+                                                if (
+                                                    MACHO !== "" && TIPOS_DE_GADOS_MACHOS !== "" && FEMEA !== "" && TIPOS_DE_GADOS_FEMEAS !== ""
+                                                    || MACHO !== "" && TIPOS_DE_GADOS_MACHOS !== "" && FEMEA === "" && TIPOS_DE_GADOS_FEMEAS === ""
+                                                    || MACHO === "" && TIPOS_DE_GADOS_MACHOS === "" && FEMEA !== "" && TIPOS_DE_GADOS_FEMEAS !== ""
 
-                                            } else { alert("Sexo do Gado Incompativo com os Tipos de Gado !") }
+                                                ) {
 
-                                        } else { alert("Falta Escolher Tipo de Gado !") }
+                                                    if (descricoesGerais != "") {
 
-                                    } else { alert("Falta Escolher Idade do Gado !") }
+                                                        if (precoSugerido != "") {
 
-                                } else { alert("Falta Escolher o Sexo do Gado !") }
-                                //CÓDIGO PRINCIPAL ACIMA do ON-PRESS
+                                                            if (quantidadeCabecasOuPesos != "") {
 
 
 
 
-    /**********************************************************************************************/
-    //DESATIVAR ESSA LINHA DEPOIS ABAIXO é USADO SÓ PARA PRODUÇÃO ESSE TRECHO ABAIXO                             
-     
+                                                                //TAREFAZ AQUI ABAIXO
+                                                                await CONTANDO_QUANTIDADE_DE_POSTAGENS();
+                                                                // console.log(VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS);
+                                                                await PEGAR_NUMERO_DO_CELL();// GOBACK HERE
+
+                                                                if (VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS > VARIAVEL_GLOBAL.PARAMETROS_QUANTIDADE_DE_POSTAGEMS) {
+                                                                    VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "PUBLICACAO";
+                                                                    VARIAVEL_GLOBAL.PUBLICACAO_EM_PROCESSO = "ENVIANDO";
+                                                                    // venda_status_J = 'pendente';
+                                                                    const produto = { IMAGENS: VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT, VIDEOS: VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT }
+                                                                    navigation.navigate("Tabela_planos", { precoSugerido, quantidadeCabecasOuPesos, produto });
+                                                                }//if
+                                                                //TAREFAZ AQUI ACIMA
+
+
+
+
+                                                            } else { alert("Quantidade de Cabeças Não Preenchido !") }
+
+                                                        } else { alert("Preço Sugerido Não foi Preenchido !") }
+
+                                                    } else { alert("Descrição Não foi Preenchido !") }
+
+                                                } else { alert("Sexo do Gado Incompativo com os Tipos de Gado !") }
+
+                                            } else { alert("Falta Escolher Tipo de Gado !") }
+
+                                        } else { alert("Falta Escolher Idade do Gado !") }
+
+                                    } else { alert("Falta Escolher o Sexo do Gado !") }
+                                    //CÓDIGO PRINCIPAL ACIMA do ON-PRESS
+
+
+                                }
+
+
+
+
+
+
+
+                                /**********************************************************************************************/
+                                //DESATIVAR ESSA LINHA DEPOIS ABAIXO é USADO SÓ PARA PRODUÇÃO ESSE TRECHO ABAIXO                             
+
                                 // await CONTANDO_QUANTIDADE_DE_POSTAGENS();
                                 // // console.log(VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS);
                                 // await PEGAR_NUMERO_DO_CELL();// GOBACK HERE
@@ -1567,8 +1582,8 @@ export default function Postar(props) {
                                 //     navigation.navigate("Tabela_planos", { precoSugerido, quantidadeCabecasOuPesos, produto });
                                 // }//if
 
-    //DESATIVAR ESSA LINHA DEPOIS ACIMA é USADO SÓ PARA PRODUÇÃO ESSE TRECHO ACIMA    
-    /**********************************************************************************************/
+                                //DESATIVAR ESSA LINHA DEPOIS ACIMA é USADO SÓ PARA PRODUÇÃO ESSE TRECHO ACIMA    
+                                /**********************************************************************************************/
 
 
 
@@ -2257,7 +2272,7 @@ export default function Postar(props) {
             }];
 
 
-          
+
         }
 
         /*
