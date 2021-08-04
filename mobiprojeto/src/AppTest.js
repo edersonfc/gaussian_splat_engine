@@ -55,6 +55,8 @@ import LicencaExpirada from './components/LicencaExpirada';
 
 import Waiting from './components/Waiting';
 
+import TermosDeUso from './components/TERMOS_DE_USO';
+
 
 
 
@@ -73,7 +75,7 @@ import DeviceInfo from 'react-native-device-info';
 //VARIAVÉIS GLOBAIS ABAIXO
 
 //NO SERVIDOR REMOTO DIGITALOCEAN
-var IP_DO_SERVIDOR    = "http://159.89.87.76:3000/";
+var IP_DO_SERVIDOR = "http://159.89.87.76:3000/";
 var IP_DO_SERVIDOR_IO = "http://159.89.87.76:3001/";
 
 // var IP_DO_SERVIDOR_IO =  IP_DO_SERVIDOR;
@@ -290,6 +292,8 @@ var array_publicacoes_expiradas = [];
 export default function AppTest() {
 
   const [waitingVisible, setWaitingisible] = useState(false);
+
+  const [termoDeUsoVisible, setTermoDeUsoVisible] = useState(true);
 
   var datos = "";
 
@@ -2665,7 +2669,7 @@ export default function AppTest() {
   useEffect(() => {
 
     if (VARIAVEL_GLOBAL.PUBLICACAO_EM_PROCESSO === "ENVIADO") { //ENVIADO
-           CHAMAR_NOVAMENTE_A_TELA_DE_POSTAGEM();
+      CHAMAR_NOVAMENTE_A_TELA_DE_POSTAGEM();
     }
 
   }, []);
@@ -2673,10 +2677,22 @@ export default function AppTest() {
 
 
 
+  function NAO_ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA() {
+
+    alert("NÃO ACEITAR OS TERMOS DE USO !");
+    setTermoDeUsoVisible(false);
 
 
+  }
 
 
+  function ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA() {
+
+    alert("VAI ACEITAR E FECHAR A TELA DOS TERMOS DE USO !");
+    setTermoDeUsoVisible(false);
+
+
+  }
 
 
 
@@ -3162,7 +3178,7 @@ export default function AppTest() {
 
 
           {
-           
+
             <Icon name='chevron-down' style={[Estilo.icones_medio, Estilo.icones_clicado, style = { paddingTop: 10 }]}
               onPress={() => {
                 setExibe(oldState => !oldState);
@@ -3522,6 +3538,11 @@ export default function AppTest() {
 
       {waitingVisible && (<Waiting paremetroEnviado={"Aguarde ..."} ORIENTACAO={"PORTRAIT"} />)}
 
+      {termoDeUsoVisible && (<TermosDeUso
+                     REMOTO_NAO_ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA={NAO_ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA}
+                    REMOTO_ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA={ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA}
+      />)
+      }
 
     </SafeAreaView   >
 

@@ -1237,11 +1237,10 @@ export default function pay_credity_card(params) {
 
                             originWhitelist={['*']}
 
-                            // source={{ uri: "" }}
                             // source={{ uri: "http://192.168.0.107:8080" }}
+                            source={{ uri: "http://159.89.87.76:8080/" }}// => SERVIDOR DA DIGITALOCEAN
 
                             // source={{ uri: "https://servidor-recebimento-mp.herokuapp.com/" }} //FOI DESATIVADO SERVIDOR DO HEROKU
-                            source={{ uri: "http://159.89.87.76:8080/" }}// => SERVIDOR DA DIGITALOCEAN
 
                             onMessage={onMessage}
 
