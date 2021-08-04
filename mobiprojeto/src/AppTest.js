@@ -73,14 +73,16 @@ import DeviceInfo from 'react-native-device-info';
 //VARIAVÉIS GLOBAIS ABAIXO
 
 //NO SERVIDOR REMOTO DIGITALOCEAN
-var IP_DO_SERVIDOR = "http://159.89.87.76:3000/";
+var IP_DO_SERVIDOR    = "http://159.89.87.76:3000/";
 var IP_DO_SERVIDOR_IO = "http://159.89.87.76:3001/";
+
 // var IP_DO_SERVIDOR_IO =  IP_DO_SERVIDOR;
 
 
 //NO SERVIDOR DO MEU NOTEBOOK CASA DA MÃE  ABAIXO
 // var IP_DO_SERVIDOR    = "http://192.168.0.107:3000/";
 // var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3001/";
+
 // var IP_DO_SERVIDOR_IO =  IP_DO_SERVIDOR;
 
 
@@ -3160,25 +3162,16 @@ export default function AppTest() {
 
 
           {
+           
             <Icon name='chevron-down' style={[Estilo.icones_medio, Estilo.icones_clicado, style = { paddingTop: 10 }]}
               onPress={() => {
                 setExibe(oldState => !oldState);
-
-                /* SOMENTE PRA TESTE ESSE ARMAZENAMENTO ABAIXO */
-                ////alert("GRAVA POSTAGENS ");
-                ////alert(JSON.stringify(TODOSSDADOSJSON));
-                //ARMAZENAR_POSTAGEM_SEGUNTA_ETAPA(TODOSSDADOSJSON)
-                /* SOMENTE PRA TESTE ESSE ARMAZENAMENTO ACIMA */
-                //alert(TODOSSDADOSJSON[0].ta_online_J);
-
-
-                //ATUALIZANDO_TODOS_DADOS_NO_ASYNCSTORAGE();
-
                 setExibe_suas_postagens(oldState => !oldState);
 
               }
               }
             />
+            /* */
           }
 
         </View>

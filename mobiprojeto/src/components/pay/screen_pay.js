@@ -53,16 +53,16 @@ export default function Screen_pay(params) {
     var dados_da_negociacao = JSON.stringify(params.route.params.propostas);
 
 
-       //RAAAWWW
+    //RAAAWWW
     // console.log(dados_da_negociacao);
     if (dados_da_negociacao.includes("go_to_pay_credity_card")) {
 
         // alert("EXECUTANDO FUNCIONANDO");
 
         async function asyncFuncao() {
-       
-        //     // return 0;
- 
+
+            //     // return 0;
+
             var dados_com_atributo_removido = await AsynFunctionAddMoreAtributyInJson(dados_da_negociacao);
             // alert("CHAMAR A TELA DO \n WEBVIEW NOVAMENTE");
             // alert(dados_com_atributo_removido);
@@ -172,18 +172,22 @@ export default function Screen_pay(params) {
         //  alert( (a * 1.5) / 100 );
         if (a >= 200000) {
 
-            TAXA = "R$ 249,97"
+            TAXA = "R$ 249,97";
+            // console.log(TAXA);
 
-        } else if (a > 99999 || a < 200000) {
+        } else if (a >= 100000 && a < 200000) {
 
-            TAXA = "R$ 149,98"
+            TAXA = "R$ 149,98";
+            // console.log(TAXA);
 
-        } else if (a < 99999 || a > 49999) {
-            TAXA = "R$ 99,98"
+        } else if (a >= 50000 && a < 100000) {
+            TAXA = "R$ 99,98";
+            // console.log(TAXA);
 
         } else if (a < 50000) {
 
-            TAXA = "R$ 69,99"
+            TAXA = "R$ 69,99";
+            // console.log(TAXA);
 
         }
 

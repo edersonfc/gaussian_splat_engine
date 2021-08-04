@@ -715,11 +715,11 @@ export default function DetalhesProdutos(props) {
                             {icone_foto_video
                                 ?
                                 <View key={index + "foto"} style={{ flexDirection: 'column', width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center', position: 'absolute', borderWidth: 0, borderColor: 'red' }} >
-                                    <Icon name='camera' style={[style = { fontSize: 100, color: 'rgba(255,255,255,0.7)', borderWidth: 0, borderColor: 'green' }]} />
+                                    <Icon name='camera' style={[style = { fontSize: 100, color: 'rgba(255,255,255,0.5)', borderWidth: 0, borderColor: 'green' }]} />
                                 </View>
                                 :
                                 <View key={index + "video"} style={{ flexDirection: 'column', width: '100%', height: '100%', justifyContent: 'center', alignItems: 'center', position: 'absolute', borderWidth: 0, borderColor: 'red' }} >
-                                    <Icon name='video-camera' style={[style = { fontSize: 100, color: 'rgba(255,255,255,0.8)', borderWidth: 0, borderColor: 'green' }]} />
+                                    <Icon name='video-camera' style={[style = { fontSize: 100, color: 'rgba(255,255,255,0.5)', borderWidth: 0, borderColor: 'green' }]} />
                                 </View>
                             }
 
