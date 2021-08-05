@@ -2679,7 +2679,7 @@ export default function AppTest() {
 
   function NAO_ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA() {
 
-    alert("NÃO ACEITAR OS TERMOS DE USO !");
+    // alert("NÃO ACEITAR OS TERMOS DE USO !");
     setTermoDeUsoVisible(false);
 
 
@@ -2688,7 +2688,7 @@ export default function AppTest() {
 
   function ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA() {
 
-    alert("VAI ACEITAR E FECHAR A TELA DOS TERMOS DE USO !");
+    // alert("VAI ACEITAR E FECHAR A TELA DOS TERMOS DE USO !");
     setTermoDeUsoVisible(false);
 
 

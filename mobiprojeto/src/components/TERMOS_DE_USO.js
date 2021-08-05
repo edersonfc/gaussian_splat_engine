@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, TouchableOpacity } from 'react-native';
+import { View, Text, TouchableOpacity, Dimensions } from 'react-native';
 
 //npm install react-native-webview
 import { WebView } from 'react-native-webview';
@@ -16,6 +16,17 @@ import SplashScreen from "react-native-splash-screen";
 
 export default function TERMOS_DE_USO(param) {
 
+  const [largura_tela, setLargura_tela] = useState(Dimensions.get('window').width);
+  const [altura_tela,  setAltura_tela]  = useState(Dimensions.get('window').height);
+
+
+//   navigator.serviceWorker.getRegistrations().then(function(registrations) {
+//     for (let registration of registrations) {
+//         registration.unregister();
+//     }
+//  });
+
+
   return (
 
 
@@ -24,41 +35,41 @@ export default function TERMOS_DE_USO(param) {
 {/******************************* CONTEINER PRINCIPAL COMEÇA NA LINHA ACIMA *************************************/}
 
       {/*****/}
-      <View style={{ height: '7%', width: '100%',  alignItems: 'center', justifyContent: 'center', backgroundColor: '#4F4F4F' }}>
+      <View style={{ height: altura_tela * 0.09 , width: '100%',  alignItems: 'center', justifyContent: 'center', backgroundColor: '#4F4F4F' }}>
         <Text style={{ fontSize: 20, color: 'white', fontFamily: 'Roboto-Medium' }}  >Termos e Condições de Uso</Text>
       </View>
 
 
       {/*****/}
-      <View style={{ height: '60%', width: '100%', borderWidth: 0, borderTopLeftRadius: 30, backgroundColor: '#fff' }}>
+      <View style={{ height: altura_tela * 0.70, width: '100%', borderWidth: 0, borderTopLeftRadius: 30, backgroundColor: '#fff' }}>
 
         <WebView 
           bounces={false}
           showsHorizontalScrollIndicator={false}
           showsVerticalScrollIndicator={true}
           originWhitelist={['*']}
-          // source={{ uri: "http://159.89.87.76:3000/" }}// => SERVIDOR DA DIGITALOCEAN
-          source={{ uri: "http://192.168.0.107:3000" }}// => SERVIDOR DA DIGITALOCEAN
+         
+          source={{ uri: "http://159.89.87.76:8080/termos_de_uso/" }}// => SERVIDOR DA DIGITALOCEAN
+          // source={{ uri: "http://192.168.0.107:8080/termos_de_uso/" }}// => SERVIDOR DA DIGITALOCEAN
 
-
-          // source={{ uri: "https://www.campogrande.ms.gov.br/" }}// => SERVIDOR DA DIGITALOCEAN
-       
+                
        />
 
       </View>
 
-
+{/* fontFamily: 'OpenSans-ExtraBold',  , fontFamily: 'Roboto-Medium'  */}
 
       {/*****/}
-      <View style={{ height: '5%', width: '100%', alignItems: 'center', backgroundColor: '#fff' }}>
-      <Text style={{ fontSize: 18, fontFamily: 'Roboto-Medium' }}  >Li e Aceito os Termos de Uso !</Text>
+      <View style={{ height: altura_tela * 0.06, width: '100%', alignItems: 'center', justifyContent:'center' ,backgroundColor: '#fff' }}>
+        <View style={{ height: 3,  width: '80%', borderTopWidth:2, borderColor:'#C0C0C0' }}></View>
+      <Text style={{ fontSize: 22 , fontFamily: 'OpenSans-ExtraBold', color:'blue' }}  >Li e Aceito os Termos de Uso !</Text>
       </View>
 
 
 
 
      {/*****/}
-      <View style={{height: '7%', flexDirection: 'row', paddingLeft: '10%', paddingRight: '10%',  width: '100%', justifyContent: 'space-between', backgroundColor: 'white' }} >
+      <View style={{height: altura_tela * 0.10, flexDirection: 'row', paddingLeft: '10%', paddingRight: '10%',  width: '100%', justifyContent: 'space-between', backgroundColor: 'white' }} >
 
         <TouchableOpacity style={{ width: '45%', borderWidth: 0, borderRadius: 25, alignItems: 'center', justifyContent: 'center', backgroundColor: '#FF0000', alignItems: 'center', justifyContent: 'center' }}
           onPress={() => {
@@ -79,9 +90,6 @@ export default function TERMOS_DE_USO(param) {
         </TouchableOpacity>
 
       </View>
-
-      {/*****/}
-      {/* <View style={{ height: '5%', backgroundColor: '#fff' }}></View> */}
 
 
 {/******************************* CONTEINER PRINCIPAL FECHAMENTO NA LINHA ABAIXO *************************************/}
