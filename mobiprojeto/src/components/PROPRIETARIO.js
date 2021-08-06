@@ -72,9 +72,9 @@ export default function PROPRIETARIO(param) {
             <Text style={{ fontSize: 40, color: 'white' }}  >Desenvolvido por</Text>
             <Text style={{ fontSize: 20, color: 'white' }}  >Ederson Feliciano Corsatto</Text>
 
-            <View style={{ height: '5%' }} />
+            {/* <View style={{ height: '5%' }} />
             <Text style={{ fontSize: 40, color: 'white' }}  >Consultor Técnico</Text>
-            <Text style={{ fontSize: 20, color: 'white' }}  >Gabriel Henrique Santos</Text>
+            <Text style={{ fontSize: 20, color: 'white' }}  >Gabriel Henrique Santos</Text> */}
 
             <View style={{ height: '5%' }} />
 

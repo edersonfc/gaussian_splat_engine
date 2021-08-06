@@ -293,7 +293,7 @@ export default function AppTest() {
 
   const [waitingVisible, setWaitingisible] = useState(false);
 
-  const [termoDeUsoVisible, setTermoDeUsoVisible] = useState(true);
+  const [termoDeUsoVisible, setTermoDeUsoVisible] = useState(false);
 
   var datos = "";
 
@@ -2677,20 +2677,57 @@ export default function AppTest() {
 
 
 
-  function NAO_ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA() {
 
-    // alert("NÃO ACEITAR OS TERMOS DE USO !");
+
+  useEffect(() => {
+
+    async function VERIFICANDO_TERMOS_DE_USO() {
+
+      let status_dos_termos_de_uso;
+
+      status_dos_termos_de_uso = await AsyncStorage.getItem('TERMOS_DE_USO');
+
+      if (status_dos_termos_de_uso === null) {
+        // alert("É NULO !");
+        setTermoDeUsoVisible(true);
+      } else {
+
+        if (status_dos_termos_de_uso === 'termos_aceito') {
+          setTermoDeUsoVisible(false);
+        }
+
+      }
+
+
+    }
+
+    VERIFICANDO_TERMOS_DE_USO();
+
+  }, []);
+
+
+
+
+  async function NAO_ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA() {
+
     setTermoDeUsoVisible(false);
-
 
   }
 
 
-  function ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA() {
 
-    // alert("VAI ACEITAR E FECHAR A TELA DOS TERMOS DE USO !");
-    setTermoDeUsoVisible(false);
 
+  async function ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA() {
+
+    try {
+      //ARMAZENANDO NO ASYNC _STORAGE
+      await AsyncStorage.setItem('TERMOS_DE_USO', 'termos_aceito');
+      setTermoDeUsoVisible(false);
+    }
+    catch (exception) {
+      alert("FALHA NA GRAVAÇÃO \n DOS TERMOS DE USO !");
+      //alert(exception);
+    }
 
   }
 
@@ -3539,8 +3576,8 @@ export default function AppTest() {
       {waitingVisible && (<Waiting paremetroEnviado={"Aguarde ..."} ORIENTACAO={"PORTRAIT"} />)}
 
       {termoDeUsoVisible && (<TermosDeUso
-                     REMOTO_NAO_ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA={NAO_ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA}
-                    REMOTO_ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA={ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA}
+        REMOTO_NAO_ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA={NAO_ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA}
+        REMOTO_ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA={ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA}
       />)
       }
 
