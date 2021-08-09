@@ -3216,15 +3216,16 @@ export default function AppTest() {
 
           {
 
-            <Icon name='chevron-down' style={[Estilo.icones_medio, Estilo.icones_clicado, style = { paddingTop: 10 }]}
-              onPress={() => {
-                setExibe(oldState => !oldState);
-                setExibe_suas_postagens(oldState => !oldState);
-
-              }
-              }
-            />
-            /* */
+                  /*
+                  <Icon name='chevron-down' style={[Estilo.icones_medio, Estilo.icones_clicado, style = { paddingTop: 10 }]}
+                    onPress={() => {
+                      setExibe(oldState => !oldState);
+                      setExibe_suas_postagens(oldState => !oldState);
+      
+                    }
+                    }
+                  />
+                    */
           }
 
         </View>
