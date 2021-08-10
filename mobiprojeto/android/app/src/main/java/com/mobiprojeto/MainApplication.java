@@ -24,6 +24,8 @@ import java.util.List;
 //11102020
 import com.brentvatne.react.ReactVideoPackage;
 
+//09082021
+import com.shahenlibrary.RNVideoProcessingPackage;
 
 
 public class MainApplication extends Application implements ReactApplication {

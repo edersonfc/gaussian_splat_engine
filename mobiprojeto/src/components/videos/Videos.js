@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
   Dimensions,
+  Animated, Easing
 } from 'react-native';
 // eslint-disable-next-line import/no-unresolved
 import { RNCamera } from 'react-native-camera';
@@ -14,6 +15,14 @@ import { RNCamera } from 'react-native-camera';
 import { useNavigation } from "@react-navigation/native";
 
 import ScreenOrientation, { PORTRAIT, LANDSCAPE, LANDSCAPE_LEFT } from "react-native-orientation-locker/ScreenOrientation";
+
+// LINK FONT => https://www.npmjs.com/package/react-native-video-compressor
+// import VideoCompress from 'react-native-video-compressor'´
+
+// LINK FONT => https://www.npmjs.com/package/react-native-video-processing
+import { ProcessingManager } from 'react-native-video-processing';
+
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const flashModeOrder = {
   off: 'on',
@@ -39,8 +48,35 @@ var URLs_Videos = new Array();
 
 
 
+//IMPLEMENTANDO ICONE ROTACIONAL ABAIXO
+var spinValue = new Animated.Value(0);
+
+// First set up animation 
+Animated.loop(
+  Animated.timing(
+    spinValue,
+    {
+      toValue: 1,
+      duration: 3000,
+      easing: Easing.linear, // Easing is an additional import from react-native
+      useNativeDriver: true  // To make use of native driver for performance
+    }
+  )
+).start()
+
+// Next, interpolate beginning and end values (in this case 0 and 1)
+const spin = spinValue.interpolate({
+  inputRange: [0, 1],
+  outputRange: ['0deg', '360deg']
+})
+//IMPLEMENTANDO ICONE ROTACIONAL ACIMA
+
+
 export default class CameraScreen extends React.Component { //LINHA TROCADO PELA LINHA ABAIXO
-//class CameraScreen extends React.Component {
+  //class CameraScreen extends React.Component {
+
+
+
 
 
 
@@ -51,20 +87,22 @@ export default class CameraScreen extends React.Component { //LINHA TROCADO PELA
     autoFocusPoint: {
       normalized: { x: 0.5, y: 0.5 }, // normalized values required for autoFocusPointOfInterest
       drawRectPosition: {
-        x: Dimensions.get('window').width  * 0.5 - 32,
+        x: Dimensions.get('window').width * 0.5 - 32,
         y: Dimensions.get('window').height * 0.5 - 32,
       },
     },
     depth: 0,
     type: 'back',
     whiteBalance: 'auto',
-    ratio: '16:9',
+    // ratio: '16:9',
+    ratio: '4:3',
     recordOptions: {
       mute: false,
       maxDuration: 30,
       quality: RNCamera.Constants.VideoQuality['288p'],
       // quality: RNCamera.Constants.VideoQuality['480p'],
-      videoBitrate: 4000000
+      videoBitrate: 4000000 //=> ESEE VALOR ESTÁ MUITO ALTO
+      // videoBitrate: 600000 //AQUI ESTÁ O SEGREDO DO TAMANHO DO VIDEO IMPORTANTISSIMO PARA NÃO TRAVAR
     },
     isRecording: false,
     canDetectFaces: false,
@@ -158,7 +196,7 @@ export default class CameraScreen extends React.Component { //LINHA TROCADO PELA
     const [gravarVideo,  setGravarVideo] = useState(true);//APAGAR CASO NÃO DE CERTO
     const [navegarVideo, setnavegarVideo] = useState(false);//APAGAR CASO NÃO DE CERTO
     */
-   const { navigation } = this.props;
+    const { navigation } = this.props;
 
     const { isRecording } = this.state;
     if (this.camera && !isRecording) {
@@ -169,25 +207,74 @@ export default class CameraScreen extends React.Component { //LINHA TROCADO PELA
           this.setState({ isRecording: true });
           const data = await promise;
           //console.warn('takeVideo', data);
-          //alert(data.uri);
+          // alert(data.uri);
           //var URLs_Videos = data.uri;
-          
+
           // https://github.com/react-native-video/react-native-video#android-installation
-          //var URLs_Fotos = new Array();
+
+
+
+
+          // //TENTANDO COMPRIMIR VIDEO AQUI ABAIXO PARTE 2
+
+          // //CHAMANDO O ALGORITMO DE COMPRESSAO DE VIDEO MAS NÃO ESTÁ SENDO USADO ABAIXO
+          // const { path, caminhoOriginal, thumbnail } = await compressVideo(data.uri);
+          // // console.log(  path   );
+          // // console.log(  caminhoOriginal   );
+          // // console.log(  thumbnail   );
+          // URLs_Videos.push(path);
+          // // URLs_Videos.push(caminhoOriginal);
+          // //CHAMANDO O ALGORITMO DE COMPRESSAO DE VIDEO MAS NÃO ESTÁ SENDO USADO ABAIXO
+        
+
+          URLs_Videos.push(data.uri);
+           var URL_VIDEOS = '';
+           for (var i = 0; i < URLs_Videos.length; i++) {
+             URL_VIDEOS += URLs_Videos[i] + '|';
+           }//FOR
+          
+           navigation.navigate("Postar", { URL_VIDEOS });
+    
+
+
+          //ALGORITIMO DE COMPRESSAO DE VIDEO ABAIXO processamento DEMORADO ABAIXO  MAS FUNCIONA PERFEITAMENTE ABAIXO
+          async function compressVideo(path) {
+            // console.log(path);
+            let caminhoOriginal = path;
+            const origin = await ProcessingManager.getVideoInfo(path);
+            const result = await ProcessingManager.compress(path, {
+              width:  origin.size && origin.size.width / 3,
+              height: origin.size && origin.size.height / 3,
+              // bitrateMultiplier: 7,
+              bitrateMultiplier: 4,
+              minimumBitrate: 300000
+            });
+            const thumbnail = await ProcessingManager.getPreviewForSecond(result.source);
+
+            return { path: result.source, caminhoOriginal, thumbnail };
+            //ALGORITIMO DE COMPRESSAO DE VIDEO ACIMA processamento DEMORADO ACIMA  MAS FUNCIONA PERFEITAMENTE ACIMA
+           
+          }
+          // //TENTANDO COMPRIMIR VIDEO AQUI ACIMA PARTE 2
+
+
+
+
+
+          /*  FOI DESATIVADO TROCADO PELO CÓDIGO COMPACTADOR DE VIDEOS ACIMA
+          //ATIVAR AQUI ABAIXO CASO NÃO DE CERTO ABAIXO
           URLs_Videos.push(data.uri);
           var URL_VIDEOS = '';
-          for(var i = 0; i < URLs_Videos.length; i++){
-            URL_VIDEOS += URLs_Videos[i]+'|';
+          for (var i = 0; i < URLs_Videos.length; i++) {
+            URL_VIDEOS += URLs_Videos[i] + '|';
           }//FOR
-          navigation.navigate("Postar", {URL_VIDEOS} );
-         
-          
+          navigation.navigate("Postar", { URL_VIDEOS });
+          //ATIVAR AQUI ACIMA CASO NÃO DE CERTO ACIMA
+         */
 
 
-          /*
-          setGravarVideo(oldState  => !oldState);//APAGAR CASO NÃO DE CERTO
-          setnavegarVideo(oldState => !oldState);//APAGAR CASO NÃO DE CERTO
-          */
+
+
 
 
         }
@@ -297,15 +384,18 @@ export default class CameraScreen extends React.Component { //LINHA TROCADO PELA
 
 
 
-  renderRecording = () => {   const { navigation } = this.props;
+  renderRecording = () => {
+    // const { navigation } = this.props;
     const { isRecording } = this.state;
-    const backgroundColor = isRecording ? 'white' : 'green';
+    // const backgroundColor = isRecording ? 'white' : 'green';
     const action = isRecording ? this.stopVideo : this.takeVideo;
     const button = isRecording ? this.renderStopRecBtn() : this.renderRecBtn();
     return (
-      <TouchableOpacity
+      <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: '100%', padding: 0 }}
 
-        onPress={() => action()}
+        onPress={() =>
+          action()
+        }
       >
         {button}
       </TouchableOpacity>
@@ -319,12 +409,46 @@ export default class CameraScreen extends React.Component { //LINHA TROCADO PELA
   };
 
   renderRecBtn() {
-    return <Text style={[styles.flipText, style = { borderWidth: 0, borderColor: 'orange', padding: 0 }]}> Gravar Video </Text>;
+    return <Text style={[style = {
+      borderWidth: 1,
+      borderRadius: 8,
+      padding: 7,
+      width: '100%',
+      height: '100%',
+
+      textAlign: 'center',
+
+      borderColor: 'orange',
+      color: 'white',
+      backgroundColor: 'green'
+
+    }]}>Gravar Video</Text>;
+
+
   }
 
   renderStopRecBtn() {
     /*return <Text style={styles.flipText}> ☕ </Text>;*/
-    return <Text style={styles.flipText}> parar </Text>;
+
+    // return <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: '100%' }}>
+    return  <Text style={[style = {
+        borderWidth: 0,
+        borderRadius: 8,
+        padding: 7,
+        width: '90%',
+        height: '100%',
+
+        textAlign: 'center',
+
+        borderColor: 'orange',
+        color: 'white',
+        // backgroundColor:'red'
+      }]}>Parar Gravação</Text>;
+
+    //   <Animated.View style={{ transform: [{ rotate: spin }], width: '10%', borderWidth: 1 }} >
+    //     <Icon name='spinner' style={{ fontSize: 18, color: '#FFF' }} />
+    //   </Animated.View>;
+    // </TouchableOpacity>;
   }
 
   renderCamera() {
@@ -334,7 +458,7 @@ export default class CameraScreen extends React.Component { //LINHA TROCADO PELA
     const { navigation } = this.props;
 
     const drawFocusRingPosition = {
-      top:  this.state.autoFocusPoint.drawRectPosition.y - 32,
+      top: this.state.autoFocusPoint.drawRectPosition.y - 32,
       left: this.state.autoFocusPoint.drawRectPosition.x - 32,
     };
     return (
@@ -344,8 +468,8 @@ export default class CameraScreen extends React.Component { //LINHA TROCADO PELA
         {/* MUDANDO A ORIENTAÇÃO DA TELA PRA PAISAGEM ABAIXO  coloca dentro da View principal que fica dentro do return*/}
         <ScreenOrientation
           orientation={LANDSCAPE_LEFT}
-          // onChange={orientation => console.log('onChange', orientation)}
-          // onDeviceChange={orientation => console.log('onDeviceChange', orientation)}
+        // onChange={orientation => console.log('onChange', orientation)}
+        // onDeviceChange={orientation => console.log('onDeviceChange', orientation)}
         />
         {/* MUDANDO A ORIENTAÇÃO DA TELA PRA PAISAGEM ACIMA   coloca dentro da View principal que fica dentro do return */}
 
@@ -472,15 +596,15 @@ export default class CameraScreen extends React.Component { //LINHA TROCADO PELA
 
 
 
-            {/* BOTÕES DE ZOOM E FOCUS ABAIXO */}
-            <View style={{  flexDirection: 'row', justifyContent:'center', width: '100%', backgroundColor: 'rgba(0,0,0,0.5)' }}>
+            {/* FAIXA DE BOTÕES ABAIXO */}
+            <View style={{ flexDirection: 'row', justifyContent: 'center',  /*height:80,*/ width: '100%', backgroundColor: 'rgba(0,0,0,0.5)' }}>
               <View
                 style={{
                   flexDirection: 'row',
                   width: '100%',
                   // height: 100,
                   // alignSelf: 'center',
-                  justifyContent:'center',
+                  justifyContent: 'center',
                   alignItems: 'center',
                   alignContent: 'center',
                   borderWidth: 0,
@@ -505,11 +629,11 @@ export default class CameraScreen extends React.Component { //LINHA TROCADO PELA
 
           </View>
         */}
-                <View
-                  style={[styles.flipButton, { flex: 0.25, alignSelf: 'center' }, style = { backgroundColor: 'red' }]}
+                <TouchableOpacity
+                  style={[styles.flipButton, { flex: 0.30, padding: 0 }, style = { backgroundColor: 'red', width: '100%' }]}
                 >
                   {this.renderRecording()}
-                </View>
+                </TouchableOpacity>
 
                 {/* POSTO AQUI ACIMA*/}
 
@@ -525,12 +649,14 @@ export default class CameraScreen extends React.Component { //LINHA TROCADO PELA
                 >
                   <Text style={styles.flipText}> - </Text>
                 </TouchableOpacity>
-                <TouchableOpacity
+
+                {/* <TouchableOpacity
                   style={[styles.flipButton, { flex: 0.25, alignSelf: 'flex-end' }]}
                   onPress={this.toggleFocus.bind(this)}
                 >
                   <Text style={styles.flipText}> AF : {this.state.autoFocus} </Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
+
 
                 {/*
             <TouchableOpacity
@@ -543,7 +669,7 @@ export default class CameraScreen extends React.Component { //LINHA TROCADO PELA
               </View>
             </View>
           </View>
-          {/* BOTÕES DE ZOOM E FOCUS ACIMA */}
+          {/* FAIXA DE BOTÕES ACIMA */}
 
           {!!canDetectFaces && this.renderFaces()}
           {!!canDetectFaces && this.renderLandmarks()}

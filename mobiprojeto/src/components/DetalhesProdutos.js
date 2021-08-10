@@ -708,7 +708,13 @@ export default function DetalhesProdutos(props) {
                                     :
                                     <Video key={index} style={{ width: '100%', height: '100%', borderRadius: 10 }}
                                         source={{ uri: ARRAY_DE_IMAGENS_E_VIDEOS[index] }}
+                                        // source={{ uri: "http://192.168.0.107:3000/c11830d5-709e-4c8f-bb16-a4479c308c51.mp4" }}
+                                        resizeMode={'cover'}
+                                        bitrate={1000000}
                                     />
+
+                                    // ,console.log(ARRAY_DE_IMAGENS_E_VIDEOS[index])
+                                    // ,console.log(container_foto_video)
                             }
 
 

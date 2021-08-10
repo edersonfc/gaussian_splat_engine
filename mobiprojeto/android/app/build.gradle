@@ -210,7 +210,7 @@ dependencies {
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
 
-    
+       
     // compile 'com.android.support:multidex:1.0.1'// add >> 25072021
 
 // add >> 25072021 ABAIXO
@@ -254,6 +254,10 @@ compile project(':react-native-fs')
 
 //28052021
 implementation 'com.mercadopago.android.px:checkout:4.+'
+
+
+//09082021
+ compile project(':react-native-video-processing')
 
 
   

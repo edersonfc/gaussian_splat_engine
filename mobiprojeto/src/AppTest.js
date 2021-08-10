@@ -69,31 +69,24 @@ import PROPRIETARIO from './components/PROPRIETARIO';
 import DeviceInfo from 'react-native-device-info';
 
 
+// LINK FONT => https://www.npmjs.com/package/react-native-video-processing
+import { ProcessingManager } from 'react-native-video-processing';
+
+
 
 // LicencaExpirada
 
 //VARIAVÉIS GLOBAIS ABAIXO
 
 //NO SERVIDOR REMOTO DIGITALOCEAN
-var IP_DO_SERVIDOR = "http://159.89.87.76:3000/";
-var IP_DO_SERVIDOR_IO = "http://159.89.87.76:3001/";
-
-// var IP_DO_SERVIDOR_IO =  IP_DO_SERVIDOR;
-
-
-//NO SERVIDOR DO MEU NOTEBOOK CASA DA MÃE  ABAIXO
-// var IP_DO_SERVIDOR    = "http://192.168.0.107:3000/";
-// var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3001/";
-
-// var IP_DO_SERVIDOR_IO =  IP_DO_SERVIDOR;
+// var IP_DO_SERVIDOR    = "http://159.89.87.76:3000/";
+// var IP_DO_SERVIDOR_IO = "http://159.89.87.76:3001/";
 
 
 
 //NO SERVIDOR DO MEU NOTEBOOK CASA DA MÃE  ABAIXO
-// var IP_DO_SERVIDOR    = "http://localhost:3000/";
-// var IP_DO_SERVIDOR_IO = "http://localhost:3001/";
-
-
+var IP_DO_SERVIDOR = "http://192.168.0.107:3000/";
+var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3001/";
 
 
 
@@ -101,9 +94,6 @@ var IP_DO_SERVIDOR_IO = "http://159.89.87.76:3001/";
 // var IP_DO_SERVIDOR    = "https://gado-app-back-end.herokuapp.com/";
 // var IP_DO_SERVIDOR_IO = "https://gado-app-back-end.herokuapp.com/";
 
-//ERA NO SERVIDOR REMOTO DA AWS ABAIXO
-// var IP_DO_SERVIDOR    = "http://18.221.55.248:3000/";
-// var IP_DO_SERVIDOR_IO = "http://18.221.55.248:3001/";
 
 
 var TELA_DE_ORIGEM_E_SITUACAO = 'Tela_AppTest_POSTAGEM_SOMENTE';
@@ -463,7 +453,7 @@ export default function AppTest() {
     const CONEXAO = IP_DO_SERVIDOR + 'ping_no_servidor';
 
     const timeout = new Promise((resolve, reject) => {
-      setTimeout(reject, 3000, 'Request timed out');
+      setTimeout(reject, 300, 'Request timed out');
     });
 
     // const request = fetch('https://httpbin.org/delay/5');
@@ -1294,11 +1284,17 @@ export default function AppTest() {
           ARRAY_VIDEOS = await REMOVER_ITENS_NULOS_DO_ARRAY(ARRAY_VIDEOS);
 
           //ENVIANDO VIDEOS PRO SERVIDOR REMOTO ABAIXO
-          ARRAY_VIDEOS.map((video, index) => {
-            var nome_do_arquivo = (extrair_nome_de_Arquivo_da_url(ARRAY_VIDEOS[index]).arquivo);
+          ARRAY_VIDEOS.map(async (video, index) => {
+
+            //CHAMANDO METODO DE COMPREENSSÃO DE VIDEOS LINHA ABAIXO  => 10082021
+            const { path, caminhoOriginal, thumbnail } = await compressVideo(ARRAY_VIDEOS[index]);
+
+            //var nome_do_arquivo = (extrair_nome_de_Arquivo_da_url(ARRAY_VIDEOS[index]).arquivo); TROCADO PELO ABAIXO 10082021
+            var nome_do_arquivo = extrair_nome_de_Arquivo_da_url(path).arquivo;
             //COMANDOS DAQUI PRA BAIXO
             //CHAMANDO O METODO DE ENVIO DE IMAGENS PRO SERVIDOR
-            UPLOAD_PRO_SERVIDOR(nome_do_arquivo, ARRAY_VIDEOS[index]);
+            // UPLOAD_PRO_SERVIDOR(nome_do_arquivo, ARRAY_VIDEOS[index]);//TROCADO PELA LINHA ABAIXO
+            UPLOAD_PRO_SERVIDOR(nome_do_arquivo, path);
             //COMANDOS DAQUI PRACIMA
           });//MAP
           //ENVIANDO VIDEOS PRO SERVIDOR REMOTO ACIMA
@@ -2733,6 +2729,35 @@ export default function AppTest() {
 
 
 
+
+
+
+
+      //ALGORITIMO DE COMPRESSAO DE VIDEO ABAIXO processamento DEMORADO ABAIXO  MAS FUNCIONA PERFEITAMENTE ABAIXO
+      async function compressVideo(path) {
+        // console.log(path);
+        let caminhoOriginal = path;
+        const origin = await ProcessingManager.getVideoInfo(path);
+        const result = await ProcessingManager.compress(path, {
+          width: origin.size && origin.size.width / 3,
+          height: origin.size && origin.size.height / 3,
+          // bitrateMultiplier: 7,
+          bitrateMultiplier: 4,
+          minimumBitrate: 300000
+        });
+        const thumbnail = await ProcessingManager.getPreviewForSecond(result.source);
+
+        return { path: result.source, caminhoOriginal, thumbnail };
+
+      }
+      //ALGORITIMO DE COMPRESSAO DE VIDEO ACIMA processamento DEMORADO ACIMA  MAS FUNCIONA PERFEITAMENTE ACIMA
+
+
+
+
+
+
+
   return (
 
     <SafeAreaView style={[Estilo.App]}>
@@ -2794,7 +2819,7 @@ export default function AppTest() {
                   //PEGAR_TODAS_CHAVES_DO_ASYNC_STORAGE();
                   // alert("<HTML><CENTER>Acordo de Compra e Venda Aceita ! \n Entre em Contato com o Comprador !</HTML>");
                   navigation.navigate("TelaPrincipal", null);
-                  console.log("ALTURA DA TELA DO APP => " + ALTURA_DA_TELA);
+                  // console.log("ALTURA DA TELA DO APP => " + ALTURA_DA_TELA);
 
                 }}
 
@@ -3216,16 +3241,16 @@ export default function AppTest() {
 
           {
 
-                  /*
-                  <Icon name='chevron-down' style={[Estilo.icones_medio, Estilo.icones_clicado, style = { paddingTop: 10 }]}
-                    onPress={() => {
-                      setExibe(oldState => !oldState);
-                      setExibe_suas_postagens(oldState => !oldState);
-      
-                    }
-                    }
-                  />
-                    */
+            /*
+            <Icon name='chevron-down' style={[Estilo.icones_medio, Estilo.icones_clicado, style = { paddingTop: 10 }]}
+              onPress={() => {
+                setExibe(oldState => !oldState);
+                setExibe_suas_postagens(oldState => !oldState);
+ 
+              }
+              }
+            />
+              */
           }
 
         </View>

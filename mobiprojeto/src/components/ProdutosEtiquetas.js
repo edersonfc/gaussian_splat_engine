@@ -750,6 +750,7 @@ export default function ProdutosEtiquetas(param) {
 
                     // bitrate={4000000}
                     bitrate={1000000}
+                    resizeMode={'cover'}
                     style={{ width: '100%', height: '100%', borderRadius: 10 }}
                   />
 
