@@ -31,7 +31,7 @@ import Geolocation from 'react-native-geolocation-service';
 
 import { useNetInfo } from '@react-native-community/netinfo';
 
-import { arrayUnique, arrayUnique_2, pegar_somente_valores_de_JSON, converter_Array_para_JSON, data_hora_e_segundo_sem_separador, data_hora_e_segundo_completo, data_completa, FORMATAR_AO_DIGITAR_USANDO_MASCARA, Distancia_entre_2_geolocalizacao, REMOVER_ITENS_NULOS_DO_ARRAY, extrair_nome_de_Arquivo_da_url, EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES, data_completa_ingles } from './components/CALCULO_E_FORMATACAO/FORMATACAO';
+import { arrayUnique, arrayUnique_2, pegar_somente_valores_de_JSON, converter_Array_para_JSON, data_hora_e_segundo_sem_separador, data_hora_e_segundo_completo, data_completa, FORMATAR_AO_DIGITAR_USANDO_MASCARA, Distancia_entre_2_geolocalizacao, REMOVER_ITENS_NULOS_DO_ARRAY, extrair_nome_de_Arquivo_da_url, EXTRAIR_DATA_INGLES_E_CONVERTER_P_PORTUGUES, data_completa_ingles, CONVERTENDO_OBJETOS_P_ARRAY } from './components/CALCULO_E_FORMATACAO/FORMATACAO';
 
 
 //DO BANCO DE DADOS IMPORTAÇÃO
@@ -1193,8 +1193,96 @@ export default function AppTest() {
   async function CONECTANDO_AO_BANCO_DE_DADOS() {
 
     try {
+
+      /***************************************************************************************/
+      /***************************************************************************************/
+      /***************************************************************************************/
+
+    
+      //TENTANDO COMPACTAR VIDEOS SE HOUVER ANTES DO UPLOAD ABAIXO
+      let datos = await AsyncStorage.getItem('POSTAGEM');
+      //alert(datos);
+      // console.log(datos);
+      let obj_JSON = JSON.parse(datos);//ARRAY DE OBJETOS
+      // console.log(obj_JSON.length);
+
+     
+
+      // console.log(obj_JSON[1].URL_VIDEOS_DADOS_J); return 0;
+
+      if (VARIAVEL_GLOBAL.COMPACTACAO_DE_VIDEO_ESTADO === true && obj_JSON.length > 0) {
+
+        console.log("ANTES DA PROMISE");
+        VARIAVEL_GLOBAL.COMPACTACAO_DE_VIDEO_ESTADO = false;
+
+        let URL_VIDEOS_DADOS_J;
+        for (let z = 0; z < obj_JSON.length; z++) {
+          URL_VIDEOS_DADOS_J = obj_JSON[z].URL_VIDEOS_DADOS_J;
+
+          var ARRAY_VIDEOS = URL_VIDEOS_DADOS_J.split("|");
+          ARRAY_VIDEOS = await REMOVER_ITENS_NULOS_DO_ARRAY(ARRAY_VIDEOS);
+
+          // console.log(ARRAY_VIDEOS); return 0;
+
+          /***TODO O PROCESSO AQUI ABAIXO****/
+          await Promise.all(ARRAY_VIDEOS.map(async (item, i) => {
+            //MUDA O LINK AQUI ABAIXO
+
+            const { path } = await compressVideo(ARRAY_VIDEOS[i]);
+            ARRAY_VIDEOS[i] = path;
+
+            // const { path } = await fazerAlteracoesEmNomes();
+            // ARRAY_VIDEOS[i] =  'file:///data/user/12/'+path;
+            //MUDA O LINK AQUI ACIMA
+
+            //CONCATENA ABAIXO
+            if (i > 0) {
+              ARRAY_VIDEOS[i] = ARRAY_VIDEOS[i - 1] + "|" + ARRAY_VIDEOS[i];
+              ARRAY_VIDEOS.splice(0, 1);
+            }//if
+
+          })); //map
+
+          // console.log(ARRAY_VIDEOS + "|");
+          obj_JSON[z].URL_VIDEOS_DADOS_J = ARRAY_VIDEOS + "|";
+          // console.log( obj_JSON[z].URL_VIDEOS_DADOS_J );
+
+        }//for z
+
+
+
+        //CASO FOR UM SUCESSO 
+        // await AsyncStorage.setItem('POSTAGEM_DE_SEGURANCA', JSON.stringify(obj_JSON));
+        await AsyncStorage.setItem('POSTAGEM_DE_SEGURANCA', datos);
+
+        await AsyncStorage.removeItem('POSTAGEM');
+
+        await AsyncStorage.setItem('POSTAGEM', JSON.stringify(obj_JSON));
+
+        // console.log(JSON.stringify(obj_JSON));
+        // console.log(obj_JSON[0].URL_VIDEOS_DADOS_J);
+
+
+
+      }// if(VARIAVEL_GLOBAL.COMPACTACAO_DE_VIDEO_ESTADO === true){
+
+      VARIAVEL_GLOBAL.COMPACTACAO_DE_VIDEO_ESTADO = false;
+      /***TODO O PROCESSO AQUI ACIMA****/
+
+      //TENTANDO COMPACTAR VIDEOS SE HOUVER ANTES DO UPLOAD ACIMA
+
+
+      /***************************************************************************************/
+      /***************************************************************************************/
+      /***************************************************************************************/
+
+      // console.log("DEPOIS => DA PROMISE");//TÁ FUNCIONANDO
+
+      // return 0;
       await INSERINDO_NO_BANCO_DE_DADOS_POSTAGENS_OFF_LINE();
-      // VARIAVEL_GLOBAL.CONTADOR_GLOBAL = 55;
+      //VARIAVEL_GLOBAL.CONTADOR_GLOBAL = 55;
+
+
     } catch (error) { alert(error) }
 
   }//function CONECTANDO_AO_BANCO_DE_DADOS()
@@ -1222,26 +1310,23 @@ export default function AppTest() {
       for (var i = 0; i < obj_JSON.length; i++) {
 
         var TA_ON_LINE = obj_JSON[i].ta_online_J;//ADICIONADO EM 05/12/2020
-
         //alert(TA_ON_LINE);
-
         var JSON_POSTAGEM_STRING = JSON.stringify(obj_JSON[i]);
         //alert( JSON_POSTAGEM_STRING );
-
         //VERIFICANDO SE POSTAGEM ESTÁ GRAVADO ON-LINE e fazendo A SINCRONIZAÇÃO no BANCO DE DADOS ABAIXO
         /*METODO DE SELECT REMOTO NO BANCO DE DADOS ONLINE ABAIXO */
         var numero_telefone_J = obj_JSON[i].numero_telefone_J;
         var id_J = obj_JSON[i].id_J;
-
         const response = await Axios.get(IP_DO_SERVIDOR + 'se_postagem_esta_online', {
           params: {
             numero_telefone_J: numero_telefone_J,
             id_J: id_J,
           }
         });
-
         //console.log( response.data.length );
         var tamanho = response.data.length;
+
+
 
         if (tamanho === 0) {
           //console.log( "GRAVAR" );
@@ -1286,15 +1371,12 @@ export default function AppTest() {
           //ENVIANDO VIDEOS PRO SERVIDOR REMOTO ABAIXO
           ARRAY_VIDEOS.map(async (video, index) => {
 
-            //CHAMANDO METODO DE COMPREENSSÃO DE VIDEOS LINHA ABAIXO  => 10082021
-            const { path, caminhoOriginal, thumbnail } = await compressVideo(ARRAY_VIDEOS[index]);
+            var nome_do_arquivo = (extrair_nome_de_Arquivo_da_url(ARRAY_VIDEOS[index]).arquivo);
 
-            //var nome_do_arquivo = (extrair_nome_de_Arquivo_da_url(ARRAY_VIDEOS[index]).arquivo); TROCADO PELO ABAIXO 10082021
-            var nome_do_arquivo = extrair_nome_de_Arquivo_da_url(path).arquivo;
             //COMANDOS DAQUI PRA BAIXO
             //CHAMANDO O METODO DE ENVIO DE IMAGENS PRO SERVIDOR
-            // UPLOAD_PRO_SERVIDOR(nome_do_arquivo, ARRAY_VIDEOS[index]);//TROCADO PELA LINHA ABAIXO
-            UPLOAD_PRO_SERVIDOR(nome_do_arquivo, path);
+            UPLOAD_PRO_SERVIDOR(nome_do_arquivo, ARRAY_VIDEOS[index]);
+
             //COMANDOS DAQUI PRACIMA
           });//MAP
           //ENVIANDO VIDEOS PRO SERVIDOR REMOTO ACIMA
@@ -1308,7 +1390,7 @@ export default function AppTest() {
 
           //ATIVAR DEPOIS MUITO IMPORTANTE ATENÇÃO 
           //GRAVAÇÃO DA INFORMAÇÃO NO BANCO DE DADOS ABAIXO  
-          Axios.get(IP_DO_SERVIDOR + 'insert_postagens', {
+          var retorno = Axios.get(IP_DO_SERVIDOR + 'insert_postagens', {
             //{postagem:'{"cidade":"Nova Três"}'}
             params:
             {
@@ -1316,6 +1398,19 @@ export default function AppTest() {
             }
           });
 
+          if ((await retorno.data.status.toString()) === "sucesso") {
+
+   
+            await AsyncStorage.removeItem('POSTAGEM_DE_SEGURANCA');
+
+
+          } else if ((await retorno.data.status.toString()) === "falha") {
+
+            const dados_postagem_de_seguranca = await AsyncStorage.getItem('POSTAGEM_DE_SEGURANCA');
+            await AsyncStorage.setItem('POSTAGEM', dados_postagem_de_seguranca);
+            //await AsyncStorage.setItem('POSTAGEM_DE_SEGURANCA', JSON.stringify(obj_JSON));
+
+          }
 
           /*
           .then((response)=>{
@@ -1409,6 +1504,7 @@ export default function AppTest() {
       //ARMAZENANDO NO BANCO DE DADOS ABAIXO
       await AsyncStorage.setItem('POSTAGEM', JSON.stringify(data_object));
       //await AsyncStorage.setItem('POSTAGEM', toString(DADOS));
+
       alert("GRAVADO COM SUCESSO !");//
 
     }
@@ -2733,26 +2829,52 @@ export default function AppTest() {
 
 
 
-      //ALGORITIMO DE COMPRESSAO DE VIDEO ABAIXO processamento DEMORADO ABAIXO  MAS FUNCIONA PERFEITAMENTE ABAIXO
-      async function compressVideo(path) {
-        // console.log(path);
-        let caminhoOriginal = path;
-        const origin = await ProcessingManager.getVideoInfo(path);
-        const result = await ProcessingManager.compress(path, {
-          width: origin.size && origin.size.width / 3,
-          height: origin.size && origin.size.height / 3,
-          // bitrateMultiplier: 7,
-          bitrateMultiplier: 4,
-          minimumBitrate: 300000
-        });
-        const thumbnail = await ProcessingManager.getPreviewForSecond(result.source);
+  //ALGORITIMO DE COMPRESSAO DE VIDEO ABAIXO processamento DEMORADO ABAIXO  MAS FUNCIONA PERFEITAMENTE ABAIXO
+  async function compressVideo(path) {
+    // console.log(path);
+    let caminhoOriginal = path;
+    const origin = await ProcessingManager.getVideoInfo(path);
+    const result = await ProcessingManager.compress(path, {
+      width: origin.size && origin.size.width / 3,
+      height: origin.size && origin.size.height / 3,
+      // bitrateMultiplier: 7,
+      bitrateMultiplier: 4,
+      minimumBitrate: 300000
+    });
+    const thumbnail = await ProcessingManager.getPreviewForSecond(result.source);
 
-        return { path: result.source, caminhoOriginal, thumbnail };
+    return { path: result.source, caminhoOriginal, thumbnail };
 
-      }
-      //ALGORITIMO DE COMPRESSAO DE VIDEO ACIMA processamento DEMORADO ACIMA  MAS FUNCIONA PERFEITAMENTE ACIMA
+  }
+  //ALGORITIMO DE COMPRESSAO DE VIDEO ACIMA processamento DEMORADO ACIMA  MAS FUNCIONA PERFEITAMENTE ACIMA
 
 
+
+
+  async function fazerAlteracoesEmNomes() {
+
+    await new Promise((resolve) => setTimeout(resolve, 4000));
+    console.log("TÁ CHAMANDO " + data_hora_e_segundo_completo());
+
+    // var somatorio = 0;
+    // // for (var i = 0; i < 1000000000; i++) {
+    // for (var i = 0; i < 100000000; i++) {
+    //     somatorio++;
+    // }//for
+
+
+    let valor = Math.floor(Math.random() * 10000) + ".mp4";
+    // let valor = "4548746464";
+
+    return new Promise(function (resolve) {
+
+      // parametro_a_resolver += "_ALTERADO";
+      // resolve({ nomeAlterado: parametro_a_resolver })
+      resolve({ path: valor });
+
+    });
+
+  }
 
 
 

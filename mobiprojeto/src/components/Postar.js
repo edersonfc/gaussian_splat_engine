@@ -2345,7 +2345,7 @@ export default function Postar(props) {
 
 
             } else {
-
+               VARIAVEL_GLOBAL.COMPACTACAO_DE_VIDEO_ESTADO = true;
                 alert("GRAVADO COM SUCESSO !");//
                 INSERINDO_NO_BANCO_DE_DADOS_POSTAGENS_OFF_LINE_2();
 
