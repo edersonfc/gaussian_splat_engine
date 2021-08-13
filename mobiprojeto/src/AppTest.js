@@ -85,8 +85,13 @@ import { ProcessingManager } from 'react-native-video-processing';
 
 
 //NO SERVIDOR DO MEU NOTEBOOK CASA DA MÃE  ABAIXO
-var IP_DO_SERVIDOR = "http://192.168.0.107:3000/";
-var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3001/";
+var IP_DO_SERVIDOR    = "https://gadoapp.online/";
+var IP_DO_SERVIDOR_IO = "http://gadoapp.online:3001";
+
+
+// var IP_DO_SERVIDOR    = "http://192.168.0.107:3000/";
+// var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3001/";
+
 
 
 
@@ -1249,6 +1254,7 @@ export default function AppTest() {
 
         }//for z
 
+        console.log("DEPOIS DA => PROMISE");
 
 
         //CASO FOR UM SUCESSO 

@@ -50,7 +50,9 @@ export default function TERMOS_DE_USO(param) {
           showsVerticalScrollIndicator={true}
           originWhitelist={['*']}
 
-          source={{ uri: "http://159.89.87.76:8080/termos_de_uso/" }}// => SERVIDOR DA DIGITALOCEAN
+          source={{ uri: "https://mobilegadoapp.web.app" }}// => SERVIDOR DA DIGITALOCEAN
+          // source={{ uri: "https://gadoapp.online:8080/termos_de_uso/" }}// => SERVIDOR DA DIGITALOCEAN
+          // source={{ uri: "http://159.89.87.76:8080/termos_de_uso/" }}// => SERVIDOR DA DIGITALOCEAN
         // source={{ uri: "http://192.168.0.107:8080/termos_de_uso/" }}// => SERVIDOR DA DIGITALOCEAN
 
 
