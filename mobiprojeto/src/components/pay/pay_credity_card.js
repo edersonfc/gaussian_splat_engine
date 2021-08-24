@@ -780,8 +780,8 @@ export default function pay_credity_card(params) {
         // TENTATIVA 2 FUNCIONAOU COM SUCESSO //////////////////////////////////////////////////////////////////////////////////////////////////
         try {
 
-            await fetch('http://192.168.0.107:3000/dados_da_venda', {
-                // await fetch('http://192.168.0.107:8080/process_payment', {
+            await fetch(VARIAVEL_GLOBAL.NUMERO_IP + '/dados_da_venda', {
+            // await fetch('http://192.168.0.107:8080/process_payment', {
 
                 method: 'post',
                 mode: 'no-cors',

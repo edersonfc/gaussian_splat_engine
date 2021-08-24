@@ -3,7 +3,7 @@ import { View, Text, Image, SafeAreaView, TouchableOpacity, TouchableHighlight, 
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import Estilo from './estilo'
+import Estilo from './estilo';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -27,6 +27,11 @@ import { CANCELAR_VENDA_OU_COMPRA } from './ProdutosEtiquetas';
 
 import LicencaExpirada from './LicencaExpirada';
 
+//npm install react-native-webview
+import { WebView } from 'react-native-webview';
+
+
+// const myHtmlFile = require("./my-asset-folder/local-site.html");
 
 
 var ESTATUS_SE_TA_ONLINE_OU_OFFLINE = "";
@@ -88,6 +93,7 @@ export default function DetalhesProdutos(props) {
     const [muda_cor, setMuda_cor] = useState(false)
     const [fecharTelaDetalhe, setFecharTelaDetalhe] = useState(true);
     var [icone_foto_video, setIcone_foto_video] = useState(true);
+    var [container_foto_video, setcontainer_foto_video] = useState(true);
 
 
     //GERANDO ARRAY DE IMAGENS ABAIXO
@@ -365,6 +371,24 @@ export default function DetalhesProdutos(props) {
     //TENTANDO IMPLEMENTAR METODOS DE COMPARTILHAMENTO ACIMA
 
 
+    const onBuffer = () => {
+        // setIsBuffering(true);
+        return true;
+    };
+
+    const [stopVideos, setStopVideos] = useState(true);
+
+
+
+    const [render_1, setRender_1] = useState(true);
+
+    const [renderDaTela, setRenderDaTela] = useState(true);
+
+    useEffect(() => {
+
+        setRenderDaTela(true);
+
+    }, [renderDaTela]);
 
 
 
@@ -372,7 +396,7 @@ export default function DetalhesProdutos(props) {
     return (
 
 
-        <View style={{ alignItems: 'center', justifyContent: 'flex-start', height: '100%', position: 'absolute', backgroundColor: 'rgb(255,255,255,0)', width: '100%' }}>
+        renderDaTela ? <View style={{ alignItems: 'center', justifyContent: 'flex-start', height: '100%', position: 'absolute', backgroundColor: 'rgb(255,255,255,0)', width: '100%' }}>
 
             {/*#2A3E4A*/}
 
@@ -432,6 +456,9 @@ export default function DetalhesProdutos(props) {
                                 //alert(LATITUDE_USUARIO+"   |   "+LONGITUDE_USUARIO);
 
                                 // alert(VARIAVEL_GLOBAL.TELA_ATUAL + " | " + VARIAVEL_GLOBAL.TELA_ORIGEM + " | " + VARIAVEL_GLOBAL.TELA_TERCEIRA)
+
+
+                                setRenderDaTela(false);
 
                                 navigation.navigate("ComprasVendas", { ComprasVendas, LATITUDE_USUARIO, LONGITUDE_USUARIO, TELA_DE_ORIGEM_E_SITUACAO })
 
@@ -544,7 +571,8 @@ export default function DetalhesProdutos(props) {
                             // var IMAGEM = 'LINK COMPARTILHADO DA MENSAGEM !';
                             var IMAGEM_OU_VIDEO = ARRAY_DE_IMAGENS_E_VIDEOS[0];
 
-                            var PAGINAS_PARTE_INICIAL = "<html> <body> <img src=" + IMAGEM_OU_VIDEO + " alt='GadoApp' width='500' height='600'> </body> </html>"
+                            // let PAGINAS_PARTE_INICIAL = "<html> <body> <img src=" + IMAGEM_OU_VIDEO + " alt='GadoApp' width='500' height='600'> </body> </html>";
+                            let PAGINAS_PARTE_INICIAL = "GadoApp, Compra e Venda de Bovinos  https://play.google.com/store/apps/details?id=com.mobiprojeto";
                             onShare(PAGINAS_PARTE_INICIAL);
 
 
@@ -642,17 +670,20 @@ export default function DetalhesProdutos(props) {
                     {ARRAY_DE_IMAGENS_E_VIDEOS.map((ARRAY_DE_IMAGENS_E_VIDEOSS, index) => (
 
 
+
                         <TouchableOpacity key={index} style={{ width: (screenWidth - 30), height: '100%', padding: 5, borderWidth: 0, borderColor: '#fff', alignItems: 'center', justifyContent: 'center' }}
-
-
 
                             onPress={() => {
                                 //alert(ARRAY_DE_IMAGENS_E_VIDEOS[index]);
                                 var FOTO_OU_VIDEO = ARRAY_DE_IMAGENS_E_VIDEOS[index];
 
+                                setStopVideos(true);
+                                setcontainer_foto_video(false);
+
+
                                 if (
                                     FOTO_OU_VIDEO.toUpperCase().includes('.JPEG') ||
-                                    FOTO_OU_VIDEO.toUpperCase().includes('.JPG')  ||
+                                    FOTO_OU_VIDEO.toUpperCase().includes('.JPG') ||
                                     FOTO_OU_VIDEO.toUpperCase().includes('.PNG')
                                 ) {
 
@@ -668,23 +699,27 @@ export default function DetalhesProdutos(props) {
 
                                 } else {
 
+                                    const URL_REMOTA_BOOLEAN = true;
                                     URL_Video = FOTO_OU_VIDEO;
                                     VARIAVEL_GLOBAL.TELA_ATUAL = "NavegarVideos",
                                         // VARIAVEL_GLOBAL.TELA_ORIGEM = "ProdDetalhes";
-                                        navigation.navigate("NavegarVideos", { URL_Video })
+                                        navigation.navigate("NavegarVideos", { URL_Video, URL_REMOTA_BOOLEAN })
+
                                 }
+                                setRenderDaTela(false);
+
                             }}
 
 
                             ///EXECUTANDO JAVASCRIPT DENTRO DE QUALQUER LUGAR DOS COMPONENTES ABAIXO
-                            {...(() => {
+                            {...(async () => {
 
                                 var valor = ARRAY_DE_IMAGENS_E_VIDEOS[index];
                                 if (
-                                    valor.toUpperCase().includes(".JPEG") || 
-                                    valor.toUpperCase().includes(".JPG")  || 
-                                    valor.toUpperCase().includes(".PNG")  
-                                 ) {
+                                    valor.toUpperCase().includes(".JPEG") ||
+                                    valor.toUpperCase().includes(".JPG") ||
+                                    valor.toUpperCase().includes(".PNG")
+                                ) {
                                     //setIcone_foto_video(true);
                                     icone_foto_video = true;
                                     container_foto_video = true;
@@ -692,6 +727,9 @@ export default function DetalhesProdutos(props) {
                                     //setIcone_foto_video(false);  
                                     icone_foto_video = false;
                                     container_foto_video = false;
+
+                                    // console.log(valor);
+
                                 }//IF
 
                             })()}
@@ -702,19 +740,94 @@ export default function DetalhesProdutos(props) {
 
                             {
                                 container_foto_video ? //source={{ uri: ARRAY_DE_IMAGENS_E_VIDEOS[index] }}
+
                                     <Image key={index} style={{ width: '100%', height: '100%', borderRadius: 10 }}
-                                        source={{ uri: ARRAY_DE_IMAGENS_E_VIDEOS[index] }}
-                                    />
-                                    :
-                                    <Video key={index} style={{ width: '100%', height: '100%', borderRadius: 10 }}
-                                        source={{ uri: ARRAY_DE_IMAGENS_E_VIDEOS[index] }}
-                                        // source={{ uri: "http://192.168.0.107:3000/c11830d5-709e-4c8f-bb16-a4479c308c51.mp4" }}
-                                        resizeMode={'cover'}
-                                        bitrate={1000000}
+                                        // source={{ uri: ARRAY_DE_IMAGENS_E_VIDEOS[index] }}
+                                        /****************************************************************/
+                                        source={{
+                                            uri: VARIAVEL_GLOBAL.NUMERO_IP + "imagem?url_caminho=" + ARRAY_DE_IMAGENS_E_VIDEOS[index]
+
+                                            //    source={{ uri:  "file:///data/user/0/com.mobiprojeto/cache/Camera/4f78adb7-4c65-4167-b8fd-3897385dfa6d.mp4"
+
+                                            // , headers: {
+                                            //     range: 'bytes=0-',
+                                            //     range: 'bytes=0-1024',
+                                            // }
+                                        }}
+                                    /***************************************************************/
                                     />
 
-                                    // ,console.log(ARRAY_DE_IMAGENS_E_VIDEOS[index])
-                                    // ,console.log(container_foto_video)
+                                    :
+
+                                    //    //WEBVIEW ABAIXO
+                                    //     <View key={index} style={{ width: '100%', height: '100%', borderRadius: 10 }}>
+                                    //         <WebView
+                                    //             // style={{ flex: 1, height: '100%', width: '100%', alignContent: 'center', justifyContent: 'center' }}
+
+                                    //             bounces={false}
+                                    //             showsHorizontalScrollIndicator={false}
+                                    //             showsVerticalScrollIndicator={false}
+                                    //             originWhitelist={['*']}
+
+                                    //             source={{ uri: VARIAVEL_GLOBAL.NUMERO_IP + "video_stream_perfeito?url_caminho=" + ARRAY_DE_IMAGENS_E_VIDEOS[index] }} //ATIVAR ESSA LINHA
+                                    //             // source={{ uri: ARRAY_DE_IMAGENS_E_VIDEOS[index] }} MANTER DESATIVADO ESSA LINHA
+
+                                    //             style={{ marginTop: 0 }}
+                                    //             javaScriptEnabled={true}
+                                    //             domStorageEnabled={true}
+                                    //         />
+                                    //     </View>
+                                    //     //WEBVIEW ACIMA
+
+
+
+
+                                    <View style={{ width: '100%', height: '100%', borderRadius: 10 }}>
+                                        <Video
+                                            //key={index}     
+                                            source={{
+                                                // uri: VARIAVEL_GLOBAL.NUMERO_IP + "video_stream_perfeito?url_caminho=" + ARRAY_DE_IMAGENS_E_VIDEOS[index]
+                                                // uri: VARIAVEL_GLOBAL.NUMERO_IP + "video?url_caminho=" + ARRAY_DE_IMAGENS_E_VIDEOS[index]
+
+                                                uri: VARIAVEL_GLOBAL.NUMERO_IP + "video?url_caminho=" + ARRAY_DE_IMAGENS_E_VIDEOS[index]
+                                                // , headers: {
+                                                //     'Content-Range': `bytes=0-1024/*`,
+                                                //     'Accept-Ranges': 'bytes',
+                                                //     'Content-Type': 'video/mp4',
+                                                // },
+
+                                                // , headers: {
+                                                //     'Content-Range': `bytes=0-7216980/*`,
+                                                //     // 'Accept-Ranges': 'bytes',
+                                                //     // 'Content-Type': 'video/mp4',
+                                                //   },
+                                                // ,type: 'mp4'
+
+                                            }} //ATIVAR ESSA LINHA
+
+                                            onBuffer={onBuffer}                // Callback when remote video is buffering
+
+                                            bitrate={1000000}
+                                            resizeMode={'cover'}
+
+                                            playInBackground={true}
+                                            seek={0, 100}
+                                            paused={stopVideos}
+                                            repeat={false}
+                                            minLoadRetryCount={1000}
+                                            bitrate={100}
+
+                                            onError={err => console.log("ERRO AQUI => " + JSON.stringify(err))}
+
+                                            style={{ width: '100%', height: '100%', borderRadius: 10 }}
+
+                                        />
+                                    </View>
+
+
+
+
+
                             }
 
 
@@ -731,6 +844,9 @@ export default function DetalhesProdutos(props) {
 
 
                         </TouchableOpacity>
+
+
+
 
 
 
@@ -1095,6 +1211,7 @@ export default function DetalhesProdutos(props) {
         </View>
 
 
+            : []
 
     )//DO RETURN
 

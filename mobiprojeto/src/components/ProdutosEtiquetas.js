@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback, useContext } from 'react';
-import { View, Text, SafeAreaView, FlatList, Alert, Image, TouchableOpacity, Dimensions, RefreshControl, StyleSheet, StatusBar, Animated, Easing, Share } from 'react-native';
+import { View, Text, SafeAreaView, FlatList, Alert, Image, TouchableOpacity, Dimensions, RefreshControl, StyleSheet, StatusBar, Animated, Easing, Share, ViewPagerAndroidComponent } from 'react-native';
 
 import AsyncStorage from '@react-native-async-storage/async-storage';//, Image, Animated, Easing
 
@@ -19,6 +19,9 @@ import { useNavigation } from "@react-navigation/native";
 import Video from 'react-native-video';
 // import Video from './videos/Videos';
 
+
+// import VideosCotainer from './videos/VideosCotainer';
+
 import MediaControls, { PLAYER_STATES } from 'react-native-media-controls';
 //import VideoPlayer from 'react-native-video-controls';
 
@@ -34,12 +37,16 @@ import { TRANFORMAR_P_CAMINHO_ABSOLUTO, REMOVER_ITENS_NULOS_DO_ARRAY, Distancia_
 import GlobalContext from '../context/UsersContext';
 
 
+//LINK FONT => //https://www.npmjs.com/package/react-native-create-thumbnail
+// import { createThumbnail } from "react-native-create-thumbnail";
+
+
 
 
 var ARRAY_PRODUTOS = [];
-
-
 const state = { refreshing: false };
+
+
 
 
 
@@ -50,6 +57,13 @@ export default function ProdutosEtiquetas(param) {
 
   // var IP_DO_SERVIDOR = "http://192.168.0.102:3000"; /* NO COMPUTADOR IP REMOTO DE REDE INTERNA */
   var IP_DO_SERVIDOR = VARIAVEL_GLOBAL.NUMERO_IP;
+
+  const [renderDaTela, setRenderDaTela] = useState(true);
+  useEffect(() => {
+
+    setRenderDaTela(true);
+
+  }, [renderDaTela]);
 
   /* */
   async function pegar_ip() {
@@ -75,6 +89,8 @@ export default function ProdutosEtiquetas(param) {
   var [container_foto_video, setContainer_foto_video] = useState(true);
 
   var [compra_venda_cancelar, setCompra_venda_cancelar] = useState(true);
+
+  const [stopVideos, setStopVideos] = useState(true);
 
   /**/
   var produtosS = param.product;
@@ -229,9 +245,9 @@ export default function ProdutosEtiquetas(param) {
     try { URL_VIDEO = ARRAY_PRIMEIRAS_URL_VIDEOS_RECEBIDO[ii] } catch (error) { URL_VIDEO = ""; }
 
 
-    if (URL_IMAGEM.toUpperCase().includes(".JPEG") || 
-        URL_IMAGEM.toUpperCase().includes(".JPG") ||
-        URL_IMAGEM.toUpperCase().includes(".PNG")) {
+    if (URL_IMAGEM.toUpperCase().includes(".JPEG") ||
+      URL_IMAGEM.toUpperCase().includes(".JPG") ||
+      URL_IMAGEM.toUpperCase().includes(".PNG")) {
 
       //setimagem_url_unica_View_visivel(true);
       ARRAY_QUE_VAI_MOSTRAR_AS_MINIATURAS.push(String(ARRAY_PRIMEIRAS_URL_IMAGENS_RECEBIDO[ii]).replace(" ", ""));
@@ -593,6 +609,7 @@ export default function ProdutosEtiquetas(param) {
 
 
 
+
     // const [isBuffering, setIsBuffering] = useState(true);
     // onBuffer({ isBuffering }: { isBuffering: boolean }) {
     //   this.setState({ isBuffering });
@@ -603,6 +620,32 @@ export default function ProdutosEtiquetas(param) {
       return true;
     };
 
+
+
+    //CRIANDO THUMBNAIL ABAIXO
+    async function CRIANDO_THUMBNAIL(URL_DO_VIDEO, INDICE) {
+
+      await createThumbnail({
+        url: URL_DO_VIDEO,
+        // timeStamp: 10000,
+        timeStamp: 10000,
+      })
+        .then((response) => {
+          // console.log({ response })
+          return response
+          // return  response.path;
+        })
+        .catch(err => console.log({ err }));
+
+    }
+    //CRIANDO THUMBNAIL ACIMA
+
+
+
+
+
+
+
     return (
       /**********************************************************************************/
       /**********************************************************************************/
@@ -610,11 +653,11 @@ export default function ProdutosEtiquetas(param) {
 
       etiqueta_visivel_true_false_array[index] && (
 
+        renderDaTela ?
 
         <Animated.View name={"PAI" + index} key={"PAI" + index} style={[style = {
           flexDirection: 'row', width: '100%', height: 150, borderWidth: 5, borderColor: '#fff', borderRadius: 20, backgroundColor: 'white', marginBottom: SPACING,
         }
-
 
           , style = {
             shadowColor: '#000',
@@ -640,7 +683,6 @@ export default function ProdutosEtiquetas(param) {
                 var URL_ENVIADA = ARRAY_QUE_VAI_MOSTRAR_AS_MINIATURAS[index];
                 // alert(URL_ENVIADA)
 
-
                 var INDICE_PRINCIPAL_JSON = index;
                 var DISTANCIA = DISTANCIA_ARRAY[index];
 
@@ -656,7 +698,6 @@ export default function ProdutosEtiquetas(param) {
                 if (VARIAVEL_GLOBAL.TELA_ATUAL == "Principal") {
 
                   // alert("DA TELA PRINCIPAL")
-
                   VARIAVEL_GLOBAL.TELA_ATUAL = "ProdDetalhes";
                   VARIAVEL_GLOBAL.TELA_ORIGEM = "Principal";
                   VARIAVEL_GLOBAL.TELA_TERCEIRA = "nenhum";
@@ -667,13 +708,13 @@ export default function ProdutosEtiquetas(param) {
                   if (VARIAVEL_GLOBAL.TELA_ATUAL == "ComprasVendas") {
 
                     // alert("DA TELA COMRA E VENDA")
-
                     VARIAVEL_GLOBAL.TELA_ATUAL = "ProdDetalhes";
                     VARIAVEL_GLOBAL.TELA_ORIGEM = "ComprasVendas";
                     VARIAVEL_GLOBAL.TELA_TERCEIRA = "MenuDaTelaPrincipal";
 
-
                   }
+
+                setStopVideos(true);
 
 
                 navigation.navigate("ProdDetalhes", { produtos, INDICE_PRINCIPAL_JSON, DISTANCIA, NUMERO_CELL_DO_USUARIO, TELA_DE_ORIGEM_E_SITUACAO });
@@ -685,10 +726,13 @@ export default function ProdutosEtiquetas(param) {
                 //alert( ARRAY_PRIMEIRAS_URL_IMAGENS_RECEBIDO[index] );
                 //console.log( ARRAY_PRIMEIRAS_URL_IMAGENS_RECEBIDO[index] );
 
+                setRenderDaTela(false);
+
+
               }}
 
               //EXECUTANDO JAVASCRIPT DENTRO DE QUALQUER LUGAR DOS COMPONENTES ABAIXO  ARRAY_PRIMEIRAS_URL_IMAGENS_RECEBIDO
-              {...(() => {
+              {...(async () => {
                 var valor = "";
                 try { valor = ARRAY_QUE_VAI_MOSTRAR_AS_MINIATURAS[index] } catch (error) { URL_IMAGEM = ""; }
                 if (valor === undefined) { valor = "" }
@@ -706,6 +750,7 @@ export default function ProdutosEtiquetas(param) {
                   //setContainer_foto_video(false);  
                   container_foto_video = false;
                   //alert("VIDEO");
+
                 }//IF
 
 
@@ -723,54 +768,182 @@ export default function ProdutosEtiquetas(param) {
                     key={index}
                     // style={{ width: '99%', height: '99%', borderRadius: 10, resizeMode: 'cover' }}
                     style={{ width: '99%', height: AVATAR_GADO_SIZE, borderRadius: 10, resizeMode: 'cover' }}
-                    source={{ uri: ARRAY_PRIMEIRAS_URL_IMAGENS_RECEBIDO[index] }}
+
+                    // source={{ uri: ARRAY_PRIMEIRAS_URL_IMAGENS_RECEBIDO[index] }}
+
+                    /****************************************************************/
+                    source={{
+                      uri: VARIAVEL_GLOBAL.NUMERO_IP + "imagem?url_caminho=" + ARRAY_PRIMEIRAS_URL_IMAGENS_RECEBIDO[index]
+                      // , headers: {
+                      //     range: 'bytes=0-',
+                      //     range: 'bytes=0-1024',
+                      // }
+                    }}
+                    /***************************************************************/
 
                     TELA_DE_ORIGEM_E_SITUACA={TELA_DE_ORIGEM_E_SITUACAO}
 
                   />
+
                   :
-                  // <Video 
-                  //   key={index}
-                  //   style={{ width: '100%', height: '100%', borderRadius: 10 }}
-                  //   source={{ uri: ARRAY_PRIMEIRAS_URL_VIDEOS_RECEBIDO[index] }}
-                  //   // source={ 'https://www.youtube.com/watch?v=LKukjF4eXLc' }
-                  // />
+
+                  /******************* /// COMPONENTE ABTERIOR ABAIXO /// ********************* */
+
+                  //source={{ uri: ARRAY_PRIMEIRAS_URL_VIDEOS_RECEBIDO[index] }}  // Can be a URL or a local file.
 
 
                   // https://github.com/react-native-video/react-native-video#android-installation
+                  // <Video
+                  //   key={index}
+                  //   source={{ uri: ARRAY_PRIMEIRAS_URL_VIDEOS_RECEBIDO[index] }}  // Can be a URL or a local file.
+                  //   onBuffer={onBuffer}                // Callback when remote video is buffering
+                  //   // onError={this.videoError}               // Callback when video cannot be loaded
+                  //   // bitrate={4000000}
+                  //   bitrate={1000000}
+                  //   resizeMode={'cover'}
+                  //   style={{ width: '100%', height: '100%', borderRadius: 10 }}
+                  // />
+
+
+                  /******************* /// COMPONENTE ABTERIOR ACIMA /// ********************* */
+
+
+                  // source={{ uri: ARRAY_PRIMEIRAS_URL_VIDEOS_RECEBIDO[index] }}
+                  // source={{ uri:  VARIAVEL_GLOBAL.LISTA_THUMBAILS[index] }}
+                  // source={{ uri: VARIAVEL_GLOBAL.LISTA_THUMBAILS[index].response.path }}
+                  // source={{ uri:  VARIAVEL_GLOBAL.LISTA_THUMBAILS[index].response.path }}
+
+                  /********************************************************************************* */
+                  /********************************************************************************* */
+
+                  // <View
+
+                  //   {...(async () => {
+
+
+                  // const URL_THUMBAILL = await CRIANDO_THUMBNAIL(ARRAY_PRIMEIRAS_URL_VIDEOS_RECEBIDO[index], index);
+                  // // CRIANDO_THUMBNAIL(URL_DO_VIDEO, INDICE)
+
+                  //     if (typeof  URL_THUMBAILL === 'undefined') {
+
+                  //   alert(URL_THUMBAILL);
+                  //   return []
+                  //   //  return <Image key={index}
+                  //   //     style={{ width: '99%', height: AVATAR_GADO_SIZE, borderRadius: 10, resizeMode: 'cover' }}
+                  //   //     source={{ uri: "https://png.pngtree.com/png-vector/20210309/ourmid/pngtree-not-loaded-during-loading-png-image_3022825.jpg" }}
+                  //   //   />
+
+
+                  // } else {  //return []
+
+                  //   alert(URL_THUMBAILL);
+
+                  //   return <Image key={index}
+                  //     style={{ width: '99%', height: AVATAR_GADO_SIZE, borderRadius: 10, resizeMode: 'cover' }}
+                  //     // source={{ uri: (VARIAVEL_GLOBAL.LISTA_THUMBAILS[index].response.path) }}
+                  //     source={{ uri: URL_THUMBAILL }}
+                  //   />
+
+
+                  // }//if else
+
+                  /********************************************************************************* */
+                  /********************************************************************************* */
+
+                  //     let thum;
+
+                  //     // await Promise.all(
+
+                  //       await  createThumbnail({
+                  //       url: ARRAY_PRIMEIRAS_URL_VIDEOS_RECEBIDO[index],
+                  //       // timeStamp: 10000,
+                  //       timeStamp: 10000,
+                  //     })
+                  //       .then((response) => {
+                  //         // console.log({ response })
+                  //         //return response
+                  //         // return  response.path;
+
+                  //         // alert(response.path);
+                  //         thum = response.path
+
+                  //       })
+                  //       .catch(err => console.log({ err })),
+
+                  //     // );
+
+                  //     <Image key={index}
+                  //       style={{ width: '99%', height: AVATAR_GADO_SIZE, borderRadius: 10, resizeMode: 'cover' }}
+                  //       // source={{ uri: (VARIAVEL_GLOBAL.LISTA_THUMBAILS[index].response.path) }}
+                  //       source={{ uri: thum }}
+                  //     />
+
+
+
+                  //   })()}
+
+                  // ></View>
+
+                  /**********************************************************************************/
+                  /**********************************************************************************/
+
+
+
+
+
+
+                  //IMPORTANDO COMPONENTE DE VIDEO PERSONALIZADO => VideosCotainer
+                  // <View key={index}
+
+                  //   style={{ width: '99%', height: AVATAR_GADO_SIZE, borderRadius: 10, resizeMode: 'cover' }}
+                  // // source={{ uri: ARRAY_PRIMEIRAS_URL_IMAGENS_RECEBIDO[index] }}
+                  // // TELA_DE_ORIGEM_E_SITUACA={TELA_DE_ORIGEM_E_SITUACAO}
+                  // >
+                  //   <VideosCotainer URL_Video={ARRAY_PRIMEIRAS_URL_VIDEOS_RECEBIDO[index]} />
+                  // </View>
+
+
+                  /******************************************************************************************** */
+
+
                   <Video
                     key={index}
-                    source={{ uri: ARRAY_PRIMEIRAS_URL_VIDEOS_RECEBIDO[index] }}  // Can be a URL or a local file.
-                    // source={{ uri: 'https://www.youtube.com/watch?v=LKukjF4eXLc' }}
-                    // ref={(ref) => {
-                    //   this.player = ref
-                    // }}                                      // Store reference
+                    // source={{ uri: ARRAY_PRIMEIRAS_URL_VIDEOS_RECEBIDO[index] }}  // Can be a URL or a local file.
+
+                    source={{
+                      uri: VARIAVEL_GLOBAL.NUMERO_IP + "video?url_caminho=" + ARRAY_PRIMEIRAS_URL_VIDEOS_RECEBIDO[index]
+
+                      // //, headers: {
+                      // //  range: 'bytes=0-',
+                      //  //  connection: 'keep-alive'
+                      // // }
+                      // ,type: 'mp4'
+                    }}
+
                     onBuffer={onBuffer}                // Callback when remote video is buffering
                     // onError={this.videoError}               // Callback when video cannot be loaded
-
                     // bitrate={4000000}
                     bitrate={1000000}
                     resizeMode={'cover'}
+                    playInBackground={true}
+                    seek={0, 100}
+                    paused={stopVideos}
+                    repeat={false}
+
+                    minLoadRetryCount={1000}
+
+                    bitrate={100}
+
                     style={{ width: '100%', height: '100%', borderRadius: 10 }}
+
+                    TELA_DE_ORIGEM_E_SITUACA={TELA_DE_ORIGEM_E_SITUACAO}
+
                   />
 
 
-                /* ATIVAR DEPOIS PORQUE ESTÁ FUNCIONANDO ACIMA */
+
+
               }
-
-
-
-
-              {/* DESATIVAR DEPOIS ABAIXO     
-<Image key={index + Math.random() * (10000 - 100) + 100}   //Image   Video
-style={{ width: '100%', height: '100%', borderRadius:10}}
-source={{ uri: ARRAY_QUE_VAI_MOSTRAR_AS_MINIATURAS[index] }}  //REF 5483
-/>
-DESATIVAR DEPOIS ACIMA */
-              }
-
-
-
 
 
             </TouchableOpacity>
@@ -919,8 +1092,8 @@ DESATIVAR DEPOIS ACIMA */
                       // alert(IMAGEM);
                       // alert("IMAGEM ESTE LINK");
 
-                      var PAGINAS_PARTE_INICIAL = "<html> <body> <img src=" + IMAGEM + " alt='GadoApp' width='500' height='600'> </body> </html>"
-
+                      // let PAGINAS_PARTE_INICIAL = "<html> <body> <img src=" + IMAGEM + " alt='GadoApp' width='500' height='600'> </body> </html>"
+                      let PAGINAS_PARTE_INICIAL = "GadoApp, Compra e Venda de Bovinos  https://play.google.com/store/apps/details?id=com.mobiprojeto";
                       onShare(PAGINAS_PARTE_INICIAL);
 
                     }//IF
@@ -1019,6 +1192,9 @@ DESATIVAR DEPOIS ACIMA */
 
         </Animated.View>
 
+:[]
+
+
 
       )
 
@@ -1028,6 +1204,9 @@ DESATIVAR DEPOIS ACIMA */
       /**********************************************************************************/
 
     )
+
+
+
   };
   //TODOS OS RENDERS DA ETIQUETA DOS PRODUTOS FEITO AQUI ACIMA
 

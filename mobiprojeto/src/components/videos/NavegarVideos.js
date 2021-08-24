@@ -1,82 +1,5 @@
-////FOI DESATIVADO O CÓDIGO ABAIXO O REPRODUTOR DE VIDEO E TROCADO PELO  CÓDIGO ABAIXO
-// import React, { PureComponent, useState, useEffect } from 'react';
-// import { AppRegistry, StyleSheet, Text, TouchableOpacity, View, Image } from 'react-native';
-// import { RNCamera } from 'react-native-camera';
-
-// import { useNavigation } from "@react-navigation/native";
-// //import { Icon } from 'react-native-vector-icons/Icon';
-
-// import Icon from 'react-native-vector-icons/FontAwesome';
-// import { color } from 'react-native-reanimated';
-
-// import ScreenOrientation, { PORTRAIT, LANDSCAPE, LANDSCAPE_LEFT } from "react-native-orientation-locker/ScreenOrientation";
-
-// import Video from 'react-native-video';
-// import VideoPlayer from 'react-native-video-controls';
-
-// //IMPORTAÇÕES ACIMA
-
-
-// //var andar = 0;
-// var URLs_Fotos = new Array();
-
-
-// function PreencherLista(){setUrl_strings(String(URLs_Fotos[0]))}
-
-
-// //CLASSE PRINCIPAL DE EXECUÇÃO ABAIXO
-// export default function NavegarVideos(props) {
-//     var [andar, setAndar] = useState(0)
-//     var { URL_Video } = props.route.params; // utilizar a {} para desestruturar a variável pesquisarCompras que está dentro de params
-//     //alert(URL_Video);
-
-
-
-
-//     return (
-
-
-//         <View style={{ width: '100%', height: '100%', borderWidth: 0, borderColor: 'yellow' }}>
-
-//             {/* MUDANDO A ORIENTAÇÃO DA TELA PRA PAISAGEM ABAIXO  coloca dentro da View principal que fica dentro do return*/}
-//             <ScreenOrientation
-//                 orientation={LANDSCAPE_LEFT}
-//                 // orientation={PORTRAIT}
-//                 // onChange={orientation => console.log('onChange', orientation)}
-//                 // onDeviceChange={orientation => console.log('onDeviceChange', orientation)}
-//             />
-//             {/* MUDANDO A ORIENTAÇÃO DA TELA PRA PAISAGEM ACIMA   coloca dentro da View principal que fica dentro do return */}
-
-
-//             <VideoPlayer source={{ uri: URL_Video }}   // Can be a URL or a local file.
-//                 ref={(ref) => {
-//                     this.player = ref
-//                 }}                                      // Store reference
-//                 onBuffer={this.onBuffer}                // Callback when remote video is buffering
-//                 onError={this.videoError}               // Callback when video cannot be loaded
-//                 style={styles.backgroundVideo} />
-
-
-//         </View>
-//     )
-
-// }
-
-
-// // Later on in your styles..
-// var styles = StyleSheet.create({
-//     backgroundVideo: {
-//         position: 'absolute',
-//         top: 0,
-//         left: 0,
-//         bottom: 0,
-//         right: 0,
-//     },
-// });
-
 //FOI DESATIVADO ACIMA O REPRODUTOR DE VIDEO E TROCADO PELO  CÓDIGO ABAIXO
 
-
 /***************************************************************************************************************/
 /***************************************************************************************************************/
 /***************************************************************************************************************/
@@ -85,46 +8,72 @@
 /***************************************************************************************************************/
 
 
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { LogBox, StyleSheet, View, Text, Platform, TouchableOpacity } from 'react-native';
-
-import MediaControls, { PLAYER_STATES } from 'react-native-media-controls';
-
-import Video from 'react-native-video';
 
 import ScreenOrientation, { PORTRAIT, LANDSCAPE, LANDSCAPE_LEFT } from "react-native-orientation-locker/ScreenOrientation";
 
+import MediaControls, { PLAYER_STATES } from 'react-native-media-controls';
 import Icon from 'react-native-vector-icons/FontAwesome';
-
 import { useNavigation } from "@react-navigation/native";
-
-
+//npm install react-native-webview
+import { WebView } from 'react-native-webview';
+// import GlobalContext from '../../context/UsersContext';
+import HTMLView from 'react-native-htmlview';
 // const VideoPlayer = (props) => {
-const NavegarVideos = (props) => {//#1#
-    // export default function NavegarVideos(props) {//#1#
 
-    const [posicaoPaisagem, setPosicaoPaisagem] = useState('LANDSCAPE_LEFT');
+//import GlobalContext from '../../context/UsersContext';
+
+import GlobalContext from '../../context/UsersContext';
+
+
+import VideoPlayer from 'react-native-video-controls';
+
+
+
+
+let NavegarVideos = (props) => {//#1#
+
+// export default function NavegarVideos(props) {
+
+
+    const { VARIAVEL_GLOBAL } = useContext(GlobalContext);
+
+    // LANDSCAPE_LEFT   PORTRAIT
+    const [posicaoPaisagem, setPosicaoPaisagem] = useState('PORTRAIT');
     const [posicao, setPosicao] = useState(true);
+    const [paddinDoVideo, setPaddinDoVideo] = useState('0%');
 
     /*****************************************************************/
-
     const navigation = useNavigation();//#1#
-
     var [andar, setAndar] = useState(0);//#1#
-    var { URL_Video } = props.route.params;//#1# // utilizar a {} para desestruturar a variável pesquisarCompras que está dentro de params
+    let { URL_Video } = props.route.params;//#1# // utilizar a {} para desestruturar a variável pesquisarCompras que está dentro de params
+    let { URL_REMOTA_BOOLEAN } = props.route.params;
     //alert(URL_Video);//#1#
     /*****************************************************************/
-
-
     const videoPlayer = useRef(null);
     const [duration, setDuration] = useState(0);
     const [paused, setPaused] = useState(false);
-
     const [currentTime, setCurrentTime] = useState(0);
     const [playerState, setPlayerState] = useState(PLAYER_STATES.PAUSED);
     const [isLoading, setIsLoading] = useState(true);
-
     const [E_BUFFER, setE_BUFFER] = useState(true);
+
+
+
+
+    const [stadoUrl, setStadoUrl] = useState("");
+    const [url_remota_url_boolean_stado, setUrl_remota_url_boolean_stado] = useState(URL_REMOTA_BOOLEAN);
+
+    const [renderDaTela, setRenderDaTela] = useState(true);
+
+    useEffect(() => {
+
+        setRenderDaTela(true);
+        setStadoUrl(URL_Video);
+
+    }, [renderDaTela, stadoUrl, url_remota_url_boolean_stado]);
+
 
     const onSeek = (seek) => {
         videoPlayer?.current.seek(seek);
@@ -161,22 +110,28 @@ const NavegarVideos = (props) => {//#1#
     };
 
     //TENTANDO IMPLEMENTAR BUFFER AQUI ABAIXO
-    const onBuffer = (data) => {
-        // if (E_BUFFER) {
-        //     setE_BUFFER(data.onBuffer);
-        // }
+
+
+    // const onBuffer = (data) => {
+    //     if (E_BUFFER) {
+    //         setE_BUFFER(data.onBuffer);
+    //     }
+    //     return true;
+    // };
+
+    const onBuffer = () => {
+        // setIsBuffering(true);
         return true;
     };
-    //TENTANDO IMPLEMENTAR BUFFER AQUI ACIMA
 
+
+    //TENTANDO IMPLEMENTAR BUFFER AQUI ACIMA
     const onLoadStart = () => setIsLoading(true);
 
     const onEnd = () => {
         setPlayerState(PLAYER_STATES.ENDED);
         setCurrentTime(duration);
     };
-
-
 
     var [icone, setIcone] = useState(false);
 
@@ -185,8 +140,11 @@ const NavegarVideos = (props) => {//#1#
         function MUDAR_POSICAO() {
             if (posicao === true) {
                 setPosicaoPaisagem('LANDSCAPE_LEFT');
+                setPaddinDoVideo('0%');
             } else if (posicao === false) {
                 setPosicaoPaisagem('PORTRAIT');
+                setPaddinDoVideo('50%');
+
             }//else if
         }//function MUDAR_POSICAO()
         MUDAR_POSICAO();
@@ -197,52 +155,173 @@ const NavegarVideos = (props) => {//#1#
 
 
 
+    // useEffect(() => {
 
+    //     // URL_Video = "http://192.168.0.107:3000/video?url_caminho=" + URL_Video;
+    //     URL_Video = "http://192.168.0.107:3000/video_stream_perfeito?url_caminho=" + URL_Video;
+
+
+    // });
+
+
+
+
+    const [htmlConteudo, setHtmlConteudo] = useState('');
+    /*
+        useEffect(() => {
+    
+            setHtmlConteudo(
+                '<!DOCTYPE html> ' +
+    
+                '<head>' +
+                '<meta charset="utf-8">' +
+                '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />' +  //BLOQUEA O ZOOM DO CONTAINER DO VÍDEO
+    
+                '</head>' +
+                'EDERSON FELICIANO CORSATTO' +
+                '<body style="background-color: black;" >' +
+                // '<body style="background-color: blue; text-align:center; vertical-align:middle;" >' +
+                ' <video controls autoplay  width="100%" height="100% >' +
+    
+                // '    <source  id="tela_video" src="http://192.168.0.107:3000/reproducao?url_caminho="' + URL_Video+ '" type="video/mp4"   />' +
+                '    <source  id="tela_video" src="http://192.168.0.107:3000/video_stream?url_caminho="' + URL_Video + '" type="video/mp4"   />' +
+    
+                '  Your browser does not support the <code>video</code> element.' +
+                ' </video>' +
+                '</body>' +
+                '</html>'
+            );
+    
+        }, [posicao]);
+    */
+
+
+    function extrair_nome_de_Arquivo_da_url(Caminho) {
+        //Caminho 	= Caminho.replace(/\/g, "/");
+        Caminho = Caminho.replace("/\/g", "/");
+        var Arquivo = Caminho.substring(Caminho.lastIndexOf('/') + 1);
+        var Extensao = Arquivo.substring(Arquivo.lastIndexOf('.') + 1);
+        return { arquivo: Arquivo, extensao: Extensao };
+    }
 
 
     return (
 
-        <View>
+        renderDaTela ? <View>
 
             <ScreenOrientation orientation={posicaoPaisagem} />
-            {/* https://github.com/react-native-video/react-native-video#android-installation */}
-            <Video
-                onEnd={onEnd}
-                onLoad={onLoad}
-                onLoadStart={onLoadStart}
-                posterResizeMode={'cover'}
-                onProgress={onProgress}
-                paused={paused}
-                ref={(ref) => (videoPlayer.current = ref)}
-                resizeMode={'cover'}
-                source={{ uri: URL_Video }}
-                style={styles.backgroundVideo}
 
 
-                // progressUpdateInterval={250}//#2#
 
-                // maxBitRate={5000}
+            {/* <View style={{
+                height: '100%', width: '100%', borderWidth: 0, borderColor: 'yellow', borderTopLeftRadius: 0, backgroundColor: 'rgba(0,0,0,0.5)'
+                , justifyContent: 'center'
+                // ,alignItems: 'center'
+                // ,paddingTop:paddinDoVideo
+            }}>
 
-                // onBuffer={this.onBuffer}//#2#   
-                onBuffer={onBuffer}//#2#   
+                <WebView style={{ flex: 1, height: '100%', width: '100%', alignContent: 'center', justifyContent: 'center' }}
+
+                    bounces={false}
+                    showsHorizontalScrollIndicator={false}
+                    showsVerticalScrollIndicator={false}
+                    // originWhitelist={['*']}
+
+                    source={{
+
+                        // uri: "http://192.168.0.107:3000/reproducao?url_caminho=" + URL_Video  // => SOLICITA PAGINA HTML DO SERVIDOR COMO INTERMEDIÁRIO
+                        uri: "http://192.168.0.107:3000/video?url_caminho=" + URL_Video
+                        // uri: "https://gadoapp.online/video?url_caminho="+URL_Video
+                        , headers: {
+                            // 'url_caminho': URL_Video,
+                            'Range': `bytes=0-1024/*`,
+                            'Accept-Ranges': 'bytes',
+                            'Content-Type': 'video/mp4',
+                          },
+                    }}
+                    javaScriptEnabled={true}
+                    domStorageEnabled={true}
+                    style={{ marginTop: 0 }}
+                />
+
+            </View> */}
 
 
-            />
+
+            {/*
+/******************************************************************************************************
+/******************************************************************************************************
+*/}
 
 
-            <MediaControls
-                isFullScreen={false}
-                duration={duration}
-                isLoading={isLoading}
-                progress={currentTime}
-                onPaused={onPaused}
-                onReplay={onReplay}
-                onSeek={onSeek}
-                onSeeking={onSeeking}
-                mainColor={"red"}
-                playerState={playerState}
-                sliderStyle={{ containerStyle: {}, thumbStyle: {}, trackStyle: {} }}
-            />
+
+            {/* QUARTO COMPONENTE SENDO IMPLEMENTADO E TESTE ABAIXO */}
+            <View style={{
+                height: '100%', width: '100%', borderWidth: 0, borderColor: 'yellow', borderTopLeftRadius: 0, backgroundColor: 'rgba(0,0,0,0.5)'
+                , justifyContent: 'center'
+                // ,alignItems: 'center'
+                // ,paddingTop:paddinDoVideo
+            }}>
+
+                {/* https://exoplayer.dev/troubleshooting.html */}
+
+                {url_remota_url_boolean_stado ?
+
+                    <VideoPlayer
+                        source={{
+                            // uri: "https://gadoapp.online/video?url_caminho=" + URL_Video
+                            uri: VARIAVEL_GLOBAL.NUMERO_IP + "video?url_caminho=" + URL_Video
+
+
+
+                            // uri: "http://192.168.0.107:3000/video?url_caminho=" + URL_Video
+                            // , headers: {
+                            //     'Range': `bytes=0-`,
+                            //     'Accept-Ranges': 'bytes',
+                            //     'Content-Type': 'video/mp4',
+                            // },
+                        }}
+                        // tapAnywhereToPause={false}
+                        // toggleResizeModeOnFullscreen={false}
+                        // isFullScreen={false}
+                        // // thumbnail={imageUrl}
+                        // disableBack={true}
+                        // disableVolume={true}
+                        // controlTimeout={5000}
+                        // // paused={this.state.paused}
+
+                        seekColor={'#576CEC'}
+                        onError={err => console.log("ERRO AQUI REMOTO => " + JSON.stringify(err))}
+
+                        style={ESTILO.video} />
+
+                    :
+
+                    <VideoPlayer
+                        source={{ uri: URL_Video }}
+                        // tapAnywhereToPause={false}
+                        // toggleResizeModeOnFullscreen={false}
+                        // isFullScreen={false}
+                        // // thumbnail={imageUrl}
+                        // disableBack={true}
+                        // disableVolume={true}
+                        // controlTimeout={5000}
+                        // // paused={this.state.paused}
+
+                        seekColor={'#576CEC'}
+                        onError={err => console.log("ERRO AQUI LOCAL => " + JSON.stringify(err))}
+
+                        style={ESTILO.video} />
+                }
+
+            </View>
+            {/*  QUARTO COMPONENTE SENDO IMPLEMENTADO E TESTE ACIMA */}
+
+
+
+
+
+
 
 
             <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 50, backgroundColor: 'rgba(0,0,0,0.5)', borderWidth: 0, borderColor: 'yellow', position: 'absolute' }} >
@@ -255,7 +334,7 @@ const NavegarVideos = (props) => {//#1#
 
 
                 <View style={{ flexDirection: 'row', width: '20%', justifyContent: 'center' }}>
-                    <Text style={{ height: 50, marginLeft: 5, fontSize: 15, color: 'white', borderWidth: 0, borderColor: 'yellow', textAlignVertical: 'center' }} >{currentTime}</Text>
+                    {/* <Text style={{ height: 50, marginLeft: 5, fontSize: 15, color: 'white', borderWidth: 0, borderColor: 'yellow', textAlignVertical: 'center' }} >{currentTime}</Text> */}
                 </View>
 
 
@@ -277,10 +356,15 @@ const NavegarVideos = (props) => {//#1#
             </TouchableOpacity>
 
 
-        </View>
+        </View >
+
+            : []
 
     );
+
+
 };
+
 
 const styles = StyleSheet.create({
     backgroundVideo: {
@@ -294,5 +378,28 @@ const styles = StyleSheet.create({
     },
 });
 
-// export default VideoPlayer;
+
+const ESTILO = StyleSheet.create({
+
+    videoContainer: {
+        flex: 1,
+        height: '100%',
+        width: '100%',
+        backgroundColor: 'black',
+    },
+    video: {
+        // position: 'absolute',
+        top: 0,
+        bottom: 0,
+        left: 0,
+        right: 0,
+
+        height: '100%',
+        width: '100%',
+    },
+
+});
+
+
+
 export default NavegarVideos;

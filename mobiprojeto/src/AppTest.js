@@ -58,8 +58,6 @@ import Waiting from './components/Waiting';
 import TermosDeUso from './components/TERMOS_DE_USO';
 
 
-
-
 // import TelaWeb from './components/arquivosHtml/TelaWeb';
 // import TelaSplash from './components/TelaSplash';
 
@@ -78,26 +76,18 @@ import { ProcessingManager } from 'react-native-video-processing';
 
 //VARIAVÉIS GLOBAIS ABAIXO
 
-//NO SERVIDOR REMOTO DIGITALOCEAN
-// var IP_DO_SERVIDOR    = "http://159.89.87.76:3000/";
-// var IP_DO_SERVIDOR_IO = "http://159.89.87.76:3001/";
-
-
-
-//NO SERVIDOR DO MEU NOTEBOOK CASA DA MÃE  ABAIXO
-var IP_DO_SERVIDOR    = "https://gadoapp.online/";
-var IP_DO_SERVIDOR_IO = "http://gadoapp.online:3001";
-
-
-// var IP_DO_SERVIDOR    = "http://192.168.0.107:3000/";
-// var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3001/";
+// // NO SERVIDOR REMOTO DIGITALOCEAN
+//  //NO SERVIDOR DO MEU NOTEBOOK CASA DA MÃE  ABAIXO
+// var IP_DO_SERVIDOR    = "https://gadoapp.online/";
+// var IP_DO_SERVIDOR_IO = "https://gadoapp.online/";
 
 
 
 
-//NO SERVIDOR REMOTO HEROKU ABAIXO
-// var IP_DO_SERVIDOR    = "https://gado-app-back-end.herokuapp.com/";
-// var IP_DO_SERVIDOR_IO = "https://gado-app-back-end.herokuapp.com/";
+var IP_DO_SERVIDOR    = "http://192.168.0.107:3000/";
+var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3000/";
+
+
 
 
 
@@ -286,6 +276,8 @@ var array_publicacoes_expiradas = [];
 
 export default function AppTest() {
 
+  const [renderDaTela, setRenderDaTela] = useState(true);
+
   const [waitingVisible, setWaitingisible] = useState(false);
 
   const [termoDeUsoVisible, setTermoDeUsoVisible] = useState(false);
@@ -309,12 +301,15 @@ export default function AppTest() {
     */
   }
 
+
   useEffect(() => {
 
     pegar_ip();
 
     //use effect cleanup to set flag false, if unmounted
     return () => { isMounted = false };
+
+
 
   }, []);
 
@@ -494,8 +489,19 @@ export default function AppTest() {
       //BLOCO DE METODOS DOS OUVINTES QUE BUSCA INFORMAÇÃO NO BANCO DE DADOS SEJA OFF-LINE ou ON-LINE ABAIXO
       if (filtro_ativado_sim_ou_nao === false) {
 
+        // console.log( VARIAVEL_GLOBAL.CONTADOR_GLOBAL );
+
         // if (contador_iii === 10) {
         if (VARIAVEL_GLOBAL.CONTADOR_GLOBAL === 60) {
+
+
+          //
+          const hoje = new Date();
+          // console.log(hoje.getSeconds());
+
+          console.log("CHAMANDO DE TEMPO EM TEMPO 17 08 2021");
+
+
           VARIAVEL_GLOBAL.CONTADOR_GLOBAL = 0;
 
           clearInterval(VARIAVEL_DA_FUNCAO_TIMER);//IBLOQUEAR O PROCESSO COM TIMER clearInterval
@@ -533,7 +539,7 @@ export default function AppTest() {
           async function VERIFICANDO_ESTATUS_DE_CONEXAO_COM_SERVIDOR() {
             try {
               const response = await fetchWithTimeout(CONEXAO, {
-                timeout: 5000,
+                timeout: 50000,
                 headers: {
                   'Cache-Control': 'no-cache, no-store, must-revalidate',
                   'Pragma': 'no-cache',
@@ -572,8 +578,6 @@ export default function AppTest() {
 
               /***********TAREFAZ AQUI ACIMA******************** */
 
-
-
             } catch (error) {
               // Timeouts if the request takes
               // longer than 6 seconds
@@ -584,68 +588,16 @@ export default function AppTest() {
             }
           }
 
-
           await VERIFICANDO_ESTATUS_DE_CONEXAO_COM_SERVIDOR();
 
           // console.log(hora_e_segundo_completo())
-
           // ////PROMISSE PARA VERIFICAR CONEXÃO COM SERVIDOR ACIMA       TENTATIVA NUMERO 1 ACIMA
-
-
-
-
-
-
-
-
-          // // //PROMISSE PARA VERIFICAR CONEXÃO COM SERVIDOR ABAIXO    TENTATIVA NUMERO 2 ABAIXO  
-
-          // console.log(hora_e_segundo_completo())
-
-
-          // const CONEXAO = IP_DO_SERVIDOR + 'ping_no_servidor';
-
-          // // loadProducts = async () => {
-          // async function VERIFICANDO_ESTATUS_DE_CONEXAO_COM_SERVIDOR() {
-          //   try {
-          //     const response = await Axios.get(CONEXAO);
-
-          //     var RESPOSTA = await response.data;
-
-          //     // console.log(RESPOSTA);
-          //     console.log("ON-LINE !");
-
-          //   } catch (err) {
-          //     // TODO
-          //     // adicionar tratamento da exceção
-          //     // console.error(err);
-          //     console.log("OFF-LINE !");
-          //   }
-          // };
-
-
-          // await VERIFICANDO_ESTATUS_DE_CONEXAO_COM_SERVIDOR();
-
-          // console.log(hora_e_segundo_completo())
-
-          // // //PROMISSE PARA VERIFICAR CONEXÃO COM SERVIDOR ACIMA     TENTATIVA NUMERO 2 ACIMA
-
-
-
-          // //PROMISSE PARA VERIFICAR CONEXÃO COM SERVIDOR ABAIXO   TENTATIVA NUMERO 3 ABAIXO  
-
-          // var RETORNNO = await isAvailable();
-          // console.log(RETORNNO);
-
-          // ////PROMISSE PARA VERIFICAR CONEXÃO COM SERVIDOR ACIMA       TENTATIVA NUMERO 3 ACIMA
-
-
-
-
           //Desbloqueando o timer aqui com comando na linha abaixo
           VARIAVEL_DA_FUNCAO_TIMER = setInterval(contagem_tempo, 1000);//INCIAR NOVAMENTE O PROCESSO COM TIMER setInterval
 
-        }//Condição de Bloqueio
+
+
+        }//Condição de Bloqueio  =>  if (VARIAVEL_GLOBAL.CONTADOR_GLOBAL === 60) {
 
         // setImprimirContadorTemporizador(contador_iii++);//OBSERVER 2
         VARIAVEL_GLOBAL.BUSCAR_POSTAGENS = "NAO"
@@ -656,7 +608,6 @@ export default function AppTest() {
       VARIAVEL_GLOBAL.CONTADOR_GLOBAL++;
 
       // console.log(VARIAVEL_GLOBAL.CONTADOR_GLOBAL)
-
 
 
     }, 1000);//function final do timer
@@ -1203,74 +1154,77 @@ export default function AppTest() {
       /***************************************************************************************/
       /***************************************************************************************/
 
-    
-      //TENTANDO COMPACTAR VIDEOS SE HOUVER ANTES DO UPLOAD ABAIXO
-      let datos = await AsyncStorage.getItem('POSTAGEM');
-      //alert(datos);
-      // console.log(datos);
-      let obj_JSON = JSON.parse(datos);//ARRAY DE OBJETOS
-      // console.log(obj_JSON.length);
 
-     
-
-      // console.log(obj_JSON[1].URL_VIDEOS_DADOS_J); return 0;
-
-      if (VARIAVEL_GLOBAL.COMPACTACAO_DE_VIDEO_ESTADO === true && obj_JSON.length > 0) {
-
-        console.log("ANTES DA PROMISE");
-        VARIAVEL_GLOBAL.COMPACTACAO_DE_VIDEO_ESTADO = false;
-
-        let URL_VIDEOS_DADOS_J;
-        for (let z = 0; z < obj_JSON.length; z++) {
-          URL_VIDEOS_DADOS_J = obj_JSON[z].URL_VIDEOS_DADOS_J;
-
-          var ARRAY_VIDEOS = URL_VIDEOS_DADOS_J.split("|");
-          ARRAY_VIDEOS = await REMOVER_ITENS_NULOS_DO_ARRAY(ARRAY_VIDEOS);
-
-          // console.log(ARRAY_VIDEOS); return 0;
-
-          /***TODO O PROCESSO AQUI ABAIXO****/
-          await Promise.all(ARRAY_VIDEOS.map(async (item, i) => {
-            //MUDA O LINK AQUI ABAIXO
-
-            const { path } = await compressVideo(ARRAY_VIDEOS[i]);
-            ARRAY_VIDEOS[i] = path;
-
-            // const { path } = await fazerAlteracoesEmNomes();
-            // ARRAY_VIDEOS[i] =  'file:///data/user/12/'+path;
-            //MUDA O LINK AQUI ACIMA
-
-            //CONCATENA ABAIXO
-            if (i > 0) {
-              ARRAY_VIDEOS[i] = ARRAY_VIDEOS[i - 1] + "|" + ARRAY_VIDEOS[i];
-              ARRAY_VIDEOS.splice(0, 1);
-            }//if
-
-          })); //map
-
-          // console.log(ARRAY_VIDEOS + "|");
-          obj_JSON[z].URL_VIDEOS_DADOS_J = ARRAY_VIDEOS + "|";
-          // console.log( obj_JSON[z].URL_VIDEOS_DADOS_J );
-
-        }//for z
-
-        console.log("DEPOIS DA => PROMISE");
-
-
-        //CASO FOR UM SUCESSO 
-        // await AsyncStorage.setItem('POSTAGEM_DE_SEGURANCA', JSON.stringify(obj_JSON));
-        await AsyncStorage.setItem('POSTAGEM_DE_SEGURANCA', datos);
-
-        await AsyncStorage.removeItem('POSTAGEM');
-
-        await AsyncStorage.setItem('POSTAGEM', JSON.stringify(obj_JSON));
-
-        // console.log(JSON.stringify(obj_JSON));
-        // console.log(obj_JSON[0].URL_VIDEOS_DADOS_J);
+      // //TENTANDO COMPACTAR VIDEOS SE HOUVER ANTES DO UPLOAD ABAIXO
+      // let datos = await AsyncStorage.getItem('POSTAGEM');
+      // //alert(datos);
+      // // console.log(datos);
+      // let obj_JSON = JSON.parse(datos);//ARRAY DE OBJETOS
+      // // console.log(obj_JSON.length);
 
 
 
-      }// if(VARIAVEL_GLOBAL.COMPACTACAO_DE_VIDEO_ESTADO === true){
+      // // console.log(obj_JSON[1].URL_VIDEOS_DADOS_J); return 0;
+
+      // if (VARIAVEL_GLOBAL.COMPACTACAO_DE_VIDEO_ESTADO === true && obj_JSON.length > 0) {
+
+      //   console.log("ANTES DA PROMISE");
+      //   VARIAVEL_GLOBAL.COMPACTACAO_DE_VIDEO_ESTADO = false;
+
+      //   let URL_VIDEOS_DADOS_J;
+      //   for (let z = 0; z < obj_JSON.length; z++) {
+      //     URL_VIDEOS_DADOS_J = obj_JSON[z].URL_VIDEOS_DADOS_J;
+
+      //     var ARRAY_VIDEOS = URL_VIDEOS_DADOS_J.split("|");
+      //     ARRAY_VIDEOS = await REMOVER_ITENS_NULOS_DO_ARRAY(ARRAY_VIDEOS);
+
+      //     // console.log(ARRAY_VIDEOS); return 0;
+
+      //     /***TODO O PROCESSO AQUI ABAIXO****/
+      //     await Promise.all(ARRAY_VIDEOS.map(async (item, i) => {
+      //       //MUDA O LINK AQUI ABAIXO
+
+      //       const { path } = await compressVideo(ARRAY_VIDEOS[i]);
+      //       ARRAY_VIDEOS[i] = path;
+
+      //       // const { path } = await fazerAlteracoesEmNomes();
+      //       // ARRAY_VIDEOS[i] =  'file:///data/user/12/'+path;
+      //       //MUDA O LINK AQUI ACIMA
+
+      //       //CONCATENA ABAIXO
+      //       if (i > 0) {
+      //         ARRAY_VIDEOS[i] = ARRAY_VIDEOS[i - 1] + "|" + ARRAY_VIDEOS[i];
+      //         ARRAY_VIDEOS.splice(0, 1);
+      //       }//if
+
+      //     })); //map
+
+      //     // console.log(ARRAY_VIDEOS + "|");
+      //     obj_JSON[z].URL_VIDEOS_DADOS_J = ARRAY_VIDEOS + "|";
+      //     // console.log( obj_JSON[z].URL_VIDEOS_DADOS_J );
+
+      //   }//for z
+      //   console.log("DEPOIS DA => PROMISE");
+
+
+
+      //   //CASO FOR UM SUCESSO 
+      //   // await AsyncStorage.setItem('POSTAGEM_DE_SEGURANCA', JSON.stringify(obj_JSON));
+      //   await AsyncStorage.setItem('POSTAGEM_DE_SEGURANCA', datos);
+
+      //   await AsyncStorage.removeItem('POSTAGEM');
+
+      //   await AsyncStorage.setItem('POSTAGEM', JSON.stringify(obj_JSON));
+
+      //   // console.log(JSON.stringify(obj_JSON));
+      //   // console.log(obj_JSON[0].URL_VIDEOS_DADOS_J);
+
+
+
+      // }// if(VARIAVEL_GLOBAL.COMPACTACAO_DE_VIDEO_ESTADO === true){
+
+
+
 
       VARIAVEL_GLOBAL.COMPACTACAO_DE_VIDEO_ESTADO = false;
       /***TODO O PROCESSO AQUI ACIMA****/
@@ -1286,7 +1240,8 @@ export default function AppTest() {
 
       // return 0;
       await INSERINDO_NO_BANCO_DE_DADOS_POSTAGENS_OFF_LINE();
-      //VARIAVEL_GLOBAL.CONTADOR_GLOBAL = 55;
+
+      // VARIAVEL_GLOBAL.CONTADOR_GLOBAL = 55;
 
 
     } catch (error) { alert(error) }
@@ -1377,11 +1332,17 @@ export default function AppTest() {
           //ENVIANDO VIDEOS PRO SERVIDOR REMOTO ABAIXO
           ARRAY_VIDEOS.map(async (video, index) => {
 
+
+
             var nome_do_arquivo = (extrair_nome_de_Arquivo_da_url(ARRAY_VIDEOS[index]).arquivo);
 
+
+            // await  NORMALIZANDO_VIDEOS_MP4(ARRAY_VIDEOS[index], nome_do_arquivo);//ATIVAR DEPOIS
+
+
             //COMANDOS DAQUI PRA BAIXO
-            //CHAMANDO O METODO DE ENVIO DE IMAGENS PRO SERVIDOR
-            UPLOAD_PRO_SERVIDOR(nome_do_arquivo, ARRAY_VIDEOS[index]);
+            //CHAMANDO O METODO DE ENVIO DE VIDEOS PRO SERVIDOR
+            UPLOAD_VIDEOS_PRO_SERVIDOR(nome_do_arquivo, ARRAY_VIDEOS[index]);
 
             //COMANDOS DAQUI PRACIMA
           });//MAP
@@ -1406,15 +1367,16 @@ export default function AppTest() {
 
           if ((await retorno.data.status.toString()) === "sucesso") {
 
-   
-            await AsyncStorage.removeItem('POSTAGEM_DE_SEGURANCA');
+
+            // await AsyncStorage.removeItem('POSTAGEM_DE_SEGURANCA'); // ATIVAR DEPOIS
+            await AsyncStorage.removeItem('POSTAGEM'); // DESATIVAR DEPOIS
 
 
           } else if ((await retorno.data.status.toString()) === "falha") {
 
-            const dados_postagem_de_seguranca = await AsyncStorage.getItem('POSTAGEM_DE_SEGURANCA');
-            await AsyncStorage.setItem('POSTAGEM', dados_postagem_de_seguranca);
-            //await AsyncStorage.setItem('POSTAGEM_DE_SEGURANCA', JSON.stringify(obj_JSON));
+            // const dados_postagem_de_seguranca = await AsyncStorage.getItem('POSTAGEM_DE_SEGURANCA');  // ATIVAR DEPOIS
+            // await AsyncStorage.setItem('POSTAGEM', dados_postagem_de_seguranca);  //ATIVAR DEPOIS
+
 
           }
 
@@ -1492,6 +1454,63 @@ export default function AppTest() {
 
 
     } catch (error) { /*alert(error)*/ }
+  }
+  //ESTÁ FUNCIONANDO PERFEITAMENTE ACIMA
+
+
+
+
+
+
+  //TENTANDO NORMALIZAR VIDEOS MP4 ABAIXO
+  function NORMALIZANDO_VIDEOS_MP4(URL_VIDEO, NOME_VIDEO) {
+
+    MovToMp4.convertMovToMp4(URL_VIDEO, NOME_VIDEO)
+      // MovToMp4.convertMovToMp4(data.path, filename + ".mp4")
+      .then(function (results) {
+        //here you can upload the video...
+        console.log(results);
+      });
+  }
+  //TENTANDO NORMALIZAR VIDEOS MP4 ACIMA
+
+
+
+
+
+
+  //ESTÁ FUNCIONANDO PERFEITAMENTE ABAIXO
+  async function UPLOAD_VIDEOS_PRO_SERVIDOR(nome_do_arquivo, URL_PATH) {
+
+    const CONEXAO = IP_DO_SERVIDOR + 'posts';
+    //alert(CONEXAO);  
+
+    try {
+      //console.log(nome_do_arquivo);
+      //console.log(URL_PATH);
+      const data = new FormData();
+      data.append('file', {
+        uri: URL_PATH,
+        name: nome_do_arquivo,
+        type: 'video/mp4'
+      }
+      );
+
+      //await Axios.post('http://192.168.0.102:3000/posts', data
+      await Axios.post(CONEXAO, data
+        //await Axios.post('http://localhost:3000/posts', data,
+
+        , {
+          headers: {
+            'content-type': `multipart/form-data; boundary=${data._boundary}`,
+            //...data.getHeaders()
+          }
+        }
+        /**/
+      );
+
+
+    } catch (error) { /*alert(error)*/ console.log("ERRO UPLOAD VIDEOS => "+error);  }
   }
   //ESTÁ FUNCIONANDO PERFEITAMENTE ACIMA
 
@@ -2888,203 +2907,205 @@ export default function AppTest() {
 
   return (
 
-    <SafeAreaView style={[Estilo.App]}>
+    renderDaTela ?
 
-      <View style={{ height: 15 }} />
+      <SafeAreaView style={[Estilo.App]}>
 
-      {/* MUDANDO A ORIENTAÇÃO DA TELA PRA PAISAGEM ABAIXO colocar dentro da View principal que fica dentro do return */}
-      <ScreenOrientation
-        orientation={PORTRAIT}
-      // onChange={orientation => console.log('onChange', orientation)}
-      // onDeviceChange={orientation => console.log('onDeviceChange', orientation)}
-      />
+        <View style={{ height: 15 }} />
 
-      <View style={{ borderWidth: 0, borderColor: 'pink', height: 'auto' }} >
+        {/* MUDANDO A ORIENTAÇÃO DA TELA PRA PAISAGEM ABAIXO colocar dentro da View principal que fica dentro do return */}
+        <ScreenOrientation
+          orientation={PORTRAIT}
+        // onChange={orientation => console.log('onChange', orientation)}
+        // onDeviceChange={orientation => console.log('onDeviceChange', orientation)}
+        />
 
-        {/* MUDANDO A ORIENTAÇÃO DA TELA PRA PAISAGEM ACIMA colocar dentro da View principal que fica dentro do return  */}
+        <View style={{ borderWidth: 0, borderColor: 'pink', height: 'auto' }} >
 
-        {/* PAINEL DE MENU ABAIXO*/}
-        <View style={{ height: 50, paddingHorizontal: '5%', border: 0 }}>
+          {/* MUDANDO A ORIENTAÇÃO DA TELA PRA PAISAGEM ACIMA colocar dentro da View principal que fica dentro do return  */}
 
-          <View style={{ height: 60, borderBottomWidth: 1, borderBottomColor: '#fff' }} >
+          {/* PAINEL DE MENU ABAIXO*/}
+          <View style={{ height: 50, paddingHorizontal: '5%', border: 0 }}>
 
-            <View style={{ flex: 1, flexDirection: 'row', height: 30, borderWidth: 0, borderColor: 'red', padding: 1 }}>
+            <View style={{ height: 60, borderBottomWidth: 1, borderBottomColor: '#fff' }} >
 
-              <TouchableOpacity style={[Estilo.borda_geral, style = { width: '25%', borderWidth: 0, alignItems: 'center' }]}
-                onPress={() => {
+              <View style={{ flex: 1, flexDirection: 'row', height: 30, borderWidth: 0, borderColor: 'red', padding: 1 }}>
 
-
-                  if (VARIAVEL_GLOBAL.LICENCA_USO.toString() === "liberado" || VARIAVEL_GLOBAL.TELEFONE === "SEM_TELEFONE_USUARIO") {
-
-                    setExibeMenu(oldState => !oldState);
-
-                  } else if (VARIAVEL_GLOBAL.LICENCA_USO.toString() === "bloqueado") {
-
-                    setLicencaExpiradaFalseOrTrue(true);
-                  }
-
-
-                }}
-              >
-                {exibeMenu
-                  ? <Icon name='bars'
-                    /* onPress={() =>  setExibeMenu(oldState => !oldState)} */
-                    style={[Estilo.icones_grande, style = { color: '#25E7DB' }]}
-                  />
-                  : <Icon name='bars'
-                    /* onPress={() =>  setExibeMenu(oldState => !oldState)} */
-                    style={[Estilo.icones_grande]}
-                  />
-                }
-                <Text style={{ fontSize: 10, color: 'white' }}>Menu</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={[Estilo.borda_geral, style = { width: '25%', alignItems: 'center' }]}
-
-                onPress={() => {
-
-                  //MOSTRAR_POSTAGENS();
-                  //PEGAR_TODAS_CHAVES_DO_ASYNC_STORAGE();
-                  // alert("<HTML><CENTER>Acordo de Compra e Venda Aceita ! \n Entre em Contato com o Comprador !</HTML>");
-                  navigation.navigate("TelaPrincipal", null);
-                  // console.log("ALTURA DA TELA DO APP => " + ALTURA_DA_TELA);
-
-                }}
-
-              >
-                <Icon name='home' style={[Estilo.icones_grande]} />
-                <Text style={{ fontSize: 10, color: 'white' }}>Home</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={[Estilo.borda_geral, style = { width: '25%', alignItems: 'center', borderWidth: 0 }]}
-
-                onPress={() => {
-
-                  const LARTITUDE = userPosition.latitude;
-                  const LORNGITUDE = userPosition.longitude;
-                  VARIAVEL_GLOBAL.LATITUDE = userPosition.latitude;
-                  VARIAVEL_GLOBAL.LONGITUDE = userPosition.longitude;
-
-                  //alert(userPosition.latitude+"   |    "+ userPosition.longitude);
-                  //navigation.navigate("MAPA");
-                  navigation.navigate("MapaGoogle", { LARTITUDE, LORNGITUDE });
-
-                  // alert(
-                  //   array_propostas_recentes_recebidas.length + "  <= recebidas  " +
-                  //   array_propostas_recentes_enviadas.length + "   <= enviadas  " +
-                  //   array_propostas_recentes_aceitas.length + "    <= aceitas   " +
-                  //   array_venda_recentes_requisitadas.length + "    <= vendas requeridas   " +
-                  //   somatorio_notificacao_numero + " <= SOMATÓRIO TOTAL  "
-                  // )
-
-
-                }}
-              >
-                <Icon name='map-marker' style={[Estilo.icones_grande]} />
-                <Text style={{ fontSize: 10, color: 'white' }}>Mapa</Text>
-              </TouchableOpacity>
-
-              <TouchableOpacity style={[Estilo.borda_geral, style = { width: '25%', alignItems: 'center', borderWidth: 0 }]}
-                onPress={async () => {
-
-
-                  // await isAvailable();
-
-                  // if (VARIAVEL_GLOBAL.CONEXAO_DO_APP === "OFF-LINE") {
-
-                  //   alert("Erro de Conexão, Sem Internet !");
-
-                  // } else {   }
-
-                  if (VARIAVEL_GLOBAL.LICENCA_USO.toString() === "liberado" || VARIAVEL_GLOBAL.TELEFONE.toString() === "SEM_TELEFONE_USUARIO") {
-
-                    VARIAVEL_GLOBAL.TELA_ATUAL = "Postar";
-                    VARIAVEL_GLOBAL.TELA_ORIGEM = "Principal";
-                    VARIAVEL_GLOBAL.TELA_TERCEIRA = "nenhuma";
-
-                    VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length = 0;
-                    VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT.length = 0;
-
-                    //navigation.navigate("Postar",{URL})
-                    navigation.navigate("Postar", { URL_FOTOS, URL_VIDEOS, });
-
-                  } else if (VARIAVEL_GLOBAL.LICENCA_USO.toString() === "bloqueado") {
-
-                    setLicencaExpiradaFalseOrTrue(true);
-
-                  }
-
-                }}
-              >
-                <Icon name='plus-circle' style={[Estilo.icones_grande]} />
-                <Text style={{ fontSize: 10, color: 'white' }}>Postar</Text>
-
-              </TouchableOpacity>
-            </View>
-
-
-          </View>
-
-        </View>
-
-        {/* PAINEL DE MENU ACIMA */}
-
-        <View style={{ height: 10 }} ></View>
-
-        {/********************************************************************* */}
-
-        <View style={{ height: 5 }}></View>
-
-        {faixa_submenu_e_filtro ?
-
-          /*FAIXA ORANGE ABAIXO*/
-          <View style={{ height: 50, padding: 5, borderWidth: 0, borderColor: 'orange' }} >
-
-
-
-            <View style={{ flex: 1, flexDirection: 'row', height: 30 }}>
-
-              <View style={[Estilo.borda_geral, style = { borderWidth: 0, width: '30%', alignItems: 'flex-start', flexDirection: 'row' }]}  >
-
-
-                <TouchableOpacity style={{ width: '80%', height: 'auto', borderWidth: 0, justifyContent: 'flex-end', alignItems: 'center' }}
-
+                <TouchableOpacity style={[Estilo.borda_geral, style = { width: '25%', borderWidth: 0, alignItems: 'center' }]}
                   onPress={() => {
 
-                    if (!corIconeFiltro) {
 
-                      setExibeFiltroCategoria(true);
-                      filtro_ativado_sim_ou_nao = true;
+                    if (VARIAVEL_GLOBAL.LICENCA_USO.toString() === "liberado" || VARIAVEL_GLOBAL.TELEFONE === "SEM_TELEFONE_USUARIO") {
 
-                    } else {
+                      setExibeMenu(oldState => !oldState);
 
-                      CONECTANDO_AO_BANCO_DE_DADOS();
-                      ADICIONAR_PRODUTOS_por_ARRAY(true);
-                      filtro_ativado_sim_ou_nao = false;
+                    } else if (VARIAVEL_GLOBAL.LICENCA_USO.toString() === "bloqueado") {
 
+                      setLicencaExpiradaFalseOrTrue(true);
                     }
 
-                    setCorIconeFiltro(oldState => !oldState);
 
                   }}
                 >
-
-                  <View>
-                    {/* <Icon name='filter' nativeID='notificacao' style={[Estilo.icones_medio, style = { paddingRight: 10 }]} /> */}
-                    <Icon name='filter' nativeID='notificacao' style={[Estilo.icones_medio, style = { paddingRight: 10, color: corIconeFiltro ? "#25E7DB" : "white" }]} />
-                  </View>
-                  <Text style={{ fontSize: 10, color: corIconeFiltro ? "#25E7DB" : "white" }}>Filtrar Categorias</Text>
-
+                  {exibeMenu
+                    ? <Icon name='bars'
+                      /* onPress={() =>  setExibeMenu(oldState => !oldState)} */
+                      style={[Estilo.icones_grande, style = { color: '#25E7DB' }]}
+                    />
+                    : <Icon name='bars'
+                      /* onPress={() =>  setExibeMenu(oldState => !oldState)} */
+                      style={[Estilo.icones_grande]}
+                    />
+                  }
+                  <Text style={{ fontSize: 10, color: 'white' }}>Menu</Text>
                 </TouchableOpacity>
 
+                <TouchableOpacity style={[Estilo.borda_geral, style = { width: '25%', alignItems: 'center' }]}
 
+                  onPress={() => {
+
+                    //MOSTRAR_POSTAGENS();
+                    //PEGAR_TODAS_CHAVES_DO_ASYNC_STORAGE();
+                    // alert("<HTML><CENTER>Acordo de Compra e Venda Aceita ! \n Entre em Contato com o Comprador !</HTML>");
+                    navigation.navigate("TelaPrincipal", null);
+                    // console.log("ALTURA DA TELA DO APP => " + ALTURA_DA_TELA);
+
+                  }}
+
+                >
+                  <Icon name='home' style={[Estilo.icones_grande]} />
+                  <Text style={{ fontSize: 10, color: 'white' }}>Home</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={[Estilo.borda_geral, style = { width: '25%', alignItems: 'center', borderWidth: 0 }]}
+
+                  onPress={() => {
+
+                    const LARTITUDE = userPosition.latitude;
+                    const LORNGITUDE = userPosition.longitude;
+                    VARIAVEL_GLOBAL.LATITUDE = userPosition.latitude;
+                    VARIAVEL_GLOBAL.LONGITUDE = userPosition.longitude;
+
+                    //alert(userPosition.latitude+"   |    "+ userPosition.longitude);
+                    //navigation.navigate("MAPA");
+                    navigation.navigate("MapaGoogle", { LARTITUDE, LORNGITUDE });
+
+                    // alert(
+                    //   array_propostas_recentes_recebidas.length + "  <= recebidas  " +
+                    //   array_propostas_recentes_enviadas.length + "   <= enviadas  " +
+                    //   array_propostas_recentes_aceitas.length + "    <= aceitas   " +
+                    //   array_venda_recentes_requisitadas.length + "    <= vendas requeridas   " +
+                    //   somatorio_notificacao_numero + " <= SOMATÓRIO TOTAL  "
+                    // )
+
+
+                  }}
+                >
+                  <Icon name='map-marker' style={[Estilo.icones_grande]} />
+                  <Text style={{ fontSize: 10, color: 'white' }}>Mapa</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={[Estilo.borda_geral, style = { width: '25%', alignItems: 'center', borderWidth: 0 }]}
+                  onPress={async () => {
+
+
+                    // await isAvailable();
+
+                    // if (VARIAVEL_GLOBAL.CONEXAO_DO_APP === "OFF-LINE") {
+
+                    //   alert("Erro de Conexão, Sem Internet !");
+
+                    // } else {   }
+
+                    if (VARIAVEL_GLOBAL.LICENCA_USO.toString() === "liberado" || VARIAVEL_GLOBAL.TELEFONE.toString() === "SEM_TELEFONE_USUARIO") {
+
+                      VARIAVEL_GLOBAL.TELA_ATUAL = "Postar";
+                      VARIAVEL_GLOBAL.TELA_ORIGEM = "Principal";
+                      VARIAVEL_GLOBAL.TELA_TERCEIRA = "nenhuma";
+
+                      VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length = 0;
+                      VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT.length = 0;
+
+                      //navigation.navigate("Postar",{URL})
+                      navigation.navigate("Postar", { URL_FOTOS, URL_VIDEOS, });
+
+                    } else if (VARIAVEL_GLOBAL.LICENCA_USO.toString() === "bloqueado") {
+
+                      setLicencaExpiradaFalseOrTrue(true);
+
+                    }
+
+                  }}
+                >
+                  <Icon name='plus-circle' style={[Estilo.icones_grande]} />
+                  <Text style={{ fontSize: 10, color: 'white' }}>Postar</Text>
+
+                </TouchableOpacity>
               </View>
 
 
-              <View style={[Estilo.borda_geral, style = { flexDirection: 'row', width: '28%', alignItems: 'flex-start' }]}  >
+            </View>
 
-                {/* ABIAXO 2 muda_cor_checkado */}
-                {/* 
+          </View>
+
+          {/* PAINEL DE MENU ACIMA */}
+
+          <View style={{ height: 10 }} ></View>
+
+          {/********************************************************************* */}
+
+          <View style={{ height: 5 }}></View>
+
+          {faixa_submenu_e_filtro ?
+
+            /*FAIXA ORANGE ABAIXO*/
+            <View style={{ height: 50, padding: 5, borderWidth: 0, borderColor: 'orange' }} >
+
+
+
+              <View style={{ flex: 1, flexDirection: 'row', height: 30 }}>
+
+                <View style={[Estilo.borda_geral, style = { borderWidth: 0, width: '30%', alignItems: 'flex-start', flexDirection: 'row' }]}  >
+
+
+                  <TouchableOpacity style={{ width: '80%', height: 'auto', borderWidth: 0, justifyContent: 'flex-end', alignItems: 'center' }}
+
+                    onPress={() => {
+
+                      if (!corIconeFiltro) {
+
+                        setExibeFiltroCategoria(true);
+                        filtro_ativado_sim_ou_nao = true;
+
+                      } else {
+
+                        CONECTANDO_AO_BANCO_DE_DADOS();
+                        ADICIONAR_PRODUTOS_por_ARRAY(true);
+                        filtro_ativado_sim_ou_nao = false;
+
+                      }
+
+                      setCorIconeFiltro(oldState => !oldState);
+
+                    }}
+                  >
+
+                    <View>
+                      {/* <Icon name='filter' nativeID='notificacao' style={[Estilo.icones_medio, style = { paddingRight: 10 }]} /> */}
+                      <Icon name='filter' nativeID='notificacao' style={[Estilo.icones_medio, style = { paddingRight: 10, color: corIconeFiltro ? "#25E7DB" : "white" }]} />
+                    </View>
+                    <Text style={{ fontSize: 10, color: corIconeFiltro ? "#25E7DB" : "white" }}>Filtrar Categorias</Text>
+
+                  </TouchableOpacity>
+
+
+                </View>
+
+
+                <View style={[Estilo.borda_geral, style = { flexDirection: 'row', width: '28%', alignItems: 'flex-start' }]}  >
+
+                  {/* ABIAXO 2 muda_cor_checkado */}
+                  {/* 
               {muda_cor_checkado_femea
                 ? <Icon name='check'
                   style={[style = { color: '#25E7DB' }]}//#2A3E4A
@@ -3134,608 +3155,641 @@ export default function AppTest() {
               }
               // {/* ACIAMA 2 muda_cor_checkado */}
 
-                <TouchableOpacity style={{ width: 75, height: 'auto', borderWidth: 0, justifyContent: 'flex-end', alignItems: 'center' }}
-                  onPress={() => {
-
-                    // setLabelOuPesquisar(oldState => !oldState); 
-                    setLabelOuPesquisar(false);
-                    setFaixa_submenu_e_filtro(false);
-                    // alert("PESQUISAR POSTAGENS DE GADO ");
-                    setLargura_tela_notificacao(new Animated.Value(0));
-
-                  }}
-                >
-
-                  <View>
-                    <Icon name='search' nativeID='pesquisa' style={[Estilo.icones_medio, style = { paddingRight: 10 }]} />
-                  </View>
-                  <Text style={{ fontSize: 10, color: 'white' }}>Pesquisar</Text>
-
-                </TouchableOpacity>
-
-
-              </View>
-
-
-              <View style={[Estilo.borda_geral, Estilo.centralizar_horizontalmente, style = { borderWidth: 0, width: '42%', alignItems: 'flex-end' }]} >
-                {/*<Icon name='heart' style={[Estilo.icones_grande, Estilo.icones_clicado, Estilo.borda_geral]} />*/}
-
-
-                {/* COLOCANDO NUMERO ENCIMA DE UM ICONE  #25E7DB */}
-                <View style={{ width: 90, height: 'auto', borderWidth: 0, borderColor: 'green', justifyContent: 'center', alignItems: 'center' }}>
-                  <TouchableOpacity style={{ width: 80, height: 'auto', borderColor: 'red', borderWidth: 0, justifyContent: 'flex-start', alignItems: 'center' }}
+                  <TouchableOpacity style={{ width: 75, height: 'auto', borderWidth: 0, justifyContent: 'flex-end', alignItems: 'center' }}
                     onPress={() => {
-                      //alert(somatorio_notificacao_numero);
-                      if (somatorio_notificacao_numero == 0) {
-                        alert("Nenhuma Notificação !");
-                      } else {
-                        setLargura_tela_notificacao(new Animated.Value(0));
-                        setMenu_aviso_visivel_or_invisivel(true)
-                      }//else if
+
+                      // setLabelOuPesquisar(oldState => !oldState); 
+                      setLabelOuPesquisar(false);
+                      setFaixa_submenu_e_filtro(false);
+                      // alert("PESQUISAR POSTAGENS DE GADO ");
+                      setLargura_tela_notificacao(new Animated.Value(0));
 
                     }}
                   >
 
-                    {notificacao_visivel_true_false ?
-                      <View style={{ paddingLeft: 25, width: '100%', height: 'auto', borderWidth: 0, alignItems: 'center', position: 'absolute', zIndex: 10 }} >
-                        <Text style={{
-                          width: 20, height: 20, borderRadius: 50,
-                          color: 'white', fontWeight: "bold", fontSize: 10, backgroundColor: 'red',
-                          textAlign: 'center', justifyContent: 'center'
-                        }} >{somatorio_notificacao_numero}
-                        </Text>
-                      </View>
-                      : []
-                    }
-                    <View style={{ width: '100%', flexDirection: 'column', borderWidth: 0, alignItems: 'center' }} >
-                      <Icon name='bell' nativeID='notificacao' style={[Estilo.icones_medio, style = { paddingRight: 0, textAlign: 'center', borderWidth: 0, width: '100%' }]} />
-                      <Text style={{ fontSize: 10, color: 'white', textAlign: 'center', borderWidth: 0, width: '100%' }}>Notificação</Text>
+                    <View>
+                      <Icon name='search' nativeID='pesquisa' style={[Estilo.icones_medio, style = { paddingRight: 10 }]} />
                     </View>
-                  </TouchableOpacity>
-                </View>
+                    <Text style={{ fontSize: 10, color: 'white' }}>Pesquisar</Text>
 
-                <View style={{ width: 20 }} />
-
-                {/* CORAÇÃO ABAIXO*/}
-                <TouchableOpacity style={{ flexDirection: 'column', width: 'auto', height: 'auto', borderWidth: 0, alignItems: 'center' }} >
-                  <View style={{ width: 'auto', borderWidth: 0 }}>
-                    {muda_cor
-                      ? <Icon name='heart' nativeID='Favorito'
-                        style={[Estilo.icones_medio, Estilo.icones_clicado]}
-                        onPress={() => {
-                          setMuda_cor(oldState => !oldState)
-                          //MOSTRAR_NUMERO_CELULAR();
-                          //REMOVER_ITEM_DO_JSON();
-                          CONECTANDO_AO_BANCO_DE_DADOS();
-                          ADICIONAR_PRODUTOS_por_ARRAY(true);
-                          filtro_ativado_sim_ou_nao = false;
-                        }}
-                      />
-
-                      : <Icon name='heart' style={[Estilo.icones_medio]}
-                        onPress={() => {
-                          // setMuda_cor(oldState => !oldState)
-                          //MOSTRAR_NUMERO_CELULAR();
-                          //REMOVER_ITEM_DO_JSON();
-                          FILTRAR_MEUS_FAVORITOS();
-                          // filtro_ativado_sim_ou_nao = true;
-                        }}
-                      />
-                    }
-                  </View>
-                  <Text style={{ fontSize: 10, color: 'white' }}>Favorito</Text>
-                </TouchableOpacity>
-                {/* CORAÇÃO ACIMA */}
-
-              </View>
-
-            </View>
-
-
-
-          </View>
-          /*FAIXA ORANGE ACIMA*/
-
-          : /* Faixa Filtro SubMenu Abaixo */
-          <View style={{ flexDirection: 'row', width: '100%', height: 50, justifyContent: 'center', borderWidth: 0, borderColor: 'yellow' }}>
-
-            <TouchableOpacity style={{ width: '20%', alignItems: 'center', justifyContent: 'center', borderWidth: 0 }}
-              onPress={() => {
-
-                setBotoePropostas(false);
-
-                setFaixa_submenu_e_filtro(true);
-                CONECTANDO_AO_BANCO_DE_DADOS();
-                ADICIONAR_PRODUTOS_por_ARRAY(true);
-                filtro_ativado_sim_ou_nao = false;
-              }}
-            >
-              <Icon name='reply'
-                style={{ fontSize: 25, color: '#fff' }} />
-            </TouchableOpacity>
-
-            {botoePropostas ?
-              <Animated.View style={{ width: largura_tela_botoes /*'80%'*/, alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0 }}>
-
-                <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }} >
-
-                  <TouchableOpacity style={{ width: '30%', height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderRadius: 20, borderColor: botoePropostasRecebidas ? '#25E7DB' : 'white' }}
-
-                    onPress={() => {
-                      // alert("PROPOSTAS RECEBIDAS AQUI")
-
-                      var RETORNO_BOOLEAN = PROPOSTAS_RECEBIDAS_RECENTES(true, "menuTopo");
-
-                      if (RETORNO_BOOLEAN) {
-                        setbotoePropostasRecebidas(true);
-                        setbotoePropostasEnviadas(false);
-                        setbotoePropostasAceitas(false);
-
-                      }
-
-
-                    }}
-
-                  >
-                    <Text style={[Estilo.fontePequena, style = { alignItems: 'center', color: botoePropostasRecebidas ? '#25E7DB' : 'white', }]} >Recebidas</Text>
                   </TouchableOpacity>
 
-                  <TouchableOpacity style={{ width: '30%', height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderRadius: 20, borderColor: botoePropostasEnviadas ? '#25E7DB' : 'white' }}
-
-                    onPress={() => {
-                      // alert("PROPOSTAS ENVIADAS AQUI")
-                      var RETORNO_BOOLEAN = PROPOSTAS_RESPONDIDAS_RECENTES("menuTopo");
-
-                      if (RETORNO_BOOLEAN) {
-                        setbotoePropostasRecebidas(false);
-                        setbotoePropostasEnviadas(true);
-                        setbotoePropostasAceitas(false);
-
-                      }
-
-
-                    }}
-
-                  >
-                    <Text style={[Estilo.fontePequena, style = { alignItems: 'center', color: botoePropostasEnviadas ? '#25E7DB' : 'white' }]} >Enviadas</Text>
-                  </TouchableOpacity>
-
-                  <TouchableOpacity style={{ width: '30%', height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderRadius: 20, borderColor: botoePropostasAceitas ? '#25E7DB' : 'white' }}
-
-                    onPress={() => {
-                      // alert("PROPOSTAS ACEITAS AQUI")
-                      var RETORNO_BOOLEAN = PROPOSTAS_ACEITAS_RECENTES();
-
-                      // alert(RETORNO_BOOLEAN);
-                      if (RETORNO_BOOLEAN) {
-                        setbotoePropostasRecebidas(false);
-                        setbotoePropostasEnviadas(false);
-                        setbotoePropostasAceitas(true);
-                        setLargura_tela_notificacao(new Animated.Value(0));
-                      }
-
-                    }}
-
-                  >
-                    <Text style={[Estilo.fontePequena, style = { alignItems: 'center', color: botoePropostasAceitas ? '#25E7DB' : 'white' }]} >Aceitas</Text>
-                  </TouchableOpacity>
-
-                  <View style={{ width: '1%' }} />
 
                 </View>
 
 
-              </Animated.View>
-              :
-              <Animated.View style={{ alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0, width: largura_tela_notificacao /*'80%'*/ }}>
+                <View style={[Estilo.borda_geral, Estilo.centralizar_horizontalmente, style = { borderWidth: 0, width: '42%', alignItems: 'flex-end' }]} >
+                  {/*<Icon name='heart' style={[Estilo.icones_grande, Estilo.icones_clicado, Estilo.borda_geral]} />*/}
 
-                {/* LABEL DA NOTIFICACÃO ABAIXO */}
-                {labelOuPesquisar ?
 
-                  <Animated.View style={{ width: largura_tela_botoes/*'100%'*/, alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0 }}>
-                    <Text style={{ fontSize: 25, color: '#fff' }}>
-                      {texto_filtro_notificacao}
-                    </Text>
-                  </Animated.View>
-                  // {/* LABEL DA NOTIFICACÃO ACIMA */}
-                  :
-                  <View style={{ flexDirection: 'row', width: '98%', height: 'auto', alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0 }}>
-
-                    <TextInput style={{ width: '78%', height: 'auto', backgroundColor: 'white', borderRadius: 8 }} onChangeText={pesquisarGadoF} textAlign={'center'} placeholder={'Digite a Pesquisa'} />
-
-                    <TouchableOpacity style={{ width: '20%', height: '100%', alignItems: 'center', justifyContent: 'center', borderWidth: 0 }}
+                  {/* COLOCANDO NUMERO ENCIMA DE UM ICONE  #25E7DB */}
+                  <View style={{ width: 90, height: 'auto', borderWidth: 0, borderColor: 'green', justifyContent: 'center', alignItems: 'center' }}>
+                    <TouchableOpacity style={{ width: 80, height: 'auto', borderColor: 'red', borderWidth: 0, justifyContent: 'flex-start', alignItems: 'center' }}
                       onPress={() => {
-                        Keyboard.dismiss(); /*alert("DAPESQUISA " + pesquisarGado)*/ PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH(pesquisarGado);
+                        //alert(somatorio_notificacao_numero);
+                        if (somatorio_notificacao_numero == 0) {
+                          alert("Nenhuma Notificação !");
+                        } else {
+                          setLargura_tela_notificacao(new Animated.Value(0));
+                          setMenu_aviso_visivel_or_invisivel(true)
+                        }//else if
+
                       }}
                     >
-                      <Icon name='search' style={{ fontSize: 25, color: '#fff' }} />
+
+                      {notificacao_visivel_true_false ?
+                        <View style={{ paddingLeft: 25, width: '100%', height: 'auto', borderWidth: 0, alignItems: 'center', position: 'absolute', zIndex: 10 }} >
+                          <Text style={{
+                            width: 20, height: 20, borderRadius: 50,
+                            color: 'white', fontWeight: "bold", fontSize: 10, backgroundColor: 'red',
+                            textAlign: 'center', justifyContent: 'center'
+                          }} >{somatorio_notificacao_numero}
+                          </Text>
+                        </View>
+                        : []
+                      }
+                      <View style={{ width: '100%', flexDirection: 'column', borderWidth: 0, alignItems: 'center' }} >
+                        <Icon name='bell' nativeID='notificacao' style={[Estilo.icones_medio, style = { paddingRight: 0, textAlign: 'center', borderWidth: 0, width: '100%' }]} />
+                        <Text style={{ fontSize: 10, color: 'white', textAlign: 'center', borderWidth: 0, width: '100%' }}>Notificação</Text>
+                      </View>
+                    </TouchableOpacity>
+                  </View>
+
+                  <View style={{ width: 20 }} />
+
+                  {/* CORAÇÃO ABAIXO*/}
+                  <TouchableOpacity style={{ flexDirection: 'column', width: 'auto', height: 'auto', borderWidth: 0, alignItems: 'center' }} >
+                    <View style={{ width: 'auto', borderWidth: 0 }}>
+                      {muda_cor
+                        ? <Icon name='heart' nativeID='Favorito'
+                          style={[Estilo.icones_medio, Estilo.icones_clicado]}
+                          onPress={() => {
+                            setMuda_cor(oldState => !oldState)
+                            //MOSTRAR_NUMERO_CELULAR();
+                            //REMOVER_ITEM_DO_JSON();
+                            CONECTANDO_AO_BANCO_DE_DADOS();
+                            ADICIONAR_PRODUTOS_por_ARRAY(true);
+                            filtro_ativado_sim_ou_nao = false;
+                          }}
+                        />
+
+                        : <Icon name='heart' style={[Estilo.icones_medio]}
+                          onPress={() => {
+                            // setMuda_cor(oldState => !oldState)
+                            //MOSTRAR_NUMERO_CELULAR();
+                            //REMOVER_ITEM_DO_JSON();
+                            FILTRAR_MEUS_FAVORITOS();
+                            // filtro_ativado_sim_ou_nao = true;
+                          }}
+                        />
+                      }
+                    </View>
+                    <Text style={{ fontSize: 10, color: 'white' }}>Favorito</Text>
+                  </TouchableOpacity>
+                  {/* CORAÇÃO ACIMA */}
+
+                </View>
+
+              </View>
+
+
+
+            </View>
+            /*FAIXA ORANGE ACIMA*/
+
+            : /* Faixa Filtro SubMenu Abaixo */
+            <View style={{ flexDirection: 'row', width: '100%', height: 50, justifyContent: 'center', borderWidth: 0, borderColor: 'yellow' }}>
+
+              <TouchableOpacity style={{ width: '20%', alignItems: 'center', justifyContent: 'center', borderWidth: 0 }}
+                onPress={() => {
+
+                  setBotoePropostas(false);
+
+                  setFaixa_submenu_e_filtro(true);
+                  CONECTANDO_AO_BANCO_DE_DADOS();
+                  ADICIONAR_PRODUTOS_por_ARRAY(true);
+                  filtro_ativado_sim_ou_nao = false;
+                }}
+              >
+                <Icon name='reply'
+                  style={{ fontSize: 25, color: '#fff' }} />
+              </TouchableOpacity>
+
+              {botoePropostas ?
+                <Animated.View style={{ width: largura_tela_botoes /*'80%'*/, alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0 }}>
+
+                  <View style={{ flexDirection: 'row', width: '100%', justifyContent: 'space-between' }} >
+
+                    <TouchableOpacity style={{ width: '30%', height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderRadius: 20, borderColor: botoePropostasRecebidas ? '#25E7DB' : 'white' }}
+
+                      onPress={() => {
+                        // alert("PROPOSTAS RECEBIDAS AQUI")
+
+                        var RETORNO_BOOLEAN = PROPOSTAS_RECEBIDAS_RECENTES(true, "menuTopo");
+
+                        if (RETORNO_BOOLEAN) {
+                          setbotoePropostasRecebidas(true);
+                          setbotoePropostasEnviadas(false);
+                          setbotoePropostasAceitas(false);
+
+                        }
+
+
+                      }}
+
+                    >
+                      <Text style={[Estilo.fontePequena, style = { alignItems: 'center', color: botoePropostasRecebidas ? '#25E7DB' : 'white', }]} >Recebidas</Text>
                     </TouchableOpacity>
 
+                    <TouchableOpacity style={{ width: '30%', height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderRadius: 20, borderColor: botoePropostasEnviadas ? '#25E7DB' : 'white' }}
+
+                      onPress={() => {
+                        // alert("PROPOSTAS ENVIADAS AQUI")
+                        var RETORNO_BOOLEAN = PROPOSTAS_RESPONDIDAS_RECENTES("menuTopo");
+
+                        if (RETORNO_BOOLEAN) {
+                          setbotoePropostasRecebidas(false);
+                          setbotoePropostasEnviadas(true);
+                          setbotoePropostasAceitas(false);
+
+                        }
+
+
+                      }}
+
+                    >
+                      <Text style={[Estilo.fontePequena, style = { alignItems: 'center', color: botoePropostasEnviadas ? '#25E7DB' : 'white' }]} >Enviadas</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity style={{ width: '30%', height: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', borderWidth: 1, borderRadius: 20, borderColor: botoePropostasAceitas ? '#25E7DB' : 'white' }}
+
+                      onPress={() => {
+                        // alert("PROPOSTAS ACEITAS AQUI")
+                        var RETORNO_BOOLEAN = PROPOSTAS_ACEITAS_RECENTES();
+
+                        // alert(RETORNO_BOOLEAN);
+                        if (RETORNO_BOOLEAN) {
+                          setbotoePropostasRecebidas(false);
+                          setbotoePropostasEnviadas(false);
+                          setbotoePropostasAceitas(true);
+                          setLargura_tela_notificacao(new Animated.Value(0));
+                        }
+
+                      }}
+
+                    >
+                      <Text style={[Estilo.fontePequena, style = { alignItems: 'center', color: botoePropostasAceitas ? '#25E7DB' : 'white' }]} >Aceitas</Text>
+                    </TouchableOpacity>
+
+                    <View style={{ width: '1%' }} />
+
                   </View>
-                }{/*labelOuPesquisar*/}
 
-              </Animated.View>
 
+                </Animated.View>
+                :
+                <Animated.View style={{ alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0, width: largura_tela_notificacao /*'80%'*/ }}>
+
+                  {/* LABEL DA NOTIFICACÃO ABAIXO */}
+                  {labelOuPesquisar ?
+
+                    <Animated.View style={{ width: largura_tela_botoes/*'100%'*/, alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0 }}>
+                      <Text style={{ fontSize: 25, color: '#fff' }}>
+                        {texto_filtro_notificacao}
+                      </Text>
+                    </Animated.View>
+                    // {/* LABEL DA NOTIFICACÃO ACIMA */}
+                    :
+                    <View style={{ flexDirection: 'row', width: '98%', height: 'auto', alignItems: 'flex-start', justifyContent: 'center', borderWidth: 0 }}>
+
+                      <TextInput style={{ width: '78%', height: 'auto', backgroundColor: 'white', borderRadius: 8 }} onChangeText={pesquisarGadoF} textAlign={'center'} placeholder={'Digite a Pesquisa'} />
+
+                      <TouchableOpacity style={{ width: '20%', height: '100%', alignItems: 'center', justifyContent: 'center', borderWidth: 0 }}
+                        onPress={() => {
+
+                          Keyboard.dismiss();
+
+                          if (pesquisarGado === '1959@#$') {
+
+                            APAGAR_POSTAGEM('POSTAGEM');
+                            APAGAR_NUMERO_CELULAR('NUMERO_CELL');
+                            VARIAVEL_GLOBAL.TELEFONE = "SEM_TELEFONE_USUARIO";
+
+                          } else if (pesquisarGado === '1959@#') {
+
+                            APAGAR_POSTAGEM('POSTAGEM');
+
+                          } else if (pesquisarGado === '1959@') {
+
+                            APAGAR_NUMERO_CELULAR('NUMERO_CELL');
+                            VARIAVEL_GLOBAL.TELEFONE = "SEM_TELEFONE_USUARIO";
+
+                          } else {
+                            // alert("EXECUTAR PESQUISA!");
+                            /*alert("DAPESQUISA " + pesquisarGado)*/
+                            PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH(pesquisarGado);
+
+                          }
+
+                        }}
+                      >
+                        <Icon name='search' style={{ fontSize: 25, color: '#fff' }} />
+                      </TouchableOpacity>
+
+                    </View>
+                  }{/*labelOuPesquisar*/}
+
+                </Animated.View>
+
+              }
+
+            </View>
+          }
+          {/* Faixa Filtro SubMenu Acima */}
+
+          <View style={[Estilo.div_view_3, Estilo.borda_geral]}>
+
+            <View style={[Estilo.div_view_linha]}></View>
+
+
+            {
+
+              /*
+              <Icon name='chevron-down' style={[Estilo.icones_medio, Estilo.icones_clicado, style = { paddingTop: 10 }]}
+                onPress={() => {
+                  setExibe(oldState => !oldState);
+                  setExibe_suas_postagens(oldState => !oldState);
+   
+                }
+                }
+              />
+                */
             }
 
           </View>
-        }
-        {/* Faixa Filtro SubMenu Acima */}
-
-        <View style={[Estilo.div_view_3, Estilo.borda_geral]}>
-
-          <View style={[Estilo.div_view_linha]}></View>
 
 
-          {
-
-            /*
-            <Icon name='chevron-down' style={[Estilo.icones_medio, Estilo.icones_clicado, style = { paddingTop: 10 }]}
-              onPress={() => {
-                setExibe(oldState => !oldState);
-                setExibe_suas_postagens(oldState => !oldState);
- 
-              }
-              }
-            />
-              */
-          }
-
-        </View>
+          {exibe_suas_postagens &&
 
 
-        {exibe_suas_postagens &&
+            <View>
+              <Text style={{ width: '100%', height: 35, color: 'white', borderRadius: 8 }} >  http://192.168.0.102:3000/  </Text>
+              <View style={{ flexDirection: 'row', width: '50%' }}>
+                <TextInput style={{ width: '100%', height: 35, backgroundColor: 'white', borderRadius: 8 }} onChangeText={quantidadeCabecasOuPesosF} />
+
+                <TouchableHighlight style={{ width: '35%', height: 40, alignItems: 'center', paddingTop: 10, borderWidth: 1, borderRadius: 10, borderColor: 'white' }}
+
+                  onPress={async () => {
+
+                    var VARIAVEL = String("http://" + quantidadeCabecasOuPesos + ":3000/");
+                    /* http://192.168.0.102:3000/ */
+
+                    await AsyncStorage.setItem('IP_CONEXAO', VARIAVEL);
+                    alert(VARIAVEL + " GRAVADO ");
 
 
-          <View>
-            <Text style={{ width: '100%', height: 35, color: 'white', borderRadius: 8 }} >  http://192.168.0.102:3000/  </Text>
-            <View style={{ flexDirection: 'row', width: '50%' }}>
-              <TextInput style={{ width: '100%', height: 35, backgroundColor: 'white', borderRadius: 8 }} onChangeText={quantidadeCabecasOuPesosF} />
+                  }}
+                >
+                  <Text style={{ fontSize: 15, color: '#fff' }} >Definir IP</Text>
+                </TouchableHighlight>
+              </View>
+
+
 
               <TouchableHighlight style={{ width: '35%', height: 40, alignItems: 'center', paddingTop: 10, borderWidth: 1, borderRadius: 10, borderColor: 'white' }}
 
                 onPress={async () => {
 
-                  var VARIAVEL = String("http://" + quantidadeCabecasOuPesos + ":3000/");
-                  /* http://192.168.0.102:3000/ */
+                  ////////////////////////////////////////////////////////////////////////////////////////////////////
+                  ////////////////////////////////////////////////////////////////////////////////////////////////////
+                  //const twoOptionAlertHandler = () => {
+                  //function to make two option alert
+                  Alert.alert(
+                    //title
+                    'Atenção !',
+                    //body
+                    //'I am two option alert. Do you want to cancel me ?',
+                    'Deseja Apagar Total Postagem no AsyncStorage !',
+                    [
+                      {
+                        text: 'Sim',
+                        onPress: () => {/*console.log('Yes Pressed'), alert("Você Cancelou  "),*/
 
-                  await AsyncStorage.setItem('IP_CONEXAO', VARIAVEL);
-                  alert(VARIAVEL + " GRAVADO ");
+
+                          APAGAR_POSTAGEM('POSTAGEM');
+                          APAGAR_NUMERO_CELULAR('NUMERO_CELL');
+                          VARIAVEL_GLOBAL.TELEFONE = "SEM_TELEFONE_USUARIO";
 
 
+                        }
+                      },
+                      {
+                        text: 'Não',
+                        onPress: () => {/*console.log('No Pressed')*/ },
+                        style: 'cancel'
+                      },
+                    ],
+                    { cancelable: false },
+                    //clicking out side of alert will not cancel
+                  );
+                  //};
+                  ///////////////////////////////////////////////////////////////////////////////////////////////////
+                  ///////////////////////////////////////////////////////////////////////////////////////////////////
                 }}
               >
-                <Text style={{ fontSize: 15, color: '#fff' }} >Definir IP</Text>
+                <Text style={{ fontSize: 15, color: '#fff' }} >Apagar Postagem Interna</Text>
               </TouchableHighlight>
+
+
             </View>
+          }
+
+        </View>
+        {/** DIVISÃO ENTRE A LISTA DO APLICATIVO E O CABEÇALHO DE BOTÕES ACIMA **/}
+
+        {/*PAINEL DE ROLAGEM VERTICAL ABAIXO */}
+        {/* <ScrollView style={{ paddingVertical: 1, borderWidth: 0, borderColor: 'orange' }} > */}
+        <View style={{ borderWidth: 0, borderColor: 'blue', height: (DEFININDO_85_PORCENTO_DE_ALTURA()) }} >
 
 
 
-            <TouchableHighlight style={{ width: '35%', height: 40, alignItems: 'center', paddingTop: 10, borderWidth: 1, borderRadius: 10, borderColor: 'white' }}
+          {/* INICIO*************************************************************************** */}
 
-              onPress={async () => {
+          {produtosEtiquetasExibir
+            ?
+            <ProdutosEtiquetas style={{ borderWidth: 5, borderColor: 'blue', height: '100%' }}
+              product={produtosS} ARRAY_PRIMEIRAS_URL_IMAGENSS={ARRAY_PRIMEIRAS_URL_IMAGENS_2} ARRAY_PRIMEIRAS_URL_VIDEOSS={ARRAY_PRIMEIRAS_URL_VIDEOS_2}
+              LARTITUDE={userPosition.latitude} LORNGITUDE={userPosition.longitude} numero_telefone_usuario={DADOS_TELEFONE} TELA_DE_ORIGEM_E_SITUACA={TELA_DE_ORIGEM_E_SITUACAO}
+              remoto_setLicencaExpiradaFalseOrTrue={setLicencaExpiradaFalseOrTrue}
+            />
+            :
+            <View></View>
+          }
 
-                ////////////////////////////////////////////////////////////////////////////////////////////////////
-                ////////////////////////////////////////////////////////////////////////////////////////////////////
-                //const twoOptionAlertHandler = () => {
-                //function to make two option alert
-                Alert.alert(
-                  //title
-                  'Atenção !',
-                  //body
-                  //'I am two option alert. Do you want to cancel me ?',
-                  'Deseja Apagar Total Postagem no AsyncStorage !',
-                  [
-                    {
-                      text: 'Sim',
-                      onPress: () => {/*console.log('Yes Pressed'), alert("Você Cancelou  "),*/
+          {/* FINAL*************************************************************************** */}
+
+          {/* <FlatlistTeste /> */}
 
 
-                        APAGAR_POSTAGEM('POSTAGEM');
-                        APAGAR_NUMERO_CELULAR('NUMERO_CELL');
-                        VARIAVEL_GLOBAL.TELEFONE = "SEM_TELEFONE_USUARIO";
+          <View style={{ height: 150 }} ></View>
 
 
-                      }
-                    },
-                    {
-                      text: 'Não',
-                      onPress: () => {/*console.log('No Pressed')*/ },
-                      style: 'cancel'
-                    },
-                  ],
-                  { cancelable: false },
-                  //clicking out side of alert will not cancel
-                );
-                //};
-                ///////////////////////////////////////////////////////////////////////////////////////////////////
-                ///////////////////////////////////////////////////////////////////////////////////////////////////
-              }}
-            >
-              <Text style={{ fontSize: 15, color: '#fff' }} >Apagar Postagem Interna</Text>
-            </TouchableHighlight>
+
+        </View>
+        {/* </ScrollView > */}
+        {/*PAINEL DE ROLAGEM VERTICAL ACIMA */}
 
 
-          </View>
+        {
+          exibeMenu && (<MENU_LATERAL LARTITUDE={userPosition.latitude} LORNGITUDE={userPosition.longitude}
+            // remoto_PROPOSTAS_RECEBIDAS_RECENTES={PROPOSTAS_RECEBIDAS_RECENTES}
+            remoto_ANIMAR_ANTES_DE_CHAMAR_MINHAS_PROPOSTAS={ANIMAR_ANTES_DE_CHAMAR_MINHAS_PROPOSTAS}
+            remote_FILTRAR_MEUS_FAVORITOS={FILTRAR_MEUS_FAVORITOS}
+            REMOTO_MOSTRAR_MOSTRAR_TELA_PROPRIETARIO={MOSTRAR_TELA_PROPRIETARIO}
+          />)
         }
 
-      </View>
-      {/** DIVISÃO ENTRE A LISTA DO APLICATIVO E O CABEÇALHO DE BOTÕES ACIMA **/}
-
-      {/*PAINEL DE ROLAGEM VERTICAL ABAIXO */}
-      {/* <ScrollView style={{ paddingVertical: 1, borderWidth: 0, borderColor: 'orange' }} > */}
-      <View style={{ borderWidth: 0, borderColor: 'blue', height: (DEFININDO_85_PORCENTO_DE_ALTURA()) }} >
 
 
+        {/* {exibeFiltroCategoria && (<FILTRO_CATEGORIA />)} */}
 
-        {/* INICIO*************************************************************************** */}
+        {/* {exibeFiltroCategoria && (<FILTRO_PESQUISA_CATEGORIA />)} */}
 
-        {produtosEtiquetasExibir
-          ?
-          <ProdutosEtiquetas style={{ borderWidth: 5, borderColor: 'blue', height: '100%' }}
-            product={produtosS} ARRAY_PRIMEIRAS_URL_IMAGENSS={ARRAY_PRIMEIRAS_URL_IMAGENS_2} ARRAY_PRIMEIRAS_URL_VIDEOSS={ARRAY_PRIMEIRAS_URL_VIDEOS_2}
-            LARTITUDE={userPosition.latitude} LORNGITUDE={userPosition.longitude} numero_telefone_usuario={DADOS_TELEFONE} TELA_DE_ORIGEM_E_SITUACA={TELA_DE_ORIGEM_E_SITUACAO}
-            remoto_setLicencaExpiradaFalseOrTrue={setLicencaExpiradaFalseOrTrue}
-          />
-          :
-          <View></View>
-        }
-
-        {/* FINAL*************************************************************************** */}
-
-        {/* <FlatlistTeste /> */}
+        {/* {exibeDetalheProdutos && (<DETALHES />)} */}
 
 
-        <View style={{ height: 150 }} ></View>
+        {/*MENU DE AVISOS ABAIXO*/}
+        {
+          menu_aviso_visivel_or_invisivel && (
+            <Animated.View style={{
+              position: 'absolute', top: 60, zIndex: 0, backgroundColor: 'pink', borderWidth: 5, borderColor: '#778187', borderRadius: 10,
+              width: largura_tela_notificacao  /*'70%'*/, height: 'auto'
+            }} >
 
 
+              <View style={{ flexDirection: "row", width: "100%", height: 60, backgroundColor: "#666", alignItems: "center", justifyContent: "center" }} >
 
-      </View>
-      {/* </ScrollView > */}
-      {/*PAINEL DE ROLAGEM VERTICAL ACIMA */}
+                <View style={{ width: "75%", height: 60, paddingLeft: 15, justifyContent: "center", backgroundColor: '#2A3E49' }} >
+                  <Text style={{ borderWidth: 0, borderColor: "yellow", color: "#fff", fontSize: 25, backgroundColor: "#2A3E49" }}>
+                    Propostas
+                  </Text>
+                </View>
 
-
-      {exibeMenu && (<MENU_LATERAL LARTITUDE={userPosition.latitude} LORNGITUDE={userPosition.longitude}
-        // remoto_PROPOSTAS_RECEBIDAS_RECENTES={PROPOSTAS_RECEBIDAS_RECENTES}
-        remoto_ANIMAR_ANTES_DE_CHAMAR_MINHAS_PROPOSTAS={ANIMAR_ANTES_DE_CHAMAR_MINHAS_PROPOSTAS}
-        remote_FILTRAR_MEUS_FAVORITOS={FILTRAR_MEUS_FAVORITOS}
-        REMOTO_MOSTRAR_MOSTRAR_TELA_PROPRIETARIO={MOSTRAR_TELA_PROPRIETARIO}
-      />)}
-
-
-
-      {/* {exibeFiltroCategoria && (<FILTRO_CATEGORIA />)} */}
-
-      {/* {exibeFiltroCategoria && (<FILTRO_PESQUISA_CATEGORIA />)} */}
-
-      {/* {exibeDetalheProdutos && (<DETALHES />)} */}
-
-
-      {/*MENU DE AVISOS ABAIXO*/}
-      {menu_aviso_visivel_or_invisivel && (
-        <Animated.View style={{
-          position: 'absolute', top: 60, zIndex: 0, backgroundColor: 'pink', borderWidth: 5, borderColor: '#778187', borderRadius: 10,
-          width: largura_tela_notificacao  /*'70%'*/, height: 'auto'
-        }} >
-
-
-          <View style={{ flexDirection: "row", width: "100%", height: 60, backgroundColor: "#666", alignItems: "center", justifyContent: "center" }} >
-
-            <View style={{ width: "75%", height: 60, paddingLeft: 15, justifyContent: "center", backgroundColor: '#2A3E49' }} >
-              <Text style={{ borderWidth: 0, borderColor: "yellow", color: "#fff", fontSize: 25, backgroundColor: "#2A3E49" }}>
-                Propostas
-              </Text>
-            </View>
-
-            <TouchableOpacity style={{ width: "25%", height: 60, alignItems: "center", justifyContent: "center", backgroundColor: '#2A3E49' }} >
-              {/*<Text style={{ borderWidth: 1, borderColor: "yellow", color: "#fff", fontSize: 25, backgroundColor: "#778187" }} >
+                <TouchableOpacity style={{ width: "25%", height: 60, alignItems: "center", justifyContent: "center", backgroundColor: '#2A3E49' }} >
+                  {/*<Text style={{ borderWidth: 1, borderColor: "yellow", color: "#fff", fontSize: 25, backgroundColor: "#778187" }} >
                 X
               </Text> */}
-              <Icon name='times-circle' nativeID='Favorito'
-                style={{ color: "#fff", fontSize: 35, borderWidth: 0, borderColor: "yellow" }}
+                  <Icon name='times-circle' nativeID='Favorito'
+                    style={{ color: "#fff", fontSize: 35, borderWidth: 0, borderColor: "yellow" }}
 
-                onPress={() => { setMenu_aviso_visivel_or_invisivel(false) }}
+                    onPress={() => { setMenu_aviso_visivel_or_invisivel(false) }}
 
-              />
-            </TouchableOpacity>
+                  />
+                </TouchableOpacity>
 
-          </View>
-
-
-
-          {/*1º FAIXA ITEM DO MENU ABAIXO */}
-          <TouchableOpacity style={{ width: '100%', height: 40, backgroundColor: '#778187', justifyContent: 'center' }}
-            onPress={() => { PROPOSTAS_RECEBIDAS_RECENTES(false, "menuFlutuante"); setLargura_tela_botoes(new Animated.Value(0)); }}
-          >
-
-            <View flexDirection='row' style={{ width: '100%', height: 30, paddingLeft: 15 }}>
-
-              <Text style={{
-                width: 30, height: 30, borderRadius: 50,
-                color: 'white', fontWeight: "bold", fontSize: 20, backgroundColor: 'red',
-                position: 'relative', zIndex: 10, textAlign: 'center', justifyContent: 'center'
-              }} >{qtde_propostas_recebidas_nao_vista}
-              </Text>
-              <View style={{ width: 10 }} />
-              <Text style={{ borderWidth: 0, borderColor: '#fff', color: '#fff', fontSize: 20 }}  >Recebidas</Text>
-
-            </View>
-
-          </TouchableOpacity>
-          <View style={{ width: '100%', height: 1, borderWidth: 1, borderColor: '#fff' }} />
-          {/*1º FAIXA ITEM DO MENU ACIMA */}
-
-
-          {/*2º FAIXA ITEM DO MENU ABAIXO */}
-          <TouchableOpacity style={{ width: '100%', height: 40, backgroundColor: '#778187', justifyContent: 'center' }}
-            onPress={() => { PROPOSTAS_RESPONDIDAS_RECENTES("menuFlutuante"); setLargura_tela_botoes(new Animated.Value(0)); }}
-          >
-
-            <View flexDirection='row' style={{ width: '100%', height: 30, paddingLeft: 15 }}>
-
-              <Text style={{
-                width: 30, height: 30, borderRadius: 50,
-                color: 'white', fontWeight: "bold", fontSize: 20, backgroundColor: 'red',
-                position: 'relative', zIndex: 10, textAlign: 'center', justifyContent: 'center'
-              }} >{qtde_propostas_enviadas_nao_vista}
-              </Text>
-              <View style={{ width: 10 }} />
-              <Text style={{ borderWidth: 0, borderColor: '#fff', color: '#fff', fontSize: 20 }}  >Enviadas</Text>
-
-            </View>
-
-          </TouchableOpacity>
-          <View style={{ width: '100%', height: 1, borderWidth: 1, borderColor: '#fff' }} />
-          {/*2º FAIXA ITEM DO MENU ACIMA */}
-
-
-          {/*3º FAIXA ITEM DO MENU ABAIXO */}
-          <TouchableOpacity style={{ width: '100%', height: 40, backgroundColor: '#778187', justifyContent: 'center' }}
-            onPress={() => { PROPOSTAS_ACEITAS_RECENTES(); setLargura_tela_botoes(new Animated.Value(0)); }}
-          >
-
-            <View flexDirection='row' style={{ width: '100%', height: 30, paddingLeft: 15 }}>
-
-              <Text style={{
-                width: 30, height: 30, borderRadius: 50,
-                color: 'white', fontWeight: "bold", fontSize: 20, backgroundColor: 'red',
-                position: 'relative', zIndex: 10, textAlign: 'center', justifyContent: 'center'
-              }} >{qtde_propostas_aceitas_nao_vista}
-              </Text>
-              <View style={{ width: 10 }} />
-              <Text style={{ borderWidth: 0, borderColor: '#fff', color: '#fff', fontSize: 20 }}  >Aceitas</Text>
-
-            </View>
-
-          </TouchableOpacity>
-          <View style={{ width: '100%', height: 1, borderWidth: 1, borderColor: '#fff' }} />
-          {/*3º FAIXA ITEM DO MENU ACIMA */}
-
-
-          {/*4º FAIXA ITEM DO MENU ACIMA */}
-
-          <View style={{ width: '100%', height: 60, backgroundColor: '#2A3E49', justifyContent: 'center' }} >
-            <Text style={{ borderWidth: 0, borderColor: '#fff', color: '#fff', fontSize: 25 }}  >   Vendas</Text>
-          </View>
-
-
-          {/*5º FAIXA ITEM DO MENU ABAIXO */}
-          <TouchableOpacity style={{ width: '100%', height: 40, backgroundColor: '#778187', justifyContent: 'center' }}
-            onPress={() => { VENDAS_RECENTES(); setLargura_tela_botoes(new Animated.Value(0)); }}
-          >
-
-            <View flexDirection='row' style={{ width: '100%', height: 30, paddingLeft: 15 }}>
-
-              <Text style={{
-                width: 30, height: 30, borderRadius: 50,
-                color: 'white', fontWeight: "bold", fontSize: 20, backgroundColor: 'red',
-                position: 'relative', zIndex: 10, textAlign: 'center', justifyContent: 'center'
-              }} >{qtde_venda_recentes_nao_vista}
-              </Text>
-              <View style={{ width: 10 }} />
-              <Text style={{ borderWidth: 0, borderColor: '#fff', color: '#fff', fontSize: 20 }}  >Recentes</Text>
-
-            </View>
-
-          </TouchableOpacity>
-          <View style={{ width: '100%', height: 0, borderWidth: 0, borderColor: '#fff' }} />
-          {/*5º FAIXA ITEM DO MENU ACIMA */}
+              </View>
 
 
 
-          {/*6º FAIXA ITEM DO MENU ABAIXO */}
+              {/*1º FAIXA ITEM DO MENU ABAIXO */}
+              <TouchableOpacity style={{ width: '100%', height: 40, backgroundColor: '#778187', justifyContent: 'center' }}
+                onPress={() => { PROPOSTAS_RECEBIDAS_RECENTES(false, "menuFlutuante"); setLargura_tela_botoes(new Animated.Value(0)); }}
+              >
 
-          <View style={{ width: '100%', height: 1, borderWidth: 1, borderColor: '#fff' }} />
+                <View flexDirection='row' style={{ width: '100%', height: 30, paddingLeft: 15 }}>
 
-          <View style={{ width: '100%', height: 60, backgroundColor: '#2A3E49', justifyContent: 'center' }} >
-            <Text style={{ borderWidth: 0, borderColor: '#fff', color: '#fff', fontSize: 25 }}  >   Publicações</Text>
-          </View>
+                  <Text style={{
+                    width: 30, height: 30, borderRadius: 50,
+                    color: 'white', fontWeight: "bold", fontSize: 20, backgroundColor: 'red',
+                    position: 'relative', zIndex: 10, textAlign: 'center', justifyContent: 'center'
+                  }} >{qtde_propostas_recebidas_nao_vista}
+                  </Text>
+                  <View style={{ width: 10 }} />
+                  <Text style={{ borderWidth: 0, borderColor: '#fff', color: '#fff', fontSize: 20 }}  >Recebidas</Text>
 
+                </View>
 
-          {/*GOBACKHERE 12062021 ABAIXO***************************************************/}
-          <TouchableOpacity style={{ width: '100%', height: 40, backgroundColor: '#778187', justifyContent: 'center' }}
-            onPress={() => { PUBLICACOES_PENDENTES(); setLargura_tela_botoes(new Animated.Value(0)); }}
-          >
-
-            <View flexDirection='row' style={{ width: '100%', height: 30, paddingLeft: 15 }}>
-
-              <Text style={{
-                width: 30, height: 30, borderRadius: 50,
-                color: 'white', fontWeight: "bold", fontSize: 20, backgroundColor: 'red',
-                position: 'relative', zIndex: 10, textAlign: 'center', justifyContent: 'center'
-              }} >{qtde_publicacao_pendentes}
-              </Text>
-              <View style={{ width: 10 }} />
-              <Text style={{ borderWidth: 0, borderColor: '#fff', color: '#fff', fontSize: 20 }}  >Pendentes</Text>
-
-            </View>
-
-          </TouchableOpacity>
-
-          <View style={{ width: '100%', height: 1, borderWidth: 1, borderColor: '#fff' }} />
-
-          <TouchableOpacity style={{ width: '100%', height: 40, backgroundColor: '#778187', justifyContent: 'center' }}
-            onPress={() => { PUBLICACOES_EXPIRADAS(); setLargura_tela_botoes(new Animated.Value(0)); }}
-          >
-            <View flexDirection='row' style={{ width: '100%', height: 30, paddingLeft: 15 }}>
-
-              <Text style={{
-                width: 30, height: 30, borderRadius: 50,
-                color: 'white', fontWeight: "bold", fontSize: 20, backgroundColor: 'red',
-                position: 'relative', zIndex: 10, textAlign: 'center', justifyContent: 'center'
-              }} >{qtde_publicacao_expiradas}
-              </Text>
-              <View style={{ width: 10 }} />
-              <Text style={{ borderWidth: 0, borderColor: '#fff', color: '#fff', fontSize: 20 }}  >Expiradas</Text>
-
-            </View>
-
-          </TouchableOpacity>
-          {/*GOBACKHERE 12062021 ACIMA***************************************************/}
+              </TouchableOpacity>
+              <View style={{ width: '100%', height: 1, borderWidth: 1, borderColor: '#fff' }} />
+              {/*1º FAIXA ITEM DO MENU ACIMA */}
 
 
-          {/*6º FAIXA ITEM DO MENU ACIMA */}
+              {/*2º FAIXA ITEM DO MENU ABAIXO */}
+              <TouchableOpacity style={{ width: '100%', height: 40, backgroundColor: '#778187', justifyContent: 'center' }}
+                onPress={() => { PROPOSTAS_RESPONDIDAS_RECENTES("menuFlutuante"); setLargura_tela_botoes(new Animated.Value(0)); }}
+              >
+
+                <View flexDirection='row' style={{ width: '100%', height: 30, paddingLeft: 15 }}>
+
+                  <Text style={{
+                    width: 30, height: 30, borderRadius: 50,
+                    color: 'white', fontWeight: "bold", fontSize: 20, backgroundColor: 'red',
+                    position: 'relative', zIndex: 10, textAlign: 'center', justifyContent: 'center'
+                  }} >{qtde_propostas_enviadas_nao_vista}
+                  </Text>
+                  <View style={{ width: 10 }} />
+                  <Text style={{ borderWidth: 0, borderColor: '#fff', color: '#fff', fontSize: 20 }}  >Enviadas</Text>
+
+                </View>
+
+              </TouchableOpacity>
+              <View style={{ width: '100%', height: 1, borderWidth: 1, borderColor: '#fff' }} />
+              {/*2º FAIXA ITEM DO MENU ACIMA */}
 
 
-        </Animated.View>
-      )}
-      {/*MENU DE AVISOS ACIMA*/}
+              {/*3º FAIXA ITEM DO MENU ABAIXO */}
+              <TouchableOpacity style={{ width: '100%', height: 40, backgroundColor: '#778187', justifyContent: 'center' }}
+                onPress={() => { PROPOSTAS_ACEITAS_RECENTES(); setLargura_tela_botoes(new Animated.Value(0)); }}
+              >
+
+                <View flexDirection='row' style={{ width: '100%', height: 30, paddingLeft: 15 }}>
+
+                  <Text style={{
+                    width: 30, height: 30, borderRadius: 50,
+                    color: 'white', fontWeight: "bold", fontSize: 20, backgroundColor: 'red',
+                    position: 'relative', zIndex: 10, textAlign: 'center', justifyContent: 'center'
+                  }} >{qtde_propostas_aceitas_nao_vista}
+                  </Text>
+                  <View style={{ width: 10 }} />
+                  <Text style={{ borderWidth: 0, borderColor: '#fff', color: '#fff', fontSize: 20 }}  >Aceitas</Text>
+
+                </View>
+
+              </TouchableOpacity>
+              <View style={{ width: '100%', height: 1, borderWidth: 1, borderColor: '#fff' }} />
+              {/*3º FAIXA ITEM DO MENU ACIMA */}
 
 
-      {exibeFiltroCategoria && (<FILTRO_PESQUISA_CATEGORIA
-        setExibeFiltroCategori={setExibeFiltroCategoria}
+              {/*4º FAIXA ITEM DO MENU ACIMA */}
+
+              <View style={{ width: '100%', height: 60, backgroundColor: '#2A3E49', justifyContent: 'center' }} >
+                <Text style={{ borderWidth: 0, borderColor: '#fff', color: '#fff', fontSize: 25 }}  >   Vendas</Text>
+              </View>
 
 
-        PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH_REMOTO={PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH}
-      />)}
+              {/*5º FAIXA ITEM DO MENU ABAIXO */}
+              <TouchableOpacity style={{ width: '100%', height: 40, backgroundColor: '#778187', justifyContent: 'center' }}
+                onPress={() => { VENDAS_RECENTES(); setLargura_tela_botoes(new Animated.Value(0)); }}
+              >
+
+                <View flexDirection='row' style={{ width: '100%', height: 30, paddingLeft: 15 }}>
+
+                  <Text style={{
+                    width: 30, height: 30, borderRadius: 50,
+                    color: 'white', fontWeight: "bold", fontSize: 20, backgroundColor: 'red',
+                    position: 'relative', zIndex: 10, textAlign: 'center', justifyContent: 'center'
+                  }} >{qtde_venda_recentes_nao_vista}
+                  </Text>
+                  <View style={{ width: 10 }} />
+                  <Text style={{ borderWidth: 0, borderColor: '#fff', color: '#fff', fontSize: 20 }}  >Recentes</Text>
+
+                </View>
+
+              </TouchableOpacity>
+              <View style={{ width: '100%', height: 0, borderWidth: 0, borderColor: '#fff' }} />
+              {/*5º FAIXA ITEM DO MENU ACIMA */}
 
 
-      {licencaExpiradaFalseOrTrue && (<LicencaExpirada REMOTO_MOSTRAR_TELA_EXPIRACAO_LICENCA={MOSTRAR_TELA_EXPIRACAO_LICENCA} />)}
+
+              {/*6º FAIXA ITEM DO MENU ABAIXO */}
+
+              <View style={{ width: '100%', height: 1, borderWidth: 1, borderColor: '#fff' }} />
+
+              <View style={{ width: '100%', height: 60, backgroundColor: '#2A3E49', justifyContent: 'center' }} >
+                <Text style={{ borderWidth: 0, borderColor: '#fff', color: '#fff', fontSize: 25 }}  >   Publicações</Text>
+              </View>
 
 
-      {proprietarioFalseOrTrue && (<PROPRIETARIO REMOTO_MOSTRAR_MOSTRAR_TELA_PROPRIETARIO={MOSTRAR_TELA_PROPRIETARIO} />)}
+              {/*GOBACKHERE 12062021 ABAIXO***************************************************/}
+              <TouchableOpacity style={{ width: '100%', height: 40, backgroundColor: '#778187', justifyContent: 'center' }}
+                onPress={() => { PUBLICACOES_PENDENTES(); setLargura_tela_botoes(new Animated.Value(0)); }}
+              >
+
+                <View flexDirection='row' style={{ width: '100%', height: 30, paddingLeft: 15 }}>
+
+                  <Text style={{
+                    width: 30, height: 30, borderRadius: 50,
+                    color: 'white', fontWeight: "bold", fontSize: 20, backgroundColor: 'red',
+                    position: 'relative', zIndex: 10, textAlign: 'center', justifyContent: 'center'
+                  }} >{qtde_publicacao_pendentes}
+                  </Text>
+                  <View style={{ width: 10 }} />
+                  <Text style={{ borderWidth: 0, borderColor: '#fff', color: '#fff', fontSize: 20 }}  >Pendentes</Text>
+
+                </View>
+
+              </TouchableOpacity>
+
+              <View style={{ width: '100%', height: 1, borderWidth: 1, borderColor: '#fff' }} />
+
+              <TouchableOpacity style={{ width: '100%', height: 40, backgroundColor: '#778187', justifyContent: 'center' }}
+                onPress={() => { PUBLICACOES_EXPIRADAS(); setLargura_tela_botoes(new Animated.Value(0)); }}
+              >
+                <View flexDirection='row' style={{ width: '100%', height: 30, paddingLeft: 15 }}>
+
+                  <Text style={{
+                    width: 30, height: 30, borderRadius: 50,
+                    color: 'white', fontWeight: "bold", fontSize: 20, backgroundColor: 'red',
+                    position: 'relative', zIndex: 10, textAlign: 'center', justifyContent: 'center'
+                  }} >{qtde_publicacao_expiradas}
+                  </Text>
+                  <View style={{ width: 10 }} />
+                  <Text style={{ borderWidth: 0, borderColor: '#fff', color: '#fff', fontSize: 20 }}  >Expiradas</Text>
+
+                </View>
+
+              </TouchableOpacity>
+              {/*GOBACKHERE 12062021 ACIMA***************************************************/}
+
+
+              {/*6º FAIXA ITEM DO MENU ACIMA */}
+
+
+            </Animated.View>
+          )
+        }
+        {/*MENU DE AVISOS ACIMA*/}
+
+
+        {
+          exibeFiltroCategoria && (<FILTRO_PESQUISA_CATEGORIA
+            setExibeFiltroCategori={setExibeFiltroCategoria}
+
+
+            PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH_REMOTO={PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH}
+          />)
+        }
+
+
+        {licencaExpiradaFalseOrTrue && (<LicencaExpirada REMOTO_MOSTRAR_TELA_EXPIRACAO_LICENCA={MOSTRAR_TELA_EXPIRACAO_LICENCA} />)}
+
+
+        {proprietarioFalseOrTrue && (<PROPRIETARIO REMOTO_MOSTRAR_MOSTRAR_TELA_PROPRIETARIO={MOSTRAR_TELA_PROPRIETARIO} />)}
 
 
 
 
-      {/* <View style={{ height: '100%', width: '100%', alignItems: 'center', justifyContent: 'center',position:'absolute' }}>
+        {/* <View style={{ height: '100%', width: '100%', alignItems: 'center', justifyContent: 'center',position:'absolute' }}>
 
         <Text style={{ fontSize: 40, fontFamily: 'AlfaSlabOne-Regular' }}  >FONT DO TEXTO</Text>
 
       </View> */}
 
 
-      {/* <TelaSplash /> */}
+        {/* <TelaSplash /> */}
 
-      {waitingVisible && (<Waiting paremetroEnviado={"Aguarde ..."} ORIENTACAO={"PORTRAIT"} />)}
+        {waitingVisible && (<Waiting paremetroEnviado={"Aguarde ..."} ORIENTACAO={"PORTRAIT"} />)}
 
-      {termoDeUsoVisible && (<TermosDeUso
-        REMOTO_NAO_ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA={NAO_ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA}
-        REMOTO_ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA={ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA}
-      />)
-      }
+        {
+          termoDeUsoVisible && (<TermosDeUso
+            REMOTO_NAO_ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA={NAO_ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA}
+            REMOTO_ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA={ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA}
+          />)
+        }
 
-    </SafeAreaView   >
+      </SafeAreaView >
+
+      : []
 
   )//DO RETURN
 
