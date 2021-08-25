@@ -76,16 +76,20 @@ import { ProcessingManager } from 'react-native-video-processing';
 
 //VARIAVÉIS GLOBAIS ABAIXO
 
-// // NO SERVIDOR REMOTO DIGITALOCEAN
+
+// NO SERVIDOR REMOTO DIGITALOCEAN
+var IP_DO_SERVIDOR     = "https://gadoapp.online/";
+var IP_DO_SERVIDOR_IO  = "https://gadoapp.online/";
+var IP_MERCADO_PAGO    = "https://gadoapp.online/api_recebimento/"
+
+
+
+
 //  //NO SERVIDOR DO MEU NOTEBOOK CASA DA MÃE  ABAIXO
-// var IP_DO_SERVIDOR    = "https://gadoapp.online/";
-// var IP_DO_SERVIDOR_IO = "https://gadoapp.online/";
+// var IP_DO_SERVIDOR     = "http://192.168.0.107:3000/";
+// var IP_DO_SERVIDOR_IO  = "http://192.168.0.107:3001/";
+// var IP_MERCADO_PAGO    = "http://192.168.0.107:8080/";
 
-
-
-
-var IP_DO_SERVIDOR    = "http://192.168.0.107:3000/";
-var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3000/";
 
 
 
@@ -295,6 +299,7 @@ export default function AppTest() {
 
     await AsyncStorage.setItem('TELA_PRA_VOLTAR', 'TelaPrincipal');
     VARIAVEL_GLOBAL.NUMERO_IP = IP_DO_SERVIDOR;
+    VARIAVEL_GLOBAL.NUMERO_IP_API_MERCADOPAGO = IP_MERCADO_PAGO;
     /*
     IP_DO_SERVIDOR_IO = IP_DO_SERVIDOR.replace(/:3000\//g,':3001/');
     //alert(IP_DO_SERVIDOR_IO);
@@ -1267,9 +1272,7 @@ export default function AppTest() {
       var obj_JSON = JSON.parse(datos);
       //alert(  JSON.stringify(obj_JSON[0]) );
       //alert(obj_JSON.length);
-
       for (var i = 0; i < obj_JSON.length; i++) {
-
         var TA_ON_LINE = obj_JSON[i].ta_online_J;//ADICIONADO EM 05/12/2020
         //alert(TA_ON_LINE);
         var JSON_POSTAGEM_STRING = JSON.stringify(obj_JSON[i]);
@@ -1286,64 +1289,40 @@ export default function AppTest() {
         });
         //console.log( response.data.length );
         var tamanho = response.data.length;
-
-
-
         if (tamanho === 0) {
           //console.log( "GRAVAR" );
           /* METODO DE SELECT REMOTO NO BANCO DE DADOS ONLINE ACIMA */
-
           //if (TA_ON_LINE === 'nao') { //ADICIONADO EM 05/12/2020
           //console.log("GRAVAR");
-
           //TENTAR UPAR IMAGENS e VIDEOS AQUI Abaixo
-
-
           //UPLOAD DE IMAGENS ABAIXO
           //1º Upload de IMAGENS
           var URL_IMAGEN_DADOS_J = obj_JSON[i].URL_IMAGEN_DADOS_J;
           var ARRAY_IMAGENS = URL_IMAGEN_DADOS_J.split("|");
           ARRAY_IMAGENS = await REMOVER_ITENS_NULOS_DO_ARRAY(ARRAY_IMAGENS);
-
           //ENVIANDO IMAGENS PRO SERVIDOR REMOTO ABAIXO
           ARRAY_IMAGENS.map(async (photo, index) => {
             var nome_do_arquivo = (extrair_nome_de_Arquivo_da_url(ARRAY_IMAGENS[index]).arquivo);
             //COMANDOS DAQUI PRA BAIXO
             //CHAMANDO O METODO DE ENVIO DE IMAGENS PRO SERVIDOR
             UPLOAD_PRO_SERVIDOR(nome_do_arquivo, ARRAY_IMAGENS[index]);
-
-
-
             //COMANDOS DAQUI PRACIMA
           });//MAP
           //ENVIANDO IMAGENS PRO SERVIDOR REMOTO ACIMA
-
           //UPLOAD DE IMAGENS ACIMA
-
-
-
           /**/
           //UPLOAD DE VÍDEOS ABAIXO
           //2º Upload de VIDEOS
           var URL_VIDEOS_DADOS_J = obj_JSON[i].URL_VIDEOS_DADOS_J;
           var ARRAY_VIDEOS = URL_VIDEOS_DADOS_J.split("|");
           ARRAY_VIDEOS = await REMOVER_ITENS_NULOS_DO_ARRAY(ARRAY_VIDEOS);
-
           //ENVIANDO VIDEOS PRO SERVIDOR REMOTO ABAIXO
           ARRAY_VIDEOS.map(async (video, index) => {
-
-
-
             var nome_do_arquivo = (extrair_nome_de_Arquivo_da_url(ARRAY_VIDEOS[index]).arquivo);
-
-
             // await  NORMALIZANDO_VIDEOS_MP4(ARRAY_VIDEOS[index], nome_do_arquivo);//ATIVAR DEPOIS
-
-
             //COMANDOS DAQUI PRA BAIXO
             //CHAMANDO O METODO DE ENVIO DE VIDEOS PRO SERVIDOR
             UPLOAD_VIDEOS_PRO_SERVIDOR(nome_do_arquivo, ARRAY_VIDEOS[index]);
-
             //COMANDOS DAQUI PRACIMA
           });//MAP
           //ENVIANDO VIDEOS PRO SERVIDOR REMOTO ACIMA
@@ -1366,18 +1345,11 @@ export default function AppTest() {
           });
 
           if ((await retorno.data.status.toString()) === "sucesso") {
-
-
             // await AsyncStorage.removeItem('POSTAGEM_DE_SEGURANCA'); // ATIVAR DEPOIS
             await AsyncStorage.removeItem('POSTAGEM'); // DESATIVAR DEPOIS
-
-
           } else if ((await retorno.data.status.toString()) === "falha") {
-
             // const dados_postagem_de_seguranca = await AsyncStorage.getItem('POSTAGEM_DE_SEGURANCA');  // ATIVAR DEPOIS
             // await AsyncStorage.setItem('POSTAGEM', dados_postagem_de_seguranca);  //ATIVAR DEPOIS
-
-
           }
 
           /*
@@ -1393,23 +1365,14 @@ export default function AppTest() {
             }
           });
           */
-
           //GRAVAÇÃO DA INFORMAÇÃO NO BANCO DE DADOS ACIMA 
           /**/
-
-
         } else if (tamanho > 0) {
           //} else if (TA_ON_LINE === 'sim') { //ADICIONADO EM 05/12/2020
           //console.log("NÃO GRAVAR");
-
-
         }//IF ELSE 
         //VERIFICANDO SE POSTAGEM ESTÁ GRAVADO ON-LINE e fazendo A SINCRONIZAÇÃO no BANCO DE DADOS ACIMA
-
-
       }//FOR    
-
-
     } catch (error) { /*alert(error)*/ /*console.log("ERRO 8786414" + error);*/ }
     //OBSERVER HERE
 

@@ -206,21 +206,13 @@ export default function pay_credity_card(params) {
     async function executarPagamentoComCrediCard(status_do_pagamento) {
 
         setMenssagemProcessamento(true);
-
         //AQUI SERÁ PROCESSADO O PAGAMENTO  NO MERCADO PAGO PARTE 1   ABAIXO
-
         //PROCESSANDO PAGAMENTO REMOTO SERVIDOR MERCADO PAGO ABAIXO
-
-
-
-
-
         // numeroCredCard = "1234 5678 9012 3456";
         // dataValidade = "09/22";
         // codSeguranca = "1234";
         // nomeCartao = "EDERSON FELICIANO CORSATTO";
         // cpf_cnpjCard = "993.712.351-87";
-
         // // alert(
         // //     numeroCredCard + "\n" +
         // //     dataValidade + "\n" +
@@ -228,24 +220,13 @@ export default function pay_credity_card(params) {
         // //     nomeCartao + "\n" +
         // //     cpf_cnpjCard
         // // );
-
         // var data = new FormData();
         // data.append("Nome", "Ederson Feliciano Corsatto");
         // data.append("Senha", "19591959");
 
-
-
-
-
-
-
-
-
         // TENTATIVA 1 FUNCIONAOU COM SUCESSO SEM SER SERVIDOR DO MERCADO PAGO  //////////////////////////////////////////////////////////////////////////////////////////////////
         // try {
-
         //     await fetch('http://192.168.0.107:3000/process_payment', {
-
         //         method: 'post',
         //         mode: 'no-cors',
         //         headers: {
@@ -286,11 +267,6 @@ export default function pay_credity_card(params) {
         //         </View>
         //     );
         // }//if
-
-
-
-
-
 
         // // TENTATIVA 2 FUNCIONAOU COM SUCESSO //////////////////////////////////////////////////////////////////////////////////////////////////
         // try {
@@ -345,9 +321,6 @@ export default function pay_credity_card(params) {
         // return 0;
         //PROCESSANDO PAGAMENTO REMOTO SERVIDOR MERCADO PAGO ACIMA
 
-
-
-
         //ALTERNANCIA DE ESTADOS USADO SOMENTE PARA TESTES ABAIXO
         var enviandoCondicao = "";
         // var valor = Math.floor(Math.random() * 10);
@@ -356,7 +329,6 @@ export default function pay_credity_card(params) {
         if (status_do_pagamento.toString() === "aprovado") {//AQUI É SE FOR APROVADO A COMPRA
 
             if (VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA == "PUBLICACAO" || VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA == "ATIVAR PUBLICACAO") {
-
 
                 /***************************************************************/
                 var tamanho = -1;
@@ -384,9 +356,6 @@ export default function pay_credity_card(params) {
                     }, 3000)
                 }
                 /***************************************************************/
-
-
-
 
             } else if (VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA == "TAXA") {
 
@@ -432,7 +401,6 @@ export default function pay_credity_card(params) {
 
         if (typeof dados_da_venda.id_J === "undefined") {
 
-
             /***************************************/
             try {
 
@@ -454,9 +422,7 @@ export default function pay_credity_card(params) {
             } catch (error) { /**/alert("erro no axios ¨%$367 " + error) }
             /***************************************/
 
-
         } else {
-
 
             /***************************************/
             try {
@@ -1231,30 +1197,24 @@ export default function pay_credity_card(params) {
                             bounces={false}
                             showsHorizontalScrollIndicator={false}
                             showsVerticalScrollIndicator={false}
-
                             // {...alert(VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO.descricao_da_cobranca)}
                             // {...alert(VARIAVEL_GLOBAL.DADOS_DA_NEGOCIACAO.valor_do_plano)}
-
                             originWhitelist={['*']}
 
+                            source={{ uri: VARIAVEL_GLOBAL.NUMERO_IP_API_MERCADOPAGO }}// => Nº do SERVIDOR DEFINIDO PELA TELA PRINCIPAL
 
-                            // source={{ uri: "http://159.89.87.76:8080/" }}// => SERVIDOR DA DIGITALOCEAN
-                               source={{ uri: "https://gadoapp.online/api_recebimento/" }}// => SERVIDOR DA DIGITALOCEAN
+                            // source={{ uri: "https://gadoapp.online/api_recebimento/" }}// => SERVIDOR DA DIGITALOCEAN
 
+                            // source={{ uri: "http://192.168.0.107:8080/" }}// => SERVIDOR DE DESENVOLVIMENTO
                            
                             onMessage={onMessage}
-
                             renderLoading={LoadingIndicatorView}
                             startInLoadingState={false}
                             javaScriptEnabled={true}
-
                             // domStorageEnabled={true}
-
                             // ALTERAR_PRECOS(${JSON.stringify(valll)})
-                            // true; // note: this is required, or you'll sometimes get silent failures
+                            // true; // note: this is required, or you'll sometimes get sile nt failures
                             // true; // observação: isso é necessário, ou você às vezes obterá falhas silenciosas
-
-
                             injectedJavaScript={
 
                                 `

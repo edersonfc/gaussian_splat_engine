@@ -453,9 +453,7 @@ export default function DetalhesProdutos(props) {
                                 //alert(LATITUDE_USUARIO+"   |   "+LONGITUDE_USUARIO);
 
                                 // alert(VARIAVEL_GLOBAL.TELA_ATUAL + " | " + VARIAVEL_GLOBAL.TELA_ORIGEM + " | " + VARIAVEL_GLOBAL.TELA_TERCEIRA)
-
-
-                                setRenderDaTela(false);
+                     
 
                                 navigation.navigate("ComprasVendas", { ComprasVendas, LATITUDE_USUARIO, LONGITUDE_USUARIO, TELA_DE_ORIGEM_E_SITUACAO })
 
