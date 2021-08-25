@@ -764,13 +764,12 @@ export default function ProdutosEtiquetas(param) {
               {
                 /* ATIVAR DEPOIS PORQUE ESTÁ FUNCIONANDO ABAIXO */ //  source={{ uri: ARRAY_PRIMEIRAS_URL_IMAGENS_RECEBIDO[index] }}
                 container_foto_video ?
-                  <Image
+                 
+                <Image
                     key={index}
                     // style={{ width: '99%', height: '99%', borderRadius: 10, resizeMode: 'cover' }}
                     style={{ width: '99%', height: AVATAR_GADO_SIZE, borderRadius: 10, resizeMode: 'cover' }}
-
                     // source={{ uri: ARRAY_PRIMEIRAS_URL_IMAGENS_RECEBIDO[index] }}
-
                     /****************************************************************/
                     source={{
                       uri: VARIAVEL_GLOBAL.NUMERO_IP + "imagem?url_caminho=" + ARRAY_PRIMEIRAS_URL_IMAGENS_RECEBIDO[index]
@@ -780,167 +779,59 @@ export default function ProdutosEtiquetas(param) {
                       // }
                     }}
                     /***************************************************************/
-
                     TELA_DE_ORIGEM_E_SITUACA={TELA_DE_ORIGEM_E_SITUACAO}
-
                   />
+
 
                   :
 
-                  /******************* /// COMPONENTE ABTERIOR ABAIXO /// ********************* */
-
-                  //source={{ uri: ARRAY_PRIMEIRAS_URL_VIDEOS_RECEBIDO[index] }}  // Can be a URL or a local file.
+                 /******************************************************************************************** */
 
 
-                  // https://github.com/react-native-video/react-native-video#android-installation
                   // <Video
                   //   key={index}
-                  //   source={{ uri: ARRAY_PRIMEIRAS_URL_VIDEOS_RECEBIDO[index] }}  // Can be a URL or a local file.
+                  //    source={{
+                  //     // uri: VARIAVEL_GLOBAL.NUMERO_IP + "video?url_caminho=" + ARRAY_PRIMEIRAS_URL_VIDEOS_RECEBIDO[index]
+                  //     uri: VARIAVEL_GLOBAL.NUMERO_IP + "video_thumbnail?url_caminho=" + ARRAY_PRIMEIRAS_URL_VIDEOS_RECEBIDO[index]
+                  //     // //, headers: {
+                  //     // //  range: 'bytes=0-',
+                  //     //  //  connection: 'keep-alive'
+                  //     // // }
+                  //     // ,type: 'mp4'
+                  //   }}
                   //   onBuffer={onBuffer}                // Callback when remote video is buffering
                   //   // onError={this.videoError}               // Callback when video cannot be loaded
                   //   // bitrate={4000000}
                   //   bitrate={1000000}
                   //   resizeMode={'cover'}
+                  //   playInBackground={true}
+                  //   seek={0, 100}
+                  //   paused={stopVideos}
+                  //   repeat={false}
+                  //   minLoadRetryCount={1000}
+                  //   bitrate={100}
                   //   style={{ width: '100%', height: '100%', borderRadius: 10 }}
+                  //   TELA_DE_ORIGEM_E_SITUACA={TELA_DE_ORIGEM_E_SITUACAO}
                   // />
 
 
-                  /******************* /// COMPONENTE ABTERIOR ACIMA /// ********************* */
 
-
-                  // source={{ uri: ARRAY_PRIMEIRAS_URL_VIDEOS_RECEBIDO[index] }}
-                  // source={{ uri:  VARIAVEL_GLOBAL.LISTA_THUMBAILS[index] }}
-                  // source={{ uri: VARIAVEL_GLOBAL.LISTA_THUMBAILS[index].response.path }}
-                  // source={{ uri:  VARIAVEL_GLOBAL.LISTA_THUMBAILS[index].response.path }}
-
-                  /********************************************************************************* */
-                  /********************************************************************************* */
-
-                  // <View
-
-                  //   {...(async () => {
-
-
-                  // const URL_THUMBAILL = await CRIANDO_THUMBNAIL(ARRAY_PRIMEIRAS_URL_VIDEOS_RECEBIDO[index], index);
-                  // // CRIANDO_THUMBNAIL(URL_DO_VIDEO, INDICE)
-
-                  //     if (typeof  URL_THUMBAILL === 'undefined') {
-
-                  //   alert(URL_THUMBAILL);
-                  //   return []
-                  //   //  return <Image key={index}
-                  //   //     style={{ width: '99%', height: AVATAR_GADO_SIZE, borderRadius: 10, resizeMode: 'cover' }}
-                  //   //     source={{ uri: "https://png.pngtree.com/png-vector/20210309/ourmid/pngtree-not-loaded-during-loading-png-image_3022825.jpg" }}
-                  //   //   />
-
-
-                  // } else {  //return []
-
-                  //   alert(URL_THUMBAILL);
-
-                  //   return <Image key={index}
-                  //     style={{ width: '99%', height: AVATAR_GADO_SIZE, borderRadius: 10, resizeMode: 'cover' }}
-                  //     // source={{ uri: (VARIAVEL_GLOBAL.LISTA_THUMBAILS[index].response.path) }}
-                  //     source={{ uri: URL_THUMBAILL }}
-                  //   />
-
-
-                  // }//if else
-
-                  /********************************************************************************* */
-                  /********************************************************************************* */
-
-                  //     let thum;
-
-                  //     // await Promise.all(
-
-                  //       await  createThumbnail({
-                  //       url: ARRAY_PRIMEIRAS_URL_VIDEOS_RECEBIDO[index],
-                  //       // timeStamp: 10000,
-                  //       timeStamp: 10000,
-                  //     })
-                  //       .then((response) => {
-                  //         // console.log({ response })
-                  //         //return response
-                  //         // return  response.path;
-
-                  //         // alert(response.path);
-                  //         thum = response.path
-
-                  //       })
-                  //       .catch(err => console.log({ err })),
-
-                  //     // );
-
-                  //     <Image key={index}
-                  //       style={{ width: '99%', height: AVATAR_GADO_SIZE, borderRadius: 10, resizeMode: 'cover' }}
-                  //       // source={{ uri: (VARIAVEL_GLOBAL.LISTA_THUMBAILS[index].response.path) }}
-                  //       source={{ uri: thum }}
-                  //     />
-
-
-
-                  //   })()}
-
-                  // ></View>
-
-                  /**********************************************************************************/
-                  /**********************************************************************************/
-
-
-
-
-
-
-                  //IMPORTANDO COMPONENTE DE VIDEO PERSONALIZADO => VideosCotainer
-                  // <View key={index}
-
-                  //   style={{ width: '99%', height: AVATAR_GADO_SIZE, borderRadius: 10, resizeMode: 'cover' }}
-                  // // source={{ uri: ARRAY_PRIMEIRAS_URL_IMAGENS_RECEBIDO[index] }}
-                  // // TELA_DE_ORIGEM_E_SITUACA={TELA_DE_ORIGEM_E_SITUACAO}
-                  // >
-                  //   <VideosCotainer URL_Video={ARRAY_PRIMEIRAS_URL_VIDEOS_RECEBIDO[index]} />
-                  // </View>
-
-
-                  /******************************************************************************************** */
-
-
-                  <Video
-                    key={index}
-                    // source={{ uri: ARRAY_PRIMEIRAS_URL_VIDEOS_RECEBIDO[index] }}  // Can be a URL or a local file.
-
-                    source={{
-                      uri: VARIAVEL_GLOBAL.NUMERO_IP + "video?url_caminho=" + ARRAY_PRIMEIRAS_URL_VIDEOS_RECEBIDO[index]
-
-                      // //, headers: {
-                      // //  range: 'bytes=0-',
-                      //  //  connection: 'keep-alive'
-                      // // }
-                      // ,type: 'mp4'
-                    }}
-
-                    onBuffer={onBuffer}                // Callback when remote video is buffering
-                    // onError={this.videoError}               // Callback when video cannot be loaded
-                    // bitrate={4000000}
-                    bitrate={1000000}
-                    resizeMode={'cover'}
-                    playInBackground={true}
-                    seek={0, 100}
-                    paused={stopVideos}
-                    repeat={false}
-
-                    minLoadRetryCount={1000}
-
-                    bitrate={100}
-
-                    style={{ width: '100%', height: '100%', borderRadius: 10 }}
-
-                    TELA_DE_ORIGEM_E_SITUACA={TELA_DE_ORIGEM_E_SITUACAO}
-
-                  />
-
-
+                  <Image
+                  key={index}
+                  // style={{ width: '99%', height: '99%', borderRadius: 10, resizeMode: 'cover' }}
+                  style={{ width: '99%', height: AVATAR_GADO_SIZE, borderRadius: 10, resizeMode: 'cover' }}
+                  // source={{ uri: ARRAY_PRIMEIRAS_URL_IMAGENS_RECEBIDO[index] }}
+                  /****************************************************************/
+                  source={{
+                    uri: VARIAVEL_GLOBAL.NUMERO_IP + "video_thumbnail?url_caminho=" + ARRAY_PRIMEIRAS_URL_VIDEOS_RECEBIDO[index]
+                    // , headers: {
+                    //     range: 'bytes=0-',
+                    //     range: 'bytes=0-1024',
+                    // }
+                  }}
+                  /***************************************************************/
+                  TELA_DE_ORIGEM_E_SITUACA={TELA_DE_ORIGEM_E_SITUACAO}
+                />
 
 
               }

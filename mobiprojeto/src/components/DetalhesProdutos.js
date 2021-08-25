@@ -376,19 +376,16 @@ export default function DetalhesProdutos(props) {
         return true;
     };
 
-    const [stopVideos, setStopVideos] = useState(true);
 
+    // const [stopVideos, setStopVideos] = useState(true);
 
+    // const [render_1, setRender_1] = useState(true);
+    // const [renderDaTela, setRenderDaTela] = useState(true);
+    // useEffect(() => {
 
-    const [render_1, setRender_1] = useState(true);
+    //     setRenderDaTela(true);
 
-    const [renderDaTela, setRenderDaTela] = useState(true);
-
-    useEffect(() => {
-
-        setRenderDaTela(true);
-
-    }, [renderDaTela]);
+    // }, [renderDaTela]);
 
 
 
@@ -396,7 +393,7 @@ export default function DetalhesProdutos(props) {
     return (
 
 
-        renderDaTela ? <View style={{ alignItems: 'center', justifyContent: 'flex-start', height: '100%', position: 'absolute', backgroundColor: 'rgb(255,255,255,0)', width: '100%' }}>
+     <View style={{ alignItems: 'center', justifyContent: 'flex-start', height: '100%', position: 'absolute', backgroundColor: 'rgb(255,255,255,0)', width: '100%' }}>
 
             {/*#2A3E4A*/}
 
@@ -677,7 +674,7 @@ export default function DetalhesProdutos(props) {
                                 //alert(ARRAY_DE_IMAGENS_E_VIDEOS[index]);
                                 var FOTO_OU_VIDEO = ARRAY_DE_IMAGENS_E_VIDEOS[index];
 
-                                setStopVideos(true);
+                               
                                 setcontainer_foto_video(false);
 
 
@@ -706,7 +703,7 @@ export default function DetalhesProdutos(props) {
                                         navigation.navigate("NavegarVideos", { URL_Video, URL_REMOTA_BOOLEAN })
 
                                 }
-                                setRenderDaTela(false);
+                            
 
                             }}
 
@@ -746,15 +743,12 @@ export default function DetalhesProdutos(props) {
                                         /****************************************************************/
                                         source={{
                                             uri: VARIAVEL_GLOBAL.NUMERO_IP + "imagem?url_caminho=" + ARRAY_DE_IMAGENS_E_VIDEOS[index]
-
                                             //    source={{ uri:  "file:///data/user/0/com.mobiprojeto/cache/Camera/4f78adb7-4c65-4167-b8fd-3897385dfa6d.mp4"
-
                                             // , headers: {
                                             //     range: 'bytes=0-',
                                             //     range: 'bytes=0-1024',
                                             // }
                                         }}
-                                    /***************************************************************/
                                     />
 
                                     :
@@ -783,7 +777,7 @@ export default function DetalhesProdutos(props) {
 
 
                                     <View style={{ width: '100%', height: '100%', borderRadius: 10 }}>
-                                        <Video
+                                        {/* <Video
                                             //key={index}     
                                             source={{
                                                 // uri: VARIAVEL_GLOBAL.NUMERO_IP + "video_stream_perfeito?url_caminho=" + ARRAY_DE_IMAGENS_E_VIDEOS[index]
@@ -791,37 +785,39 @@ export default function DetalhesProdutos(props) {
 
                                                 uri: VARIAVEL_GLOBAL.NUMERO_IP + "video?url_caminho=" + ARRAY_DE_IMAGENS_E_VIDEOS[index]
                                                 // , headers: {
-                                                //     'Content-Range': `bytes=0-1024/*`,
+                                                //     'Range': `bytes=0-`,
                                                 //     'Accept-Ranges': 'bytes',
                                                 //     'Content-Type': 'video/mp4',
                                                 // },
-
-                                                // , headers: {
-                                                //     'Content-Range': `bytes=0-7216980/*`,
-                                                //     // 'Accept-Ranges': 'bytes',
-                                                //     // 'Content-Type': 'video/mp4',
-                                                //   },
-                                                // ,type: 'mp4'
+                                                 // ,type: 'mp4'
 
                                             }} //ATIVAR ESSA LINHA
-
                                             onBuffer={onBuffer}                // Callback when remote video is buffering
-
                                             bitrate={1000000}
                                             resizeMode={'cover'}
-
                                             playInBackground={true}
                                             seek={0, 100}
                                             paused={stopVideos}
                                             repeat={false}
                                             minLoadRetryCount={1000}
                                             bitrate={100}
-
                                             onError={err => console.log("ERRO AQUI => " + JSON.stringify(err))}
-
                                             style={{ width: '100%', height: '100%', borderRadius: 10 }}
+                                        /> */}
 
+                                        <Image key={index} style={{ width: '100%', height: '100%', borderRadius: 10 }}
+                                            // source={{ uri: ARRAY_DE_IMAGENS_E_VIDEOS[index] }}
+                                            /****************************************************************/
+                                            source={{
+                                                uri: VARIAVEL_GLOBAL.NUMERO_IP + "video_thumbnail?url_caminho=" + ARRAY_DE_IMAGENS_E_VIDEOS[index]
+                                                // , headers: {
+                                                //     range: 'bytes=0-',
+                                                //     range: 'bytes=0-1024',
+                                                // }
+                                            }}
                                         />
+
+
                                     </View>
 
 
@@ -1209,9 +1205,6 @@ export default function DetalhesProdutos(props) {
 
 
         </View>
-
-
-            : []
 
     )//DO RETURN
 
