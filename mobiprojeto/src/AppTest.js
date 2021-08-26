@@ -82,12 +82,15 @@ var IP_DO_SERVIDOR     = "https://gadoapp.online/";
 var IP_DO_SERVIDOR_IO  = "https://gadoapp.online/";
 var IP_MERCADO_PAGO    = "https://gadoapp.online/api_recebimento/"
 
+//________________ESSA ROTA FOI CRIADA NA API MAS ESTÁ SEM USO______________//
+// var IP_DO_SERVIDOR_IO  = "https://gadoapp.online/web_socket_io/";
 
 
 
-//  //NO SERVIDOR DO MEU NOTEBOOK CASA DA MÃE  ABAIXO
+
+ //NO SERVIDOR DO MEU NOTEBOOK CASA DA MÃE  ABAIXO
 // var IP_DO_SERVIDOR     = "http://192.168.0.107:3000/";
-// var IP_DO_SERVIDOR_IO  = "http://192.168.0.107:3001/";
+// var IP_DO_SERVIDOR_IO  = "http://192.168.0.107:3000/";
 // var IP_MERCADO_PAGO    = "http://192.168.0.107:8080/";
 
 
@@ -843,8 +846,9 @@ export default function AppTest() {
   useEffect(() => {
 
     PEGAR_NUMERO_DO_CELL_NO_CARREGAMENTO().then(() => {
+      // IP_DO_SERVIDOR_IO = VARIAVEL_GLOBAL.NUMERO_IP;
       //use effect cleanup to set flag false, if unmounted
-      //alert(IP_DO_SERVIDOR_IO);
+      // alert(IP_DO_SERVIDOR_IO);
       //IN CONSTRUCTION HERE SOCKET IO ABAIXO 
       const socket = io(IP_DO_SERVIDOR_IO, {
         query: {
