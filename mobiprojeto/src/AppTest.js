@@ -71,6 +71,9 @@ import DeviceInfo from 'react-native-device-info';
 import { ProcessingManager } from 'react-native-video-processing';
 
 
+import Importante from './components/Importante';
+
+
 
 // LicencaExpirada
 
@@ -80,16 +83,16 @@ import { ProcessingManager } from 'react-native-video-processing';
 // NO SERVIDOR REMOTO DIGITALOCEAN
 // var IP_DO_SERVIDOR     = "https://gadoapp.online/";
 // var IP_DO_SERVIDOR_IO  = "https://gadoapp.online/";
-// var IP_MERCADO_PAGO    = "https://gadoapp.online/api_recebimento/"
+// var IP_MERCADO_PAGO    = "https://gadoapp.online/api_recebimento/";
 
 
 
 
 
- //NO SERVIDOR DO MEU NOTEBOOK CASA DA MÃE  ABAIXO
-var IP_DO_SERVIDOR     = "http://192.168.0.107:3000/";
-var IP_DO_SERVIDOR_IO  = "http://192.168.0.107:3000/";
-var IP_MERCADO_PAGO    = "http://192.168.0.107:8080/";
+//NO SERVIDOR DO MEU NOTEBOOK CASA DA MÃE  ABAIXO
+var IP_DO_SERVIDOR = "http://192.168.0.107:3000/";
+var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3000/";
+var IP_MERCADO_PAGO = "http://192.168.0.107:8080/";
 
 
 
@@ -363,6 +366,7 @@ export default function AppTest() {
   const [botoePropostasAceitas, setbotoePropostasAceitas] = useState(false);
 
 
+  const [telaImportanteInfo, setTelaImportanteInfo] = useState(false);
 
 
 
@@ -1475,7 +1479,7 @@ export default function AppTest() {
       );
 
 
-    } catch (error) { /*alert(error)*/ console.log("ERRO UPLOAD VIDEOS => "+error);  }
+    } catch (error) { /*alert(error)*/ console.log("ERRO UPLOAD VIDEOS => " + error); }
   }
   //ESTÁ FUNCIONANDO PERFEITAMENTE ACIMA
 
@@ -2780,7 +2784,6 @@ export default function AppTest() {
 
       }
 
-
     }
 
     VERIFICANDO_TERMOS_DE_USO();
@@ -2814,6 +2817,12 @@ export default function AppTest() {
   }
 
 
+
+  function FECHAR_TELA_INFORMACAO_IMPORTANTE() {
+
+    setTelaImportanteInfo(false);
+
+  }
 
 
 
@@ -2851,7 +2860,6 @@ export default function AppTest() {
     // for (var i = 0; i < 100000000; i++) {
     //     somatorio++;
     // }//for
-
 
     let valor = Math.floor(Math.random() * 10000) + ".mp4";
     // let valor = "4548746464";
@@ -2946,28 +2954,28 @@ export default function AppTest() {
 
                   onPress={() => {
 
+                    /*
+                    MAPA FOI DESATIVADO ABAIXO
+
                     const LARTITUDE = userPosition.latitude;
                     const LORNGITUDE = userPosition.longitude;
                     VARIAVEL_GLOBAL.LATITUDE = userPosition.latitude;
                     VARIAVEL_GLOBAL.LONGITUDE = userPosition.longitude;
-
                     //alert(userPosition.latitude+"   |    "+ userPosition.longitude);
-                    //navigation.navigate("MAPA");
                     navigation.navigate("MapaGoogle", { LARTITUDE, LORNGITUDE });
 
-                    // alert(
-                    //   array_propostas_recentes_recebidas.length + "  <= recebidas  " +
-                    //   array_propostas_recentes_enviadas.length + "   <= enviadas  " +
-                    //   array_propostas_recentes_aceitas.length + "    <= aceitas   " +
-                    //   array_venda_recentes_requisitadas.length + "    <= vendas requeridas   " +
-                    //   somatorio_notificacao_numero + " <= SOMATÓRIO TOTAL  "
-                    // )
+                    MAPA FOI DESATIVADO ACIMA
+                    */
+
+
+                    setTelaImportanteInfo(true);
+
 
 
                   }}
                 >
                   <Icon name='map-marker' style={[Estilo.icones_grande]} />
-                  <Text style={{ fontSize: 10, color: 'white' }}>Mapa</Text>
+                  <Text style={{ fontSize: 10, color: 'white' }}>Importante</Text>
                 </TouchableOpacity>
 
                 <TouchableOpacity style={[Estilo.borda_geral, style = { width: '25%', alignItems: 'center', borderWidth: 0 }]}
@@ -3002,8 +3010,8 @@ export default function AppTest() {
 
                   }}
                 >
-                  <Icon name='plus-circle' style={[Estilo.icones_grande]} />
-                  <Text style={{ fontSize: 10, color: 'white' }}>Postar</Text>
+                  <Icon name='plus-circle' style={[Estilo.icones_grande, style={color:'#25E7DB'}]} />
+                  <Text style={{ fontSize: 10, color: '#25E7DB' }}>Publicar</Text>
 
                 </TouchableOpacity>
               </View>
@@ -3751,6 +3759,10 @@ export default function AppTest() {
             REMOTO_ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA={ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA}
           />)
         }
+
+
+        {telaImportanteInfo && (<Importante FECHAR_TELA_INFORMACAO_IMPORTANT={FECHAR_TELA_INFORMACAO_IMPORTANTE} />)}
+
 
       </SafeAreaView >
 

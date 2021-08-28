@@ -949,37 +949,37 @@ export default function MensagensPropostas(param) {
                                     // //FOI DESATIVADO O DELETAR MENSAGEM NO CHAT ABAIXO  18 07 2021
                                     onLongPress={(e) => {
 
-                                        //alert("FOI MANTIDO PRESSIONADO");
-                                        Alert.alert(
-                                            //title
-                                            'Atenção !',
-                                            //body
-                                            //'I am two option alert. Do you want to cancel me ?',
-                                            'Deseja Apagar essa Mensagem ?',
-                                            [
-                                                {
-                                                    text: 'Sim',
-                                                    onPress: () => {
+                                        // // /// //alert("FOI MANTIDO PRESSIONADO");
+                                        // Alert.alert(
+                                        //     //title
+                                        //     'Atenção !',
+                                        //     //body
+                                        //     //'I am two option alert. Do you want to cancel me ?',
+                                        //     'Deseja Apagar essa Mensagem ?',
+                                        //     [
+                                        //         {
+                                        //             text: 'Sim',
+                                        //             onPress: () => {
 
-                                                        if (JSON.stringify(propostasss).includes("Compra e Venda Fechada</")) {
-                                                            alert("Compra e Venda Fechada ! \n Não é possivel Excluir a Mensagem da Proposta !");
-                                                        } else {
-                                                            // alert("VAI APAGAR ESSA PROPOSTA");
-                                                            param.funcao_remota_deletar_proposta(propostas.cod_automatico, propostas.numero_telefone_vendedor, propostas.numero_telefone_comprador);
-                                                            VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
-                                                        }
+                                        //                 if (JSON.stringify(propostasss).includes("Compra e Venda Fechada</")) {
+                                        //                     alert("Compra e Venda Fechada ! \n Não é possivel Excluir a Mensagem da Proposta !");
+                                        //                 } else {
+                                        //                     // alert("VAI APAGAR ESSA PROPOSTA");
+                                        //                     param.funcao_remota_deletar_proposta(propostas.cod_automatico, propostas.numero_telefone_vendedor, propostas.numero_telefone_comprador);
+                                        //                     VARIAVEL_GLOBAL.NOTIFICACAO_RECEIVER_IDENTIFICACAO = "Atualizar-Tela-Proposta";
+                                        //                 }
 
-                                                    }
-                                                },
-                                                {
-                                                    text: 'Não',
-                                                    onPress: () => {/*console.log('No Pressed')*/ },
-                                                    style: 'cancel'
-                                                },
-                                            ],
-                                            { cancelable: false },
-                                            //clicking out side of alert will not cancel
-                                        );
+                                        //             }
+                                        //         },
+                                        //         {
+                                        //             text: 'Não',
+                                        //             onPress: () => {/*console.log('No Pressed')*/ },
+                                        //             style: 'cancel'
+                                        //         },
+                                        //     ],
+                                        //     { cancelable: false },
+                                        //     //clicking out side of alert will not cancel
+                                        // );
 
                                     }}
                                 // //FOI DESATIVADO O DELETAR MENSAGEM NO CHAT ACIMA  18 07 2021
@@ -1019,12 +1019,21 @@ export default function MensagensPropostas(param) {
 
                                                 onPress={(e) => {
 
-                                                    VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "TAXA";
-                                                    //param.funcao_remota_aceitar_proposta(propostasss[index].cod_automatico);
-                                                    // ACEITAR_PROPOSTA_FUNCAO(index);
-                                                    navigation.navigate("Screen_pay", { propostas });
 
+                                                    // VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "TAXA";
+                                                    // // //param.funcao_remota_aceitar_proposta(propostasss[index].cod_automatico);
+                                                    // // //ACEITAR_PROPOSTA_FUNCAO(index);
+                                                    // navigation.navigate("Screen_pay", { propostas });
+                                                    // <Icon name='arrow-left' style={Estilo.icones_medio} />
+
+
+
+                                                    // param.funcao_remota_aceitar_proposta(propostasss[index].cod_automatico);
+                                                    ACEITAR_PROPOSTA_FUNCAO(index);
                                                     <Icon name='arrow-left' style={Estilo.icones_medio} />
+
+
+
                                                 }}
 
                                             >

@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import {
   StyleSheet,
   Text,
@@ -23,6 +23,12 @@ import ScreenOrientation, { PORTRAIT, LANDSCAPE, LANDSCAPE_LEFT } from "react-na
 import { ProcessingManager } from 'react-native-video-processing';
 
 import Icon from 'react-native-vector-icons/FontAwesome';
+
+
+//FOI DESATIVADO 28 08 2021
+// import GlobalContext from '../../context/UsersContext';
+
+
 
 const flashModeOrder = {
   off: 'on',
@@ -72,11 +78,9 @@ const spin = spinValue.interpolate({
 //IMPLEMENTANDO ICONE ROTACIONAL ACIMA
 
 
+
 export default class CameraScreen extends React.Component { //LINHA TROCADO PELA LINHA ABAIXO
   //class CameraScreen extends React.Component {
-
-
-
 
 
 
@@ -111,10 +115,14 @@ export default class CameraScreen extends React.Component { //LINHA TROCADO PELA
     faces: [],
     textBlocks: [],
     barcodes: [],
-  };
+  }
+
+
 
 
   //const  navigation = useNavigation();
+
+
 
 
 
@@ -192,10 +200,15 @@ export default class CameraScreen extends React.Component { //LINHA TROCADO PELA
   */
 
   takeVideo = async () => {
+
+
     /*
     const [gravarVideo,  setGravarVideo] = useState(true);//APAGAR CASO NÃO DE CERTO
     const [navegarVideo, setnavegarVideo] = useState(false);//APAGAR CASO NÃO DE CERTO
     */
+
+
+
     const { navigation } = this.props;
 
     const { isRecording } = this.state;
@@ -225,16 +238,16 @@ export default class CameraScreen extends React.Component { //LINHA TROCADO PELA
           // URLs_Videos.push(path);
           // // URLs_Videos.push(caminhoOriginal);
           // //CHAMANDO O ALGORITMO DE COMPRESSAO DE VIDEO MAS NÃO ESTÁ SENDO USADO ABAIXO
-        
+
 
           URLs_Videos.push(data.uri);
-           var URL_VIDEOS = '';
-           for (var i = 0; i < URLs_Videos.length; i++) {
-             URL_VIDEOS += URLs_Videos[i] + '|';
-           }//FOR
-          
-           navigation.navigate("Postar", { URL_VIDEOS });
-    
+          var URL_VIDEOS = '';
+          for (var i = 0; i < URLs_Videos.length; i++) {
+            URL_VIDEOS += URLs_Videos[i] + '|';
+          }//FOR
+
+          navigation.navigate("Postar", { URL_VIDEOS });
+
 
 
           //ALGORITIMO DE COMPRESSAO DE VIDEO ABAIXO processamento DEMORADO ABAIXO  MAS FUNCIONA PERFEITAMENTE ABAIXO
@@ -243,7 +256,7 @@ export default class CameraScreen extends React.Component { //LINHA TROCADO PELA
             let caminhoOriginal = path;
             const origin = await ProcessingManager.getVideoInfo(path);
             const result = await ProcessingManager.compress(path, {
-              width:  origin.size && origin.size.width / 3,
+              width: origin.size && origin.size.width / 3,
               height: origin.size && origin.size.height / 3,
               // bitrateMultiplier: 7,
               bitrateMultiplier: 4,
@@ -253,7 +266,7 @@ export default class CameraScreen extends React.Component { //LINHA TROCADO PELA
 
             return { path: result.source, caminhoOriginal, thumbnail };
             //ALGORITIMO DE COMPRESSAO DE VIDEO ACIMA processamento DEMORADO ACIMA  MAS FUNCIONA PERFEITAMENTE ACIMA
-           
+
           }
           // //TENTANDO COMPRIMIR VIDEO AQUI ACIMA PARTE 2
 
@@ -431,19 +444,19 @@ export default class CameraScreen extends React.Component { //LINHA TROCADO PELA
     /*return <Text style={styles.flipText}> ☕ </Text>;*/
 
     // return <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: '100%' }}>
-    return  <Text style={[style = {
-        borderWidth: 0,
-        borderRadius: 8,
-        padding: 7,
-        width: '90%',
-        height: '100%',
+    return <Text style={[style = {
+      borderWidth: 0,
+      borderRadius: 8,
+      padding: 7,
+      width: '90%',
+      height: '100%',
 
-        textAlign: 'center',
+      textAlign: 'center',
 
-        borderColor: 'orange',
-        color: 'white',
-        // backgroundColor:'red'
-      }]}>Parar Gravação</Text>;
+      borderColor: 'orange',
+      color: 'white',
+      // backgroundColor:'red'
+    }]}>Parar Gravação</Text>;
 
     //   <Animated.View style={{ transform: [{ rotate: spin }], width: '10%', borderWidth: 1 }} >
     //     <Icon name='spinner' style={{ fontSize: 18, color: '#FFF' }} />

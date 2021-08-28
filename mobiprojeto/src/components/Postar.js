@@ -146,8 +146,6 @@ export default function Postar(props) {
 
 
 
-
-
     //TESTANDO FUNCTION ABAIXO
     function OBJETO_RECEBIDO(props) {
 
@@ -463,6 +461,9 @@ export default function Postar(props) {
 
         setAtualizarTela(VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length);
         nome_da_funcao();
+
+        VARIAVEL_GLOBAL.TELA_ATUAL = "Postar";
+        // alert(VARIAVEL_GLOBAL.TELA_ATUAL);
 
     });
 
@@ -876,6 +877,7 @@ export default function Postar(props) {
 
                     <TouchableOpacity style={{ width: '25%', height: 40, alignItems: 'center', justifyContent: 'center', borderWidth: 0, borderColor: 'ORANGE' }}
                         onPress={() => {
+                            VARIAVEL_GLOBAL.TELA_ATUAL = "Postar";
                             setimagensEvideos(true);
 
                             //    navigation.navigate("CameraFoto", { URL_FOTOS_2 });
@@ -890,6 +892,7 @@ export default function Postar(props) {
 
                     <TouchableOpacity style={{ width: '25%', height: 40, alignItems: 'center', justifyContent: 'center', borderWidth: 0, borderColor: 'ORANGE' }}
                         onPress={() => {
+                            VARIAVEL_GLOBAL.TELA_ATUAL = "Postar";
                             setimagensEvideos(true);
                             navigation.navigate("Videos");
                         }}
@@ -901,6 +904,8 @@ export default function Postar(props) {
 
                     <TouchableOpacity style={{ width: '25%', height: 40, alignItems: 'center', justifyContent: 'center', borderWidth: 0, borderColor: 'ORANGE' }}
                         onPress={async () => {
+
+                            VARIAVEL_GLOBAL.TELA_ATUAL = "Postar";
                             setimagensEvideos(true);
 
                             var CAMINHO;

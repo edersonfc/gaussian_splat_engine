@@ -34,7 +34,7 @@ import VideoPlayer from 'react-native-video-controls';
 
 let NavegarVideos = (props) => {//#1#
 
-// export default function NavegarVideos(props) {
+    // export default function NavegarVideos(props) {
 
 
     const { VARIAVEL_GLOBAL } = useContext(GlobalContext);
@@ -66,6 +66,8 @@ let NavegarVideos = (props) => {//#1#
     const [url_remota_url_boolean_stado, setUrl_remota_url_boolean_stado] = useState(URL_REMOTA_BOOLEAN);
 
     const [renderDaTela, setRenderDaTela] = useState(true);
+
+    const [botaoExcluirBoolean, setBotaoExcluirBoolean] = useState(false);
 
     useEffect(() => {
 
@@ -150,6 +152,28 @@ let NavegarVideos = (props) => {//#1#
         MUDAR_POSICAO();
 
     }, [posicao]);
+
+
+    
+
+    useEffect(() => {
+
+        // alert(VARIAVEL_GLOBAL.TELA_ORIGEM);
+        // alert(VARIAVEL_GLOBAL.TELA_ATUAL);
+
+        if( VARIAVEL_GLOBAL.TELA_ATUAL === "Postar" ){
+
+            setBotaoExcluirBoolean(true);
+            // alert(VARIAVEL_GLOBAL.TELA_ATUAL);
+            
+        }else{
+            
+            setBotaoExcluirBoolean(false);
+
+        }
+
+
+    }, [botaoExcluirBoolean]);
 
 
 
@@ -333,9 +357,21 @@ let NavegarVideos = (props) => {//#1#
                 </TouchableOpacity>
 
 
-                <View style={{ flexDirection: 'row', width: '20%', justifyContent: 'center' }}>
-                    {/* <Text style={{ height: 50, marginLeft: 5, fontSize: 15, color: 'white', borderWidth: 0, borderColor: 'yellow', textAlignVertical: 'center' }} >{currentTime}</Text> */}
-                </View>
+                {botaoExcluirBoolean ?
+                    <TouchableOpacity style={{ flexDirection: 'row', width: '20%', justifyContent: 'center' }}
+                        onPress={() => {
+
+                            alert("Apagar Esse Vídeo");
+
+                        }}
+                    >
+                        <Icon style={{ height: 50, marginLeft: 30, fontSize: 35, color: 'white', borderWidth: 0, borderColor: 'yellow', textAlignVertical: 'center' }} name='trash' />
+                        <Text style={{ height: 50, marginLeft: 5, fontSize: 15, color: 'white', borderWidth: 0, borderColor: 'yellow', textAlignVertical: 'center' }} >Excluir</Text>
+
+                    </TouchableOpacity>
+                    :
+                    <View style={{ flexDirection: 'row', width: '20%', justifyContent: 'center' }} />
+                }
 
 
                 <TouchableOpacity style={{ flexDirection: 'row', width: '40%', justifyContent: 'center', borderWidth: 0, borderColor: 'green' }}

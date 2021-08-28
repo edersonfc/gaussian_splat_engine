@@ -121,8 +121,6 @@ const estilo = StyleSheet.create({
         backgroundColor: 'rgb(62,90,106)',
 
         justifyContent: 'center'
-
-
     },
 
     TEXT_1: {
@@ -134,11 +132,6 @@ const estilo = StyleSheet.create({
         borderBottomRightRadius: 15,
 
         // backgroundColor: 'rgb(62,90,16)',
-
         // justifyContent: 'center'
-
-
     }
-
-
 });
