@@ -71,16 +71,16 @@ export default function Waiting(param) {
 
 
     return (
-    
+
 
         <View style={[estilo.VIEW_1]} >
 
-<ScreenOrientation  orientation={param.ORIENTACAO} />
+            <ScreenOrientation orientation={param.ORIENTACAO} />
 
             {/* <View style={[estilo.VIEW_2, style = { width: "100%" }]} > */}
             <Text style={[estilo.TEXT_2]}>{param.paremetroEnviado}</Text>
             <Animated.View style={{ transform: [{ rotate: spin }] }} >
-                    <Icon name='spinner' style={{ fontSize: 70, color: '#FFF' }} />
+                <Icon name='spinner' style={{ fontSize: 70, color: '#FFF' }} />
             </Animated.View>
             {/* </View> */}
         </View>

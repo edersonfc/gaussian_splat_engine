@@ -78,20 +78,18 @@ import { ProcessingManager } from 'react-native-video-processing';
 
 
 // NO SERVIDOR REMOTO DIGITALOCEAN
-var IP_DO_SERVIDOR     = "https://gadoapp.online/";
-var IP_DO_SERVIDOR_IO  = "https://gadoapp.online/";
-var IP_MERCADO_PAGO    = "https://gadoapp.online/api_recebimento/"
+// var IP_DO_SERVIDOR     = "https://gadoapp.online/";
+// var IP_DO_SERVIDOR_IO  = "https://gadoapp.online/";
+// var IP_MERCADO_PAGO    = "https://gadoapp.online/api_recebimento/"
 
-//________________ESSA ROTA FOI CRIADA NA API MAS ESTÁ SEM USO______________//
-// var IP_DO_SERVIDOR_IO  = "https://gadoapp.online/web_socket_io/";
 
 
 
 
  //NO SERVIDOR DO MEU NOTEBOOK CASA DA MÃE  ABAIXO
-// var IP_DO_SERVIDOR     = "http://192.168.0.107:3000/";
-// var IP_DO_SERVIDOR_IO  = "http://192.168.0.107:3000/";
-// var IP_MERCADO_PAGO    = "http://192.168.0.107:8080/";
+var IP_DO_SERVIDOR     = "http://192.168.0.107:3000/";
+var IP_DO_SERVIDOR_IO  = "http://192.168.0.107:3000/";
+var IP_MERCADO_PAGO    = "http://192.168.0.107:8080/";
 
 
 
@@ -507,7 +505,7 @@ export default function AppTest() {
           const hoje = new Date();
           // console.log(hoje.getSeconds());
 
-          console.log("CHAMANDO DE TEMPO EM TEMPO 17 08 2021");
+          // console.log("CHAMANDO DE TEMPO EM TEMPO 17 08 2021");
 
 
           VARIAVEL_GLOBAL.CONTADOR_GLOBAL = 0;

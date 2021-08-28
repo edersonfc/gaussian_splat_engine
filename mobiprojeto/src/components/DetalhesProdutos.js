@@ -299,6 +299,27 @@ export default function DetalhesProdutos(props) {
 
 
 
+
+
+
+
+    useEffect(() => {
+
+     
+        if(comprar_ou_deletar == "Vendido"){
+
+            setFazer_ou_ver_proposta("Status da Venda");
+
+        }else  if(comprar_ou_deletar == "Comprado"){
+
+            setFazer_ou_ver_proposta("Status da Compra");
+
+        }
+
+
+    });
+
+
     {/*aqw(FOTO_OU_VIDEO = ARRAY_DE_IMAGENS_E_VIDEOS[index])*/ }
 
     const [colocar_celular_visivel_or_invisivel, setColocar_celular_visivel_or_invisivel] = useState(false);
@@ -592,6 +613,7 @@ export default function DetalhesProdutos(props) {
                                     //alert(index+"  #  "+numero_telefone +"  #  "+  id_da_postagem +"  #  "+  numero_telefone_comprador)
                                     navigation.navigate("EnvioPropostasCompras", { index, numero_telefone, id_da_postagem, numero_telefone_comprador });
                                     VARIAVEL_GLOBAL.FAZER_PROPOSTA = fazer_ou_ver_proposta;
+                                   
                                     /**/
 
                                 } else if (VARIAVEL_GLOBAL.LICENCA_USO === "bloqueado") {
@@ -977,6 +999,7 @@ export default function DetalhesProdutos(props) {
                         <TouchableHighlight style={{ width: '42%', height: 40, alignItems: 'center', paddingTop: 10, borderWidth: 1, borderRadius: 10, borderColor: 'white' }}
                             onPress={() => {
 
+                                VARIAVEL_GLOBAL.STATUS_DA_VENDA_OU_COMPRA = fazer_ou_ver_proposta;
 
                                 if (VARIAVEL_GLOBAL.LICENCA_USO === "liberado" || VARIAVEL_GLOBAL.TELEFONE === "SEM_TELEFONE_USUARIO") {
 

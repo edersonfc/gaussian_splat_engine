@@ -27,6 +27,8 @@ import { useNavigation } from "@react-navigation/native";
 
 import Waiting from '../components/Waiting';
 
+import StatusInfoCompraVenda from '../components/StatusInfoCompraVenda';
+
 
 
 //VARIAVEL GLOBAL FORA DO METODO EXPORT PRINCIPA DA TELA ABAIXO
@@ -61,6 +63,8 @@ export default function MensagensPropostas(param) {
     const { VARIAVEL_GLOBAL } = useContext(GlobalContext);
 
     const [waitingVisible, setWaitingisible] = useState(false);
+
+    const [compra_e_venda_status, setCompra_e_venda_status] = useState(false);
 
     // var RETORNO_CONTEUDO_TEXTO = "";
     const [RETORNO_CONTEUDO_TEXTO, setRETORNO_CONTEUDO_TEXTO] = useState("");
@@ -527,7 +531,7 @@ export default function MensagensPropostas(param) {
 
 
         let DATA_PORTUGUES_FORMATO_CORRETO = REGULARIZANDO_DATAS_COM_FORMATO_DE_ZEROS_CORRETAMENTE(data_hora_e_segundo_completo());
-        let HORA_PORTUGUES_FORMATO_CORRETO = REGULARIZANDO_HORAS_COM_FORMATO_DE_ZEROS_CORRETAMENTE(data_hora_e_segundo_completo());       
+        let HORA_PORTUGUES_FORMATO_CORRETO = REGULARIZANDO_HORAS_COM_FORMATO_DE_ZEROS_CORRETAMENTE(data_hora_e_segundo_completo());
 
 
         //SEM HTML ABAIXO
@@ -605,11 +609,21 @@ export default function MensagensPropostas(param) {
 
 
 
+    useEffect(() => {
+
+
+        // alert(VARIAVEL_GLOBAL.STATUS_DA_VENDA_OU_COMPRA);
+
+        if( VARIAVEL_GLOBAL.STATUS_DA_VENDA_OU_COMPRA === 'Status da Compra' ||
+            VARIAVEL_GLOBAL.STATUS_DA_VENDA_OU_COMPRA === 'Status da Venda' ){
+
+                setCompra_e_venda_status(true);
+
+        }
 
 
 
-
-
+    },[]);
 
 
 
@@ -1188,6 +1202,7 @@ export default function MensagensPropostas(param) {
 
                     ))//DO MAP
 
+
                 )/*visivel_true_false*/}
 
 
@@ -1199,7 +1214,11 @@ export default function MensagensPropostas(param) {
             )}
 
 
-            {waitingVisible && (<Waiting paremetroEnviado={"Aguarde ..."} ORIENTACAO={"PORTRAIT"} />)}
+            {/* {waitingVisible && (<Waiting paremetroEnviado={"Aguarde ..."} ORIENTACAO={"PORTRAIT"} />)} */}
+
+
+            {compra_e_venda_status && (<StatusInfoCompraVenda/>)}
+
 
 
         </View>
