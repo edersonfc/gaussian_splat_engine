@@ -1,13 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { View, Text, TouchableOpacity, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, Dimensions, ActivityIndicator } from 'react-native';
 
 //npm install react-native-webview
 import { WebView } from 'react-native-webview';
+
+function LoadingIndicatorView() {
+  return <ActivityIndicator color='#009b88' size='large'  />
+}
 
 
 //13052021
 //Import react-native-splash-screen.
 import SplashScreen from "react-native-splash-screen";
+
 
 //13052021
 // // import TelaSplash from './src/components/TelaSplash';
@@ -17,7 +22,7 @@ import SplashScreen from "react-native-splash-screen";
 export default function TERMOS_DE_USO(param) {
 
   const [largura_tela, setLargura_tela] = useState(Dimensions.get('window').width);
-  const [altura_tela, setAltura_tela] = useState(Dimensions.get('window').height);
+  const [altura_tela, setAltura_tela]   = useState(Dimensions.get('window').height);
 
 
   //   navigator.serviceWorker.getRegistrations().then(function(registrations) {
@@ -54,6 +59,9 @@ export default function TERMOS_DE_USO(param) {
           // source={{ uri: "https://gadoapp.online:8080/termos_de_uso/" }}// => SERVIDOR DA DIGITALOCEAN
           // source={{ uri: "http://159.89.87.76:8080/termos_de_uso/" }}// => SERVIDOR DA DIGITALOCEAN
         // source={{ uri: "http://192.168.0.107:8080/termos_de_uso/" }}// => SERVIDOR DA DIGITALOCEAN
+
+        renderLoading={LoadingIndicatorView}
+        startInLoadingState={true}
 
 
         />

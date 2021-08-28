@@ -69,15 +69,15 @@
     </application>
 
 
-<!-- ADICIONADO EM 22/10/2020 ABAIXO
+<!-- ADICIONADO EM 22/10/2020 ABAIXO 
 <application>
    <meta-data
     android:name="com.google.android.geo.API_KEY"
     android:value="AIzaSyDUzhMrAdUgedgzPE1wRgSunrGQK92tK9s"/>
 
-  You will also only need to add this uses-libray tag
+ 
   <uses-library android:name="org.apache.http.legacy" android:required="false"/>
 </application>
-ADICIONADO EM 22/10/2020 ACIMA -->
+ ADICIONADO EM 22/10/2020 ACIMA -->
 
 </manifest>

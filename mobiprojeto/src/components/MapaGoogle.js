@@ -143,10 +143,11 @@ const styles = StyleSheet.create({
     },
     map: {
         /*...StyleSheet.absoluteFillObject,*/
-        /**/
         position: 'relative',
         width: '100%',
         height: '100%',
+
+        backgroundColor:'green'
 
     },
     bubble: {

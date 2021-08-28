@@ -824,7 +824,10 @@ export default function Postar(props) {
 
 
 
+    var LARGURA = Math.round(Dimensions.get('window').width);
+    var ALTURA = Math.round(Dimensions.get('window').height);
 
+    const LARGURA_DESCRICAO = (ALTURA * 0.50)
 
 
 
@@ -1362,11 +1365,11 @@ export default function Postar(props) {
 
 
                     <View style={{ width: '100%', paddingTop: 10, borderWidth: 0, borderColor: 'white', alignContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ borderWidth: 0, borderColor: 'blue', fontSize: 16, color: 'white' }} >Descriçoes Gerais</Text>
+                        <Text style={{ borderWidth: 0, borderColor: 'blue', fontSize: 16, color: 'white' }} >Descrições Gerais</Text>
                     </View>
 
                     <View style={{ width: '100%', paddingTop: 10, borderWidth: 0, borderColor: 'white', alignContent: 'center', alignItems: 'center' }}>
-                        <TextInput style={{ width: '90%', backgroundColor: 'white', borderRadius: 8 }}
+                        <TextInput style={{ width: LARGURA_DESCRICAO, minHeight: 45, backgroundColor: 'white', borderRadius: 8 }}
                             multiline={true} flexWrap='wrap' textAlign={'center'} size={15}
                             onChangeText={descricoesGeraisF}
                         />
@@ -2345,7 +2348,7 @@ export default function Postar(props) {
 
 
             } else {
-               VARIAVEL_GLOBAL.COMPACTACAO_DE_VIDEO_ESTADO = true;
+                VARIAVEL_GLOBAL.COMPACTACAO_DE_VIDEO_ESTADO = true;
                 alert("GRAVADO COM SUCESSO !");//
                 INSERINDO_NO_BANCO_DE_DADOS_POSTAGENS_OFF_LINE_2();
 
