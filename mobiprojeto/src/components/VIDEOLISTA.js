@@ -20,12 +20,13 @@ export default function VIDEOLISTA(param) {
             onPress={() => {
 
                 var URL_Video = param.VIDEO;
-                // var index_id = param.index;
-
-                param.index();
+                var index_id = param.index;
+             
+              
+                param.SETAR_TELA_ATUAL_COMO_POSTAR_R();
 
                 //navigation.navigate("navegacaoFotos", { ARRY_URL_IMAGENS , IMAGENS , index_id })
-                navigation.navigate("NavegarVideos", { URL_Video })
+                navigation.navigate("NavegarVideos", { URL_Video , index_id })
 
             }}  >
             <Image source={{ uri: param.VIDEO }} style={{ width: '95%', height: '100%' }} />

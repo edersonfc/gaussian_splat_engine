@@ -47,7 +47,7 @@ let NavegarVideos = (props) => {//#1#
     /*****************************************************************/
     const navigation = useNavigation();//#1#
     var [andar, setAndar] = useState(0);//#1#
-    let { URL_Video } = props.route.params;//#1# // utilizar a {} para desestruturar a variável pesquisarCompras que está dentro de params
+    let { URL_Video , index_id } = props.route.params;//#1# // utilizar a {} para desestruturar a variável pesquisarCompras que está dentro de params
     let { URL_REMOTA_BOOLEAN } = props.route.params;
     //alert(URL_Video);//#1#
     /*****************************************************************/
@@ -59,7 +59,7 @@ let NavegarVideos = (props) => {//#1#
     const [isLoading, setIsLoading] = useState(true);
     const [E_BUFFER, setE_BUFFER] = useState(true);
 
-
+   
 
 
     const [stadoUrl, setStadoUrl] = useState("");
@@ -367,43 +367,36 @@ let NavegarVideos = (props) => {//#1#
                     <TouchableOpacity style={{ flexDirection: 'row', width: '20%', justifyContent: 'center' }}
                         onPress={async () => {
 
-                            // alert("Apagar Esse Vídeo");
-                            // IMAGENS_ARRAY.splice(IMAGENS_ARRAY.indexOf(IMAGENS_ARRAY[INDICE_DA_IMAGEM]), 1);
-                            // VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.splice( VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.indexOf( VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS), 1);
+
+                          
+                            // let ARRAY_LOCAL_VIDEO = [];
+                            // await Promise.all(VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.map(async (itens, indice) => {
+                            //     if (itens !== URL_Video) {
+                            //         ARRAY_LOCAL_VIDEO.push(itens)
+                            //     }//IF
+                            // }));//MAP
+
+                            // VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length = 0;
+                            // VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS = ARRAY_LOCAL_VIDEO;
+                            // URL_Video = VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS;
+
+                            // navigation.navigate("Postar", { URL_Video });
+
+                            
 
 
-
-                            // VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS = VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.filter(function (itens) {
-                            //     return !itens.includes(URL_Video);
-                            // });
-
-
-                            // alert( VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS );
+                            
+                            // VARIAVEL_GLOBAL.URL_VIDEO_EXCLUIDO_DURANTE_POSTAGENS      = URL_Video;
+                            VARIAVEL_GLOBAL.INDICE_DO_VIDEO_EXCLUIR_DURANTE_POSTAGENS = index_id;
+                            // navigation.goBack(null);  
 
 
-                            // alert( URL_Video );
+                             URL_Video = "apagar_videos";
+                             navigation.navigate("Postar", { URL_Video });
 
-                            // console.log(VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length);
+                            // alert(URL_Video);
 
-                            let ARRAY_LOCAL_VIDEO = [];
-
-                            await Promise.all(VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.map(async (itens, indice) => {
-
-                                if (itens !== URL_Video) {
-                                    ARRAY_LOCAL_VIDEO.push(itens)
-
-                                }//IF
-
-                            }));//MAP
-
-                            VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length = 0;
-                            VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS = ARRAY_LOCAL_VIDEO;
-                            URL_Video = VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS;
-
-                            navigation.navigate("Postar", { URL_Video });
-
-                            // console.log(VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length);
-
+                          
                         }}
                     >
                         <Icon style={{ height: 50, marginLeft: 30, fontSize: 35, color: 'white', borderWidth: 0, borderColor: 'yellow', textAlignVertical: 'center' }} name='trash' />

@@ -471,7 +471,7 @@ export default function Postar(props) {
 
 
 
-    function SETAR_TELA_ATUAL_COMO_POSTAR(){
+    function SETAR_TELA_ATUAL_COMO_POSTAR() {
 
         VARIAVEL_GLOBAL.TELA_ATUAL = "Postar";
     }
@@ -487,12 +487,37 @@ export default function Postar(props) {
         // VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT = URL_FOTOS.split("|");  //OBSERVER 17 04 2021
 
 
-        console.log("CHAMANDO");
+        // console.log("CHAMANDO");
 
 
-        //  ARRY_URL_VIDEOS = URL_VIDEOS.split("|");
-        VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS = URL_VIDEOS.split("|");
-        // VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.push(URL_VIDEOS.split("|"));
+        // ARRY_URL_VIDEOS = URL_VIDEOS.split("|");
+
+        
+
+        //______________TENTANDO ABAIXO _______________________________//
+        if (VARIAVEL_GLOBAL.INDICE_DO_VIDEO_EXCLUIR_DURANTE_POSTAGENS === -1) {
+
+            ARRY_URL_VIDEOS = URL_VIDEOS.split("|");
+
+
+            //REPOPULANDO O ARRAY  => URL_VIDEOS_DURANTE_POSTAGENS
+            ARRY_URL_VIDEOS.map((VIDEOS_URLS) => { VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.push(VIDEOS_URLS) });
+
+
+            //   VARIAVEL_GLOBAL.URL_VIDEO_EXCLUIDO_DURANTE_POSTAGENS
+
+            // //////REMOVENDO URL QUE ESTÁ DUPLICADA NO ARRAY DE VIDEOS
+            const ARRAY_VIDEOS_PROVISORIO = VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.filter(function (itens, indice) {
+                return VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.indexOf(itens) == indice;
+                // console.log(itens)
+                // console.log(indice)
+            });
+
+            VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length = 0;
+            VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS = ARRAY_VIDEOS_PROVISORIO;
+         }//IF
+        //______________TENTANDO ACIMA _______________________________//
+
 
 
 
@@ -530,10 +555,10 @@ export default function Postar(props) {
 
             // //LIMPANDO CONTEUDOS VAZIOS DO ARRAY DOS VIDEOS ABAIXO _______________________________=> ESSE PACOTE FOI TROCADO POR #876424
             // for (var i_vazio = 0; i_vazio < ARRY_URL_VIDEOS.length; i_vazio++) {
-            for (var i_vazio = 0; i_vazio <  VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length; i_vazio++) {
+            for (var i_vazio = 0; i_vazio < VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length; i_vazio++) {
                 var vazio_no_array;
                 // vazio_no_array = ARRY_URL_VIDEOS[i_vazio];
-                vazio_no_array =  VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS[i_vazio];
+                vazio_no_array = VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS[i_vazio];
                 //alert(vazio_no_array);
                 //alert(ARRY_URL_IMAGENS.length);
                 if (!vazio_no_array.includes("file:///") && !vazio_no_array.includes("content://") || vazio_no_array.length < 14) {
@@ -556,21 +581,35 @@ export default function Postar(props) {
             // for (var i = 0; i < ARRY_URL_IMAGENS.length; i++) {
             for (let i = 0; i < VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length; i++) {
 
-                 Produtos_rows.push(<ImageLista key={"1" + i} IMAGE={VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[i]} LISTAIMAGENS={VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT} index={i} />);
+                Produtos_rows.push(<ImageLista key={"1" + i} IMAGE={VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[i]} LISTAIMAGENS={VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT} index={i} />);
 
             }//FOR
             //ADICIONANDO VIEW COM IMAGEM pelo FOR ACIMA 
 
 
 
-            // alert(VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS);
-            // for (var i = 0; i < ARRY_URL_VIDEOS.length; i++) {
+            if (VARIAVEL_GLOBAL.INDICE_DO_VIDEO_EXCLUIR_DURANTE_POSTAGENS !== -1) {
+                VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.splice(VARIAVEL_GLOBAL.INDICE_DO_VIDEO_EXCLUIR_DURANTE_POSTAGENS, 1);
+                VARIAVEL_GLOBAL.INDICE_DO_VIDEO_EXCLUIR_DURANTE_POSTAGENS = -1;
+            }//IF
+
+
+            // //////for (var i = 0; i < ARRY_URL_VIDEOS.length; i++) {
             for (let i = 0; i < VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length; i++) {
 
-                //   Produtos_rows.push(<VideoLista key={"2" + i} VIDEO={ARRY_URL_VIDEOS[i]} index={i} />);
-                Produtos_rows.push(<VideoLista key={"2" + i} VIDEO={VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS[i]} index={SETAR_TELA_ATUAL_COMO_POSTAR} />);
+                // if (VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS[i] !== VARIAVEL_GLOBAL.URL_VIDEO_EXCLUIDO_DURANTE_POSTAGENS) {
+
+                Produtos_rows.push(<VideoLista key={"2" + i} VIDEO={VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS[i]} index={i} SETAR_TELA_ATUAL_COMO_POSTAR_R={SETAR_TELA_ATUAL_COMO_POSTAR} />);
+
+                // } else {
+
+                //     VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.splice(VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.indexOf(VARIAVEL_GLOBAL.URL_VIDEO_EXCLUIDO_DURANTE_POSTAGENS), 0);
+
+                // }
 
             }//FOR
+
+
 
 
             return Produtos_rows;
@@ -579,10 +618,18 @@ export default function Postar(props) {
 
 
     }
-    //setInterval(nome_da_funcao, 10000);
-    //INSERINDO IMAGENS ABAIXO POR MEIO DO ARRAY ACIMA
 
-    //
+    //INSERINDO IMAGENS POR MEIO DO ARRAY ACIMA
+
+
+
+
+    function nome_da_funcao_2() {
+
+
+
+    }
+
 
 
 
@@ -894,6 +941,9 @@ export default function Postar(props) {
                 <TouchableOpacity style={{ flexDirection: 'row', width: '30%', height: 40, paddingLeft: 10, paddingBottom: 0, alignItems: 'center', justifyContent: 'flex-start', borderWidth: 0, borderColor: 'pink' }}
                     onPress={() => {
                         VARIAVEL_GLOBAL.INDICE_GLOBAL_IMAGENS_VIDEOS = -1;
+                        VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length = 0;// ADICIONANDO 29082021
+                        VARIAVEL_GLOBAL.URL_VIDEO_EXCLUIDO_DURANTE_POSTAGENS = "";// ADICIONANDO 29082021
+                        VARIAVEL_GLOBAL.INDICE_DO_VIDEO_EXCLUIR_DURANTE_POSTAGENS = -1;// ADICIONANDO 29082021
                         VARIAVEL_GLOBAL.CONTADOR_GLOBAL = 55;
                         navigation.navigate("TelaPrincipal", { produto })
                     }}
@@ -923,7 +973,7 @@ export default function Postar(props) {
                     <TouchableOpacity style={{ width: '25%', height: 40, alignItems: 'center', justifyContent: 'center', borderWidth: 0, borderColor: 'ORANGE' }}
                         onPress={() => {
                             VARIAVEL_GLOBAL.TELA_ATUAL = "Postar";
-                            VARIAVEL_GLOBAL.FLAG_RETORNO_GRAVACAO_VIDEO = true;
+                            VARIAVEL_GLOBAL.URL_VIDEO_EXCLUIDO_DURANTE_POSTAGENS = "";// ADICIONANDO 29082021
                             setimagensEvideos(true);
                             navigation.navigate("Videos");
                         }}
@@ -951,11 +1001,15 @@ export default function Postar(props) {
                                 const res = await DocumentPicker.pick({
                                     type: [DocumentPicker.types.images, DocumentPicker.types.video],
                                 });
-                                console.log(
-                                    res.uri,
-                                    res.type, // mime type
-                                    res.name,
-                                    res.size);
+
+
+                                // console.log(
+                                //     res.uri,
+                                //     res.type, // mime type
+                                //     res.name,
+                                //     res.size);
+
+
                                 //CAMINHO = res.uri;
 
                                 //CAMINHO = CAMINHO.replace('content://','file:///');
@@ -995,6 +1049,7 @@ export default function Postar(props) {
 
                                     // ARRY_URL_VIDEOS.push(CAMINHO);
                                     VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.push(CAMINHO);
+                                    VARIAVEL_GLOBAL.URL_VIDEO_EXCLUIDO_DURANTE_POSTAGENS = "";// ADICIONANDO 29082021
                                     let URL_VIDEOS = "";
                                     // for (var i = 0; i < ARRY_URL_VIDEOS.length; i++) {
                                     for (var i = 0; i < VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length; i++) {

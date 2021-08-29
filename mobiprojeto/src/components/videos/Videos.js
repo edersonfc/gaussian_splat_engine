@@ -26,7 +26,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 
 //FOI DESATIVADO 28 08 2021
-// import GlobalContext from '../../context/UsersContext';
+import GlobalContext from '../../context/UsersContext';
 
 
 
