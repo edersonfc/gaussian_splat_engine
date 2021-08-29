@@ -379,9 +379,9 @@ export default function AppTest() {
   const navigation = useNavigation();
 
 
-  //var URL = "file:///";
   var URL_FOTOS = "file:///zerar_postagem";
-  var URL_VIDEOS = "file:///";
+  var URL_VIDEOS = "file:///";  //TROCADO PELO DEBAIXO  28 08 2021
+  // var URL_VIDEOS = ""; // ADICIONADO EM 28 08 2021
 
 
   ////DECLARAÇÃO DE STATES ABAIXO

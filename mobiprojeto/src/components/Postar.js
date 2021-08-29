@@ -275,7 +275,7 @@ export default function Postar(props) {
     /* PEGANDO RETORNO DA VARIAVEL PELA CHAMADA DE TELA ABAIXO */
     var { URL_FOTOS } = props.route.params; // utilizar a {} para desestruturar a variável pesquisarCompras que está dentro de params 
     //alert(typeof(URL))
-    //alert(URL_FOTOS)
+    // alert(URL_FOTOS); 
 
     //  LISTAIMAGENS_CONTEXT
     // alert(VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT)
@@ -295,9 +295,11 @@ export default function Postar(props) {
     // }//IF
     //DESATIVADO ACIMA 17 04 2021
 
-
+    //#Z1
     var { URL_VIDEOS } = props.route.params; // utilizar a {} para desestruturar a variável pesquisarCompras que está dentro de params
-    //alert(URL_VIDEOS)
+    // alert(URL_VIDEOS)
+
+    // URL_VIDEOS = URL_VIDEOS.replace('','');
 
     /* PEGANDO RETORNO DA VARIAVEL PELA CHAMADA DE TELA ACIMA */
 
@@ -469,6 +471,11 @@ export default function Postar(props) {
 
 
 
+    function SETAR_TELA_ATUAL_COMO_POSTAR(){
+
+        VARIAVEL_GLOBAL.TELA_ATUAL = "Postar";
+    }
+
 
     /**/
     //INSERINDO IMAGENS ABAIXO POR MEIO DO ARRAY ABAIXO
@@ -480,20 +487,25 @@ export default function Postar(props) {
         // VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT = URL_FOTOS.split("|");  //OBSERVER 17 04 2021
 
 
-        //ARRY_URL_VIDEOS.length = 0;
-        ARRY_URL_VIDEOS = URL_VIDEOS.split("|");
+        console.log("CHAMANDO");
+
+
+        //  ARRY_URL_VIDEOS = URL_VIDEOS.split("|");
+        VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS = URL_VIDEOS.split("|");
+        // VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.push(URL_VIDEOS.split("|"));
 
 
 
-        // if (ARRY_URL_IMAGENS.length > 1 || ARRY_URL_VIDEOS.length > 1) {
-        if (VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length > 0 || ARRY_URL_VIDEOS.length > 0) {
+
+        // if (VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length > 0 || ARRY_URL_VIDEOS.length > 0) {
+        if (VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length > 0 || VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length > 0) {
 
             //alert('EXECUTADO NO INICIO DA EXECUÇÃO'+ ARRY_URL_IMAGENS.length);
 
 
-            //LIMPANDO CONTEUDOS VAZIOS DO ARRAY DAS FOTOS ABAIXO
+            //LIMPANDO CONTEUDOS VAZIOS DO ARRAY DAS FOTOS ABAIXO _______________________________=> ESSE PACOTE FOI TROCADO POR #549217
             // for (var i_vazio = 0; i_vazio < ARRY_URL_IMAGENS.length; i_vazio++) {
-            for (var i_vazio = 0; i_vazio < VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length; i_vazio++) {
+            for (let i_vazio = 0; i_vazio < VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length; i_vazio++) {
                 var vazio_no_array;
                 // vazio_no_array = ARRY_URL_IMAGENS[i_vazio];
                 vazio_no_array = VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[i_vazio];
@@ -507,38 +519,56 @@ export default function Postar(props) {
                     //alert(i_vazio);
                 }//IF   
             }//FOR
-            //LIMPANDO CONTEUDOS VAZIOS DO ARRAY DAS FOTOS ACIMA
+            // //LIMPANDO CONTEUDOS VAZIOS DO ARRAY DAS FOTOS ACIMA
 
 
-            //LIMPANDO CONTEUDOS VAZIOS DO ARRAY DOS VIDEOS ABAIXO
-            for (var i_vazio = 0; i_vazio < ARRY_URL_VIDEOS.length; i_vazio++) {
+            //LIMPANDO ARRAY COM CONTEUDOS VAZIOS DO ARRAY DE VIDEOS ABAIXO  #549217
+            // VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT = VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.filter(function (i) { return i; });
+            //LIMPANDO ARRAY COM CONTEUDOS VAZIOS DO ARRAY DE VIDEOS ACIMA
+
+
+
+            // //LIMPANDO CONTEUDOS VAZIOS DO ARRAY DOS VIDEOS ABAIXO _______________________________=> ESSE PACOTE FOI TROCADO POR #876424
+            // for (var i_vazio = 0; i_vazio < ARRY_URL_VIDEOS.length; i_vazio++) {
+            for (var i_vazio = 0; i_vazio <  VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length; i_vazio++) {
                 var vazio_no_array;
-                vazio_no_array = ARRY_URL_VIDEOS[i_vazio];
+                // vazio_no_array = ARRY_URL_VIDEOS[i_vazio];
+                vazio_no_array =  VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS[i_vazio];
                 //alert(vazio_no_array);
                 //alert(ARRY_URL_IMAGENS.length);
                 if (!vazio_no_array.includes("file:///") && !vazio_no_array.includes("content://") || vazio_no_array.length < 14) {
-                    //if (!vazio_no_array.includes("file:///")) {    
-                    ARRY_URL_VIDEOS.splice(ARRY_URL_VIDEOS.indexOf(ARRY_URL_VIDEOS[i_vazio]), 1);
-                    //alert(i_vazio);
+
+                    // ARRY_URL_VIDEOS.splice(ARRY_URL_VIDEOS.indexOf(ARRY_URL_VIDEOS[i_vazio]), 1);
+                    VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.splice(VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.indexOf(VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS[i_vazio]), 1);
+
                 }//IF   
             }//FOR
-            //LIMPANDO CONTEUDOS VAZIOS DO ARRAY DOS VIDEOS ACIMA
+            // //LIMPANDO CONTEUDOS VAZIOS DO ARRAY DOS VIDEOS ACIMA
+
+            //LIMPANDO ARRAY COM CONTEUDOS VAZIOS DO ARRAY DE VIDEOS ABAIXO  #876424
+            // VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS = VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.filter(function (i) { return i; });
+            //LIMPANDO ARRAY COM CONTEUDOS VAZIOS DO ARRAY DE VIDEOS ACIMA
+
+
 
 
             //ADICIONANDO VIEW COM IMAGEM pelo FOR ABAIXO 
             // for (var i = 0; i < ARRY_URL_IMAGENS.length; i++) {
-            for (var i = 0; i < VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length; i++) {
+            for (let i = 0; i < VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length; i++) {
 
-                // Produtos_rows.push(<ImageLista key={"1" + i} IMAGE={ARRY_URL_IMAGENS[i]} LISTAIMAGENS={ARRY_URL_IMAGENS} index={i} />);
-                Produtos_rows.push(<ImageLista key={"1" + i} IMAGE={VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[i]} LISTAIMAGENS={VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT} index={i} />);
+                 Produtos_rows.push(<ImageLista key={"1" + i} IMAGE={VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[i]} LISTAIMAGENS={VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT} index={i} />);
 
             }//FOR
             //ADICIONANDO VIEW COM IMAGEM pelo FOR ACIMA 
 
 
-            for (var i = 0; i < ARRY_URL_VIDEOS.length; i++) {
 
-                Produtos_rows.push(<VideoLista key={"2" + i} VIDEO={ARRY_URL_VIDEOS[i]} index={i} />);
+            // alert(VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS);
+            // for (var i = 0; i < ARRY_URL_VIDEOS.length; i++) {
+            for (let i = 0; i < VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length; i++) {
+
+                //   Produtos_rows.push(<VideoLista key={"2" + i} VIDEO={ARRY_URL_VIDEOS[i]} index={i} />);
+                Produtos_rows.push(<VideoLista key={"2" + i} VIDEO={VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS[i]} index={SETAR_TELA_ATUAL_COMO_POSTAR} />);
 
             }//FOR
 
@@ -893,6 +923,7 @@ export default function Postar(props) {
                     <TouchableOpacity style={{ width: '25%', height: 40, alignItems: 'center', justifyContent: 'center', borderWidth: 0, borderColor: 'ORANGE' }}
                         onPress={() => {
                             VARIAVEL_GLOBAL.TELA_ATUAL = "Postar";
+                            VARIAVEL_GLOBAL.FLAG_RETORNO_GRAVACAO_VIDEO = true;
                             setimagensEvideos(true);
                             navigation.navigate("Videos");
                         }}
@@ -962,13 +993,13 @@ export default function Postar(props) {
                                     //} else if (CAMINHO.includes('video%')) {
                                 } else if (CAMINHO.includes('.mp4')) {
 
-                                    ARRY_URL_VIDEOS.push(CAMINHO);
-                                    //alert(ARRY_URL_VIDEOS_DO_CELL);
+                                    // ARRY_URL_VIDEOS.push(CAMINHO);
+                                    VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.push(CAMINHO);
                                     let URL_VIDEOS = "";
-                                    for (var i = 0; i < ARRY_URL_VIDEOS.length; i++) {
-
-                                        URL_VIDEOS += ARRY_URL_VIDEOS[i] + '|';
-
+                                    // for (var i = 0; i < ARRY_URL_VIDEOS.length; i++) {
+                                    for (var i = 0; i < VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length; i++) {
+                                        // URL_VIDEOS += ARRY_URL_VIDEOS[i] + '|';
+                                        URL_VIDEOS += VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS[i] + '|';
                                     }//for
                                     navigation.navigate("Postar", { URL_FOTOS, URL_VIDEOS });
 

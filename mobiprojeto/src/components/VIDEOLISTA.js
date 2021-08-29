@@ -20,7 +20,9 @@ export default function VIDEOLISTA(param) {
             onPress={() => {
 
                 var URL_Video = param.VIDEO;
-                var index_id = param.index;
+                // var index_id = param.index;
+
+                param.index();
 
                 //navigation.navigate("navegacaoFotos", { ARRY_URL_IMAGENS , IMAGENS , index_id })
                 navigation.navigate("NavegarVideos", { URL_Video })

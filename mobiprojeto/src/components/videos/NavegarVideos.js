@@ -154,20 +154,20 @@ let NavegarVideos = (props) => {//#1#
     }, [posicao]);
 
 
-    
+
 
     useEffect(() => {
 
         // alert(VARIAVEL_GLOBAL.TELA_ORIGEM);
         // alert(VARIAVEL_GLOBAL.TELA_ATUAL);
 
-        if( VARIAVEL_GLOBAL.TELA_ATUAL === "Postar" ){
+        if (VARIAVEL_GLOBAL.TELA_ATUAL === "Postar") {
 
             setBotaoExcluirBoolean(true);
             // alert(VARIAVEL_GLOBAL.TELA_ATUAL);
-            
-        }else{
-            
+
+        } else {
+
             setBotaoExcluirBoolean(false);
 
         }
@@ -351,7 +351,13 @@ let NavegarVideos = (props) => {//#1#
             <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 50, backgroundColor: 'rgba(0,0,0,0.5)', borderWidth: 0, borderColor: 'yellow', position: 'absolute' }} >
 
 
-                <TouchableOpacity style={{ flexDirection: 'row', width: '40%', justifyContent: 'center' }} onPress={() => { navigation.goBack(null); }}   >
+                <TouchableOpacity style={{ flexDirection: 'row', width: '40%', justifyContent: 'center' }} onPress={() => {
+
+
+                    navigation.goBack(null);  
+                  
+
+                }}   >
                     <Icon style={{ height: 50, marginLeft: 30, fontSize: 35, color: 'white', borderWidth: 0, borderColor: 'yellow', textAlignVertical: 'center' }} name='arrow-left' />
                     <Text style={{ height: 50, marginLeft: 5, fontSize: 15, color: 'white', borderWidth: 0, borderColor: 'yellow', textAlignVertical: 'center' }} >Voltar</Text>
                 </TouchableOpacity>
@@ -359,9 +365,44 @@ let NavegarVideos = (props) => {//#1#
 
                 {botaoExcluirBoolean ?
                     <TouchableOpacity style={{ flexDirection: 'row', width: '20%', justifyContent: 'center' }}
-                        onPress={() => {
+                        onPress={async () => {
 
-                            alert("Apagar Esse Vídeo");
+                            // alert("Apagar Esse Vídeo");
+                            // IMAGENS_ARRAY.splice(IMAGENS_ARRAY.indexOf(IMAGENS_ARRAY[INDICE_DA_IMAGEM]), 1);
+                            // VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.splice( VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.indexOf( VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS), 1);
+
+
+
+                            // VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS = VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.filter(function (itens) {
+                            //     return !itens.includes(URL_Video);
+                            // });
+
+
+                            // alert( VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS );
+
+
+                            // alert( URL_Video );
+
+                            // console.log(VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length);
+
+                            let ARRAY_LOCAL_VIDEO = [];
+
+                            await Promise.all(VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.map(async (itens, indice) => {
+
+                                if (itens !== URL_Video) {
+                                    ARRAY_LOCAL_VIDEO.push(itens)
+
+                                }//IF
+
+                            }));//MAP
+
+                            VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length = 0;
+                            VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS = ARRAY_LOCAL_VIDEO;
+                            URL_Video = VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS;
+
+                            navigation.navigate("Postar", { URL_Video });
+
+                            // console.log(VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length);
 
                         }}
                     >
