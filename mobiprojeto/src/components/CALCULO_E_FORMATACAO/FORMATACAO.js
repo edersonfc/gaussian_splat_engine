@@ -253,7 +253,7 @@ async function TRANFORMAR_P_CAMINHO_ABSOLUTO(uri) {
 
     await RNFetchBlob.fs.stat(uri).then((stats) => {
         //RNFetchBlob.fs.stat(res.this.uril).then((stats) => {  
-        console.log(stats.path);
+        // console.log(stats.path);
         //alert(stats.path);
         //output: /storage/emulated/0/WhatsApp/Media/WhatsApp Images/IMG-20200831-WA0019.jpg
         CAMINHO = stats.path;

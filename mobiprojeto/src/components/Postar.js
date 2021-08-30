@@ -481,43 +481,32 @@ export default function Postar(props) {
     //INSERINDO IMAGENS ABAIXO POR MEIO DO ARRAY ABAIXO
     var Produtos_rows = [];
     function nome_da_funcao() {
-        // alert("18 04 2021 TESTANDO");
+
+        Produtos_rows.length = 0;
 
         // ARRY_URL_IMAGENS = URL_FOTOS.split("|");
         // VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT = URL_FOTOS.split("|");  //OBSERVER 17 04 2021
-
-
-        // console.log("CHAMANDO");
-
-
         // ARRY_URL_VIDEOS = URL_VIDEOS.split("|");
 
-        
 
         //______________TENTANDO ABAIXO _______________________________//
         if (VARIAVEL_GLOBAL.INDICE_DO_VIDEO_EXCLUIR_DURANTE_POSTAGENS === -1) {
 
-            ARRY_URL_VIDEOS = URL_VIDEOS.split("|");
-
-
-            //REPOPULANDO O ARRAY  => URL_VIDEOS_DURANTE_POSTAGENS
+             ARRY_URL_VIDEOS = URL_VIDEOS.split("|");
+            // ////REPOPULANDO O ARRAY  => URL_VIDEOS_DURANTE_POSTAGENS
             ARRY_URL_VIDEOS.map((VIDEOS_URLS) => { VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.push(VIDEOS_URLS) });
+        }//IF
 
+        // //////REMOVENDO URL QUE ESTÁ DUPLICADA NO ARRAY DE VIDEOS
+        const ARRAY_VIDEOS_PROVISORIO = VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.filter(function (itens, indice) {
+            return VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.indexOf(itens) == indice;
+            // console.log(itens)
+            // console.log(indice)
+        });
+        VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length = 0;
+        VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS = ARRAY_VIDEOS_PROVISORIO;
 
-            //   VARIAVEL_GLOBAL.URL_VIDEO_EXCLUIDO_DURANTE_POSTAGENS
-
-            // //////REMOVENDO URL QUE ESTÁ DUPLICADA NO ARRAY DE VIDEOS
-            const ARRAY_VIDEOS_PROVISORIO = VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.filter(function (itens, indice) {
-                return VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.indexOf(itens) == indice;
-                // console.log(itens)
-                // console.log(indice)
-            });
-
-            VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length = 0;
-            VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS = ARRAY_VIDEOS_PROVISORIO;
-         }//IF
         //______________TENTANDO ACIMA _______________________________//
-
 
 
 
@@ -528,7 +517,7 @@ export default function Postar(props) {
             //alert('EXECUTADO NO INICIO DA EXECUÇÃO'+ ARRY_URL_IMAGENS.length);
 
 
-            //LIMPANDO CONTEUDOS VAZIOS DO ARRAY DAS FOTOS ABAIXO _______________________________=> ESSE PACOTE FOI TROCADO POR #549217
+            //LIMPANDO CONTEUDOS VAZIOS DO ARRAY DAS FOTOS ABAIXO
             // for (var i_vazio = 0; i_vazio < ARRY_URL_IMAGENS.length; i_vazio++) {
             for (let i_vazio = 0; i_vazio < VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length; i_vazio++) {
                 var vazio_no_array;
@@ -547,13 +536,8 @@ export default function Postar(props) {
             // //LIMPANDO CONTEUDOS VAZIOS DO ARRAY DAS FOTOS ACIMA
 
 
-            //LIMPANDO ARRAY COM CONTEUDOS VAZIOS DO ARRAY DE VIDEOS ABAIXO  #549217
-            // VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT = VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.filter(function (i) { return i; });
-            //LIMPANDO ARRAY COM CONTEUDOS VAZIOS DO ARRAY DE VIDEOS ACIMA
 
-
-
-            // //LIMPANDO CONTEUDOS VAZIOS DO ARRAY DOS VIDEOS ABAIXO _______________________________=> ESSE PACOTE FOI TROCADO POR #876424
+            // //LIMPANDO CONTEUDOS VAZIOS DO ARRAY DOS VIDEOS ABAIXO 
             // for (var i_vazio = 0; i_vazio < ARRY_URL_VIDEOS.length; i_vazio++) {
             for (var i_vazio = 0; i_vazio < VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length; i_vazio++) {
                 var vazio_no_array;
@@ -569,11 +553,6 @@ export default function Postar(props) {
                 }//IF   
             }//FOR
             // //LIMPANDO CONTEUDOS VAZIOS DO ARRAY DOS VIDEOS ACIMA
-
-            //LIMPANDO ARRAY COM CONTEUDOS VAZIOS DO ARRAY DE VIDEOS ABAIXO  #876424
-            // VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS = VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.filter(function (i) { return i; });
-            //LIMPANDO ARRAY COM CONTEUDOS VAZIOS DO ARRAY DE VIDEOS ACIMA
-
 
 
 
@@ -594,22 +573,19 @@ export default function Postar(props) {
             }//IF
 
 
-            // //////for (var i = 0; i < ARRY_URL_VIDEOS.length; i++) {
-            for (let i = 0; i < VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length; i++) {
 
-                // if (VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS[i] !== VARIAVEL_GLOBAL.URL_VIDEO_EXCLUIDO_DURANTE_POSTAGENS) {
+
+            for (let i = 0; i < VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length; i++) {
+                // Promise.all(VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.map( (items, i) => {
 
                 Produtos_rows.push(<VideoLista key={"2" + i} VIDEO={VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS[i]} index={i} SETAR_TELA_ATUAL_COMO_POSTAR_R={SETAR_TELA_ATUAL_COMO_POSTAR} />);
 
-                // } else {
 
-                //     VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.splice(VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.indexOf(VARIAVEL_GLOBAL.URL_VIDEO_EXCLUIDO_DURANTE_POSTAGENS), 0);
+                // if( VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length === (i+1) ){   VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length = 0; }
 
-                // }
+                // }));//MAP  =>  //PromiseAll
 
             }//FOR
-
-
 
 
             return Produtos_rows;

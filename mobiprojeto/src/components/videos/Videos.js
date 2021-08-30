@@ -79,8 +79,26 @@ const spin = spinValue.interpolate({
 
 
 
+
 export default class CameraScreen extends React.Component { //LINHA TROCADO PELA LINHA ABAIXO
   //class CameraScreen extends React.Component {
+
+
+
+
+  // static = { contextType  } = GlobalContext;
+
+
+  // SETAR_URL_GLOBAL(params) {
+
+  //   // const  { VARIAVEL_GLOBAL } =  useContext(GlobalContext);
+  //   const  { VARIAVEL_GLOBAL } =  GlobalContext;
+
+  //   //  this.static.contextType.URL_VIDEOS_DURANTE_POSTAGENS = params;
+  //      VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS = params;
+
+  // }
+
 
 
 
@@ -115,7 +133,11 @@ export default class CameraScreen extends React.Component { //LINHA TROCADO PELA
     faces: [],
     textBlocks: [],
     barcodes: [],
-  }
+
+
+
+
+  }//CHAVE DA CLASSE  => FOI DESATIVADO
 
 
 
@@ -199,6 +221,8 @@ export default class CameraScreen extends React.Component { //LINHA TROCADO PELA
   };
   */
 
+
+
   takeVideo = async () => {
 
 
@@ -207,6 +231,13 @@ export default class CameraScreen extends React.Component { //LINHA TROCADO PELA
     const [navegarVideo, setnavegarVideo] = useState(false);//APAGAR CASO NÃO DE CERTO
     */
 
+    // const { VARIAVEL_GLOBAL } = useContext(GlobalContext);
+    // const { VARIAVEL_GLOBAL } = this.useContext(GlobalContext);
+
+
+
+
+    /*******************************************************************/
 
 
     const { navigation } = this.props;
@@ -246,7 +277,9 @@ export default class CameraScreen extends React.Component { //LINHA TROCADO PELA
             URL_VIDEOS += URLs_Videos[i] + '|';
           }//FOR
 
+          // this.SETAR_URL_GLOBAL(URL_VIDEOS);
           navigation.navigate("Postar", { URL_VIDEOS });
+         
 
 
 

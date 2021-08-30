@@ -353,7 +353,6 @@ let NavegarVideos = (props) => {//#1#
 
                 <TouchableOpacity style={{ flexDirection: 'row', width: '40%', justifyContent: 'center' }} onPress={() => {
 
-
                     navigation.goBack(null);  
                   
 
