@@ -8,7 +8,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 
 //import Range from '@ptomasroos/react-native-multi-slider'
 
-import FILTRO_CATEGORIA from './Categorias'
+// import FILTRO_CATEGORIA from './Categorias'
 
 import FILTRO_PESQUISA_CATEGORIA from './FILTRO_PESQUISA_CATEGORIAS'
 
@@ -560,16 +560,34 @@ export default function ComprasVendas(props) {
 
         var dados_da_pesquisa_FullTextSearch_1;
 
-        const dados_da_pesquisa_FullTextSearch_2 = await Axios.get(IP_DO_SERVIDOR + 'pesquisa_full_text_search', {
+        const dados_da_pesquisa_FullTextSearch_2 = await Axios.get(IP_DO_SERVIDOR + 'pesquisa_full_text_search_3', {
 
             params: {
-                // id_J: id_J,
+                
+                // numero_telefone_usuario: DADOS_TELEFONE_VALOR,
+                // DADOS_P_FULLTEXT_SEARCH: variavelDaPesquisa,
+                // PARAMETRO: "TELA_COMPRA_E_VENDA",
+                // DATA_INICIAL: EXTRAIR_DATA_PORTUGUES_E_CONVERTER_P_INGLES(dataInicial),
+                // DATA_FINAL: EXTRAIR_DATA_PORTUGUES_E_CONVERTER_P_INGLES(dataFinal),
+                // ComprasVendas_J: comprasOuVendasFlag
+
+                //______________////______________//_________________//
+
                 numero_telefone_usuario: DADOS_TELEFONE_VALOR,
+                // LATITUDE: userPosition.latitude, // => ADICIONADO 30082021
+                // LONGITUDE: userPosition.longitude, // => ADICIONADO 30082021
+                LATITUDE: VARIAVEL_GLOBAL.LATITUDE, // => ADICIONADO 30082021
+                LONGITUDE: VARIAVEL_GLOBAL.LONGITUDE, // => ADICIONADO 30082021
+                DISTANCIA_PERIMETRO: VARIAVEL_GLOBAL.DISTANCIAS_PARA_O_FILTRO, // => ADICIONADO 30082021
                 DADOS_P_FULLTEXT_SEARCH: variavelDaPesquisa,
                 PARAMETRO: "TELA_COMPRA_E_VENDA",
                 DATA_INICIAL: EXTRAIR_DATA_PORTUGUES_E_CONVERTER_P_INGLES(dataInicial),
                 DATA_FINAL: EXTRAIR_DATA_PORTUGUES_E_CONVERTER_P_INGLES(dataFinal),
                 ComprasVendas_J: comprasOuVendasFlag
+
+
+
+
             }
             //} , {signal: abortCont.signal} );
         });
@@ -704,11 +722,15 @@ export default function ComprasVendas(props) {
                 <TouchableOpacity style={[Estilo.borda_geral, style = { width: '20%', alignItems: 'flex-start', justifyContent: 'flex-start', borderWidth: 0 }]}
                     onPress={() => {
 
+                        VARIAVEL_GLOBAL.TELA_ATUAL = "ComprasVendas";
+
+
                         if (!corIconeFiltro) {
 
                             setExibeFiltroCategoria(true);
                             filtro_ativado_sim_ou_nao = true;
 
+                          
                         } else {
 
                             // CONECTANDO_AO_BANCO_DE_DADOS();
@@ -721,6 +743,8 @@ export default function ComprasVendas(props) {
                         setCorIconeFiltro(oldState => !oldState);
 
                         // setExibeFiltroCategoria(oldState => !oldState);
+
+                        VARIAVEL_GLOBAL.TELA_ATUAL = "ComprasVendas";
 
                     }}
                 >
@@ -904,6 +928,7 @@ export default function ComprasVendas(props) {
             {exibeFiltroCategoria && (<FILTRO_PESQUISA_CATEGORIA
                 setExibeFiltroCategori={setExibeFiltroCategoria}
                 PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH_REMOTO_2={PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH}
+                telaQueChamaOFiltro={"ComprasVendas"}
             />)}
 
 

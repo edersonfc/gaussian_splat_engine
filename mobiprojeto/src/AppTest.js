@@ -49,7 +49,11 @@ window.navigator.userAgent = 'react-native';
 let io = require('socket.io-client');
 */
 
+
 import FILTRO_PESQUISA_CATEGORIA from './components/FILTRO_PESQUISA_CATEGORIAS';
+
+//import CategoriasQ_Foi_Desativada from './components/Categorias';
+
 
 import LicencaExpirada from './components/LicencaExpirada';
 
@@ -80,19 +84,20 @@ import Importante from './components/Importante';
 //VARIAVÉIS GLOBAIS ABAIXO
 
 
+
 // NO SERVIDOR REMOTO DIGITALOCEAN
-var IP_DO_SERVIDOR     = "https://gadoapp.online/";
-var IP_DO_SERVIDOR_IO  = "https://gadoapp.online/";
-var IP_MERCADO_PAGO    = "https://gadoapp.online/api_recebimento/";
+// var IP_DO_SERVIDOR     = "https://gadoapp.online/";
+// var IP_DO_SERVIDOR_IO  = "https://gadoapp.online/";
+// var IP_MERCADO_PAGO    = "https://gadoapp.online/api_recebimento/";
 
 
 
 
 
 //NO SERVIDOR DO MEU NOTEBOOK CASA DA MÃE  ABAIXO
-// var IP_DO_SERVIDOR = "http://192.168.0.107:3000/";
-// var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3000/";
-// var IP_MERCADO_PAGO = "http://192.168.0.107:8080/";
+var IP_DO_SERVIDOR = "http://192.168.0.107:3000/";
+var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3000/";
+var IP_MERCADO_PAGO = "http://192.168.0.107:8080/";
 
 
 
@@ -2340,10 +2345,13 @@ export default function AppTest() {
 
     var dados_da_pesquisa_FullTextSearch_1;
 
-    const dados_da_pesquisa_FullTextSearch_2 = await Axios.get(IP_DO_SERVIDOR + 'pesquisa_full_text_search', {
+    const dados_da_pesquisa_FullTextSearch_2 = await Axios.get(IP_DO_SERVIDOR + 'pesquisa_full_text_search_3', {
       params: {
         // id_J: id_J,
         numero_telefone_usuario: VARIAVEL_GLOBAL.TELEFONE,
+        LATITUDE: userPosition.latitude, // => ADICIONADO 30082021
+        LONGITUDE: userPosition.longitude, // => ADICIONADO 30082021
+        DISTANCIA_PERIMETRO: VARIAVEL_GLOBAL.DISTANCIAS_PARA_O_FILTRO, // => ADICIONADO 30082021
         DADOS_P_FULLTEXT_SEARCH: variavelDaPesquisa,
         PARAMETRO: "TELA_PRINCIPAL",
         DATA_INICIAL: "vazia",
@@ -2355,15 +2363,112 @@ export default function AppTest() {
 
     dados_da_pesquisa_FullTextSearch_1 = await dados_da_pesquisa_FullTextSearch_2.data;
 
-    // alert(  JSON.stringify(dados_da_pesquisa_FullTextSearch_1)  );
-    var datos = JSON.stringify(dados_da_pesquisa_FullTextSearch_1);
+
+    let datos = JSON.stringify(dados_da_pesquisa_FullTextSearch_1);
+
+    //console.log(datos)
 
     //IMPLEMENTANDO FILTRO FULLTEXTSEARCH AQUI ABAIXO **********************************
 
     if (datos.length > 2) {
-      //************************************************************** */
-      //************************************************************** */
+
       /* */
+      var URLs_JSON;
+
+      if (datos.includes("|")) {
+
+        ARRAY_PRIMEIRAS_URL_IMAGENS_2.length = 0;
+        ARRAY_PRIMEIRAS_URL_VIDEOS_2.length = 0;
+
+        URLs_JSON = JSON.parse(datos);
+        //alert(URLs_JSON.length);
+
+
+        //************************************************************** */
+        //  let URLs_JSON_2 = URLs_JSON.filter(function (itens, indice) {
+        //     // return URLs_JSON.indexOf(itens.cod_automatico) != indice;
+        //     return itens.cod_automatico !== URLs_JSON[indice].cod_automatico;
+        //     // console.log(itens)
+        //     // console.log(indice)
+        //     // console.log( typeof itens.cod_automatico+" <===> "+ typeof URLs_JSON[indice].cod_automatico );
+        //   });
+        //   console.log(URLs_JSON_2);
+
+        //************************************************************** */
+
+
+
+        var PRIMEIRA_URL_IMAGEM_INDEXOF;
+        var PRIMEIRA_URL_VIDEO_INDEXOF;
+
+        for (var i = 0; i < URLs_JSON.length; i++) {
+
+          //TRATAMENTO COM IMAGENS ABAIXO
+          PRIMEIRA_URL_IMAGEM_INDEXOF = URLs_JSON[i].URL_IMAGEN_DADOS_J;
+          var TAMANHO = PRIMEIRA_URL_IMAGEM_INDEXOF.indexOf("|");
+          PRIMEIRA_URL_IMAGEM_INDEXOF = PRIMEIRA_URL_IMAGEM_INDEXOF.substring(0, TAMANHO);
+          ARRAY_PRIMEIRAS_URL_IMAGENS_2.push(PRIMEIRA_URL_IMAGEM_INDEXOF);
+          //TRATAMENTO COM IMAGENS ACIMA
+
+          //TRATAMENTO COM VIDEOSS ABAIXO
+          PRIMEIRA_URL_VIDEO_INDEXOF = URLs_JSON[i].URL_VIDEOS_DADOS_J;
+          var TAMANHO_2 = PRIMEIRA_URL_VIDEO_INDEXOF.indexOf("|");
+          PRIMEIRA_URL_VIDEO_INDEXOF = PRIMEIRA_URL_VIDEO_INDEXOF.substring(0, TAMANHO_2);
+          ARRAY_PRIMEIRAS_URL_VIDEOS_2.push(PRIMEIRA_URL_VIDEO_INDEXOF);
+          //TRATAMENTO COM VIDEOSS ACIMA
+
+
+        }//FOR
+
+
+      }//IF
+
+      //alert(datos);
+      setProdutosEtiquetasExibir(false);
+
+      setProdutos(datos);
+      //alert(produtosS);
+      setProdutosEtiquetasExibir(true);
+
+    } else { setProdutosEtiquetasExibir(false); }
+    //IMPLEMENTANDO FILTRO FULLTEXTSEARCH AQUI ACIMA ***********************************
+
+
+  }
+
+
+
+
+  //FILTRANDO_POR_DISTÂNCIA ABAIXO com Pesquisa SQL ABAIXO
+  async function FILTRANDO_POR_DISTANCIA(DISTANCIA_PERIMETRO) {
+
+
+    let dadosDaPesquisaPorDistancia = await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + 'filtro_distancia_sql', {
+
+      params: {
+        // id_J: id_J,
+        numero_telefone_usuario: VARIAVEL_GLOBAL.TELEFONE,
+        LATITUDE: userPosition.latitude,
+        LONGITUDE: userPosition.longitude,
+        DISTANCIA_PERIMETRO: VARIAVEL_GLOBAL.DISTANCIAS_PARA_O_FILTRO,
+        PARAMETRO: "TELA_PRINCIPAL",
+        DATA_INICIAL: "vazia",
+        DATA_FINAL: "vazia",
+        ComprasVendas_J: "vazia"
+      }
+      //} , {signal: abortCont.signal} );
+    });
+
+    dados_da_pesquisa_FullTextSearch_1 = await dadosDaPesquisaPorDistancia.data;
+
+    var datos = JSON.stringify(await dadosDaPesquisaPorDistancia.data);
+
+    ////IMPLEMENTANDO FILTRO POR DISTANCIA AQUI ABAIXO **********************************
+
+    if (datos.length > 2) {
+      //************************************************************** */
+      //************************************************************** */
+
       var URLs_JSON;
 
       if (datos.includes("|")) {
@@ -2406,10 +2511,18 @@ export default function AppTest() {
       setProdutosEtiquetasExibir(true);
 
     } else { setProdutosEtiquetasExibir(false); }
-    //IMPLEMENTANDO FILTRO FULLTEXTSEARCH AQUI ACIMA ***********************************
+
+
+
+    //IMPLEMENTANDO FILTRO POR DISTANCIA AQUI ACIMA ***********************************
+
 
 
   }
+
+  ////FILTRANDO_POR_DISTÂNCIA ACIMA com Pesquisa SQL ACIMA
+
+
 
 
 
@@ -2788,7 +2901,19 @@ export default function AppTest() {
 
     VERIFICANDO_TERMOS_DE_USO();
 
+
+
+
   }, []);
+
+
+
+  useEffect(() => {
+
+    VARIAVEL_GLOBAL.LATITUDE = userPosition.latitude;
+    VARIAVEL_GLOBAL.LONGITUDE = userPosition.longitude
+
+  }, [userPosition.latitude, userPosition.longitude]);
 
 
 
@@ -2954,20 +3079,21 @@ export default function AppTest() {
 
                   onPress={() => {
 
-                    /*
-                    MAPA FOI DESATIVADO ABAIXO
+                    /*   
+                          //MAPA FOI DESATIVADO ABAIXO
+      
+                          const LARTITUDE = userPosition.latitude;
+                          const LORNGITUDE = userPosition.longitude;
+                          VARIAVEL_GLOBAL.LATITUDE = userPosition.latitude;
+                          VARIAVEL_GLOBAL.LONGITUDE = userPosition.longitude;
+                          //alert(userPosition.latitude+"   |    "+ userPosition.longitude);
+                          navigation.navigate("MapaGoogle", { LARTITUDE, LORNGITUDE });
+      
+                          //MAPA FOI DESATIVADO ACIMA
+                     */
 
-                    const LARTITUDE = userPosition.latitude;
-                    const LORNGITUDE = userPosition.longitude;
-                    VARIAVEL_GLOBAL.LATITUDE = userPosition.latitude;
-                    VARIAVEL_GLOBAL.LONGITUDE = userPosition.longitude;
-                    //alert(userPosition.latitude+"   |    "+ userPosition.longitude);
-                    navigation.navigate("MapaGoogle", { LARTITUDE, LORNGITUDE });
 
-                    MAPA FOI DESATIVADO ACIMA
-                    */
-
-
+                    // ////FOI ADICIONADO ESSE  => E DESATIVADO O MAPA ACIMA
                     setTelaImportanteInfo(true);
 
 
@@ -2975,7 +3101,7 @@ export default function AppTest() {
                   }}
                 >
                   {/* <Icon name='map-marker' style={[Estilo.icones_grande]} /> */}
-                  <Icon name='exclamation-circle' style={[Estilo.icones_grande ]} />
+                  <Icon name='exclamation-circle' style={[Estilo.icones_grande]} />
                   <Text style={{ fontSize: 10, color: 'white' }}>Importante</Text>
                 </TouchableOpacity>
 
@@ -3011,7 +3137,7 @@ export default function AppTest() {
 
                   }}
                 >
-                  <Icon name='plus-circle' style={[Estilo.icones_grande, style={color:'#25E7DB'}]} />
+                  <Icon name='plus-circle' style={[Estilo.icones_grande, style = { color: '#25E7DB' }]} />
                   <Text style={{ fontSize: 10, color: '#25E7DB' }}>Publicar</Text>
 
                 </TouchableOpacity>
@@ -3046,6 +3172,8 @@ export default function AppTest() {
 
                     onPress={() => {
 
+                      VARIAVEL_GLOBAL.TELA_ATUAL = "Principal";
+
                       if (!corIconeFiltro) {
 
                         setExibeFiltroCategoria(true);
@@ -3060,6 +3188,8 @@ export default function AppTest() {
                       }
 
                       setCorIconeFiltro(oldState => !oldState);
+
+                      VARIAVEL_GLOBAL.TELA_ATUAL = "Principal";
 
                     }}
                   >
@@ -3725,14 +3855,17 @@ export default function AppTest() {
         {/*MENU DE AVISOS ACIMA*/}
 
 
+
         {
           exibeFiltroCategoria && (<FILTRO_PESQUISA_CATEGORIA
             setExibeFiltroCategori={setExibeFiltroCategoria}
-
-
             PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH_REMOTO={PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH}
+            // FILTRANDO_POR_DISTANCIA_REMOTO={FILTRANDO_POR_DISTANCIA}
+            telaQueChamaOFiltro={"Principal"}
           />)
         }
+
+
 
 
         {licencaExpiradaFalseOrTrue && (<LicencaExpirada REMOTO_MOSTRAR_TELA_EXPIRACAO_LICENCA={MOSTRAR_TELA_EXPIRACAO_LICENCA} />)}
@@ -3740,14 +3873,6 @@ export default function AppTest() {
 
         {proprietarioFalseOrTrue && (<PROPRIETARIO REMOTO_MOSTRAR_MOSTRAR_TELA_PROPRIETARIO={MOSTRAR_TELA_PROPRIETARIO} />)}
 
-
-
-
-        {/* <View style={{ height: '100%', width: '100%', alignItems: 'center', justifyContent: 'center',position:'absolute' }}>
-
-        <Text style={{ fontSize: 40, fontFamily: 'AlfaSlabOne-Regular' }}  >FONT DO TEXTO</Text>
-
-      </View> */}
 
 
         {/* <TelaSplash /> */}
@@ -3763,6 +3888,10 @@ export default function AppTest() {
 
 
         {telaImportanteInfo && (<Importante FECHAR_TELA_INFORMACAO_IMPORTANT={FECHAR_TELA_INFORMACAO_IMPORTANTE} />)}
+
+
+
+
 
 
       </SafeAreaView >

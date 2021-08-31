@@ -11,6 +11,14 @@ import GlobalContext from '../context/UsersContext';
 
 import RangeSlider from 'rn-range-slider';
 
+//OUTRO SLIDER ABAIXO
+// LINK DO SITE ==> https://github.com/callstack/react-native-slider
+//npm install @react-native-community/slider --save
+import Slider from '@react-native-community/slider';
+import { color } from 'react-native-reanimated';
+
+
+
 var categorias_Objetos = {
 
     Obj_Macho: "",
@@ -38,7 +46,13 @@ var categorias_Objetos = {
 }
 
 
+
+
 export default function FILTRO_PESQUISA_CATEGORIAS(props) {
+
+
+
+
 
     const { VARIAVEL_GLOBAL } = useContext(GlobalContext);
 
@@ -138,34 +152,70 @@ export default function FILTRO_PESQUISA_CATEGORIAS(props) {
 
 
     var Altura__total_da_tela = Math.round(Dimensions.get('window').height);
-    var altura_oitenta_e_cinco_porcento = ((Altura__total_da_tela * 85) / 100);
+    var altura_oitenta_e_cinco_porcento = ((Altura__total_da_tela * 90) / 100);
 
 
     useEffect(() => {
 
-    Animated.sequence([
+        Animated.sequence([
 
-        Animated.timing(
-            largura,
-            {
-                toValue: largura_noventa_e_sete_porcento,
-                duration: 900,
-                useNativeDriver: false
-            }
-        ),
-        Animated.timing(
-            altura,
-            {
-                toValue: altura_oitenta_e_cinco_porcento,
-                duration: 300,
-                useNativeDriver: false
-            }
-        )
+            Animated.timing(
+                largura,
+                {
+                    toValue: largura_noventa_e_sete_porcento,
+                    duration: 900,
+                    useNativeDriver: false
+                }
+            ),
+            Animated.timing(
+                altura,
+                {
+                    toValue: altura_oitenta_e_cinco_porcento,
+                    duration: 300,
+                    useNativeDriver: false
+                }
+            )
 
-    ]).start();
+        ]).start();
 
 
-}, []);
+    }, []);
+
+
+
+
+
+
+
+
+    // var [valorDoSlider, setPesquisarGado] = useState('');
+    // function pesquisarGadoF(varPesquisaGado) { setPesquisarGado(varPesquisaGado); }
+
+
+    const [valorMenor, setValorMenor] = useState(0)
+
+    const [DistanciaMaior, setValorMaior] = useState(300)
+
+    function setarValorF(DistanciaMaior) {
+        setValorMaior(Math.round(DistanciaMaior));
+        VARIAVEL_GLOBAL.DISTANCIAS_PARA_O_FILTRO = DistanciaMaior;
+    }
+
+
+
+
+    //__________________________//__________________________//_______________________//
+
+
+    const [iconSlider, setIconSlider] = useState();
+
+    useEffect(() => {
+        Icon.getImageSource('circle', 25, '#25E7DB')
+            .then(setIconSlider);
+    }, []);
+
+
+    //__________________________//__________________________//_______________________//
 
 
 
@@ -212,7 +262,7 @@ export default function FILTRO_PESQUISA_CATEGORIAS(props) {
 
                 <View style={{ width: '100%', height: 30, paddingTop: 0, borderWidth: 0, borderColor: 'white', alignContent: 'center', alignItems: 'center' }}>
 
-                    <View style={{ flexDirection: 'row', width: 'auto', paddingTop: 5, borderWidth: 0, borderColor: 'red' }}>
+                    <View style={{ flexDirection: 'row', width: 'auto', paddingTop: 5, borderWidth: 0, borderColor: 'orange' }}>
 
                         <View style={{ width: '10%' }} />
                         <Icon style={{ fontSize: 18, color: corMacho ? "#25E7DB" : "#2A3E4A" }} name='check' />
@@ -257,28 +307,44 @@ export default function FILTRO_PESQUISA_CATEGORIAS(props) {
 
                     <View style={{ width: '100%', alignContent: 'center', alignItems: 'center', borderWidth: 0, borderColor: 'white' }}>
 
-                        <View style={{ flexDirection: 'row', width: 'auto', height: 30, paddingTop: 5, borderWidth: 0, borderColor: 'red' }}>
+                        <View style={{ flexDirection: 'row', width: '95%', height: 30, paddingTop: 3, borderWidth: 0, borderColor: 'red', justifyContent: 'space-between' }}>
 
-                            <View style={{ width: '0%' }} />
-                            <Icon style={{ fontSize: 16, color: cor_0_12 ? "#25E7DB" : "#2A3E4A" }} name='check' />
-                            <Text style={{ fontSize: 16, color: cor_0_12 ? "#25E7DB" : "white", width: 'auto' }} name='check'
-                                onPress={() => { setcor_0_12(oldState => !oldState ? categorias_Objetos.Obj__0_12 = "0 á 12" : categorias_Objetos.Obj__0_12 = "") }}
-                            > 0 à 12 </Text>
-                            <View style={{ width: '4%' }} />
-                            <Icon style={{ fontSize: 16, color: cor_12_24 ? "#25E7DB" : "#2A3E4A" }} name='check' />
-                            <Text style={{ fontSize: 16, color: cor_12_24 ? "#25E7DB" : "white", width: 'auto' }} name='check'
-                                onPress={() => { setcor_12_24(oldState => !oldState ? categorias_Objetos.Obj__12_24 = "12 á 24" : categorias_Objetos.Obj__12_24 = "") }}
-                            > 12 à 24 </Text>
-                            <View style={{ width: '4%' }} />
-                            <Icon style={{ fontSize: 16, color: cor_24_36 ? "#25E7DB" : "#2A3E4A" }} name='check' />
-                            <Text style={{ fontSize: 16, color: cor_24_36 ? "#25E7DB" : "white", width: 'auto' }} name='check'
-                                onPress={() => { setcor_24_36(oldState => !oldState ? categorias_Objetos.Obj__24_36 = "24 á 36" : categorias_Objetos.Obj__24_36 = "") }}
-                            > 24 à 36 </Text>
-                            <View style={{ width: '4%' }} />
-                            <Icon style={{ fontSize: 16, color: corAcima_36 ? "#25E7DB" : "#2A3E4A" }} name='check' />
-                            <Text style={{ fontSize: 16, color: corAcima_36 ? "#25E7DB" : "white", width: 'auto' }} name='check'
-                                onPress={() => { setcorAcima_36(oldState => !oldState ? categorias_Objetos.Obj_Acima_36 = "Acima 36" : categorias_Objetos.Obj_Acima_36 = "") }}
-                            >Acima 36</Text>
+
+
+                            <View style={{ flexDirection: 'row', width: 'auto', borderRadius: 25, borderWidth: 0, borderColor: 'white' }}>
+                                <Icon style={{ borderWidth: 0, fontSize: 16, color: cor_0_12 ? "#25E7DB" : "#2A3E4A" }} name='check' />
+                                <Text style={{ borderWidth: 0, fontSize: 15, color: cor_0_12 ? "#25E7DB" : "white", width: 'auto' }} name='check'
+                                    onPress={() => { setcor_0_12(oldState => !oldState ? categorias_Objetos.Obj__0_12 = "0 á 12" : categorias_Objetos.Obj__0_12 = "") }}
+                                > 0 à 12 </Text>
+                                {/* <View style={{ width: '4%' }} /> */}
+                            </View>
+
+
+                            <View style={{ flexDirection: 'row', width: 'auto' }}>
+                                <Icon style={{ fontSize: 16, color: cor_12_24 ? "#25E7DB" : "#2A3E4A" }} name='check' />
+                                <Text style={{ fontSize: 15, color: cor_12_24 ? "#25E7DB" : "white", width: 'auto' }} name='check'
+                                    onPress={() => { setcor_12_24(oldState => !oldState ? categorias_Objetos.Obj__12_24 = "12 á 24" : categorias_Objetos.Obj__12_24 = "") }}
+                                > 12 à 24 </Text>
+                                {/* <View style={{ width: '4%' }} /> */}
+                            </View>
+
+
+                            <View style={{ flexDirection: 'row', width: 'auto' }}>
+                                <Icon style={{ fontSize: 16, color: cor_24_36 ? "#25E7DB" : "#2A3E4A" }} name='check' />
+                                <Text style={{ fontSize: 15, color: cor_24_36 ? "#25E7DB" : "white", width: 'auto' }} name='check'
+                                    onPress={() => { setcor_24_36(oldState => !oldState ? categorias_Objetos.Obj__24_36 = "24 á 36" : categorias_Objetos.Obj__24_36 = "") }}
+                                > 24 à 36 </Text>
+                                {/* <View style={{ width: '4%' }} /> */}
+                            </View>
+
+
+                            <View style={{ flexDirection: 'row', width: 'auto' }}>
+                                <Icon style={{ fontSize: 16, color: corAcima_36 ? "#25E7DB" : "#2A3E4A" }} name='check' />
+                                <Text style={{ fontSize: 15, color: corAcima_36 ? "#25E7DB" : "white", width: 'auto' }} name='check'
+                                    onPress={() => { setcorAcima_36(oldState => !oldState ? categorias_Objetos.Obj_Acima_36 = "Acima 36" : categorias_Objetos.Obj_Acima_36 = "") }}
+                                >Acima 36</Text>
+                            </View>
+
 
                         </View>
 
@@ -286,8 +352,101 @@ export default function FILTRO_PESQUISA_CATEGORIAS(props) {
 
                 </View>
 
-                {/****************************************/}
+                {/***************** OUTRAS ERAS ABAIXO ***********************/}
 
+
+
+                <View style={{ width: '100%', paddingTop: 10, borderWidth: 0, borderColor: 'white', alignContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ width: '90%', borderBottomWidth: 1, borderColor: 'white', textAlign: 'center', fontSize: 19, color: 'white' }} >Raio de Distância KM</Text>
+                </View>
+
+
+
+
+
+
+                {/*****************************************************************************/}
+
+                {/* SLIDER MULTIPLO ABAIXO */}
+                <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center', borderWidth: 0 }}>
+
+                    <View style={[style = { width: '12%', borderWidth: 0 }]}>
+                        <Text style={[Estilo.fonteMedia, style = { padding: 0, color: '#25E7DB' }]}>
+                            {valorMenor}
+                        </Text>
+                    </View>
+
+
+                    {/* <View style={[Estilo.borda_geral, Estilo.centralizar_horizontalmente, style = { width: '65%', borderWidth: 1  }]}> */}
+
+
+                    <View style={{ width: '70%', height: 40, alignItems: 'center', justifyContent: 'center', padding: 0, borderWidth: 0 }}>
+
+
+
+                        {/* <RangeSlider
+                                    style={[Estilo.borda_geral, Estilo.pra_cima, { width: '100%', height: 32, alignItems: 'center', justifyContent: 'flex-start', padding: 0, margin: 0 }]}
+                                    gravity={'bottom'}
+                                    min={0}
+                                    labelStyle="none"
+                                    max={3000}
+                                    step={10}
+                                    selectionColor="#25E7DB"
+                                    blankColor="#fff"
+                                    //labelStyle={'bubble'}
+                                    onValueChanged={(low, high, fromUser) => {
+                                       
+                                        setValorMenor(low)
+                                        setValorMaior(high)
+
+                                    }}
+                                />  */}
+
+
+
+
+
+                        {/* OUTRO SLIDER ABAIXO */}
+                        <Slider
+                            //style={{ width: 200, height: 40 }}
+                            style={[{ width: '100%', height: 32, alignItems: 'center', justifyContent: 'center', padding: 0, margin: 0 }]}
+                            minimumValue={0}
+                            maximumValue={3000}
+                            minimumTrackTintColor="#25E7DB"
+                            // maximumTrackTintColor="#000000"
+                            maximumTrackTintColor="#FFF"
+
+                            thumbTintColor="#25E7DB"
+
+                            thumbImage={iconSlider}
+
+                            onValueChange={setarValorF}
+                        />
+                        {/* OUTRO SLIDER ACIMA */}
+
+
+                    </View>
+
+
+                    {/* </View> */}
+
+
+                    <View style={[Estilo.borda_geral, Estilo.centralizar_horizontalmente, style = { width: 'auto', borderWidth: 0 }]}>
+                        <Text style={[Estilo.fonteMedia, style = { padding: 0, color: '#25E7DB' }]}>
+                            {DistanciaMaior}
+                        </Text>
+                    </View>
+
+
+
+                </View>
+                {/* SLIDER MULTIPLO ACIMA */}
+                {/******************************************************************************/}
+
+
+
+
+                {/*
                 <View style={{ width: '100%', paddingTop: 10, borderWidth: 0, borderColor: 'white', alignContent: 'center', alignItems: 'center' }}>
                     <Text style={{ borderWidth: 0, borderColor: 'blue', fontSize: 16, color: 'white' }} > Outras Eras  </Text>
                 </View>
@@ -306,8 +465,9 @@ export default function FILTRO_PESQUISA_CATEGORIAS(props) {
                     </View>
 
                 </View>
+            */}
 
-                {/****************************************/}
+                {/******************* OUTRAS ERAS ACIMA *********************/}
 
                 <View style={{ width: '100%', paddingTop: 10, borderWidth: 0, borderColor: 'white', alignContent: 'center', alignItems: 'center' }}>
                     <Text style={{ borderWidth: 0, borderColor: 'blue', fontSize: 16, color: 'white' }} >Tipo de Gado  </Text>
@@ -455,13 +615,18 @@ export default function FILTRO_PESQUISA_CATEGORIAS(props) {
                                 categorias_Objetos.Obj_VacasParidas;
 
 
-                            if (VARIAVEL_GLOBAL.TELA_ATUAL.toString() === "Principal") {
-
-                                // alert("FILTRO NA TELA PRINCIPAL");
+                            // if (VARIAVEL_GLOBAL.TELA_ATUAL.toString() === "Principal") {
+                            if ( props.telaQueChamaOFiltro === "Principal") {
+                                
+                                
+                                alert("TÁ CHAMANDO A TELA ERRADA !")
+                                
                                 props.PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH_REMOTO(DADOS_DOS_FILTROS_FULLTEXT_SEARCH);
+                                
+                               
 
-
-                            } else if (VARIAVEL_GLOBAL.TELA_ATUAL.toString() === "ComprasVendas") {
+                            // } else if (VARIAVEL_GLOBAL.TELA_ATUAL.toString() === "ComprasVendas") {
+                            } else if (props.telaQueChamaOFiltro === "ComprasVendas") {
                                 // alert("FILTRO NA TELA COMPRA E VENDA");
                                 props.PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH_REMOTO_2(DADOS_DOS_FILTROS_FULLTEXT_SEARCH);
 
@@ -480,7 +645,7 @@ export default function FILTRO_PESQUISA_CATEGORIAS(props) {
             </Animated.View>
 
 
-        </View>
+        </View >
 
     )
 
