@@ -207,14 +207,12 @@ export default function FILTRO_PESQUISA_CATEGORIAS(props) {
 
     //__________________________//__________________________//_______________________//
 
-
     const [iconSlider, setIconSlider] = useState();
 
     useEffect(() => {
         Icon.getImageSource('circle', 25, '#25E7DB')
             .then(setIconSlider);
     }, []);
-
 
     //__________________________//__________________________//_______________________//
 

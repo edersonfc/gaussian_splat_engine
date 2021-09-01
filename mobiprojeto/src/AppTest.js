@@ -86,18 +86,18 @@ import Importante from './components/Importante';
 
 
 // NO SERVIDOR REMOTO DIGITALOCEAN
-var IP_DO_SERVIDOR     = "https://gadoapp.online/";
-var IP_DO_SERVIDOR_IO  = "https://gadoapp.online/";
-var IP_MERCADO_PAGO    = "https://gadoapp.online/api_recebimento/";
+// var IP_DO_SERVIDOR     = "https://gadoapp.online/";
+// var IP_DO_SERVIDOR_IO  = "https://gadoapp.online/";
+// var IP_MERCADO_PAGO    = "https://gadoapp.online/api_recebimento/";
 
 
 
 
 
 //NO SERVIDOR DO MEU NOTEBOOK CASA DA MÃE  ABAIXO
-// var IP_DO_SERVIDOR = "http://192.168.0.107:3000/";
-// var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3000/";
-// var IP_MERCADO_PAGO = "http://192.168.0.107:8080/";
+var IP_DO_SERVIDOR = "http://192.168.0.107:3000/";
+var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3000/";
+var IP_MERCADO_PAGO = "http://192.168.0.107:8080/";
 
 
 
@@ -2897,51 +2897,64 @@ export default function AppTest() {
 
 
 
-
   }, []);
 
+
+  const [ distanciaDisplay , setDistanciaDisplay  ] = useState(1000);
+
+  const [ txtFiltrar_Categorias , setTxtFiltrar_Categorias ] = useState("Filtrar Categorias");
 
 
   useEffect(() => {
 
     VARIAVEL_GLOBAL.LATITUDE = userPosition.latitude;
-    VARIAVEL_GLOBAL.LONGITUDE = userPosition.longitude
+    VARIAVEL_GLOBAL.LONGITUDE = userPosition.longitude;
 
   }, [userPosition.latitude, userPosition.longitude]);
 
 
 
 
+
+  useEffect( () => {
+
+    setDistanciaDisplay(Math.round(VARIAVEL_GLOBAL.DISTANCIAS_PARA_O_FILTRO));
+
+  });
+
+
+
+
   async function NAO_ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA() {
 
-    setTermoDeUsoVisible(false);
+      setTermoDeUsoVisible(false);
 
-  }
+    }
 
 
 
 
   async function ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA() {
 
-    try {
-      //ARMAZENANDO NO ASYNC _STORAGE
-      await AsyncStorage.setItem('TERMOS_DE_USO', 'termos_aceito');
-      setTermoDeUsoVisible(false);
-    }
-    catch (exception) {
-      alert("FALHA NA GRAVAÇÃO \n DOS TERMOS DE USO !");
-      //alert(exception);
-    }
+      try {
+        //ARMAZENANDO NO ASYNC _STORAGE
+        await AsyncStorage.setItem('TERMOS_DE_USO', 'termos_aceito');
+        setTermoDeUsoVisible(false);
+      }
+      catch (exception) {
+        alert("FALHA NA GRAVAÇÃO \n DOS TERMOS DE USO !");
+        //alert(exception);
+      }
 
-  }
+    }
 
 
 
   function FECHAR_TELA_INFORMACAO_IMPORTANTE() {
 
-    setTelaImportanteInfo(false);
+      setTelaImportanteInfo(false);
 
-  }
+    }
 
 
 
@@ -2949,21 +2962,21 @@ export default function AppTest() {
 
   //ALGORITIMO DE COMPRESSAO DE VIDEO ABAIXO processamento DEMORADO ABAIXO  MAS FUNCIONA PERFEITAMENTE ABAIXO
   async function compressVideo(path) {
-    // console.log(path);
-    let caminhoOriginal = path;
-    const origin = await ProcessingManager.getVideoInfo(path);
-    const result = await ProcessingManager.compress(path, {
-      width: origin.size && origin.size.width / 3,
-      height: origin.size && origin.size.height / 3,
-      // bitrateMultiplier: 7,
-      bitrateMultiplier: 4,
-      minimumBitrate: 300000
-    });
-    const thumbnail = await ProcessingManager.getPreviewForSecond(result.source);
+      // console.log(path);
+      let caminhoOriginal = path;
+      const origin = await ProcessingManager.getVideoInfo(path);
+      const result = await ProcessingManager.compress(path, {
+        width: origin.size && origin.size.width / 3,
+        height: origin.size && origin.size.height / 3,
+        // bitrateMultiplier: 7,
+        bitrateMultiplier: 4,
+        minimumBitrate: 300000
+      });
+      const thumbnail = await ProcessingManager.getPreviewForSecond(result.source);
 
-    return { path: result.source, caminhoOriginal, thumbnail };
+      return { path: result.source, caminhoOriginal, thumbnail };
 
-  }
+    }
   //ALGORITIMO DE COMPRESSAO DE VIDEO ACIMA processamento DEMORADO ACIMA  MAS FUNCIONA PERFEITAMENTE ACIMA
 
 
@@ -2971,29 +2984,32 @@ export default function AppTest() {
 
   async function fazerAlteracoesEmNomes() {
 
-    await new Promise((resolve) => setTimeout(resolve, 4000));
-    console.log("TÁ CHAMANDO " + data_hora_e_segundo_completo());
+      await new Promise((resolve) => setTimeout(resolve, 4000));
+      console.log("TÁ CHAMANDO " + data_hora_e_segundo_completo());
 
-    // var somatorio = 0;
-    // // for (var i = 0; i < 1000000000; i++) {
-    // for (var i = 0; i < 100000000; i++) {
-    //     somatorio++;
-    // }//for
+      // var somatorio = 0;
+      // // for (var i = 0; i < 1000000000; i++) {
+      // for (var i = 0; i < 100000000; i++) {
+      //     somatorio++;
+      // }//for
 
-    let valor = Math.floor(Math.random() * 10000) + ".mp4";
-    // let valor = "4548746464";
+      let valor = Math.floor(Math.random() * 10000) + ".mp4";
+      // let valor = "4548746464";
 
-    return new Promise(function (resolve) {
+      return new Promise(function (resolve) {
 
-      // parametro_a_resolver += "_ALTERADO";
-      // resolve({ nomeAlterado: parametro_a_resolver })
-      resolve({ path: valor });
+        // parametro_a_resolver += "_ALTERADO";
+        // resolve({ nomeAlterado: parametro_a_resolver })
+        resolve({ path: valor });
 
-    });
+      });
 
-  }
+    }
 
 
+
+
+   
 
 
 
@@ -3172,6 +3188,7 @@ export default function AppTest() {
 
                         setExibeFiltroCategoria(true);
                         filtro_ativado_sim_ou_nao = true;
+                        setTxtFiltrar_Categorias("Filtro Ativo");
 
                       } else {
 
@@ -3179,6 +3196,10 @@ export default function AppTest() {
                         ADICIONAR_PRODUTOS_por_ARRAY(true);
                         filtro_ativado_sim_ou_nao = false;
 
+                        VARIAVEL_GLOBAL.DISTANCIAS_PARA_O_FILTRO = 1000;
+                        setDistanciaDisplay(1000);
+                        setTxtFiltrar_Categorias("Filtrar Categorias");
+                        
                       }
 
                       setCorIconeFiltro(oldState => !oldState);
@@ -3192,12 +3213,19 @@ export default function AppTest() {
                       {/* <Icon name='filter' nativeID='notificacao' style={[Estilo.icones_medio, style = { paddingRight: 10 }]} /> */}
                       <Icon name='filter' nativeID='notificacao' style={[Estilo.icones_medio, style = { paddingRight: 10, color: corIconeFiltro ? "#25E7DB" : "white" }]} />
                     </View>
-                    <Text style={{ fontSize: 10, color: corIconeFiltro ? "#25E7DB" : "white" }}>Filtrar Categorias</Text>
+                    <Text style={{ fontSize: 10, color: corIconeFiltro ? "#25E7DB" : "white" }}>{txtFiltrar_Categorias}</Text>
+
 
                   </TouchableOpacity>
 
 
+
                 </View>
+
+
+
+
+
 
 
                 <View style={[Estilo.borda_geral, style = { flexDirection: 'row', width: '28%', alignItems: 'flex-start' }]}  >
@@ -3507,11 +3535,24 @@ export default function AppTest() {
 
           <View style={[Estilo.div_view_3, Estilo.borda_geral]}>
 
-            <View style={[Estilo.div_view_linha]}></View>
+
+            <View style={{ width: '100%', justifyContent: 'center', alignContent: 'center', borderWidth: 0, borderColor: 'green' }} >
+
+              <Text style={{ borderWidth: 0, fontSize: 18, color: corIconeFiltro ? "#25E7DB" : "white", textAlign: 'center' }}>0   à   {distanciaDisplay} km</Text>
+
+              <View style={{ justifyContent: 'center', alignItems: 'center', width: '100%', borderWidth: 0 }} >
+                <View style={[Estilo.div_view_linha]}></View>
+              </View>
+
+            </View>
+
+
+
+
+
 
 
             {
-
               /*
               <Icon name='chevron-down' style={[Estilo.icones_medio, Estilo.icones_clicado, style = { paddingTop: 10 }]}
                 onPress={() => {
