@@ -86,18 +86,18 @@ import Importante from './components/Importante';
 
 
 // NO SERVIDOR REMOTO DIGITALOCEAN
-// var IP_DO_SERVIDOR     = "https://gadoapp.online/";
-// var IP_DO_SERVIDOR_IO  = "https://gadoapp.online/";
-// var IP_MERCADO_PAGO    = "https://gadoapp.online/api_recebimento/";
+var IP_DO_SERVIDOR     = "https://gadoapp.online/";
+var IP_DO_SERVIDOR_IO  = "https://gadoapp.online/";
+var IP_MERCADO_PAGO    = "https://gadoapp.online/api_recebimento/";
 
 
 
 
 
 //NO SERVIDOR DO MEU NOTEBOOK CASA DA MÃE  ABAIXO
-var IP_DO_SERVIDOR = "http://192.168.0.107:3000/";
-var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3000/";
-var IP_MERCADO_PAGO = "http://192.168.0.107:8080/";
+// var IP_DO_SERVIDOR = "http://192.168.0.107:3000/";
+// var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3000/";
+// var IP_MERCADO_PAGO = "http://192.168.0.107:8080/";
 
 
 
@@ -2440,7 +2440,7 @@ export default function AppTest() {
 
 
   //FILTRANDO_POR_DISTÂNCIA ABAIXO com Pesquisa SQL ABAIXO
-  async function FILTRANDO_POR_DISTANCIA(DISTANCIA_PERIMETRO) {
+  async function FILTRANDO_POR_DISTANCIA() {
 
 
     let dadosDaPesquisaPorDistancia = await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + 'filtro_distancia_sql', {
@@ -2497,9 +2497,7 @@ export default function AppTest() {
           ARRAY_PRIMEIRAS_URL_VIDEOS_2.push(PRIMEIRA_URL_VIDEO_INDEXOF);
           //TRATAMENTO COM VIDEOSS ACIMA
 
-
         }//FOR
-
 
       }//IF
 
@@ -2512,11 +2510,7 @@ export default function AppTest() {
 
     } else { setProdutosEtiquetasExibir(false); }
 
-
-
     //IMPLEMENTANDO FILTRO POR DISTANCIA AQUI ACIMA ***********************************
-
-
 
   }
 
@@ -3860,7 +3854,7 @@ export default function AppTest() {
           exibeFiltroCategoria && (<FILTRO_PESQUISA_CATEGORIA
             setExibeFiltroCategori={setExibeFiltroCategoria}
             PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH_REMOTO={PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH}
-            // FILTRANDO_POR_DISTANCIA_REMOTO={FILTRANDO_POR_DISTANCIA}
+            FILTRANDO_POR_DISTANCIA_REMOTO={FILTRANDO_POR_DISTANCIA}
             telaQueChamaOFiltro={"Principal"}
           />)
         }

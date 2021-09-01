@@ -19,6 +19,9 @@ import { color } from 'react-native-reanimated';
 
 
 
+
+
+
 var categorias_Objetos = {
 
     Obj_Macho: "",
@@ -45,19 +48,12 @@ var categorias_Objetos = {
 
 }
 
-
-
-
 export default function FILTRO_PESQUISA_CATEGORIAS(props) {
-
-
-
 
 
     const { VARIAVEL_GLOBAL } = useContext(GlobalContext);
 
 
-    const [objetosCategoria, setobjetosCategoria] = useState(categorias_Objetos);
 
 
     var [corMacho, setcorMacho] = useState(false);
@@ -83,9 +79,18 @@ export default function FILTRO_PESQUISA_CATEGORIAS(props) {
     var [corVacasPrenhas, setcorVacasPrenhas] = useState(false);
     var [corVacasParidas, setcorVacasParidas] = useState(false);
 
+
+
+
+
+
+
+
+    const [objetosCategoria, setobjetosCategoria] = useState(categorias_Objetos);
+
+
+
     var [arquivoDoCell, setarquivoDoCell] = useState('file:///');
-
-
 
 
     //VARIAVEL DE DADOS ABAIXO  set
@@ -95,10 +100,8 @@ export default function FILTRO_PESQUISA_CATEGORIAS(props) {
     var [outrasErasPosterior, setOutrasErasPosterior] = useState("");
     function outrasErasPosteriorF(outrasErasPosterior) { setOutrasErasPosterior(outrasErasPosterior); }
 
-
     var [descricoesGerais, setDescricoesGerais] = useState("");
     function descricoesGeraisF(descricoesGerais) { setDescricoesGerais(descricoesGerais); }
-
 
     var [precoSugerido, setPrecoSugerido] = useState("");
     function precoSugeridoF(precoSugerido) { setPrecoSugerido(precoSugerido); }
@@ -145,11 +148,9 @@ export default function FILTRO_PESQUISA_CATEGORIAS(props) {
     const [largura, setLargura] = useState(new Animated.Value(0));
     const [altura, setAltura] = useState(new Animated.Value(0));
 
-
     var Largura_total_da_tela = Math.round(Dimensions.get('window').width);
     var largura_noventa_e_sete_porcento = ((Largura_total_da_tela * 97) / 100);
     // console.log(largura_sesenta_e_sete_porcento);
-
 
     var Altura__total_da_tela = Math.round(Dimensions.get('window').height);
     var altura_oitenta_e_cinco_porcento = ((Altura__total_da_tela * 90) / 100);
@@ -217,6 +218,23 @@ export default function FILTRO_PESQUISA_CATEGORIAS(props) {
 
     //__________________________//__________________________//_______________________//
 
+
+    useEffect(() => {
+        // categorias_Objetos.map( ( elementos, indice ) => { 
+        //     console.log(elementos);
+        // });
+        //  console.log( Object.keys(categorias_Objeto) );
+
+        // console.log( JSON.stringify(categorias_Objetos) );
+        // var QWE = null;
+        // for (var i = 0; i < categorias_Objetos.length; i++) {
+        //     for (var j = 0; j < Object.keys(categorias_Objetos[i]).length; j++) {
+        //         // console.log(Object.values(categorias_Objetos[i])[j]);
+        //         QWE += Object.values(categorias_Objetos[i])[j] + " # ";
+        //     }//FOR j
+        // }//FOR i
+        // // console.log(QWE)
+    }, []);
 
 
 
@@ -594,6 +612,8 @@ export default function FILTRO_PESQUISA_CATEGORIAS(props) {
                     <TouchableHighlight style={{ width: '35%', height: 35, color: 'white', fontSize: 35, borderRadius: 25, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: 'white' }}
                         onPress={() => {
 
+
+
                             var DADOS_DOS_FILTROS_FULLTEXT_SEARCH =
                                 categorias_Objetos.Obj_Macho + " " +
                                 categorias_Objetos.Obj_Femea + " " +
@@ -615,24 +635,62 @@ export default function FILTRO_PESQUISA_CATEGORIAS(props) {
                                 categorias_Objetos.Obj_VacasParidas;
 
 
-                            // if (VARIAVEL_GLOBAL.TELA_ATUAL.toString() === "Principal") {
-                            if ( props.telaQueChamaOFiltro === "Principal") {
-                                
-                                
-                                alert("TÁ CHAMANDO A TELA ERRADA !")
-                                
-                                props.PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH_REMOTO(DADOS_DOS_FILTROS_FULLTEXT_SEARCH);
-                                
-                               
 
-                            // } else if (VARIAVEL_GLOBAL.TELA_ATUAL.toString() === "ComprasVendas") {
-                            } else if (props.telaQueChamaOFiltro === "ComprasVendas") {
+               
+
+                            let  flagVazioOuNao = DADOS_DOS_FILTROS_FULLTEXT_SEARCH.replace(/[\s]/g,"");
+                            // let  flagVazioOuNao = DADOS_DOS_FILTROS_FULLTEXT_SEARCH;
+                            // alert( flagVazioOuNao.length ); return 0;
+
+
+
+
+                            // if (VARIAVEL_GLOBAL.TELA_ATUAL.toString() === "Principal") {
+                            if (props.telaQueChamaOFiltro === "Principal"  && flagVazioOuNao.length > 0 ) {
+
+                                // alert(DADOS_DOS_FILTROS_FULLTEXT_SEARCH);
+                                // alert("TÁ CHAMANDO A TELA ERRADA !")
+                                props.PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH_REMOTO(DADOS_DOS_FILTROS_FULLTEXT_SEARCH);
+
+                                // } else if (VARIAVEL_GLOBAL.TELA_ATUAL.toString() === "ComprasVendas") {
+                            } else if (props.telaQueChamaOFiltro === "ComprasVendas"  && flagVazioOuNao.length > 0 ) {
                                 // alert("FILTRO NA TELA COMPRA E VENDA");
                                 props.PESQUISAR_GADOBOVINO_FULLTEXT_SEARCH_REMOTO_2(DADOS_DOS_FILTROS_FULLTEXT_SEARCH);
 
+                           
+                            }else if (props.telaQueChamaOFiltro === "Principal"  && flagVazioOuNao.length <= 0 ) {
+
+                                props.FILTRANDO_POR_DISTANCIA_REMOTO();
+
                             }
 
+
+
+
                             props.setExibeFiltroCategori(false);
+
+                            // alert("== LISTA ==> " + DADOS_DOS_FILTROS_FULLTEXT_SEARCH);
+
+                            //______________________//____________________________//
+                            categorias_Objetos.Obj_Macho = "";
+                            categorias_Objetos.Obj_Femea = "";
+                            categorias_Objetos.Obj__0_12 = "";
+                            categorias_Objetos.Obj__12_24 = "";
+                            categorias_Objetos.Obj__24_36 = "";
+                            categorias_Objetos.Obj_Acima_36 = "";
+                            categorias_Objetos.Obj_Bezerros = "";
+                            categorias_Objetos.Obj_Garrotes = "";
+                            categorias_Objetos.Obj_Tourunos = "";
+                            categorias_Objetos.Obj_Bois = "";
+                            categorias_Objetos.Obj_BoisGordos = "";
+                            categorias_Objetos.Obj_Bezerras = "";
+                            categorias_Objetos.Obj_Novilhas = "";
+                            categorias_Objetos.Obj_VacasBoiadeiras = "";
+                            categorias_Objetos.Obj_Vacas = "";
+                            categorias_Objetos.Obj_VacasGordas = "";
+                            categorias_Objetos.Obj_VacasPrenhas = "";
+                            categorias_Objetos.Obj_VacasParidas = "";
+                            //_____________________//_____________________________//
 
 
                         }}
