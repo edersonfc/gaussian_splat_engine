@@ -499,9 +499,8 @@ export default function ComprasVendas(props) {
             color: 'red'
         },
         datePickerStyle: {
-            width: 120,
+            width: '80%',
             marginTop: 0,
-
         },
     });
     //ESTILO DO CALENDÁRIO ACIMA

@@ -217,24 +217,6 @@ export default function FILTRO_PESQUISA_CATEGORIAS(props) {
     //__________________________//__________________________//_______________________//
 
 
-    useEffect(() => {
-        // categorias_Objetos.map( ( elementos, indice ) => { 
-        //     console.log(elementos);
-        // });
-        //  console.log( Object.keys(categorias_Objeto) );
-
-        // console.log( JSON.stringify(categorias_Objetos) );
-        // var QWE = null;
-        // for (var i = 0; i < categorias_Objetos.length; i++) {
-        //     for (var j = 0; j < Object.keys(categorias_Objetos[i]).length; j++) {
-        //         // console.log(Object.values(categorias_Objetos[i])[j]);
-        //         QWE += Object.values(categorias_Objetos[i])[j] + " # ";
-        //     }//FOR j
-        // }//FOR i
-        // // console.log(QWE)
-    }, []);
-
-
 
 
     return (

@@ -86,18 +86,18 @@ import Importante from './components/Importante';
 
 
 // NO SERVIDOR REMOTO DIGITALOCEAN
-// var IP_DO_SERVIDOR     = "https://gadoapp.online/";
-// var IP_DO_SERVIDOR_IO  = "https://gadoapp.online/";
-// var IP_MERCADO_PAGO    = "https://gadoapp.online/api_recebimento/";
+var IP_DO_SERVIDOR     = "https://gadoapp.online/";
+var IP_DO_SERVIDOR_IO  = "https://gadoapp.online/";
+var IP_MERCADO_PAGO    = "https://gadoapp.online/api_recebimento/";
 
 
 
 
 
 //NO SERVIDOR DO MEU NOTEBOOK CASA DA MÃE  ABAIXO
-var IP_DO_SERVIDOR = "http://192.168.0.107:3000/";
-var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3000/";
-var IP_MERCADO_PAGO = "http://192.168.0.107:8080/";
+// var IP_DO_SERVIDOR = "http://192.168.0.107:3000/";
+// var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3000/";
+// var IP_MERCADO_PAGO = "http://192.168.0.107:8080/";
 
 
 
@@ -1125,6 +1125,7 @@ export default function AppTest() {
 
     try {
       await AsyncStorage.removeItem(key);
+      await AsyncStorage.removeItem('TERMOS_DE_USO');
       alert("FOI APAGADO O Nº DE CELULAR !");
 
     }
@@ -2939,7 +2940,7 @@ export default function AppTest() {
       try {
         //ARMAZENANDO NO ASYNC _STORAGE
         await AsyncStorage.setItem('TERMOS_DE_USO', 'termos_aceito');
-        setTermoDeUsoVisible(false);
+        setTermoDeUsoVisible(false);//MUDAR PARA false muito Importante
       }
       catch (exception) {
         alert("FALHA NA GRAVAÇÃO \n DOS TERMOS DE USO !");
@@ -3395,6 +3396,13 @@ export default function AppTest() {
                   CONECTANDO_AO_BANCO_DE_DADOS();
                   ADICIONAR_PRODUTOS_por_ARRAY(true);
                   filtro_ativado_sim_ou_nao = false;
+
+
+                  VARIAVEL_GLOBAL.DISTANCIAS_PARA_O_FILTRO = 1000;
+                  setDistanciaDisplay(1000);
+                  setTxtFiltrar_Categorias("Filtrar Categorias");
+                  setCorIconeFiltro(false);
+
                 }}
               >
                 <Icon name='reply'

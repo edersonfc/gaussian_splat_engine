@@ -5,7 +5,7 @@ import { View, Text, TouchableOpacity, Dimensions, ActivityIndicator } from 'rea
 import { WebView } from 'react-native-webview';
 
 function LoadingIndicatorView() {
-  return <ActivityIndicator color='#009b88' size='large'  />
+  return <ActivityIndicator color='#009b88' size='large' />
 }
 
 
@@ -22,7 +22,7 @@ import SplashScreen from "react-native-splash-screen";
 export default function TERMOS_DE_USO(param) {
 
   const [largura_tela, setLargura_tela] = useState(Dimensions.get('window').width);
-  const [altura_tela, setAltura_tela]   = useState(Dimensions.get('window').height);
+  const [altura_tela, setAltura_tela] = useState(Dimensions.get('window').height);
 
 
   //   navigator.serviceWorker.getRegistrations().then(function(registrations) {
@@ -55,13 +55,16 @@ export default function TERMOS_DE_USO(param) {
           showsVerticalScrollIndicator={true}
           originWhitelist={['*']}
 
-          source={{ uri: "https://mobilegadoapp.web.app" }}// => SERVIDOR DA DIGITALOCEAN
-          // source={{ uri: "https://gadoapp.online:8080/termos_de_uso/" }}// => SERVIDOR DA DIGITALOCEAN
-          // source={{ uri: "http://159.89.87.76:8080/termos_de_uso/" }}// => SERVIDOR DA DIGITALOCEAN
-        // source={{ uri: "http://192.168.0.107:8080/termos_de_uso/" }}// => SERVIDOR DA DIGITALOCEAN
 
-        renderLoading={LoadingIndicatorView}
-        startInLoadingState={true}
+          // source={{ uri: "https://mobilegadoapp.web.app" }}// => SERVIDOR DA FIREBASE
+
+          source={{ uri: "https://gadoapp.online/termos_de_uso/" }}// => SERVIDOR DA DIGITALOCEAN
+
+          // source={{ uri: "http://192.168.0.107:3000/termos_de_uso/" }}// => SERVIDOR DA DIGITALOCEAN
+
+
+          renderLoading={LoadingIndicatorView}
+          startInLoadingState={true}
 
 
         />
