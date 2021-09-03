@@ -492,7 +492,7 @@ export default function Postar(props) {
         //______________TENTANDO ABAIXO _______________________________//
         if (VARIAVEL_GLOBAL.INDICE_DO_VIDEO_EXCLUIR_DURANTE_POSTAGENS === -1) {
 
-             ARRY_URL_VIDEOS = URL_VIDEOS.split("|");
+            ARRY_URL_VIDEOS = URL_VIDEOS.split("|");
             // ////REPOPULANDO O ARRAY  => URL_VIDEOS_DURANTE_POSTAGENS
             ARRY_URL_VIDEOS.map((VIDEOS_URLS) => { VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.push(VIDEOS_URLS) });
         }//IF
@@ -884,262 +884,252 @@ export default function Postar(props) {
 
     const LARGURA_DESCRICAO = (ALTURA * 0.50)
 
+    const [nameBtbPostar, setNameBtbPostar] = useState("Postar");
 
 
+ 
     return (
 
 
+            <SafeAreaView style={[Estilo.App]}    >
 
-        <SafeAreaView style={[Estilo.App]}    >
+                <ScreenOrientation
+                    // orientation={LANDSCAPE_LEFT}
+                    orientation={PORTRAIT}
+                // onChange={orientation => console.log('onChange', orientation)}
+                // onDeviceChange={orientation => console.log('onDeviceChange', orientation)}
+                />
 
 
+                <View style={{ height: 10 }}></View>
+                <View style={{ flexDirection: 'row', width: '100%', height: 45, alignItems: 'center', justifyContent: 'flex-end', borderWidth: 0, borderColor: 'darkred' }} >
 
-
-            {/*<SafeAreaView >*/}
-
-
-            {/* MUDANDO A ORIENTAÇÃO DA TELA PRA PAISAGEM ABAIXO colocar dentro da View principal que fica dentro do return */}
-            <ScreenOrientation
-                // orientation={LANDSCAPE_LEFT}
-                orientation={PORTRAIT}
-            // onChange={orientation => console.log('onChange', orientation)}
-            // onDeviceChange={orientation => console.log('onDeviceChange', orientation)}
-            />
-            {/* MUDANDO A ORIENTAÇÃO DA TELA PRA PAISAGEM ACIMA colocar dentro da View principal que fica dentro do return  */}
-
-            {/* <Animated.View style={{ width:largura, height:altura_cem_porcento }} > */}
-
-            {/* <ScrollView style={{ flex: 1, width: '100%', height:'100%' }} >    */}
-
-            <View style={{ height: 10 }}></View>
-            <View style={{ flexDirection: 'row', width: '100%', height: 45, alignItems: 'center', justifyContent: 'flex-end', borderWidth: 0, borderColor: 'darkred' }} >
-
-                {/*****************************************/}
-                <TouchableOpacity style={{ flexDirection: 'row', width: '30%', height: 40, paddingLeft: 10, paddingBottom: 0, alignItems: 'center', justifyContent: 'flex-start', borderWidth: 0, borderColor: 'pink' }}
-                    onPress={() => {
-                        VARIAVEL_GLOBAL.INDICE_GLOBAL_IMAGENS_VIDEOS = -1;
-                        VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length = 0;// ADICIONANDO 29082021
-                        VARIAVEL_GLOBAL.URL_VIDEO_EXCLUIDO_DURANTE_POSTAGENS = "";// ADICIONANDO 29082021
-                        VARIAVEL_GLOBAL.INDICE_DO_VIDEO_EXCLUIR_DURANTE_POSTAGENS = -1;// ADICIONANDO 29082021
-                        VARIAVEL_GLOBAL.CONTADOR_GLOBAL = 55;
-                        navigation.navigate("TelaPrincipal", { produto })
-                    }}
-                >
-                    {/* <Icon name='arrow-left' style={[Estilo.icones_medio, style = { backgroundColor: '#2A3E4A' }]} /> */}
-                    <Icon name='arrow-left' style={[Estilo.icones_medio]} />
-                </TouchableOpacity>
-                {/*****************************************/}
-
-                <View style={{ flexDirection: 'row', width: '70%', height: 30, alignItems: 'center', justifyContent: 'flex-end', borderWidth: 0, borderColor: 'pink' }} >
-
-                    <TouchableOpacity style={{ width: '25%', height: 40, alignItems: 'center', justifyContent: 'center', borderWidth: 0, borderColor: 'ORANGE' }}
+                    {/*****************************************/}
+                    <TouchableOpacity style={{ flexDirection: 'row', width: '30%', height: 40, paddingLeft: 10, paddingBottom: 0, alignItems: 'center', justifyContent: 'flex-start', borderWidth: 0, borderColor: 'pink' }}
                         onPress={() => {
-                            VARIAVEL_GLOBAL.TELA_ATUAL = "Postar";
-                            setimagensEvideos(true);
-
-                            //    navigation.navigate("CameraFoto", { URL_FOTOS_2 });
-                            navigation.navigate("CameraFoto", VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT);
-
-                        }}
-                    >
-                        <Icon name='camera' style={[Estilo.icones_medio, style = { backgroundColor: '#2A3E4A' }]} />
-                        <Text style={{ fontSize: 10, color: 'white' }} >Fotografar</Text>
-
-                    </TouchableOpacity>
-
-                    <TouchableOpacity style={{ width: '25%', height: 40, alignItems: 'center', justifyContent: 'center', borderWidth: 0, borderColor: 'ORANGE' }}
-                        onPress={() => {
-                            VARIAVEL_GLOBAL.TELA_ATUAL = "Postar";
+                            VARIAVEL_GLOBAL.INDICE_GLOBAL_IMAGENS_VIDEOS = -1;
+                            VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length = 0;// ADICIONANDO 29082021
                             VARIAVEL_GLOBAL.URL_VIDEO_EXCLUIDO_DURANTE_POSTAGENS = "";// ADICIONANDO 29082021
-                            setimagensEvideos(true);
-                            navigation.navigate("Videos");
+                            VARIAVEL_GLOBAL.INDICE_DO_VIDEO_EXCLUIR_DURANTE_POSTAGENS = -1;// ADICIONANDO 29082021
+                            VARIAVEL_GLOBAL.CONTADOR_GLOBAL = 55;
+                            navigation.navigate("TelaPrincipal", { produto })
                         }}
                     >
-                        <Icon name='video-camera' style={[Estilo.icones_medio, style = { backgroundColor: '#2A3E4A' }]} />
-                        <Text style={{ fontSize: 10, color: 'white' }} >Filmar</Text>
+                        {/* <Icon name='arrow-left' style={[Estilo.icones_medio, style = { backgroundColor: '#2A3E4A' }]} /> */}
+                        <Icon name='arrow-left' style={[Estilo.icones_medio]} />
                     </TouchableOpacity>
+                    {/*****************************************/}
+
+                    <View style={{ flexDirection: 'row', width: '70%', height: 30, alignItems: 'center', justifyContent: 'flex-end', borderWidth: 0, borderColor: 'pink' }} >
+
+                        <TouchableOpacity style={{ width: '25%', height: 40, alignItems: 'center', justifyContent: 'center', borderWidth: 0, borderColor: 'ORANGE' }}
+                            onPress={() => {
+                                VARIAVEL_GLOBAL.TELA_ATUAL = "Postar";
+                                setimagensEvideos(true);
+
+                                //    navigation.navigate("CameraFoto", { URL_FOTOS_2 });
+                                navigation.navigate("CameraFoto", VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT);
+
+                            }}
+                        >
+                            <Icon name='camera' style={[Estilo.icones_medio, style = { backgroundColor: '#2A3E4A' }]} />
+                            <Text style={{ fontSize: 10, color: 'white' }} >Fotografar</Text>
+
+                        </TouchableOpacity>
+
+                        <TouchableOpacity style={{ width: '25%', height: 40, alignItems: 'center', justifyContent: 'center', borderWidth: 0, borderColor: 'ORANGE' }}
+                            onPress={() => {
+                                VARIAVEL_GLOBAL.TELA_ATUAL = "Postar";
+                                VARIAVEL_GLOBAL.URL_VIDEO_EXCLUIDO_DURANTE_POSTAGENS = "";// ADICIONANDO 29082021
+                                setimagensEvideos(true);
+                                navigation.navigate("Videos");
+                            }}
+                        >
+                            <Icon name='video-camera' style={[Estilo.icones_medio, style = { backgroundColor: '#2A3E4A' }]} />
+                            <Text style={{ fontSize: 10, color: 'white' }} >Filmar</Text>
+                        </TouchableOpacity>
 
 
-                    <TouchableOpacity style={{ width: '25%', height: 40, alignItems: 'center', justifyContent: 'center', borderWidth: 0, borderColor: 'ORANGE' }}
-                        onPress={async () => {
+                        <TouchableOpacity style={{ width: '25%', height: 40, alignItems: 'center', justifyContent: 'center', borderWidth: 0, borderColor: 'ORANGE' }}
+                            onPress={async () => {
 
-                            VARIAVEL_GLOBAL.TELA_ATUAL = "Postar";
-                            setimagensEvideos(true);
+                                VARIAVEL_GLOBAL.TELA_ATUAL = "Postar";
+                                setimagensEvideos(true);
 
-                            var CAMINHO;
+                                var CAMINHO;
 
-                            //navigation.navigate("Videos")
-                            //setListaImagemVideo(elements);
-                            //ABRIR_ARQUIVO();
+                                //navigation.navigate("Videos")
+                                //setListaImagemVideo(elements);
+                                //ABRIR_ARQUIVO();
 
-                            /////////////////////////////////////// DocumentPicker.types.allFiles   , DocumentPicker.types.video*/
-                            // Pick a single file
-                            try {
-                                const res = await DocumentPicker.pick({
-                                    type: [DocumentPicker.types.images, DocumentPicker.types.video],
-                                });
-
-
-                                // console.log(
-                                //     res.uri,
-                                //     res.type, // mime type
-                                //     res.name,
-                                //     res.size);
-
-
-                                //CAMINHO = res.uri;
-
-                                //CAMINHO = CAMINHO.replace('content://','file:///');
-                                // CAMINHO = CAMINHO.replace(' ','');
-                                // CAMINHO = CAMINHO+'.jpg';
-                                //setarquivoDoCell(CAMINHO);
-                                CAMINHO = await TRANFORMAR_P_CAMINHO_ABSOLUTO(res.uri);
-                                //alert(CAMINHO);
-                                //console.log(CAMINHO);
-
-                                if (
-                                    CAMINHO.toUpperCase().includes('.JPEG') ||
-                                    CAMINHO.toUpperCase().includes('.JPG') ||
-                                    CAMINHO.toUpperCase().includes('.PNG')
-                                ) {
-
-                                    /**/
-                                    //CAMINHO = CAMINHO+'|';   VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT
-                                    // ARRY_URL_IMAGENS.push(CAMINHO);
-                                    VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.push(CAMINHO);
-                                    //alert(ARRY_URL_IMAGENS);
-                                    let URL_FOTOS = "";
-                                    // for (var i = 0; i < ARRY_URL_IMAGENS.length; i++) {
-                                    for (var i = 0; i < VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length; i++) {
-
-                                        URL_FOTOS += VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[i] + '|';
-
-                                    }//for
-                                    navigation.navigate("Postar", { URL_FOTOS, URL_VIDEOS });
-                                    //nome_da_funcao();
-
-
-
-
-                                    //} else if (CAMINHO.includes('video%')) {
-                                } else if (CAMINHO.includes('.mp4')) {
-
-                                    // ARRY_URL_VIDEOS.push(CAMINHO);
-                                    VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.push(CAMINHO);
-                                    VARIAVEL_GLOBAL.URL_VIDEO_EXCLUIDO_DURANTE_POSTAGENS = "";// ADICIONANDO 29082021
-                                    let URL_VIDEOS = "";
-                                    // for (var i = 0; i < ARRY_URL_VIDEOS.length; i++) {
-                                    for (var i = 0; i < VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length; i++) {
-                                        // URL_VIDEOS += ARRY_URL_VIDEOS[i] + '|';
-                                        URL_VIDEOS += VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS[i] + '|';
-                                    }//for
-                                    navigation.navigate("Postar", { URL_FOTOS, URL_VIDEOS });
-
-
-                                } else {
-                                    alert('ARQUIVO INVÁLIDO');
-                                }
-
-                                /*
-                                // TESTANDO NÃO APAGAR ABAIXO  //
-                                RNFetchBlob.fs
-                                    .stat(res.uri)
-                                    .then((stats) => {
-                                        console.log(stats.path);
-                                        //alert(stats.path);
-                                        //output: /storage/emulated/0/WhatsApp/Media/WhatsApp Images/IMG-20200831-WA0019.jpg
-                                        CAMINHO = stats.path;
-                                        //alert(CAMINHO);
-                                        CAMINHO = 'file:///'+CAMINHO+'|';
-                                        //setarquivoDoCell(CAMINHO);
-
-                                        CAMINHO = CAMINHO.replace("undefined","");
-
-                                        //alert(CAMINHO)
-
-                                        if (CAMINHO.includes('.jpg')) {
-
-
-                                            ARRY_URL_IMAGENS.push(CAMINHO);
-                                            //alert(ARRY_URL_IMAGENS_DO_CELL);
-
-                                            alert(ARRY_URL_IMAGENS);
-
-                                            let  URL_FOTOS
-                                            for(var i = 0; i < ARRY_URL_IMAGENS.length; i++){
-                                              
-                                              URL_FOTOS += ARRY_URL_IMAGENS[i];
-
-                                            }//for
-                                            
-                                            //alert(URL_FOTOS);
-
-                                            navigation.navigate("Postar", { URL_FOTOS, URL_VIDEOS });
-
-                                        } else if (CAMINHO.includes('.mp4')) {
-
-                                            ARRY_URL_VIDEOS_DO_CELL.push(CAMINHO);
-                                           
-                                            for(var i = 0; i < ARRY_URL_VIDEOS_DO_CELL.length; i++){
-
-                                                URL_VIDEOS += ARRY_URL_VIDEOS_DO_CELL[i];
-
-                                            }//for
-
-                                            navigation.navigate("Postar", { URL_FOTOS, URL_VIDEOS });
-
-                                        } else { 'FORMATO INVÁLIDO' }
-
-
-                                        
-                                    })
-                                    .catch((err) => {
-                                        console.log(err);
+                                /////////////////////////////////////// DocumentPicker.types.allFiles   , DocumentPicker.types.video*/
+                                // Pick a single file
+                                try {
+                                    const res = await DocumentPicker.pick({
+                                        type: [DocumentPicker.types.images, DocumentPicker.types.video],
                                     });
-                                // TESTANDO NÃO APAGAR ACIMA  */
 
 
-                            } catch (err) {
-                                if (DocumentPicker.isCancel(err)) {
-                                    // User cancelled the picker, exit any dialogs or menus and move on
-                                } else {
-                                    throw err;
+                                    // console.log(
+                                    //     res.uri,
+                                    //     res.type, // mime type
+                                    //     res.name,
+                                    //     res.size);
+
+
+                                    //CAMINHO = res.uri;
+
+                                    //CAMINHO = CAMINHO.replace('content://','file:///');
+                                    // CAMINHO = CAMINHO.replace(' ','');
+                                    // CAMINHO = CAMINHO+'.jpg';
+                                    //setarquivoDoCell(CAMINHO);
+                                    CAMINHO = await TRANFORMAR_P_CAMINHO_ABSOLUTO(res.uri);
+                                    //alert(CAMINHO);
+                                    //console.log(CAMINHO);
+
+                                    if (
+                                        CAMINHO.toUpperCase().includes('.JPEG') ||
+                                        CAMINHO.toUpperCase().includes('.JPG') ||
+                                        CAMINHO.toUpperCase().includes('.PNG')
+                                    ) {
+
+                                        /**/
+                                        //CAMINHO = CAMINHO+'|';   VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT
+                                        // ARRY_URL_IMAGENS.push(CAMINHO);
+                                        VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.push(CAMINHO);
+                                        //alert(ARRY_URL_IMAGENS);
+                                        let URL_FOTOS = "";
+                                        // for (var i = 0; i < ARRY_URL_IMAGENS.length; i++) {
+                                        for (var i = 0; i < VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length; i++) {
+
+                                            URL_FOTOS += VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[i] + '|';
+
+                                        }//for
+                                        navigation.navigate("Postar", { URL_FOTOS, URL_VIDEOS });
+                                        //nome_da_funcao();
+
+
+
+
+                                        //} else if (CAMINHO.includes('video%')) {
+                                    } else if (CAMINHO.includes('.mp4')) {
+
+                                        // ARRY_URL_VIDEOS.push(CAMINHO);
+                                        VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.push(CAMINHO);
+                                        VARIAVEL_GLOBAL.URL_VIDEO_EXCLUIDO_DURANTE_POSTAGENS = "";// ADICIONANDO 29082021
+                                        let URL_VIDEOS = "";
+                                        // for (var i = 0; i < ARRY_URL_VIDEOS.length; i++) {
+                                        for (var i = 0; i < VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length; i++) {
+                                            // URL_VIDEOS += ARRY_URL_VIDEOS[i] + '|';
+                                            URL_VIDEOS += VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS[i] + '|';
+                                        }//for
+                                        navigation.navigate("Postar", { URL_FOTOS, URL_VIDEOS });
+
+
+                                    } else {
+                                        alert('ARQUIVO INVÁLIDO');
+                                    }
+
+                                    /*
+                                    // TESTANDO NÃO APAGAR ABAIXO  //
+                                    RNFetchBlob.fs
+                                        .stat(res.uri)
+                                        .then((stats) => {
+                                            console.log(stats.path);
+                                            //alert(stats.path);
+                                            //output: /storage/emulated/0/WhatsApp/Media/WhatsApp Images/IMG-20200831-WA0019.jpg
+                                            CAMINHO = stats.path;
+                                            //alert(CAMINHO);
+                                            CAMINHO = 'file:///'+CAMINHO+'|';
+                                            //setarquivoDoCell(CAMINHO);
+    
+                                            CAMINHO = CAMINHO.replace("undefined","");
+    
+                                            //alert(CAMINHO)
+    
+                                            if (CAMINHO.includes('.jpg')) {
+    
+    
+                                                ARRY_URL_IMAGENS.push(CAMINHO);
+                                                //alert(ARRY_URL_IMAGENS_DO_CELL);
+    
+                                                alert(ARRY_URL_IMAGENS);
+    
+                                                let  URL_FOTOS
+                                                for(var i = 0; i < ARRY_URL_IMAGENS.length; i++){
+                                                  
+                                                  URL_FOTOS += ARRY_URL_IMAGENS[i];
+    
+                                                }//for
+                                                
+                                                //alert(URL_FOTOS);
+    
+                                                navigation.navigate("Postar", { URL_FOTOS, URL_VIDEOS });
+    
+                                            } else if (CAMINHO.includes('.mp4')) {
+    
+                                                ARRY_URL_VIDEOS_DO_CELL.push(CAMINHO);
+                                               
+                                                for(var i = 0; i < ARRY_URL_VIDEOS_DO_CELL.length; i++){
+    
+                                                    URL_VIDEOS += ARRY_URL_VIDEOS_DO_CELL[i];
+    
+                                                }//for
+    
+                                                navigation.navigate("Postar", { URL_FOTOS, URL_VIDEOS });
+    
+                                            } else { 'FORMATO INVÁLIDO' }
+    
+    
+                                            
+                                        })
+                                        .catch((err) => {
+                                            console.log(err);
+                                        });
+                                    // TESTANDO NÃO APAGAR ACIMA  */
+
+
+                                } catch (err) {
+                                    if (DocumentPicker.isCancel(err)) {
+                                        // User cancelled the picker, exit any dialogs or menus and move on
+                                    } else {
+                                        throw err;
+                                    }
                                 }
-                            }
 
-                            ///////////////////////////////////////
+                                ///////////////////////////////////////
 
-                        }}
-                    >
-                        <Icon name='folder-open-o' style={[Estilo.icones_medio, style = { backgroundColor: '#2A3E4A' }]} />
-                        <Text style={{ fontSize: 10, color: 'white' }}>Arquivo</Text>
-                    </TouchableOpacity>
+                            }}
+                        >
+                            <Icon name='folder-open-o' style={[Estilo.icones_medio, style = { backgroundColor: '#2A3E4A' }]} />
+                            <Text style={{ fontSize: 10, color: 'white' }}>Arquivo</Text>
+                        </TouchableOpacity>
 
+
+
+                    </View>
 
 
                 </View>
 
-
-            </View>
-
-            <View style={{ flexDirection: 'row', width: '100%', height: 20, alignItems: 'center', justifyContent: 'center', borderWidth: 0 }}>
-                <View style={[Estilo.borda_geral, style = { width: '90%', justifyContent: 'flex-start', borderWidth: 0.5, borderColor: 'white' }]}>
+                <View style={{ flexDirection: 'row', width: '100%', height: 20, alignItems: 'center', justifyContent: 'center', borderWidth: 0 }}>
+                    <View style={[Estilo.borda_geral, style = { width: '90%', justifyContent: 'flex-start', borderWidth: 0.5, borderColor: 'white' }]}>
+                    </View>
                 </View>
-            </View>
 
 
 
 
-            {/*******************************************************************************************************/}
+                {/*******************************************************************************************************/}
 
 
 
-            {/**/}
-            {/*PAINEL DE ROLAGEM VERTICAL ABAIXO*/}
-            <View style={{ width: '100%', height: '10%', padding: 2, borderWidth: 0, borderColor: 'blue' }}>
-                {/* <ImageLista IMAGE={ARRY_URL_IMAGENS[0]} /> */}
+                {/**/}
+                {/*PAINEL DE ROLAGEM VERTICAL ABAIXO*/}
+                <View style={{ width: '100%', height: '10%', padding: 2, borderWidth: 0, borderColor: 'blue' }}>
+                    {/* <ImageLista IMAGE={ARRY_URL_IMAGENS[0]} /> */}
 
-                {/* imagensEvideos ?
+                    {/* imagensEvideos ?
 
                     <ScrollView horizontal={true} style={{ borderWidth: 0, borderColor: 'orange', backgroundColor: 'gray', height: 'auto' }} >
                                {nome_da_funcao()}
@@ -1151,525 +1141,586 @@ export default function Postar(props) {
                     </ScrollView> */}
 
 
-                <ScrollView horizontal={true} style={{ borderWidth: 0, borderColor: 'orange', backgroundColor: 'gray', height: 'auto' }} >
-                    {nome_da_funcao()}
-                </ScrollView>
+                    <ScrollView horizontal={true} style={{ borderWidth: 0, borderColor: 'orange', backgroundColor: 'gray', height: 'auto' }} >
+                        {nome_da_funcao()}
+                    </ScrollView>
 
 
 
-            </View>
-            {/*PAINEL DE ROLAGEM VERTICAL ACIMA */}
+                </View>
+                {/*PAINEL DE ROLAGEM VERTICAL ACIMA */}
 
-            {/* DAQUI PRA BAIXO EM CONSTRUÇÃO */}
-
-
-            <View style={{ width: '100%', paddingTop: 5, borderWidth: 0, borderColor: 'white', alignContent: 'center', alignItems: 'center' }}>
-                <Text style={{ borderWidth: 0, borderColor: 'blue', fontSize: 20, color: 'white' }} > Defina a Sua Venda  </Text>
-            </View>
-
-            {/*VIEW DO SCROLL ABAIXO */}
-            <ScrollView>
-                <View style={{ width: '99%', height: 1000, borderWidth: 0, borderColor: 'yellow' }} >
-
-                    <View style={{ width: '100%', paddingTop: 10, borderWidth: 0, borderColor: 'white', alignContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ borderWidth: 0, borderColor: 'blue', fontSize: 16, color: 'white' }} > Sexo  </Text>
-                        <View style={{ width: '90%', borderBottomColor: 'white', borderBottomWidth: 1 }} />
-                    </View>
+                {/* DAQUI PRA BAIXO EM CONSTRUÇÃO */}
 
 
-                    <View style={{ width: '100%', height: 30, paddingTop: 0, borderWidth: 0, borderColor: 'white', alignContent: 'center', alignItems: 'center' }}>
+                <View style={{ width: '100%', paddingTop: 5, borderWidth: 0, borderColor: 'white', alignContent: 'center', alignItems: 'center' }}>
+                    <Text style={{ borderWidth: 0, borderColor: 'blue', fontSize: 20, color: 'white' }} > Defina a Sua Venda  </Text>
+                </View>
 
-                        <View style={{ flexDirection: 'row', width: 'auto', paddingTop: 5, borderWidth: 0, borderColor: 'red' }}>
+                {/*VIEW DO SCROLL ABAIXO */}
+                <ScrollView>
+                    <View style={{ width: '99%', height: 1000, borderWidth: 0, borderColor: 'yellow' }} >
 
-                            <View style={{ width: '10%' }} />
-                            <Icon style={{ fontSize: 18, color: corMacho ? "#25E7DB" : "#2A3E4A" }} name='check' />
-                            <Text style={{ fontSize: 18, color: corMacho ? "#25E7DB" : "white", width: 'auto' }} name='check'
-                                onPress={() => {
-
-                                    // setcorMacho(oldState => !oldState);
-                                    setcorMacho(oldState => !oldState ? categorias_Objetos.Obj_Macho = "Machos" : categorias_Objetos.Obj_Macho = "");
-                                    // alert(categorias_Objetos.Obj_Macho);
-
-
-                                }}
-                            > Machos</Text>
-
-                            <View style={{ width: '30%' }} />
-
-                            <Icon style={{ fontSize: 18, color: corFemea ? "#25E7DB" : "#2A3E4A" }} name='check' />
-                            <Text style={{ fontSize: 18, color: corFemea ? "#25E7DB" : "white", width: 'auto' }} name='check'
-                                onPress={() => {
-                                    // setcorFemea(oldState => !oldState) 
-                                    setcorFemea(oldState => !oldState ? categorias_Objetos.Obj_Femea = "Fêmea" : categorias_Objetos.Obj_Femea = "");
-                                }}
-                            > Fêmeas </Text>
-                            <View style={{ width: '10%' }} />
-
+                        <View style={{ width: '100%', paddingTop: 10, borderWidth: 0, borderColor: 'white', alignContent: 'center', alignItems: 'center' }}>
+                            <Text style={{ borderWidth: 0, borderColor: 'blue', fontSize: 16, color: 'white' }} > Sexo  </Text>
+                            <View style={{ width: '90%', borderBottomColor: 'white', borderBottomWidth: 1 }} />
                         </View>
 
-                    </View>
 
-                    <View></View>
+                        <View style={{ width: '100%', height: 30, paddingTop: 0, borderWidth: 0, borderColor: 'white', alignContent: 'center', alignItems: 'center' }}>
 
-                    <View style={{ width: '100%', paddingTop: 10, borderWidth: 0, borderColor: 'white', alignContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ borderWidth: 0, borderColor: 'blue', fontSize: 19, color: 'white' }} > Idade Meses  </Text>
-                        <View style={{ width: '90%', borderBottomColor: 'white', borderBottomWidth: 1 }} />
-                    </View>
+                            <View style={{ flexDirection: 'row', width: 'auto', paddingTop: 5, borderWidth: 0, borderColor: 'red' }}>
+
+                                <View style={{ width: '10%' }} />
+                                <Icon style={{ fontSize: 18, color: corMacho ? "#25E7DB" : "#2A3E4A" }} name='check' />
+                                <Text style={{ fontSize: 18, color: corMacho ? "#25E7DB" : "white", width: 'auto' }} name='check'
+                                    onPress={() => {
+
+                                        // setcorMacho(oldState => !oldState);
+                                        setcorMacho(oldState => !oldState ? categorias_Objetos.Obj_Macho = "Machos" : categorias_Objetos.Obj_Macho = "");
+                                        // alert(categorias_Objetos.Obj_Macho);
 
 
-                    {/****************************************/}
+                                    }}
+                                > Machos</Text>
 
-                    <View style={{ width: '100%', height: 30, paddingTop: 0, borderWidth: 0, borderColor: 'white', alignContent: 'center', alignItems: 'center' }}>
+                                <View style={{ width: '30%' }} />
 
-                        <View style={{ width: '100%', alignContent: 'center', alignItems: 'center', borderWidth: 0, borderColor: 'white' }}>
-
-                            <View style={{ flexDirection: 'row', width: 'auto', height: 30, paddingTop: 5, borderWidth: 0, borderColor: 'red' }}>
-
-                                <View style={{ width: '0%' }} />
-                                <Icon style={{ fontSize: 16, color: cor_0_12 ? "#25E7DB" : "#2A3E4A" }} name='check' />
-                                <Text style={{ fontSize: 16, color: cor_0_12 ? "#25E7DB" : "white", width: 'auto' }} name='check'
-                                    onPress={() => { setcor_0_12(oldState => !oldState ? categorias_Objetos.Obj__0_12 = "0 à 12" : categorias_Objetos.Obj__0_12 = "") }}
-                                > 0 à 12 </Text>
-                                <View style={{ width: '4%' }} />
-                                <Icon style={{ fontSize: 16, color: cor_12_24 ? "#25E7DB" : "#2A3E4A" }} name='check' />
-                                <Text style={{ fontSize: 16, color: cor_12_24 ? "#25E7DB" : "white", width: 'auto' }} name='check'
-                                    onPress={() => { setcor_12_24(oldState => !oldState ? categorias_Objetos.Obj__12_24 = "12 à 24" : categorias_Objetos.Obj__12_24 = "") }}
-                                > 12 à 24 </Text>
-                                <View style={{ width: '4%' }} />
-                                <Icon style={{ fontSize: 16, color: cor_24_36 ? "#25E7DB" : "#2A3E4A" }} name='check' />
-                                <Text style={{ fontSize: 16, color: cor_24_36 ? "#25E7DB" : "white", width: 'auto' }} name='check'
-                                    onPress={() => { setcor_24_36(oldState => !oldState ? categorias_Objetos.Obj__24_36 = "24 à 36" : categorias_Objetos.Obj__24_36 = "") }}
-                                > 24 à 36 </Text>
-                                <View style={{ width: '4%' }} />
-                                <Icon style={{ fontSize: 16, color: corAcima_36 ? "#25E7DB" : "#2A3E4A" }} name='check' />
-                                <Text style={{ fontSize: 16, color: corAcima_36 ? "#25E7DB" : "white", width: 'auto' }} name='check'
-                                    onPress={() => { setcorAcima_36(oldState => !oldState ? categorias_Objetos.Obj_Acima_36 = "Acima 36" : categorias_Objetos.Obj_Acima_36 = "") }}
-                                >Acima 36</Text>
+                                <Icon style={{ fontSize: 18, color: corFemea ? "#25E7DB" : "#2A3E4A" }} name='check' />
+                                <Text style={{ fontSize: 18, color: corFemea ? "#25E7DB" : "white", width: 'auto' }} name='check'
+                                    onPress={() => {
+                                        // setcorFemea(oldState => !oldState) 
+                                        setcorFemea(oldState => !oldState ? categorias_Objetos.Obj_Femea = "Fêmea" : categorias_Objetos.Obj_Femea = "");
+                                    }}
+                                > Fêmeas </Text>
+                                <View style={{ width: '10%' }} />
 
                             </View>
 
                         </View>
 
-                    </View>
+                        <View></View>
 
-                    {/****************************************/}
+                        <View style={{ width: '100%', paddingTop: 10, borderWidth: 0, borderColor: 'white', alignContent: 'center', alignItems: 'center' }}>
+                            <Text style={{ borderWidth: 0, borderColor: 'blue', fontSize: 19, color: 'white' }} > Idade Meses  </Text>
+                            <View style={{ width: '90%', borderBottomColor: 'white', borderBottomWidth: 1 }} />
+                        </View>
 
-                    <View style={{ width: '100%', paddingTop: 10, borderWidth: 0, borderColor: 'white', alignContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ borderWidth: 0, borderColor: 'blue', fontSize: 16, color: 'white' }} > Outras Eras  </Text>
-                    </View>
+
+                        {/****************************************/}
+
+                        <View style={{ width: '100%', height: 30, paddingTop: 0, borderWidth: 0, borderColor: 'white', alignContent: 'center', alignItems: 'center' }}>
+
+                            <View style={{ width: '100%', alignContent: 'center', alignItems: 'center', borderWidth: 0, borderColor: 'white' }}>
+
+                                <View style={{ flexDirection: 'row', width: 'auto', height: 30, paddingTop: 5, borderWidth: 0, borderColor: 'red' }}>
+
+                                    <View style={{ width: '0%' }} />
+                                    <Icon style={{ fontSize: 16, color: cor_0_12 ? "#25E7DB" : "#2A3E4A" }} name='check' />
+                                    <Text style={{ fontSize: 16, color: cor_0_12 ? "#25E7DB" : "white", width: 'auto' }} name='check'
+                                        onPress={() => { setcor_0_12(oldState => !oldState ? categorias_Objetos.Obj__0_12 = "0 à 12" : categorias_Objetos.Obj__0_12 = "") }}
+                                    > 0 à 12 </Text>
+                                    <View style={{ width: '4%' }} />
+                                    <Icon style={{ fontSize: 16, color: cor_12_24 ? "#25E7DB" : "#2A3E4A" }} name='check' />
+                                    <Text style={{ fontSize: 16, color: cor_12_24 ? "#25E7DB" : "white", width: 'auto' }} name='check'
+                                        onPress={() => { setcor_12_24(oldState => !oldState ? categorias_Objetos.Obj__12_24 = "12 à 24" : categorias_Objetos.Obj__12_24 = "") }}
+                                    > 12 à 24 </Text>
+                                    <View style={{ width: '4%' }} />
+                                    <Icon style={{ fontSize: 16, color: cor_24_36 ? "#25E7DB" : "#2A3E4A" }} name='check' />
+                                    <Text style={{ fontSize: 16, color: cor_24_36 ? "#25E7DB" : "white", width: 'auto' }} name='check'
+                                        onPress={() => { setcor_24_36(oldState => !oldState ? categorias_Objetos.Obj__24_36 = "24 à 36" : categorias_Objetos.Obj__24_36 = "") }}
+                                    > 24 à 36 </Text>
+                                    <View style={{ width: '4%' }} />
+                                    <Icon style={{ fontSize: 16, color: corAcima_36 ? "#25E7DB" : "#2A3E4A" }} name='check' />
+                                    <Text style={{ fontSize: 16, color: corAcima_36 ? "#25E7DB" : "white", width: 'auto' }} name='check'
+                                        onPress={() => { setcorAcima_36(oldState => !oldState ? categorias_Objetos.Obj_Acima_36 = "Acima 36" : categorias_Objetos.Obj_Acima_36 = "") }}
+                                    >Acima 36</Text>
+
+                                </View>
+
+                            </View>
+
+                        </View>
+
+                        {/****************************************/}
+
+                        <View style={{ width: '100%', paddingTop: 10, borderWidth: 0, borderColor: 'white', alignContent: 'center', alignItems: 'center' }}>
+                            <Text style={{ borderWidth: 0, borderColor: 'blue', fontSize: 16, color: 'white' }} > Outras Eras  </Text>
+                        </View>
 
 
-                    <View style={{ width: '100%', alignContent: 'center', alignItems: 'center', borderWidth: 0, borderColor: 'white' }}>
+                        <View style={{ width: '100%', alignContent: 'center', alignItems: 'center', borderWidth: 0, borderColor: 'white' }}>
 
-                        <View style={{ flexDirection: 'row', width: '100%', height: 40, paddingTop: 5, borderWidth: 0, borderColor: 'white' }}>
+                            <View style={{ flexDirection: 'row', width: '100%', height: 40, paddingTop: 5, borderWidth: 0, borderColor: 'white' }}>
 
-                            <View style={{ width: '5%' }} />
-                            <TextInputMask style={{ width: '40%', backgroundColor: 'white', borderRadius: 8, textAlign: 'center' }} /*onChangeText={outrasErasAnteriorF}*/
+                                <View style={{ width: '5%' }} />
+                                <TextInputMask style={{ width: '40%', backgroundColor: 'white', borderRadius: 8, textAlign: 'center' }} /*onChangeText={outrasErasAnteriorF}*/
 
-                                type={'only-numbers'}
-                                value={outrasErasAnterior}
-                                maxLength={18}
-                                onChangeText={value => {
-                                    outrasErasAnteriorF(value);
-                                    //value = value.replace('R$', '');
-                                    value = value.replace('.', '');
-                                    value = value.replace(',', '.');
-                                    outrasErasAnteriorF(Number(value));
+                                    type={'only-numbers'}
+                                    value={outrasErasAnterior}
+                                    maxLength={18}
+                                    onChangeText={value => {
+                                        outrasErasAnteriorF(value);
+                                        //value = value.replace('R$', '');
+                                        value = value.replace('.', '');
+                                        value = value.replace(',', '.');
+                                        outrasErasAnteriorF(Number(value));
 
-                                }}
+                                    }}
 
+                                />
+
+
+                                <Text style={{ borderWidth: 0, borderColor: 'blue', fontSize: 16, color: 'white', width: '10%', textAlign: 'center' }} > à  </Text>
+
+
+                                <TextInputMask style={{ width: '40%', backgroundColor: 'white', borderRadius: 8, textAlign: 'center' }} onChangeText={outrasErasPosteriorF}
+
+                                    type={'only-numbers'}
+                                    value={outrasErasPosterior}
+                                    maxLength={18}
+                                    onChangeText={value => {
+                                        outrasErasPosteriorF(value);
+                                        //value = value.replace('R$', '');
+                                        value = value.replace('.', '');
+                                        value = value.replace(',', '.');
+                                        outrasErasPosteriorF(Number(value));
+
+                                    }}
+
+                                />
+
+
+                                <View style={{ width: '5%' }} />
+
+                            </View>
+
+                        </View>
+
+                        {/****************************************/}
+
+                        <View style={{ width: '100%', paddingTop: 10, borderWidth: 0, borderColor: 'white', alignContent: 'center', alignItems: 'center' }}>
+                            <Text style={{ borderWidth: 0, borderColor: 'blue', fontSize: 16, color: 'white' }} >Tipo de Gado  </Text>
+                            <View style={{ width: '90%', borderBottomColor: 'white', borderBottomWidth: 1 }} />
+                        </View>
+
+
+
+
+
+
+                        <View style={{ flexDirection: 'row', width: '100%', height: 220, borderEndWidth: 0, borderColor: 'darkgreen' }} >
+
+                            {/* COLUNA 1 */}
+                            <View style={{ width: '50%', height: 300, paddingLeft: 20, borderEndWidth: 0, borderColor: 'darkorange' }} >
+
+                                <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
+                                    onPress={() => { setcorBezerros(oldState => !oldState ? categorias_Objetos.Obj_Bezerros = "Bezerros" : categorias_Objetos.Obj_Bezerros = "") }}
+                                >
+                                    <Icon style={{ fontSize: 16, color: corBezerros ? "#25E7DB" : "#2A3E4A" }} name='check' />
+                                    <Text style={{ fontSize: 16, color: corBezerros ? "#25E7DB" : "white", width: 'auto' }} name='check'> Bezerros</Text>
+                                </TouchableOpacity>
+
+
+                                <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
+                                    onPress={() => { setcorGarrotes(oldState => !oldState ? categorias_Objetos.Obj_Garrotes = "Garrotes" : categorias_Objetos.Obj_Garrotes = "") }}
+                                >
+
+                                    <Icon style={{ fontSize: 16, color: corGarrotes ? "#25E7DB" : "#2A3E4A" }} name='check' />
+                                    <Text style={{ fontSize: 16, color: corGarrotes ? "#25E7DB" : "white", width: 'auto' }} name='check'> Garrotes</Text>
+
+                                </TouchableOpacity>
+
+
+
+                                <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
+                                    onPress={() => { setcorTourunos(oldState => !oldState ? categorias_Objetos.Obj_Tourunos = "Tourunos" : categorias_Objetos.Obj_Tourunos = "") }}
+                                >
+                                    <Icon style={{ fontSize: 16, color: corTourunos ? "#25E7DB" : "#2A3E4A" }} name='check' />
+                                    <Text style={{ fontSize: 16, color: corTourunos ? "#25E7DB" : "white", width: 'auto' }} name='check'> Tourunos</Text>
+                                </TouchableOpacity>
+
+
+                                <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
+                                    onPress={() => { setcorBois(oldState => !oldState ? categorias_Objetos.Obj_Bois = "Bois" : categorias_Objetos.Obj_Bois = "") }}
+                                >
+                                    <Icon style={{ fontSize: 16, color: corBois ? "#25E7DB" : "#2A3E4A" }} name='check' />
+                                    <Text style={{ fontSize: 16, color: corBois ? "#25E7DB" : "white", width: 'auto' }} name='check'> Bois</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
+                                    onPress={() => { setcorBoisGordos(oldState => !oldState ? categorias_Objetos.Obj_BoisGordos = "Bois Gordos" : categorias_Objetos.Obj_BoisGordos = "") }}
+                                >
+                                    <Icon style={{ fontSize: 16, color: corBoisGordos ? "#25E7DB" : "#2A3E4A" }} name='check' />
+                                    <Text style={{ fontSize: 16, color: corBoisGordos ? "#25E7DB" : "white", width: 'auto' }} name='check'> Bois Gordos</Text>
+                                </TouchableOpacity>
+
+
+                            </View>
+
+
+
+                            {/* COLUNA 2 */}
+                            <View style={{ width: '50%', height: 300, paddingLeft: 15, borderEndWidth: 0, borderColor: 'darkorange' }} >
+
+
+
+                                <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
+                                    onPress={() => { setcorBezerras(oldState => !oldState ? categorias_Objetos.Obj_Bezerras = "Bezerras" : categorias_Objetos.Obj_Bezerras = "") }}
+                                >
+                                    <Icon style={{ fontSize: 16, color: corBezerras ? "#25E7DB" : "#2A3E4A" }} name='check' />
+                                    <Text style={{ fontSize: 16, color: corBezerras ? "#25E7DB" : "white", width: 'auto' }} name='check'> Bezerras</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
+                                    onPress={() => { setcorNovilhas(oldState => !oldState ? categorias_Objetos.Obj_Novilhas = "Novilhas" : categorias_Objetos.Obj_Novilhas = "") }}
+                                >
+                                    <Icon style={{ fontSize: 16, color: corNovilhas ? "#25E7DB" : "#2A3E4A" }} name='check' />
+                                    <Text style={{ fontSize: 16, color: corNovilhas ? "#25E7DB" : "white", width: 'auto' }} name='check'> Novilhas</Text>
+                                </TouchableOpacity>
+
+
+                                <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
+                                    onPress={() => { setcorVacasBoiadeiras(oldState => !oldState ? categorias_Objetos.Obj_VacasBoiadeiras = "Vacas Boiadeiras" : categorias_Objetos.Obj_VacasBoiadeiras = "") }}
+                                >
+                                    <Icon style={{ fontSize: 16, color: corVacasBoiadeiras ? "#25E7DB" : "#2A3E4A" }} name='check' />
+                                    <Text style={{ fontSize: 16, color: corVacasBoiadeiras ? "#25E7DB" : "white", width: 'auto' }} name='check'> Vacas Boiadeiras</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
+                                    onPress={() => { setcorVacas(oldState => !oldState ? categorias_Objetos.Obj_Vacas = "Vacas" : categorias_Objetos.Obj_Vacas = "") }}
+                                >
+                                    <Icon style={{ fontSize: 16, color: corVacas ? "#25E7DB" : "#2A3E4A" }} name='check' />
+                                    <Text style={{ fontSize: 16, color: corVacas ? "#25E7DB" : "white", width: 'auto' }} name='check'> Vacas</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
+                                    onPress={() => { setcorVacasGordas(oldState => !oldState ? categorias_Objetos.Obj_VacasGordas = "Vacas Gordas" : categorias_Objetos.Obj_VacasGordas = "") }}
+                                >
+                                    <Icon style={{ fontSize: 16, color: corVacasGordas ? "#25E7DB" : "#2A3E4A" }} name='check' />
+                                    <Text style={{ fontSize: 16, color: corVacasGordas ? "#25E7DB" : "white", width: 'auto' }} name='check'> Vacas Gordas</Text>
+                                </TouchableOpacity>
+
+
+                                <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
+                                    onPress={() => { setcorVacasPrenhas(oldState => !oldState ? categorias_Objetos.Obj_VacasPrenhas = "Vacas Prenhas" : categorias_Objetos.Obj_VacasPrenhas = "") }}
+                                >
+                                    <Icon style={{ fontSize: 16, color: corVacasPrenhas ? "#25E7DB" : "#2A3E4A" }} name='check' />
+                                    <Text style={{ fontSize: 16, color: corVacasPrenhas ? "#25E7DB" : "white", width: 'auto' }} name='check'> Vacas Prenhas</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
+                                    onPress={() => { setcorVacasParidas(oldState => !oldState ? categorias_Objetos.Obj_VacasParidas = "Vacas Paridas" : categorias_Objetos.Obj_VacasParidas = "") }}
+                                >
+                                    <Icon style={{ fontSize: 16, color: corVacasParidas ? "#25E7DB" : "#2A3E4A" }} name='check' />
+                                    <Text style={{ fontSize: 16, color: corVacasParidas ? "#25E7DB" : "white", width: 'auto' }} name='check'> Vacas Paridas</Text>
+                                </TouchableOpacity>
+
+
+                            </View>
+
+                        </View>
+
+
+                        <View style={{ width: '100%', paddingTop: 10, borderWidth: 0, borderColor: 'white', alignContent: 'center', alignItems: 'center' }}>
+                            <Text style={{ borderWidth: 0, borderColor: 'blue', fontSize: 16, color: 'white' }} >Descrições Gerais</Text>
+                        </View>
+
+                        <View style={{ width: '100%', paddingTop: 10, borderWidth: 0, borderColor: 'white', alignContent: 'center', alignItems: 'center' }}>
+                            <TextInput style={{ width: LARGURA_DESCRICAO, minHeight: 45, backgroundColor: 'white', borderRadius: 8 }}
+                                multiline={true} flexWrap='wrap' textAlign={'center'} size={15}
+                                onChangeText={descricoesGeraisF}
                             />
-
-
-                            <Text style={{ borderWidth: 0, borderColor: 'blue', fontSize: 16, color: 'white', width: '10%', textAlign: 'center' }} > à  </Text>
-
-
-                            <TextInputMask style={{ width: '40%', backgroundColor: 'white', borderRadius: 8, textAlign: 'center' }} onChangeText={outrasErasPosteriorF}
-
-                                type={'only-numbers'}
-                                value={outrasErasPosterior}
-                                maxLength={18}
-                                onChangeText={value => {
-                                    outrasErasPosteriorF(value);
-                                    //value = value.replace('R$', '');
-                                    value = value.replace('.', '');
-                                    value = value.replace(',', '.');
-                                    outrasErasPosteriorF(Number(value));
-
-                                }}
-
-                            />
-
-
-                            <View style={{ width: '5%' }} />
-
-                        </View>
-
-                    </View>
-
-                    {/****************************************/}
-
-                    <View style={{ width: '100%', paddingTop: 10, borderWidth: 0, borderColor: 'white', alignContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ borderWidth: 0, borderColor: 'blue', fontSize: 16, color: 'white' }} >Tipo de Gado  </Text>
-                        <View style={{ width: '90%', borderBottomColor: 'white', borderBottomWidth: 1 }} />
-                    </View>
-
-
-
-
-
-
-                    <View style={{ flexDirection: 'row', width: '100%', height: 220, borderEndWidth: 0, borderColor: 'darkgreen' }} >
-
-                        {/* COLUNA 1 */}
-                        <View style={{ width: '50%', height: 300, paddingLeft: 20, borderEndWidth: 0, borderColor: 'darkorange' }} >
-
-                            <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
-                                onPress={() => { setcorBezerros(oldState => !oldState ? categorias_Objetos.Obj_Bezerros = "Bezerros" : categorias_Objetos.Obj_Bezerros = "") }}
-                            >
-                                <Icon style={{ fontSize: 16, color: corBezerros ? "#25E7DB" : "#2A3E4A" }} name='check' />
-                                <Text style={{ fontSize: 16, color: corBezerros ? "#25E7DB" : "white", width: 'auto' }} name='check'> Bezerros</Text>
-                            </TouchableOpacity>
-
-
-                            <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
-                                onPress={() => { setcorGarrotes(oldState => !oldState ? categorias_Objetos.Obj_Garrotes = "Garrotes" : categorias_Objetos.Obj_Garrotes = "") }}
-                            >
-
-                                <Icon style={{ fontSize: 16, color: corGarrotes ? "#25E7DB" : "#2A3E4A" }} name='check' />
-                                <Text style={{ fontSize: 16, color: corGarrotes ? "#25E7DB" : "white", width: 'auto' }} name='check'> Garrotes</Text>
-
-                            </TouchableOpacity>
-
-
-
-                            <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
-                                onPress={() => { setcorTourunos(oldState => !oldState ? categorias_Objetos.Obj_Tourunos = "Tourunos" : categorias_Objetos.Obj_Tourunos = "") }}
-                            >
-                                <Icon style={{ fontSize: 16, color: corTourunos ? "#25E7DB" : "#2A3E4A" }} name='check' />
-                                <Text style={{ fontSize: 16, color: corTourunos ? "#25E7DB" : "white", width: 'auto' }} name='check'> Tourunos</Text>
-                            </TouchableOpacity>
-
-
-                            <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
-                                onPress={() => { setcorBois(oldState => !oldState ? categorias_Objetos.Obj_Bois = "Bois" : categorias_Objetos.Obj_Bois = "") }}
-                            >
-                                <Icon style={{ fontSize: 16, color: corBois ? "#25E7DB" : "#2A3E4A" }} name='check' />
-                                <Text style={{ fontSize: 16, color: corBois ? "#25E7DB" : "white", width: 'auto' }} name='check'> Bois</Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
-                                onPress={() => { setcorBoisGordos(oldState => !oldState ? categorias_Objetos.Obj_BoisGordos = "Bois Gordos" : categorias_Objetos.Obj_BoisGordos = "") }}
-                            >
-                                <Icon style={{ fontSize: 16, color: corBoisGordos ? "#25E7DB" : "#2A3E4A" }} name='check' />
-                                <Text style={{ fontSize: 16, color: corBoisGordos ? "#25E7DB" : "white", width: 'auto' }} name='check'> Bois Gordos</Text>
-                            </TouchableOpacity>
-
-
                         </View>
 
 
-
-                        {/* COLUNA 2 */}
-                        <View style={{ width: '50%', height: 300, paddingLeft: 15, borderEndWidth: 0, borderColor: 'darkorange' }} >
+                        <View style={{ height: 20 }} />
 
 
+                        <View style={{ width: '100%', alignContent: 'center', alignItems: 'center', borderWidth: 0, borderColor: 'green' }}>
 
-                            <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
-                                onPress={() => { setcorBezerras(oldState => !oldState ? categorias_Objetos.Obj_Bezerras = "Bezerras" : categorias_Objetos.Obj_Bezerras = "") }}
-                            >
-                                <Icon style={{ fontSize: 16, color: corBezerras ? "#25E7DB" : "#2A3E4A" }} name='check' />
-                                <Text style={{ fontSize: 16, color: corBezerras ? "#25E7DB" : "white", width: 'auto' }} name='check'> Bezerras</Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
-                                onPress={() => { setcorNovilhas(oldState => !oldState ? categorias_Objetos.Obj_Novilhas = "Novilhas" : categorias_Objetos.Obj_Novilhas = "") }}
-                            >
-                                <Icon style={{ fontSize: 16, color: corNovilhas ? "#25E7DB" : "#2A3E4A" }} name='check' />
-                                <Text style={{ fontSize: 16, color: corNovilhas ? "#25E7DB" : "white", width: 'auto' }} name='check'> Novilhas</Text>
-                            </TouchableOpacity>
-
-
-                            <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
-                                onPress={() => { setcorVacasBoiadeiras(oldState => !oldState ? categorias_Objetos.Obj_VacasBoiadeiras = "Vacas Boiadeiras" : categorias_Objetos.Obj_VacasBoiadeiras = "") }}
-                            >
-                                <Icon style={{ fontSize: 16, color: corVacasBoiadeiras ? "#25E7DB" : "#2A3E4A" }} name='check' />
-                                <Text style={{ fontSize: 16, color: corVacasBoiadeiras ? "#25E7DB" : "white", width: 'auto' }} name='check'> Vacas Boiadeiras</Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
-                                onPress={() => { setcorVacas(oldState => !oldState ? categorias_Objetos.Obj_Vacas = "Vacas" : categorias_Objetos.Obj_Vacas = "") }}
-                            >
-                                <Icon style={{ fontSize: 16, color: corVacas ? "#25E7DB" : "#2A3E4A" }} name='check' />
-                                <Text style={{ fontSize: 16, color: corVacas ? "#25E7DB" : "white", width: 'auto' }} name='check'> Vacas</Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
-                                onPress={() => { setcorVacasGordas(oldState => !oldState ? categorias_Objetos.Obj_VacasGordas = "Vacas Gordas" : categorias_Objetos.Obj_VacasGordas = "") }}
-                            >
-                                <Icon style={{ fontSize: 16, color: corVacasGordas ? "#25E7DB" : "#2A3E4A" }} name='check' />
-                                <Text style={{ fontSize: 16, color: corVacasGordas ? "#25E7DB" : "white", width: 'auto' }} name='check'> Vacas Gordas</Text>
-                            </TouchableOpacity>
-
-
-                            <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
-                                onPress={() => { setcorVacasPrenhas(oldState => !oldState ? categorias_Objetos.Obj_VacasPrenhas = "Vacas Prenhas" : categorias_Objetos.Obj_VacasPrenhas = "") }}
-                            >
-                                <Icon style={{ fontSize: 16, color: corVacasPrenhas ? "#25E7DB" : "#2A3E4A" }} name='check' />
-                                <Text style={{ fontSize: 16, color: corVacasPrenhas ? "#25E7DB" : "white", width: 'auto' }} name='check'> Vacas Prenhas</Text>
-                            </TouchableOpacity>
-
-                            <TouchableOpacity style={{ flexDirection: 'row', width: '100%', height: 30, borderEndWidth: 1 }}
-                                onPress={() => { setcorVacasParidas(oldState => !oldState ? categorias_Objetos.Obj_VacasParidas = "Vacas Paridas" : categorias_Objetos.Obj_VacasParidas = "") }}
-                            >
-                                <Icon style={{ fontSize: 16, color: corVacasParidas ? "#25E7DB" : "#2A3E4A" }} name='check' />
-                                <Text style={{ fontSize: 16, color: corVacasParidas ? "#25E7DB" : "white", width: 'auto' }} name='check'> Vacas Paridas</Text>
-                            </TouchableOpacity>
-
-
-                        </View>
-
-                    </View>
-
-
-                    <View style={{ width: '100%', paddingTop: 10, borderWidth: 0, borderColor: 'white', alignContent: 'center', alignItems: 'center' }}>
-                        <Text style={{ borderWidth: 0, borderColor: 'blue', fontSize: 16, color: 'white' }} >Descrições Gerais</Text>
-                    </View>
-
-                    <View style={{ width: '100%', paddingTop: 10, borderWidth: 0, borderColor: 'white', alignContent: 'center', alignItems: 'center' }}>
-                        <TextInput style={{ width: LARGURA_DESCRICAO, minHeight: 45, backgroundColor: 'white', borderRadius: 8 }}
-                            multiline={true} flexWrap='wrap' textAlign={'center'} size={15}
-                            onChangeText={descricoesGeraisF}
-                        />
-                    </View>
-
-
-                    <View style={{ height: 20 }} />
-
-
-                    <View style={{ width: '100%', alignContent: 'center', alignItems: 'center', borderWidth: 0, borderColor: 'green' }}>
-
-                        <View style={{ flexDirection: 'row', width: 'auto', height: 60, paddingTop: 0, borderWidth: 0, borderColor: 'white' }}>
+                            <View style={{ flexDirection: 'row', width: 'auto', height: 60, paddingTop: 0, borderWidth: 0, borderColor: 'white' }}>
 
 
 
-                            <View style={{ width: '40%' }}>
-                                <Text style={{ textAlign: 'center', color: 'white' }} >Preço Sugerido</Text>
-                                {/*
+                                <View style={{ width: '40%' }}>
+                                    <Text style={{ textAlign: 'center', color: 'white' }} >Preço Sugerido</Text>
+                                    {/*
                                 <TextInput style={{ width: '100%', height: 35, backgroundColor: 'white', borderRadius: 8 }} >
                                    onChangeText={precoSugeridoF}
                                </TextInput>
                                  */}
 
 
-                                <TextInputMask style={{ width: '100%', height: 35, textAlign: 'center', backgroundColor: 'white', borderRadius: 8 }}
+                                    <TextInputMask style={{ width: '100%', height: 35, textAlign: 'center', backgroundColor: 'white', borderRadius: 8 }}
 
-                                    type={'money'}
-                                    options={{
-                                        precision: 2,
-                                        separator: ',',
-                                        delimiter: '.',
-                                        unit: '',
-                                        suffixUnit: ''
-                                    }}
+                                        type={'money'}
+                                        options={{
+                                            precision: 2,
+                                            separator: ',',
+                                            delimiter: '.',
+                                            unit: '',
+                                            suffixUnit: ''
+                                        }}
 
-                                    value={precoSugerido = precoSugerido.replace(/[R$]/g, '')}
-                                    maxLength={18}
-                                    onChangeText={value => {
-                                        precoSugeridoF(value);
-                                        // precoSugeridoF("777,77");
-                                    }}
-                                />
+                                        value={precoSugerido = precoSugerido.replace(/[R$]/g, '')}
+                                        maxLength={18}
+                                        onChangeText={value => {
+                                            precoSugeridoF(value);
+                                            // precoSugeridoF("777,77");
+                                        }}
+                                    />
+
+                                </View>
+
+
+                                <View style={{ width: '10%' }} />
+
+
+                                <View style={{ width: '40%' }}>
+                                    <Text style={{ textAlign: 'center', color: 'white' }}>Quant. Cabeças </Text>
+                                    {/*<TextInput style={{ width: '100%', height: 35, backgroundColor: 'white', borderRadius: 8 }} onChangeText={quantidadeCabecasOuPesosF} /> */}
+
+                                    <TextInputMask style={{ width: '100%', height: 35, textAlign: 'center', backgroundColor: 'white', borderRadius: 8 }}
+
+                                        type={'only-numbers'}
+                                        value={quantidadeCabecasOuPesos}
+                                        maxLength={18}
+                                        onChangeText={value => {
+                                            quantidadeCabecasOuPesosF(value);
+                                            //value = value.replace('R$', '');
+                                            value = value.replace('.', '');
+                                            value = value.replace(',', '.');
+                                            quantidadeCabecasOuPesosF(Number(value));
+
+                                        }}
+
+                                    />
+
+                                </View>
 
                             </View>
 
 
-                            <View style={{ width: '10%' }} />
-
-
-                            <View style={{ width: '40%' }}>
-                                <Text style={{ textAlign: 'center', color: 'white' }}>Quant. Cabeças </Text>
-                                {/*<TextInput style={{ width: '100%', height: 35, backgroundColor: 'white', borderRadius: 8 }} onChangeText={quantidadeCabecasOuPesosF} /> */}
-
-                                <TextInputMask style={{ width: '100%', height: 35, textAlign: 'center', backgroundColor: 'white', borderRadius: 8 }}
-
-                                    type={'only-numbers'}
-                                    value={quantidadeCabecasOuPesos}
-                                    maxLength={18}
-                                    onChangeText={value => {
-                                        quantidadeCabecasOuPesosF(value);
-                                        //value = value.replace('R$', '');
-                                        value = value.replace('.', '');
-                                        value = value.replace(',', '.');
-                                        quantidadeCabecasOuPesosF(Number(value));
-
-                                    }}
-
-                                />
-
-                            </View>
 
                         </View>
 
 
 
-                    </View>
+                        <View style={{ height: 15 }} />
+
+                        <View style={{ width: '100%', height: 'auto', alignItems: 'center', alignContent: 'center', borderWidth: 0, borderColor: 'green' }} >
+
+                            {/*...touchProps   key={5} id={'EuMesmo'} */}
+                            <TouchableHighlight style={{ width: '35%', height: 40, alignItems: 'center', paddingTop: 10, borderWidth: 1, borderRadius: 10, borderColor: 'white' }}
+
+                                onPress={async () => {
+                                    // let SE_TEM_IMAGEM_OU_VIDEO = VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length + VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT.length;
+
+
+                                    if (nameBtbPostar == "Postar") {
+
+
+                                        if (
+                                            !URL_FOTOS.toUpperCase().includes(".JPEG") &&
+                                            !URL_FOTOS.toUpperCase().includes(".JPG") &&
+                                            !URL_FOTOS.toUpperCase().includes(".PNG") &&
+                                            !URL_VIDEOS.toUpperCase().includes(".MP4")
+                                        ) {
+                                            alert("Falta Imagens ou Videos !");
+                                        } else {
+                                            //  alert("VAI REALIZAR A POSTAGEM !  ");
+
+                                            //CÓDIGO PRINCIPAL ABAIXO do ON-PRESS
+                                            var MACHO = "";
+                                            var FEMEA = "";
+                                            var IDADE_DO_GADO = "";
+                                            var TIPOS_DE_GADOS_MACHOS = "";
+                                            var TIPOS_DE_GADOS_FEMEAS = "";
+
+                                            var ARRAY_KEYS = Object.keys(categorias_Objetos)
+
+                                            ARRAY_KEYS.map((empty, index) => {
+
+                                                if (index == 0) {
+                                                    MACHO = JSON.stringify(categorias_Objetos[ARRAY_KEYS[0]]).replace(/['"]+/g, '')
+                                                }
+                                                if (index == 1) {
+                                                    FEMEA = JSON.stringify(categorias_Objetos[ARRAY_KEYS[1]]).replace(/['"]+/g, '')
+                                                }
+                                                if (index >= 2 && index <= 5) {
+                                                    IDADE_DO_GADO += JSON.stringify(categorias_Objetos[ARRAY_KEYS[index]]).replace(/['"]+/g, '')
+                                                }
+                                                if (index >= 6 && index <= 10) {
+                                                    TIPOS_DE_GADOS_MACHOS += JSON.stringify(categorias_Objetos[ARRAY_KEYS[index]]).replace(/['"]+/g, '')
+                                                }
+                                                if (index >= 11 && index <= 17) {
+                                                    TIPOS_DE_GADOS_FEMEAS += JSON.stringify(categorias_Objetos[ARRAY_KEYS[index]]).replace(/['"]+/g, '')
+                                                }
+
+                                            });
+
+                                            // console.log(MACHO + "  " + FEMEA + "  " + IDADE_DO_GADO + "  " + TIPOS_DE_GADOS_MACHOS + "  " + TIPOS_DE_GADOS_FEMEAS);
+
+                                            if (MACHO + FEMEA !== "") {
+
+                                                //LIMPAR VARIAVEIS QUE SÓ TEM VALOR ZERO ABAIXO
+                                                if (outrasErasAnterior == '0') { outrasErasAnterior = ""; }
+                                                if (outrasErasPosterior == '0') { outrasErasPosterior = ""; }
+                                                if (quantidadeCabecasOuPesos == '0') { quantidadeCabecasOuPesos = ""; }
+                                                //LIMPAR VARIAVEIS QUE SÓ TEM VALOR ZERO ACIMA
 
 
 
-                    <View style={{ height: 15 }} />
+                                                if (((IDADE_DO_GADO + outrasErasAnterior + outrasErasPosterior) !== "")) {
 
-                    <View style={{ width: '100%', height: 'auto', alignItems: 'center', alignContent: 'center', borderWidth: 0, borderColor: 'green' }} >
+                                                    if ((TIPOS_DE_GADOS_MACHOS) !== "" || (TIPOS_DE_GADOS_FEMEAS) !== "") {
 
-                        {/*...touchProps   key={5} id={'EuMesmo'} */}
-                        <TouchableHighlight style={{ width: '35%', height: 40, alignItems: 'center', paddingTop: 10, borderWidth: 1, borderRadius: 10, borderColor: 'white' }}
+                                                        if (
+                                                            MACHO !== "" && TIPOS_DE_GADOS_MACHOS !== "" && FEMEA !== "" && TIPOS_DE_GADOS_FEMEAS !== ""
+                                                            || MACHO !== "" && TIPOS_DE_GADOS_MACHOS !== "" && FEMEA === "" && TIPOS_DE_GADOS_FEMEAS === ""
+                                                            || MACHO === "" && TIPOS_DE_GADOS_MACHOS === "" && FEMEA !== "" && TIPOS_DE_GADOS_FEMEAS !== ""
 
-                            onPress={async () => {
-                                // let SE_TEM_IMAGEM_OU_VIDEO = VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length + VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT.length;
+                                                        ) {
 
-                                if (
-                                    !URL_FOTOS.toUpperCase().includes(".JPEG") &&
-                                    !URL_FOTOS.toUpperCase().includes(".JPG") &&
-                                    !URL_FOTOS.toUpperCase().includes(".PNG") &&
-                                    !URL_VIDEOS.toUpperCase().includes(".MP4")
-                                ) {
-                                    alert("Falta Imagens ou Videos !");
-                                } else {
-                                    //  alert("VAI REALIZAR A POSTAGEM !  ");
+                                                            if (descricoesGerais != "") {
 
-                                    //CÓDIGO PRINCIPAL ABAIXO do ON-PRESS
-                                    var MACHO = "";
-                                    var FEMEA = "";
-                                    var IDADE_DO_GADO = "";
-                                    var TIPOS_DE_GADOS_MACHOS = "";
-                                    var TIPOS_DE_GADOS_FEMEAS = "";
+                                                                if (precoSugerido != "") {
 
-                                    var ARRAY_KEYS = Object.keys(categorias_Objetos)
+                                                                    if (quantidadeCabecasOuPesos != "") {
 
-                                    ARRAY_KEYS.map((empty, index) => {
+                                                                        //TAREFAZ AQUI ABAIXO
+                                                                        await CONTANDO_QUANTIDADE_DE_POSTAGENS();
+                                                                        // console.log(VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS);
+                                                                        await PEGAR_NUMERO_DO_CELL();// GOBACK HERE
 
-                                        if (index == 0) {
-                                            MACHO = JSON.stringify(categorias_Objetos[ARRAY_KEYS[0]]).replace(/['"]+/g, '')
+                                                                        if (VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS > VARIAVEL_GLOBAL.PARAMETROS_QUANTIDADE_DE_POSTAGEMS) {
+                                                                            VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "PUBLICACAO";
+                                                                            VARIAVEL_GLOBAL.PUBLICACAO_EM_PROCESSO = "ENVIANDO";
+                                                                            // venda_status_J = 'pendente';
+                                                                            const produto = { IMAGENS: VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT, VIDEOS: VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT }
+                                                                            navigation.navigate("Tabela_planos", { precoSugerido, quantidadeCabecasOuPesos, produto });
+                                                                        }//if
+                                                                        //TAREFAZ AQUI ACIMA
+
+
+                                                                    } else { alert("Quantidade de Cabeças Não Preenchido !") }
+
+                                                                } else { alert("Preço Sugerido Não foi Preenchido !") }
+
+                                                            } else { alert("Descrição Não foi Preenchido !") }
+
+                                                        } else { alert("Sexo do Gado Incompativo com os Tipos de Gado !") }
+
+                                                    } else { alert("Falta Escolher Tipo de Gado !") }
+
+                                                } else { alert("Falta Escolher Idade do Gado !") }
+
+                                            } else { alert("Falta Escolher o Sexo do Gado !") }
+                                            //CÓDIGO PRINCIPAL ACIMA do ON-PRESS
+
+
                                         }
-                                        if (index == 1) {
-                                            FEMEA = JSON.stringify(categorias_Objetos[ARRAY_KEYS[1]]).replace(/['"]+/g, '')
-                                        }
-                                        if (index >= 2 && index <= 5) {
-                                            IDADE_DO_GADO += JSON.stringify(categorias_Objetos[ARRAY_KEYS[index]]).replace(/['"]+/g, '')
-                                        }
-                                        if (index >= 6 && index <= 10) {
-                                            TIPOS_DE_GADOS_MACHOS += JSON.stringify(categorias_Objetos[ARRAY_KEYS[index]]).replace(/['"]+/g, '')
-                                        }
-                                        if (index >= 11 && index <= 17) {
-                                            TIPOS_DE_GADOS_FEMEAS += JSON.stringify(categorias_Objetos[ARRAY_KEYS[index]]).replace(/['"]+/g, '')
-                                        }
-
-                                    });
-
-                                    // console.log(MACHO + "  " + FEMEA + "  " + IDADE_DO_GADO + "  " + TIPOS_DE_GADOS_MACHOS + "  " + TIPOS_DE_GADOS_FEMEAS);
-
-                                    if (MACHO + FEMEA !== "") {
-
-                                        //LIMPAR VARIAVEIS QUE SÓ TEM VALOR ZERO ABAIXO
-                                        if (outrasErasAnterior == '0') { outrasErasAnterior = ""; }
-                                        if (outrasErasPosterior == '0') { outrasErasPosterior = ""; }
-                                        if (quantidadeCabecasOuPesos == '0') { quantidadeCabecasOuPesos = ""; }
-                                        //LIMPAR VARIAVEIS QUE SÓ TEM VALOR ZERO ACIMA
 
 
+                                    } else {
 
-                                        if (((IDADE_DO_GADO + outrasErasAnterior + outrasErasPosterior) !== "")) {
-
-                                            if ((TIPOS_DE_GADOS_MACHOS) !== "" || (TIPOS_DE_GADOS_FEMEAS) !== "") {
-
-                                                if (
-                                                    MACHO !== "" && TIPOS_DE_GADOS_MACHOS !== "" && FEMEA !== "" && TIPOS_DE_GADOS_FEMEAS !== ""
-                                                    || MACHO !== "" && TIPOS_DE_GADOS_MACHOS !== "" && FEMEA === "" && TIPOS_DE_GADOS_FEMEAS === ""
-                                                    || MACHO === "" && TIPOS_DE_GADOS_MACHOS === "" && FEMEA !== "" && TIPOS_DE_GADOS_FEMEAS !== ""
-
-                                                ) {
-
-                                                    if (descricoesGerais != "") {
-
-                                                        if (precoSugerido != "") {
-
-                                                            if (quantidadeCabecasOuPesos != "") {
+                                        VARIAVEL_GLOBAL.TELA_ATUAL = "Postar";
+                                        VARIAVEL_GLOBAL.TELA_ORIGEM = "Principal";
+                                        VARIAVEL_GLOBAL.TELA_TERCEIRA = "nenhuma";
+                                        VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length = 0;
+                                        VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT.length = 0;
+                                        URL_FOTOS = "file:///zerar_postagem";
+                                        URL_VIDEOS = "file:///";
+                                        // navigation.navigate("Postar", { URL_FOTOS, URL_VIDEOS, });
 
 
+                                        setcorMacho(false);
+                                        setcorFemea(false);
+
+                                        setcor_0_12(false);
+                                        setcor_12_24(false);
+                                        setcor_24_36(false);
+                                        setcorAcima_36(false);
+
+                                        setcorBezerros(false);
+                                        setcorGarrotes(false);
+                                        setcorTourunos(false);
+                                        setcorBois(false);
+                                        setcorBoisGordos(false);
+
+                                        setcorBezerras(false);
+                                        setcorNovilhas(false);
+                                        setcorVacasBoiadeiras(false);
+                                        setcorVacas(false);
+                                        setcorVacasGordas(false);
+                                        setcorVacasPrenhas(false);
+                                        setcorVacasParidas(false);
+
+                                        outrasErasAnteriorF("");
+                                        outrasErasPosteriorF("");
+                                        descricoesGeraisF("");
+                                        precoSugeridoF("");
+                                        quantidadeCabecasOuPesosF(0);
 
 
-                                                                //TAREFAZ AQUI ABAIXO
-                                                                await CONTANDO_QUANTIDADE_DE_POSTAGENS();
-                                                                // console.log(VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS);
-                                                                await PEGAR_NUMERO_DO_CELL();// GOBACK HERE
+                                        categorias_Objetos.Obj_Macho = "";
+                                        categorias_Objetos.Obj_Femea = "";
+                                        categorias_Objetos.Obj__0_12 = "";
+                                        categorias_Objetos.Obj__12_24 = "";
+                                        categorias_Objetos.Obj__24_36 = "";
+                                        categorias_Objetos.Obj_Acima_36 = "";
+                                        categorias_Objetos.Obj_Bezerros = "";
+                                        categorias_Objetos.Obj_Garrotes = "";
+                                        categorias_Objetos.Obj_Tourunos = "";
+                                        categorias_Objetos.Obj_Bois = "";
+                                        categorias_Objetos.Obj_BoisGordos = "";
+                                        categorias_Objetos.Obj_Bezerras = "";
+                                        categorias_Objetos.Obj_Novilhas = "";
+                                        categorias_Objetos.Obj_VacasBoiadeiras = "";
+                                        categorias_Objetos.Obj_Vacas = "";
+                                        categorias_Objetos.Obj_VacasGordas = "";
+                                        categorias_Objetos.Obj_VacasPrenhas = "";
+                                        categorias_Objetos.Obj_VacasParidas = "";
 
-                                                                if (VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS > VARIAVEL_GLOBAL.PARAMETROS_QUANTIDADE_DE_POSTAGEMS) {
-                                                                    VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "PUBLICACAO";
-                                                                    VARIAVEL_GLOBAL.PUBLICACAO_EM_PROCESSO = "ENVIANDO";
-                                                                    // venda_status_J = 'pendente';
-                                                                    const produto = { IMAGENS: VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT, VIDEOS: VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT }
-                                                                    navigation.navigate("Tabela_planos", { precoSugerido, quantidadeCabecasOuPesos, produto });
-                                                                }//if
-                                                                //TAREFAZ AQUI ACIMA
+                                        setNameBtbPostar("Postar");
 
-
-
-
-                                                            } else { alert("Quantidade de Cabeças Não Preenchido !") }
-
-                                                        } else { alert("Preço Sugerido Não foi Preenchido !") }
-
-                                                    } else { alert("Descrição Não foi Preenchido !") }
-
-                                                } else { alert("Sexo do Gado Incompativo com os Tipos de Gado !") }
-
-                                            } else { alert("Falta Escolher Tipo de Gado !") }
-
-                                        } else { alert("Falta Escolher Idade do Gado !") }
-
-                                    } else { alert("Falta Escolher o Sexo do Gado !") }
-                                    //CÓDIGO PRINCIPAL ACIMA do ON-PRESS
-
-
-                                }
+                                    }
 
 
 
 
+                                    /**********************************************************************************************/
+                                    //DESATIVAR ESSA LINHA DEPOIS ABAIXO é USADO SÓ PARA PRODUÇÃO ESSE TRECHO ABAIXO                             
 
+                                    // await CONTANDO_QUANTIDADE_DE_POSTAGENS();
+                                    // // console.log(VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS);
+                                    // await PEGAR_NUMERO_DO_CELL();// GOBACK HERE
 
+                                    // if (VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS > VARIAVEL_GLOBAL.PARAMETROS_QUANTIDADE_DE_POSTAGEMS) {
+                                    //     VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "PUBLICACAO";
+                                    //     // venda_status_J = 'pendente';
+                                    //     const produto = { IMAGENS: VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT, VIDEOS: VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT }
+                                    //     navigation.navigate("Tabela_planos", { precoSugerido, quantidadeCabecasOuPesos, produto });
+                                    // }//if
 
-                                /**********************************************************************************************/
-                                //DESATIVAR ESSA LINHA DEPOIS ABAIXO é USADO SÓ PARA PRODUÇÃO ESSE TRECHO ABAIXO                             
-
-                                // await CONTANDO_QUANTIDADE_DE_POSTAGENS();
-                                // // console.log(VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS);
-                                // await PEGAR_NUMERO_DO_CELL();// GOBACK HERE
-
-                                // if (VARIAVEL_GLOBAL.QUANTIDADE_DE_POSTAGEMS > VARIAVEL_GLOBAL.PARAMETROS_QUANTIDADE_DE_POSTAGEMS) {
-                                //     VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "PUBLICACAO";
-                                //     // venda_status_J = 'pendente';
-                                //     const produto = { IMAGENS: VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT, VIDEOS: VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT }
-                                //     navigation.navigate("Tabela_planos", { precoSugerido, quantidadeCabecasOuPesos, produto });
-                                // }//if
-
-                                //DESATIVAR ESSA LINHA DEPOIS ACIMA é USADO SÓ PARA PRODUÇÃO ESSE TRECHO ACIMA    
-                                /**********************************************************************************************/
+                                    //DESATIVAR ESSA LINHA DEPOIS ACIMA é USADO SÓ PARA PRODUÇÃO ESSE TRECHO ACIMA    
+                                    /**********************************************************************************************/
 
 
 
 
 
-                            }}
-                        >
-                            <Text style={{ fontSize: 15, color: '#fff' }} >Postar</Text>
-                        </TouchableHighlight>
+                                }}
+                            >
+                                <Text style={{ fontSize: 15, color: '#fff' }} >{nameBtbPostar}</Text>
+                            </TouchableHighlight>
 
 
-                    </View>
+                        </View>
 
 
-                    {/******** ATIVAR SOMENTE PRA TESTE ABAIXO *********
+                        {/******** ATIVAR SOMENTE PRA TESTE ABAIXO *********
                     <View style={{ width: '100%', height: '100%', borderWidth: 1, borderColor: 'yellow' }} >
 
                         <Image source={{ uri: arquivoDoCell }} style={{ width: '95%', height: '100%' }} />
@@ -1677,286 +1728,14 @@ export default function Postar(props) {
                     </View>
                      /******** ATIVAR SOMENTE PRA TESTE ACIMA *********/}
 
-                    {false ?
-                        <View>
-                            <Text style={{ textAlign: 'left', color: 'white' }}>LATITUDE : {userPosition.latitude} </Text>
-                            <Text style={{ textAlign: 'left', color: 'white' }}>LONGITUDE: {userPosition.longitude} </Text>
-                        </View>
-                        :
-                        []
-                    }
-
-
-                </View>
-
-
-
-
-
-                {/*VIEW DO SCROLL ACIMA */}
-            </ScrollView>
-
-
-
-            {/*CAIXA DO  NUMERO DO CELULAR ABAIXO */}
-            {caixaNumeroCelularVisivel && (
-                <View style={{ width: '100%', height: '100%', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.8)', position: 'absolute', borderWidth: 0, borderColor: 'yellow' }} >
-
-                    <View style={{ width: '100%', height: 280, justifyContent: 'center', alignItems: 'center', backgroundColor: '#2A3E4A', borderRadius: 25, borderWidth: 1, borderColor: 'white' }}>
-
-                        <View style={{ width: '70%' }}>
-                            <Text style={{ textAlign: 'center', color: 'white', fontSize: 20 }}> Coloque o Nº do Celular </Text>
-
-                            {/*
-                            <TextInput placeholder="DD + Número" size={15} style={{ width: '100%', height: 50, backgroundColor: 'white', borderRadius: 8, fontSize: 25 }} textAlign={'center'}
-                                onChangeText={MASCARA_PARA_O_COMPOENTES}
-                            >{variavelTelefone}</TextInput>
-                        */}
-
-                            <TextInputMask placeholder="DD + Número" size={15} style={{ width: '100%', height: 50, backgroundColor: 'white', borderRadius: 8, fontSize: 25 }} textAlign={'center'}
-
-
-                                type={'cel-phone'}
-                                //   value={variavelTelefone = "(12) 34567-8901"}
-                                value={variavelTelefone}
-                                maxLength={18}
-                                onChangeText={value => {
-                                    setVariavelTelefone(value);
-                                    /*
-                                    //value = value.replace('R$', '');
-                                    value = value.replace('.', '');
-                                    value = value.replace(',', '.');
-                                    setVariavelTelefone(Number(value));
-                                    */
-                                }}
-
-                            />
-
-
-                        </View>
-
-
-                        <View style={{ height: 10 }} />
-                        <View style={{ flexDirection: 'row', width: '100%', height: 'auto' }}  >
-
-                            <View style={{ width: '12%' }} />
-
-                            <TouchableHighlight style={{ width: '35%', height: 35, color: 'white', fontSize: 35, borderRadius: 25, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: 'white' }}
-                                onPress={async () => {
-
-
-                                    var regex = new RegExp(/\(\d{2}\)\s\d{5,5}-?\d{4}/g);//REGEX PARA TELEFONE CELULAR
-                                    var VALIDAR_CELULAR = variavelTelefone.match(regex);
-
-                                    if (VALIDAR_CELULAR !== null) {
-
-
-                                        // var telefone = { NUMERO_CELL_J: variavelTelefone }
-
-                                        /*********************************************************************************************************************/
-                                        //alert( JSON.stringify( telefone.NUMERO_CELL_J ));
-                                        // telefone = JSON.stringify(telefone.NUMERO_CELL_J);
-                                        var retorno = await VERIFICAR_SE_CELULAR_JA_ESTA_CADASTRADO_NO_BANCO_DE_DADOS(variavelTelefone)
-                                        // //[{"numero_telefone_J":"(12) 34567-8901"}]
-
-                                        var DADO_RETORNO_STRING = JSON.stringify(retorno.data);
-                                        if (DADO_RETORNO_STRING != "[]" && VARIAVEL_GLOBAL.LIBERAR_GRAVACAO_TELEFONE_SEM_NUMERO == false) {
-
-                                            alert("Já Existe um Usuário Cadastrado com Esse numero ! ");
-
-                                        } else {
-
-                                            var telefone = { NUMERO_CELL_J: variavelTelefone }
-                                            await GRAVAR_NUMERO_DO_CELL(telefone, false);
-                                            await ARMAZENAR_POSTAGEM_PRIMEIRA_ETAPA();
-                                            setCaixaNumeroCelularVisivel(false);
-                                            VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
-
-                                        }//else INTERNO	
-                                        /*********************************************************************************************************************/
-
-                                        // var telefone = { NUMERO_CELL_J: variavelTelefone }
-                                        // GRAVAR_NUMERO_DO_CELL(telefone);
-                                        // setCaixaNumeroCelularVisivel(false);
-                                        // ARMAZENAR_POSTAGEM_PRIMEIRA_ETAPA();
-                                    } else { alert("Formato Inválido de Celular !"); }
-
-
-                                }}
-                            >
-                                <Text style={{ fontSize: 15, color: '#fff' }} >OK</Text>
-                            </TouchableHighlight>
-                            <View style={{ width: '6%' }} />
-                            <TouchableHighlight style={{ width: '35%', height: 35, color: 'white', fontSize: 35, borderRadius: 25, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: 'white' }}
-                                onPress={() => { setCaixaNumeroCelularVisivel(false) }}
-                            >
-                                <Text style={{ fontSize: 15, color: '#fff' }} >Cancelar</Text>
-                            </TouchableHighlight>
-
-                            <View style={{ width: '12%' }} />
-
-
-                        </View>
-
-
-                        {/* Recuperação de Uso do Aplicativo pelo Uso do Número do Telefone */}
-
-                        <View style={{ height: '5%' }} />
-                        <View style={{ width: '100%', alignItems: 'center' }} >
-
-                            <Text style={{ fontSize: 14, color: '#25E7DB' }}>Já é Cadastrado ! Recuperar Acesso</Text>
-                            <View style={{ height: '5%' }} />
-
-
-                            <View style={{ width: '100%', justifyContent: 'center', alignContent: 'center', borderWidth: 0, borderColor: 'red' }}>
-
-                                {ocultarMostrarClique && (
-                                    <View style={{ width: '100%', alignItems: 'center', borderWidth: 0, borderColor: 'red' }}>
-                                        <TouchableHighlight style={{ width: '25%', height: 35, color: 'white', fontSize: 35, borderRadius: 25, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: 'white' }}
-                                            onPress={() => {
-                                                //alert("MOSTRAR E OCULTAR COMPONENTE");
-                                                setOcultarMostrarClique(oldState => !oldState);
-                                                setOcultarMostrarEnvioCodigo(oldState => !oldState);
-                                            }}
-                                        >
-                                            <Text style={{ fontSize: 15, color: '#fff' }}>Click Aqui</Text>
-                                        </TouchableHighlight>
-                                    </View>
-                                )}
-
-
-                                {ocultarMostrarEnvioCodigo && (
-                                    <View style={{ flexDirection: 'row', justifyContent: 'center', width: '100%', height: 'auto' }}  >
-
-                                        {ocultarMostrarCaixaTexto && (
-
-                                            <TextInputMask size={10} placeholder="CÓDIGO SEGURANÇA" textAlign={'center'}
-
-                                                style={{ width: '42%', height: 45, alignItems: 'center', backgroundColor: '#fff', borderWidth: 0, borderRadius: 15 }}
-
-                                                type={'only-numbers'}
-                                                value={codigoDeSeguranca}//1567
-                                                maxLength={5}
-                                                onChangeText={value => {
-                                                    setCodigoDeSeguranca(value);
-                                                }}
-
-                                            />
-                                        )}
-
-                                        <View style={{ width: '3%' }} />
-
-                                        <View style={{ width: '50%', justifyContent: 'center' }} >
-                                            <TouchableHighlight style={{ width: '100%', height: 35, borderRadius: 25, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: 'white' }}
-                                                onPress={async () => {
-                                                    //alert("RECUPERAR SENHA");
-
-
-                                                    //var GerarEnviarCodigo = "Gerar Código";
-
-                                                    if (gerarEnviarCodigo.includes("Gerar Código")) {
-
-                                                        // GerarEnviarCodigo = "Enviar Código";
-                                                        setGerarEnviarCodigo("Enviar Código Segurança");
-                                                        setOcultarMostrarCaixaTexto(true);
-                                                        VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
-                                                        // alert("Foi Enviado um Código de Verificação para " + variavelTelefone);
-
-
-
-                                                        //ENVIANDO TELEFONE PARA GERAR CÓDIGO DE DESBLOQUEIO ABAIXO
-                                                        try { //alert(IP_DO_SERVIDOR);
-                                                            //response = await Axios.get('http://192.168.0.102:3000/gerar_codigo_de_desbloqueio', {
-                                                            await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + "gerar_codigo_de_desbloqueio", {
-                                                                params: { numero_telefone: variavelTelefone }
-                                                            });
-
-
-                                                        } catch (exception) { alert(exception.message); return 0 } finally { alert("Foi Enviado um Código de Verificação para " + variavelTelefone); }
-                                                        //ENVIANDO TELEFONE PARA GERAR CÓDIGO DE DESBLOQUEIO ACIMA
-
-
-
-
-                                                    } else if (gerarEnviarCodigo.includes("Enviar Código")) {
-
-
-
-                                                        var resposta_zero_ou_menos_um;
-
-
-                                                        //ENVIANDO O CÓDIGO DE DESBLOQUEIO RECEBIDO POR SMS ABAIXO
-                                                        try { //alert(IP_DO_SERVIDOR);
-                                                            //response = await Axios.get('http://192.168.0.102:3000/gerar_codigo_de_desbloqueio', {
-                                                            resposta_zero_ou_menos_um = await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + "recebendo_e_validando_codigo_de_desbloqueio", {
-                                                                params: {
-                                                                    numero_telefone: variavelTelefone,
-                                                                    codigo_de_desbloqueio: codigoDeSeguranca
-                                                                }
-                                                            });
-
-                                                            //  alert( resposta_zero_ou_menos_um.data.condicao );
-                                                            resposta_zero_ou_menos_um = resposta_zero_ou_menos_um.data.condicao
-                                                            //  alert( resposta_zero_ou_menos_um );
-
-                                                        } catch (exception) { alert(exception.message)/**/ }
-                                                        //ENVIANDO O CÓDIGO DE DESBLOQUEIO RECEBIDO POR SMS ACIMA
-
-
-                                                        if (resposta_zero_ou_menos_um > -1) {
-
-
-                                                            // gerarEnviarCodigo = "Enviar Código";
-                                                            setGerarEnviarCodigo("Gerar Código Recuperação ");
-
-                                                            setOcultarMostrarClique(oldState => !oldState);
-                                                            setOcultarMostrarEnvioCodigo(oldState => !oldState);
-
-                                                            alert("Enviando Código de Verificação...");
-                                                            //COMUNICANDO COM O SERVIDOR TENTANDO LIBERAR O USO DO APLICATIVO
-
-                                                            setOcultarMostrarCaixaTexto(false);
-
-                                                            //DEPOIS DA LIBERAÇÃO DO USO DO APLICATIVO FAZER ISSO ABAIXO
-                                                            //IMPLEMENTAR GRAVAÇÃO DO TELEFONE NO CELULAR PARA USAR O APLICATIVO
-                                                            // alert(variavelTelefone);
-                                                            var telefone = { NUMERO_CELL_J: variavelTelefone.replace(/\"/g, '') }
-                                                            await GRAVAR_NUMERO_DO_CELL(telefone, true);
-                                                            var TELA_QUE_CHAMOU = props.tela_chamada;
-                                                            if (TELA_QUE_CHAMOU == "tela_proposta") {
-                                                                await props.OCULTAR_TELA_TELEFONE_PROPOSTA_remoto();
-                                                                VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
-                                                                navigation.goBack(null);
-                                                            } else if (TELA_QUE_CHAMOU == "tela_DetalhesProdutos") {
-                                                                await props.OCULTAR_TELA_TELEFONE_FUNCAO_REMOTA();
-                                                                VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
-                                                            }
-                                                            //DEPOIS DA LIBERAÇÃO DO USO DO APLICATIVO FAZER ISSO ACIMA
-
-
-                                                        } else {
-
-                                                            alert("CÓDIGO DE SEGURANÇA ESTÁ ERRADO !, TENTE NOVAMENTE ! ")
-                                                        }
-
-                                                    }
-
-                                                }}
-                                            >
-                                                <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-                                                    <Text style={{ fontSize: 13, color: '#fff', width: '100%', justifyContent: 'center', alignItems: 'center' }}>{gerarEnviarCodigo}</Text>
-                                                </View>
-                                            </TouchableHighlight>
-                                        </View>
-                                    </View>
-                                )}
-
-
+                        {false ?
+                            <View>
+                                <Text style={{ textAlign: 'left', color: 'white' }}>LATITUDE : {userPosition.latitude} </Text>
+                                <Text style={{ textAlign: 'left', color: 'white' }}>LONGITUDE: {userPosition.longitude} </Text>
                             </View>
-
-                        </View>
-
-                        {/* Recuperação de Uso do Aplicativo pelo Uso do Número do Telefone */}
+                            :
+                            []
+                        }
 
 
                     </View>
@@ -1964,18 +1743,293 @@ export default function Postar(props) {
 
 
 
-                </View>
-            )}
 
-
-            {/*CAIXA DO  NUMERO DO CELULAR ACIMA */}
+                    {/*VIEW DO SCROLL ACIMA */}
+                </ScrollView>
 
 
 
-            {/* </Animated.View> */}
+                {/*CAIXA DO  NUMERO DO CELULAR ABAIXO */}
+                {caixaNumeroCelularVisivel && (
+                    <View style={{ width: '100%', height: '100%', justifyContent: 'center', backgroundColor: 'rgba(0,0,0,0.8)', position: 'absolute', borderWidth: 0, borderColor: 'yellow' }} >
 
-        </SafeAreaView>
+                        <View style={{ width: '100%', height: 280, justifyContent: 'center', alignItems: 'center', backgroundColor: '#2A3E4A', borderRadius: 25, borderWidth: 1, borderColor: 'white' }}>
+
+                            <View style={{ width: '70%' }}>
+                                <Text style={{ textAlign: 'center', color: 'white', fontSize: 20 }}> Coloque o Nº do Celular </Text>
+
+                                {/*
+                            <TextInput placeholder="DD + Número" size={15} style={{ width: '100%', height: 50, backgroundColor: 'white', borderRadius: 8, fontSize: 25 }} textAlign={'center'}
+                                onChangeText={MASCARA_PARA_O_COMPOENTES}
+                            >{variavelTelefone}</TextInput>
+                        */}
+
+                                <TextInputMask placeholder="DD + Número" size={15} style={{ width: '100%', height: 50, backgroundColor: 'white', borderRadius: 8, fontSize: 25 }} textAlign={'center'}
+
+
+                                    type={'cel-phone'}
+                                    //   value={variavelTelefone = "(12) 34567-8901"}
+                                    value={variavelTelefone}
+                                    maxLength={18}
+                                    onChangeText={value => {
+                                        setVariavelTelefone(value);
+                                        /*
+                                        //value = value.replace('R$', '');
+                                        value = value.replace('.', '');
+                                        value = value.replace(',', '.');
+                                        setVariavelTelefone(Number(value));
+                                        */
+                                    }}
+
+                                />
+
+
+                            </View>
+
+
+                            <View style={{ height: 10 }} />
+                            <View style={{ flexDirection: 'row', width: '100%', height: 'auto' }}  >
+
+                                <View style={{ width: '12%' }} />
+
+                                <TouchableHighlight style={{ width: '35%', height: 35, color: 'white', fontSize: 35, borderRadius: 25, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: 'white' }}
+                                    onPress={async () => {
+
+
+                                        var regex = new RegExp(/\(\d{2}\)\s\d{5,5}-?\d{4}/g);//REGEX PARA TELEFONE CELULAR
+                                        var VALIDAR_CELULAR = variavelTelefone.match(regex);
+
+                                        if (VALIDAR_CELULAR !== null) {
+
+
+                                            // var telefone = { NUMERO_CELL_J: variavelTelefone }
+
+                                            /*********************************************************************************************************************/
+                                            //alert( JSON.stringify( telefone.NUMERO_CELL_J ));
+                                            // telefone = JSON.stringify(telefone.NUMERO_CELL_J);
+                                            var retorno = await VERIFICAR_SE_CELULAR_JA_ESTA_CADASTRADO_NO_BANCO_DE_DADOS(variavelTelefone)
+                                            // //[{"numero_telefone_J":"(12) 34567-8901"}]
+
+                                            var DADO_RETORNO_STRING = JSON.stringify(retorno.data);
+                                            if (DADO_RETORNO_STRING != "[]" && VARIAVEL_GLOBAL.LIBERAR_GRAVACAO_TELEFONE_SEM_NUMERO == false) {
+
+                                                alert("Já Existe um Usuário Cadastrado com Esse numero ! ");
+
+                                            } else {
+
+                                                var telefone = { NUMERO_CELL_J: variavelTelefone }
+                                                await GRAVAR_NUMERO_DO_CELL(telefone, false);
+                                                await ARMAZENAR_POSTAGEM_PRIMEIRA_ETAPA();
+                                                setCaixaNumeroCelularVisivel(false);
+                                                VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
+
+                                            }//else INTERNO	
+                                            /*********************************************************************************************************************/
+
+                                            // var telefone = { NUMERO_CELL_J: variavelTelefone }
+                                            // GRAVAR_NUMERO_DO_CELL(telefone);
+                                            // setCaixaNumeroCelularVisivel(false);
+                                            // ARMAZENAR_POSTAGEM_PRIMEIRA_ETAPA();
+                                        } else { alert("Formato Inválido de Celular !"); }
+
+
+                                    }}
+                                >
+                                    <Text style={{ fontSize: 15, color: '#fff' }} >OK</Text>
+                                </TouchableHighlight>
+                                <View style={{ width: '6%' }} />
+                                <TouchableHighlight style={{ width: '35%', height: 35, color: 'white', fontSize: 35, borderRadius: 25, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: 'white' }}
+                                    onPress={() => { setCaixaNumeroCelularVisivel(false) }}
+                                >
+                                    <Text style={{ fontSize: 15, color: '#fff' }} >Cancelar</Text>
+                                </TouchableHighlight>
+
+                                <View style={{ width: '12%' }} />
+
+
+                            </View>
+
+
+                            {/* Recuperação de Uso do Aplicativo pelo Uso do Número do Telefone */}
+
+                            <View style={{ height: '5%' }} />
+                            <View style={{ width: '100%', alignItems: 'center' }} >
+
+                                <Text style={{ fontSize: 14, color: '#25E7DB' }}>Já é Cadastrado ! Recuperar Acesso</Text>
+                                <View style={{ height: '5%' }} />
+
+
+                                <View style={{ width: '100%', justifyContent: 'center', alignContent: 'center', borderWidth: 0, borderColor: 'red' }}>
+
+                                    {ocultarMostrarClique && (
+                                        <View style={{ width: '100%', alignItems: 'center', borderWidth: 0, borderColor: 'red' }}>
+                                            <TouchableHighlight style={{ width: '25%', height: 35, color: 'white', fontSize: 35, borderRadius: 25, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: 'white' }}
+                                                onPress={() => {
+                                                    //alert("MOSTRAR E OCULTAR COMPONENTE");
+                                                    setOcultarMostrarClique(oldState => !oldState);
+                                                    setOcultarMostrarEnvioCodigo(oldState => !oldState);
+                                                }}
+                                            >
+                                                <Text style={{ fontSize: 15, color: '#fff' }}>Click Aqui</Text>
+                                            </TouchableHighlight>
+                                        </View>
+                                    )}
+
+
+                                    {ocultarMostrarEnvioCodigo && (
+                                        <View style={{ flexDirection: 'row', justifyContent: 'center', width: '100%', height: 'auto' }}  >
+
+                                            {ocultarMostrarCaixaTexto && (
+
+                                                <TextInputMask size={10} placeholder="CÓDIGO SEGURANÇA" textAlign={'center'}
+
+                                                    style={{ width: '42%', height: 45, alignItems: 'center', backgroundColor: '#fff', borderWidth: 0, borderRadius: 15 }}
+
+                                                    type={'only-numbers'}
+                                                    value={codigoDeSeguranca}//1567
+                                                    maxLength={5}
+                                                    onChangeText={value => {
+                                                        setCodigoDeSeguranca(value);
+                                                    }}
+
+                                                />
+                                            )}
+
+                                            <View style={{ width: '3%' }} />
+
+                                            <View style={{ width: '50%', justifyContent: 'center' }} >
+                                                <TouchableHighlight style={{ width: '100%', height: 35, borderRadius: 25, justifyContent: 'center', alignItems: 'center', borderWidth: 1, borderColor: 'white' }}
+                                                    onPress={async () => {
+                                                        //alert("RECUPERAR SENHA");
+
+
+                                                        //var GerarEnviarCodigo = "Gerar Código";
+
+                                                        if (gerarEnviarCodigo.includes("Gerar Código")) {
+
+                                                            // GerarEnviarCodigo = "Enviar Código";
+                                                            setGerarEnviarCodigo("Enviar Código Segurança");
+                                                            setOcultarMostrarCaixaTexto(true);
+                                                            VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
+                                                            // alert("Foi Enviado um Código de Verificação para " + variavelTelefone);
+
+
+
+                                                            //ENVIANDO TELEFONE PARA GERAR CÓDIGO DE DESBLOQUEIO ABAIXO
+                                                            try { //alert(IP_DO_SERVIDOR);
+                                                                //response = await Axios.get('http://192.168.0.102:3000/gerar_codigo_de_desbloqueio', {
+                                                                await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + "gerar_codigo_de_desbloqueio", {
+                                                                    params: { numero_telefone: variavelTelefone }
+                                                                });
+
+
+                                                            } catch (exception) { alert(exception.message); return 0 } finally { alert("Foi Enviado um Código de Verificação para " + variavelTelefone); }
+                                                            //ENVIANDO TELEFONE PARA GERAR CÓDIGO DE DESBLOQUEIO ACIMA
+
+
+
+
+                                                        } else if (gerarEnviarCodigo.includes("Enviar Código")) {
+
+
+
+                                                            var resposta_zero_ou_menos_um;
+
+
+                                                            //ENVIANDO O CÓDIGO DE DESBLOQUEIO RECEBIDO POR SMS ABAIXO
+                                                            try { //alert(IP_DO_SERVIDOR);
+                                                                //response = await Axios.get('http://192.168.0.102:3000/gerar_codigo_de_desbloqueio', {
+                                                                resposta_zero_ou_menos_um = await Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + "recebendo_e_validando_codigo_de_desbloqueio", {
+                                                                    params: {
+                                                                        numero_telefone: variavelTelefone,
+                                                                        codigo_de_desbloqueio: codigoDeSeguranca
+                                                                    }
+                                                                });
+
+                                                                //  alert( resposta_zero_ou_menos_um.data.condicao );
+                                                                resposta_zero_ou_menos_um = resposta_zero_ou_menos_um.data.condicao
+                                                                //  alert( resposta_zero_ou_menos_um );
+
+                                                            } catch (exception) { alert(exception.message)/**/ }
+                                                            //ENVIANDO O CÓDIGO DE DESBLOQUEIO RECEBIDO POR SMS ACIMA
+
+
+                                                            if (resposta_zero_ou_menos_um > -1) {
+
+
+                                                                // gerarEnviarCodigo = "Enviar Código";
+                                                                setGerarEnviarCodigo("Gerar Código Recuperação ");
+
+                                                                setOcultarMostrarClique(oldState => !oldState);
+                                                                setOcultarMostrarEnvioCodigo(oldState => !oldState);
+
+                                                                alert("Enviando Código de Verificação...");
+                                                                //COMUNICANDO COM O SERVIDOR TENTANDO LIBERAR O USO DO APLICATIVO
+
+                                                                setOcultarMostrarCaixaTexto(false);
+
+                                                                //DEPOIS DA LIBERAÇÃO DO USO DO APLICATIVO FAZER ISSO ABAIXO
+                                                                //IMPLEMENTAR GRAVAÇÃO DO TELEFONE NO CELULAR PARA USAR O APLICATIVO
+                                                                // alert(variavelTelefone);
+                                                                var telefone = { NUMERO_CELL_J: variavelTelefone.replace(/\"/g, '') }
+                                                                await GRAVAR_NUMERO_DO_CELL(telefone, true);
+                                                                var TELA_QUE_CHAMOU = props.tela_chamada;
+                                                                if (TELA_QUE_CHAMOU == "tela_proposta") {
+                                                                    await props.OCULTAR_TELA_TELEFONE_PROPOSTA_remoto();
+                                                                    VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
+                                                                    navigation.goBack(null);
+                                                                } else if (TELA_QUE_CHAMOU == "tela_DetalhesProdutos") {
+                                                                    await props.OCULTAR_TELA_TELEFONE_FUNCAO_REMOTA();
+                                                                    VARIAVEL_GLOBAL.BUSCAR_LICENCA = true;
+                                                                }
+                                                                //DEPOIS DA LIBERAÇÃO DO USO DO APLICATIVO FAZER ISSO ACIMA
+
+
+                                                            } else {
+
+                                                                alert("CÓDIGO DE SEGURANÇA ESTÁ ERRADO !, TENTE NOVAMENTE ! ")
+                                                            }
+
+                                                        }
+
+                                                    }}
+                                                >
+                                                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                                                        <Text style={{ fontSize: 13, color: '#fff', width: '100%', justifyContent: 'center', alignItems: 'center' }}>{gerarEnviarCodigo}</Text>
+                                                    </View>
+                                                </TouchableHighlight>
+                                            </View>
+                                        </View>
+                                    )}
+
+
+                                </View>
+
+                            </View>
+
+                            {/* Recuperação de Uso do Aplicativo pelo Uso do Número do Telefone */}
+
+
+                        </View>
+
+
+
+
+                    </View>
+                )}
+
+
+                {/*CAIXA DO  NUMERO DO CELULAR ACIMA */}
+
+                {/* </Animated.View> */}
+
+
+            </SafeAreaView>
+
+        
     )
+
+
 
 
 
@@ -2421,6 +2475,8 @@ export default function Postar(props) {
                 VARIAVEL_GLOBAL.COMPACTACAO_DE_VIDEO_ESTADO = true;
                 alert("GRAVADO COM SUCESSO !");//
                 INSERINDO_NO_BANCO_DE_DADOS_POSTAGENS_OFF_LINE_2();
+                setNameBtbPostar("Nova Postagem")
+
 
             }
 

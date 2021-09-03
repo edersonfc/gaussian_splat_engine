@@ -40,6 +40,7 @@ import Axios from 'axios';
 //CONTEXT_4
 import GlobalContext from './context/UsersContext';
 
+
 //npm i socket.io-client
 import io from 'socket.io-client';
 //npm i react-native-socket.io-client
@@ -95,9 +96,9 @@ import Importante from './components/Importante';
 
 
 //NO SERVIDOR DO MEU NOTEBOOK CASA DA MÃE  ABAIXO
-var IP_DO_SERVIDOR    = "http://192.168.0.107:3000/";
+var IP_DO_SERVIDOR = "http://192.168.0.107:3000/";
 var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3000/";
-var IP_MERCADO_PAGO   = "http://192.168.0.107:8080/";
+var IP_MERCADO_PAGO = "http://192.168.0.107:8080/";
 
 
 
@@ -2825,7 +2826,7 @@ export default function AppTest() {
   // }
 
 
-  
+
 
   function DEFININDO_85_PORCENTO_DE_ALTURA() {
     // console.log((ALTURA_DA_TELA * 90) / 100);
@@ -2899,9 +2900,9 @@ export default function AppTest() {
   }, []);
 
 
-  const [ distanciaDisplay , setDistanciaDisplay  ] = useState(1000);
+  const [distanciaDisplay, setDistanciaDisplay] = useState(1000);
 
-  const [ txtFiltrar_Categorias , setTxtFiltrar_Categorias ] = useState("Filtrar Categorias");
+  const [txtFiltrar_Categorias, setTxtFiltrar_Categorias] = useState("Filtrar Categorias");
 
 
   useEffect(() => {
@@ -2915,7 +2916,7 @@ export default function AppTest() {
 
 
 
-  useEffect( () => {
+  useEffect(() => {
 
     setDistanciaDisplay(Math.round(VARIAVEL_GLOBAL.DISTANCIAS_PARA_O_FILTRO));
 
@@ -2926,34 +2927,34 @@ export default function AppTest() {
 
   async function NAO_ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA() {
 
-      setTermoDeUsoVisible(false);
+    setTermoDeUsoVisible(false);
 
-    }
+  }
 
 
 
 
   async function ACEITAR_TERMOS_DE_USO_E_FECHAR_TELA() {
 
-      try {
-        //ARMAZENANDO NO ASYNC _STORAGE
-        await AsyncStorage.setItem('TERMOS_DE_USO', 'termos_aceito');
-        setTermoDeUsoVisible(false);//MUDAR PARA false muito Importante
-      }
-      catch (exception) {
-        alert("FALHA NA GRAVAÇÃO \n DOS TERMOS DE USO !");
-        //alert(exception);
-      }
-
+    try {
+      //ARMAZENANDO NO ASYNC _STORAGE
+      await AsyncStorage.setItem('TERMOS_DE_USO', 'termos_aceito');
+      setTermoDeUsoVisible(false);//MUDAR PARA false muito Importante
     }
+    catch (exception) {
+      alert("FALHA NA GRAVAÇÃO \n DOS TERMOS DE USO !");
+      //alert(exception);
+    }
+
+  }
 
 
 
   function FECHAR_TELA_INFORMACAO_IMPORTANTE() {
 
-      setTelaImportanteInfo(false);
+    setTelaImportanteInfo(false);
 
-    }
+  }
 
 
 
@@ -2961,21 +2962,21 @@ export default function AppTest() {
 
   //ALGORITIMO DE COMPRESSAO DE VIDEO ABAIXO processamento DEMORADO ABAIXO  MAS FUNCIONA PERFEITAMENTE ABAIXO
   async function compressVideo(path) {
-      // console.log(path);
-      let caminhoOriginal = path;
-      const origin = await ProcessingManager.getVideoInfo(path);
-      const result = await ProcessingManager.compress(path, {
-        width: origin.size && origin.size.width / 3,
-        height: origin.size && origin.size.height / 3,
-        // bitrateMultiplier: 7,
-        bitrateMultiplier: 4,
-        minimumBitrate: 300000
-      });
-      const thumbnail = await ProcessingManager.getPreviewForSecond(result.source);
+    // console.log(path);
+    let caminhoOriginal = path;
+    const origin = await ProcessingManager.getVideoInfo(path);
+    const result = await ProcessingManager.compress(path, {
+      width: origin.size && origin.size.width / 3,
+      height: origin.size && origin.size.height / 3,
+      // bitrateMultiplier: 7,
+      bitrateMultiplier: 4,
+      minimumBitrate: 300000
+    });
+    const thumbnail = await ProcessingManager.getPreviewForSecond(result.source);
 
-      return { path: result.source, caminhoOriginal, thumbnail };
+    return { path: result.source, caminhoOriginal, thumbnail };
 
-    }
+  }
   //ALGORITIMO DE COMPRESSAO DE VIDEO ACIMA processamento DEMORADO ACIMA  MAS FUNCIONA PERFEITAMENTE ACIMA
 
 
@@ -2983,32 +2984,32 @@ export default function AppTest() {
 
   async function fazerAlteracoesEmNomes() {
 
-      await new Promise((resolve) => setTimeout(resolve, 4000));
-      console.log("TÁ CHAMANDO " + data_hora_e_segundo_completo());
+    await new Promise((resolve) => setTimeout(resolve, 4000));
+    console.log("TÁ CHAMANDO " + data_hora_e_segundo_completo());
 
-      // var somatorio = 0;
-      // // for (var i = 0; i < 1000000000; i++) {
-      // for (var i = 0; i < 100000000; i++) {
-      //     somatorio++;
-      // }//for
+    // var somatorio = 0;
+    // // for (var i = 0; i < 1000000000; i++) {
+    // for (var i = 0; i < 100000000; i++) {
+    //     somatorio++;
+    // }//for
 
-      let valor = Math.floor(Math.random() * 10000) + ".mp4";
-      // let valor = "4548746464";
+    let valor = Math.floor(Math.random() * 10000) + ".mp4";
+    // let valor = "4548746464";
 
-      return new Promise(function (resolve) {
+    return new Promise(function (resolve) {
 
-        // parametro_a_resolver += "_ALTERADO";
-        // resolve({ nomeAlterado: parametro_a_resolver })
-        resolve({ path: valor });
+      // parametro_a_resolver += "_ALTERADO";
+      // resolve({ nomeAlterado: parametro_a_resolver })
+      resolve({ path: valor });
 
-      });
+    });
 
-    }
-
-
+  }
 
 
-   
+
+
+
 
 
 
@@ -3198,7 +3199,7 @@ export default function AppTest() {
                         VARIAVEL_GLOBAL.DISTANCIAS_PARA_O_FILTRO = 1000;
                         setDistanciaDisplay(1000);
                         setTxtFiltrar_Categorias("Filtrar Categorias");
-                        
+
                       }
 
                       setCorIconeFiltro(oldState => !oldState);
