@@ -385,9 +385,11 @@ export default function AppTest() {
   const navigation = useNavigation();
 
 
-  var URL_FOTOS = "file:///zerar_postagem";
-  var URL_VIDEOS = "file:///";  //TROCADO PELO DEBAIXO  28 08 2021
-  // var URL_VIDEOS = ""; // ADICIONADO EM 28 08 2021
+  // let URL_FOTOS = "file:///zerar_postagem";
+  // let URL_VIDEOS = "file:///";  //TROCADO PELO DEBAIXO  28 08 2021
+  
+  let URL_FOTOS  = "";
+  let URL_VIDEOS = ""; // ADICIONADO EM 28 08 2021
 
 
   ////DECLARAÇÃO DE STATES ABAIXO
@@ -2849,8 +2851,11 @@ export default function AppTest() {
 
     VARIAVEL_GLOBAL.PUBLICACAO_EM_PROCESSO = "NAO_ENVIADO";
 
-    var URL_FOTOS = "file:///zerar_postagem";
-    var URL_VIDEOS = "file:///";
+    // var URL_FOTOS = "file:///zerar_postagem";
+    // var URL_VIDEOS = "file:///";
+  
+    let URL_FOTOS  = "";
+    let URL_VIDEOS = "";
     navigation.navigate("Postar", { URL_FOTOS, URL_VIDEOS, });
 
     // setchamarTelaPostarDepoisDaPostagem("NAO_ENVIADO");
