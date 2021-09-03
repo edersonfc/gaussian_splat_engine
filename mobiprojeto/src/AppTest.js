@@ -86,18 +86,18 @@ import Importante from './components/Importante';
 
 
 // NO SERVIDOR REMOTO DIGITALOCEAN
-var IP_DO_SERVIDOR     = "https://gadoapp.online/";
-var IP_DO_SERVIDOR_IO  = "https://gadoapp.online/";
-var IP_MERCADO_PAGO    = "https://gadoapp.online/api_recebimento/";
+// var IP_DO_SERVIDOR     = "https://gadoapp.online/";
+// var IP_DO_SERVIDOR_IO  = "https://gadoapp.online/";
+// var IP_MERCADO_PAGO    = "https://gadoapp.online/api_recebimento/";
 
 
 
 
 
 //NO SERVIDOR DO MEU NOTEBOOK CASA DA MÃE  ABAIXO
-// var IP_DO_SERVIDOR = "http://192.168.0.107:3000/";
-// var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3000/";
-// var IP_MERCADO_PAGO = "http://192.168.0.107:8080/";
+var IP_DO_SERVIDOR    = "http://192.168.0.107:3000/";
+var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3000/";
+var IP_MERCADO_PAGO   = "http://192.168.0.107:8080/";
 
 
 
@@ -2766,13 +2766,10 @@ export default function AppTest() {
 
 
 
-  useEffect(() => {
-    //   VARIAVEL_GLOBAL.CONECTANDO_AO_BANCO_DE_DADOS_GLOBALMENTE = CONECTANDO_AO_BANCO_DE_DADOS();
-
-    PEGANDO_NUMERO_DO_CARD_CHIP_CELLFONE()
-
-
-  }, []);
+  // useEffect(() => {
+  //   //   VARIAVEL_GLOBAL.CONECTANDO_AO_BANCO_DE_DADOS_GLOBALMENTE = CONECTANDO_AO_BANCO_DE_DADOS();
+  //   PEGANDO_NUMERO_DO_CARD_CHIP_CELLFONE()
+  // }, []);
 
 
   /*************************************************************/
@@ -2790,44 +2787,45 @@ export default function AppTest() {
   /*************************************************************/
 
 
-  async function PEGANDO_NUMERO_DO_CARD_CHIP_CELLFONE() {
+  // async function PEGANDO_NUMERO_DO_CARD_CHIP_CELLFONE() {
 
 
-    ///////////////////////////////////////////////////////////////////////
-    try {
+  //   ///////////////////////////////////////////////////////////////////////
+  //   try {
 
-      const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_PHONE_STATE)
+  //     const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.READ_PHONE_STATE)
 
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        // alert("You can read the phone state");
-        // alert("Você pode ler o estado do telefone");
+  //     if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+  //       // alert("You can read the phone state");
+  //       // alert("Você pode ler o estado do telefone");
 
-        // const phoneNumber = DeviceInfo.getPhoneNumber();
-        // const phoneNumber  =  DeviceInfo.getMacAddressSync();
-        // const phoneNumber  =  DeviceInfo.getPhoneNumberSync();
-        const phoneNumber = DeviceInfo.getPhoneNumberSync();
-        // alert(JSON.stringify(phoneNumber));
+  //       // const phoneNumber = DeviceInfo.getPhoneNumber();
+  //       // const phoneNumber  =  DeviceInfo.getMacAddressSync();
+  //       // const phoneNumber  =  DeviceInfo.getPhoneNumberSync();
+  //       const phoneNumber = DeviceInfo.getPhoneNumberSync();
+  //       // alert(JSON.stringify(phoneNumber));
 
-      } else {
-        // console.log("permission denied");
-        alert("permission denied");
-      }
-    } catch (err) {
+  //     } else {
+  //       // console.log("permission denied");
+  //       alert("permission denied");
+  //     }
+  //   } catch (err) {
 
-      console.warn(err);
+  //     console.warn(err);
 
-    } finally {
+  //   } finally {
 
-      // // alert("PEGANDO O NUMERO DO CHIP");
-
-
-    }
-
-    ///////////////////////////////////////////////////////////////////////
-
-  }
+  //     // // alert("PEGANDO O NUMERO DO CHIP");
 
 
+  //   }
+
+  //   ///////////////////////////////////////////////////////////////////////
+
+  // }
+
+
+  
 
   function DEFININDO_85_PORCENTO_DE_ALTURA() {
     // console.log((ALTURA_DA_TELA * 90) / 100);

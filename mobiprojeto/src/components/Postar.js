@@ -505,6 +505,7 @@ export default function Postar(props) {
         });
         VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length = 0;
         VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS = ARRAY_VIDEOS_PROVISORIO;
+        ARRY_URL_VIDEOS.length = 0;
 
         //______________TENTANDO ACIMA _______________________________//
 
@@ -2114,9 +2115,11 @@ export default function Postar(props) {
 
         }//FOR
 
-        for (var i = 0; i < ARRY_URL_VIDEOS.length; i++) {
+        // for (var i = 0; i < ARRY_URL_VIDEOS.length; i++) {  FOI DESATIVADO LINHA ABAIXO 02092021
+        for (var i = 0; i < VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length; i++) {
 
-            URL_VIDEOS_DADOS += ARRY_URL_VIDEOS[i] + "|";
+            // URL_VIDEOS_DADOS += ARRY_URL_VIDEOS[i] + "|";  FOI DESATIVADO LINHA ABAIXO 02092021
+            URL_VIDEOS_DADOS += VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS[i] + "|";
 
         }//FOR
 

@@ -499,7 +499,7 @@ export default function ComprasVendas(props) {
             color: 'red'
         },
         datePickerStyle: {
-            width: '80%',
+            width: '98%',
             marginTop: 0,
         },
     });
@@ -881,7 +881,7 @@ export default function ComprasVendas(props) {
                 </View>
 
                 <View style={[Estilo.borda_geral, style = { width: '30%', alignItems: 'center', justifyContent: 'flex-start', borderWidth: 0 }]}>
-                    <Text style={{ fontSize: 25, color: 'white' }} >{numero_de_cabecas}</Text>
+                    <Text style={{ fontSize: 22, color: 'white' }} >{numero_de_cabecas}</Text>
                 </View>
 
             </View>
