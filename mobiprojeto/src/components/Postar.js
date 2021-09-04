@@ -302,10 +302,10 @@ export default function Postar(props) {
 
     //#Z1
     let { URL_VIDEOS } = props.route.params; // utilizar a {} para desestruturar a variável pesquisarCompras que está dentro de params
-    
+
     // console.log(URL_VIDEOS);
 
-    if( typeof(URL_VIDEOS) === "undefined" ){  URL_VIDEOS = '|'  }
+    if (typeof (URL_VIDEOS) === "undefined") { URL_VIDEOS = '|' }
 
 
     const [valueStart, setValueStart] = useState(0)
@@ -443,32 +443,29 @@ export default function Postar(props) {
     const [produtos_rowsStates, setProdutos_rowsStates] = useState([]);
     const [removerBoolean, setRemoverBoolean] = useState(false);
 
+
     let VARIAVEL_DA_FUNCAO_TIMER;
 
 
     useEffect(() => {
-
         // VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length;
         // VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length
-
         VARIAVEL_GLOBAL.TELA_ATUAL = "Postar";
         // alert(VARIAVEL_GLOBAL.TELA_ATUAL);
     });
 
 
 
-    useEffect(() => {
 
+    useEffect(() => {
         setProdutos_rowsStates(Produtos_rows);
         nome_da_funcao();
-
     }, [URL_FOTOS, URL_VIDEOS]);
 
 
 
 
     function SETAR_TELA_ATUAL_COMO_POSTAR() {
-
         VARIAVEL_GLOBAL.TELA_ATUAL = "Postar";
     }
 
@@ -487,7 +484,6 @@ export default function Postar(props) {
 
         // if (VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length > 0 || URL_VIDEOS.length > 0) {
 
-
         // console.log("ANTES ==> "+VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS);
 
 
@@ -501,28 +497,26 @@ export default function Postar(props) {
 
         if (URL_VIDEOS.length > 0) {
 
-                // Iterando na Lista e Preenchendo o Array de elemnetos
-                ARRY_URL_VIDEOS.map((elementos) => { VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.push(elementos); });
-                //////REMOVENDO URL QUE ESTÁ DUPLICADA NO ARRAY DE VIDEOS
-                const ARRAY_VIDEOS_PROVISORIO = VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.filter(function (itens, indice) {
-                    return VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.indexOf(itens) == indice;
-                });
-                VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length = 0;
-                VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS = ARRAY_VIDEOS_PROVISORIO;
-                ARRY_URL_VIDEOS.length = 0;
+            // Iterando na Lista e Preenchendo o Array de elemnetos
+            ARRY_URL_VIDEOS.map((elementos) => { VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.push(elementos); });
+            //////REMOVENDO URL QUE ESTÁ DUPLICADA NO ARRAY DE VIDEOS
+            const ARRAY_VIDEOS_PROVISORIO = VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.filter(function (itens, indice) {
+                return VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.indexOf(itens) == indice;
+            });
+            VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length = 0;
+            VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS = ARRAY_VIDEOS_PROVISORIO;
+            ARRY_URL_VIDEOS.length = 0;
 
-                // console.log("DEPOIS ==> "+VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS);
+            // console.log("DEPOIS ==> "+VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS);
 
-                URL_VIDEOS.length = 0;
-                for (let i = 0; i < VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length; i++) {
-                    URL_VIDEOS += VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS[i] + "|";
-                }
+            URL_VIDEOS.length = 0;
+            for (let i = 0; i < VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length; i++) {
+                URL_VIDEOS += VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS[i] + "|";
+            }
 
         }//IF
 
-       //  //______________TENTANDO ACIMA _______________________________//
-
-
+        //  //______________TENTANDO ACIMA _______________________________//
 
 
 
@@ -1092,7 +1086,7 @@ export default function Postar(props) {
 
 
                 <ScrollView horizontal={true} style={{ borderWidth: 0, borderColor: 'orange', backgroundColor: 'gray', height: 'auto' }} >
-                    {/* {nome_da_funcao()}*/}
+                    {/* {nome_da_funcao()} */}
                     {produtos_rowsStates}
                 </ScrollView>
 
@@ -1593,10 +1587,10 @@ export default function Postar(props) {
 
                                     URL_FOTOS = "file:///zerar_postagem";
                                     // URL_VIDEOS = "file:///";
-                                    URL_VIDEOS.length = 0;
+                                    URL_VIDEOS = 'undefined';
                                     // navigation.navigate("Postar", { URL_FOTOS, URL_VIDEOS, });
 
-
+                                                                     
                                     setcorMacho(false);
                                     setcorFemea(false);
 
@@ -1649,6 +1643,9 @@ export default function Postar(props) {
                                     setNameBtbPostar("Postar");
 
                                     //   alert( VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length );
+                               
+
+                                    navigation.navigate("Postar", { URL_VIDEOS });
 
                                 }
 
