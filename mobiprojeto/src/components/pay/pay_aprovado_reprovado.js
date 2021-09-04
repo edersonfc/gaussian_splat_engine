@@ -149,14 +149,28 @@ export default function pay_aprovado_reprovado(params) {
                                     VARIAVEL_GLOBAL.INDICE_GLOBAL_IMAGENS_VIDEOS = -1;
                                     VARIAVEL_GLOBAL.CONTADOR_GLOBAL = 55;
 
-                                    //DESATIVADO ABAIXO 02/08/2021
+                                    //DESATIVADO ABAIXO 02/08/2021  1 DESATIVADO TROCADO POR #$8654
                                     // navigation.goBack(null);
                                     // navigation.goBack(null);
                                     // navigation.goBack(null);
                                     // navigation.goBack(null);
 
-                                    // navigation.navigate("TelaPrincipal", { produto });
-                                    navigation.navigate("TelaPrincipal", null);
+                                //    navigation.navigate("TelaPrincipal", null);  2  DESATIVADO #$8654   TROCADO PELAS LINHAS ABAIXO #%&5432
+
+                                   // ADICIONADO EM 03092021   => #%&5432  CÓDIGO REFERENCIA
+                                   VARIAVEL_GLOBAL.TELA_ATUAL = "Postar";
+                                   VARIAVEL_GLOBAL.TELA_ORIGEM = "Principal";
+                                   VARIAVEL_GLOBAL.TELA_TERCEIRA = "nenhuma";
+                                   VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length = 0;
+                                   VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT.length = 0;
+                                   VARIAVEL_GLOBAL.PUBLICACAO_EM_PROCESSO = "NAO_ENVIADO";
+                                   // var URL_FOTOS = "file:///zerar_postagem";
+                                   // var URL_VIDEOS = "file:///";
+                                   let URL_FOTOS  = "";
+                                   let URL_VIDEOS = "";
+                                   navigation.navigate("Postar", { URL_FOTOS, URL_VIDEOS, });
+
+                                   
 
                                 }
                             }}

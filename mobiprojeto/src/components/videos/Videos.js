@@ -279,6 +279,8 @@ export default class CameraScreen extends React.Component { //LINHA TROCADO PELA
 
           // this.SETAR_URL_GLOBAL(URL_VIDEOS);
           navigation.navigate("Postar", { URL_VIDEOS });
+          URL_VIDEOS.length = 0;
+          URLs_Videos.length = 0;
          
 
 

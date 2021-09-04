@@ -96,9 +96,9 @@ import Importante from './components/Importante';
 
 
 //NO SERVIDOR DO MEU NOTEBOOK CASA DA MÃE  ABAIXO
-var IP_DO_SERVIDOR = "http://192.168.0.107:3000/";
+var IP_DO_SERVIDOR    = "http://192.168.0.107:3000/";
 var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3000/";
-var IP_MERCADO_PAGO = "http://192.168.0.107:8080/";
+var IP_MERCADO_PAGO   = "http://192.168.0.107:8080/";
 
 
 
@@ -2845,15 +2845,11 @@ export default function AppTest() {
     VARIAVEL_GLOBAL.TELA_ATUAL = "Postar";
     VARIAVEL_GLOBAL.TELA_ORIGEM = "Principal";
     VARIAVEL_GLOBAL.TELA_TERCEIRA = "nenhuma";
-
     VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length = 0;
     VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT.length = 0;
-
     VARIAVEL_GLOBAL.PUBLICACAO_EM_PROCESSO = "NAO_ENVIADO";
-
     // var URL_FOTOS = "file:///zerar_postagem";
     // var URL_VIDEOS = "file:///";
-  
     let URL_FOTOS  = "";
     let URL_VIDEOS = "";
     navigation.navigate("Postar", { URL_FOTOS, URL_VIDEOS, });

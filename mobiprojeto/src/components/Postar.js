@@ -316,7 +316,6 @@ export default function Postar(props) {
         URL_VIDEOS.length = 0;
         // URL_VIDEOS = "";
         // console.log("VRAAAAUUUU => " + URL_VIDEOS);
-
     }
 
 
@@ -488,7 +487,7 @@ export default function Postar(props) {
         // ARRY_URL_VIDEOS = URL_VIDEOS.split("|");
 
 
-        if (VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length > 0) {
+        if (VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length > 0 || URL_VIDEOS.length > 0) {
 
             //______________TENTANDO ABAIXO _______________________________//
             if (VARIAVEL_GLOBAL.INDICE_DO_VIDEO_EXCLUIR_DURANTE_POSTAGENS === -1) {
@@ -853,7 +852,9 @@ export default function Postar(props) {
                         VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length = 0;// ADICIONANDO 29082021
                         VARIAVEL_GLOBAL.URL_VIDEO_EXCLUIDO_DURANTE_POSTAGENS = "";// ADICIONANDO 29082021
                         VARIAVEL_GLOBAL.INDICE_DO_VIDEO_EXCLUIR_DURANTE_POSTAGENS = -1;// ADICIONANDO 29082021
+                        URL_VIDEOS.length = 0; //ADICIONANDO  03092021
                         VARIAVEL_GLOBAL.CONTADOR_GLOBAL = 55;
+
                         navigation.navigate("TelaPrincipal", { produto })
                     }}
                 >
@@ -1558,6 +1559,7 @@ export default function Postar(props) {
                                                                         VARIAVEL_GLOBAL.COBRANCA_APP_PUBLICACAO_OU_TAXA = "PUBLICACAO";
                                                                         VARIAVEL_GLOBAL.PUBLICACAO_EM_PROCESSO = "ENVIANDO";
                                                                         // venda_status_J = 'pendente';
+                                                                        setNameBtbPostar("Nova Postagem");
                                                                         const produto = { IMAGENS: VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT, VIDEOS: VARIAVEL_GLOBAL.LISTAVIDEOS_CONTEXT }
                                                                         navigation.navigate("Tabela_planos", { precoSugerido, quantidadeCabecasOuPesos, produto });
                                                                     }//if
@@ -1595,7 +1597,7 @@ export default function Postar(props) {
 
                                     URL_FOTOS = "file:///zerar_postagem";
                                     // URL_VIDEOS = "file:///";
-                                    URL_VIDEOS = "";
+                                    URL_VIDEOS.length = 0;
                                     // navigation.navigate("Postar", { URL_FOTOS, URL_VIDEOS, });
 
                                     Produtos_rows.length = 0;
