@@ -298,26 +298,24 @@ export default function Postar(props) {
     // }//IF
     //DESATIVADO ACIMA 17 04 2021
 
+
+
     //#Z1
-    var { URL_VIDEOS } = props.route.params; // utilizar a {} para desestruturar a variável pesquisarCompras que está dentro de params
-    // alert(URL_VIDEOS)
-
-    // URL_VIDEOS = URL_VIDEOS.replace('','');
-
-    /* PEGANDO RETORNO DA VARIAVEL PELA CHAMADA DE TELA ACIMA */
-
-    //ARRY_URL_IMAGENS.length = 0;
-    //ARRY_URL_IMAGENS = URL_FOTOS.split("|");
+    const { URL_VIDEOS } = props.route.params; // utilizar a {} para desestruturar a variável pesquisarCompras que está dentro de params
 
 
+    // if (URL_VIDEOS == "" || URL_VIDEOS.length <= 0) {
+    //     URL_VIDEOS.length = 0;
+    //     // URL_VIDEOS = "";
+    //     // console.log("VRAAAAUUUU => " + URL_VIDEOS);
+    //     VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length = 0;
+    // } else {
+    //     VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS = URL_VIDEOS.split("|");
+    //     URL_VIDEOS.length = 0;
+    // }//if else
 
-    if (URL_VIDEOS == "") {
 
-        URL_VIDEOS.length = 0;
-        // URL_VIDEOS = "";
-        // console.log("VRAAAAUUUU => " + URL_VIDEOS);
-    }
-
+    console.log(URL_VIDEOS);
 
 
     const [valueStart, setValueStart] = useState(0)
@@ -482,14 +480,15 @@ export default function Postar(props) {
 
         Produtos_rows.length = 0;
 
-        // ARRY_URL_IMAGENS = URL_FOTOS.split("|");
-        // VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT = URL_FOTOS.split("|");  //OBSERVER 17 04 2021
-        // ARRY_URL_VIDEOS = URL_VIDEOS.split("|");
+        // if (VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length > 0 || VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length > 0) {
+            
+        if (VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length > 0 || URL_VIDEOS.length > 0) {
 
+            // if ( URL_VIDEOS.length > 0 ) {
+       
+         
 
-        if (VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length > 0 || URL_VIDEOS.length > 0) {
-
-            //______________TENTANDO ABAIXO _______________________________//
+            //  //______________TENTANDO ABAIXO _______________________________//
             if (VARIAVEL_GLOBAL.INDICE_DO_VIDEO_EXCLUIR_DURANTE_POSTAGENS === -1) {
                 ARRY_URL_VIDEOS = URL_VIDEOS.split("|");
                 ARRY_URL_VIDEOS.map((VIDEOS_URLS) => { VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.push(VIDEOS_URLS) });
@@ -507,11 +506,7 @@ export default function Postar(props) {
 
             //______________TENTANDO ACIMA _______________________________//
 
-        }//if
-
-
-        // if (VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length > 0 || ARRY_URL_VIDEOS.length > 0) {
-        if (VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length > 0 || VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length > 0) {
+              
 
 
 
@@ -552,9 +547,13 @@ export default function Postar(props) {
 
 
 
+            //REMOVENDO ITEM DO ARRAY ABAIXO
             if (VARIAVEL_GLOBAL.INDICE_DO_VIDEO_EXCLUIR_DURANTE_POSTAGENS !== -1) {
                 VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.splice(VARIAVEL_GLOBAL.INDICE_DO_VIDEO_EXCLUIR_DURANTE_POSTAGENS, 1);
                 VARIAVEL_GLOBAL.INDICE_DO_VIDEO_EXCLUIR_DURANTE_POSTAGENS = -1;
+         
+
+
             }//IF
 
 
@@ -571,10 +570,15 @@ export default function Postar(props) {
 
             }//FOR
 
+            URL_VIDEOS.length = 0;
 
             return Produtos_rows;
 
         }//IF  
+
+
+
+
 
 
     }
@@ -781,8 +785,8 @@ export default function Postar(props) {
                     /**/
                     //UPLOAD DE VÍDEOS ABAIXO
                     //2º Upload de VIDEOS
-                    // let URL_VIDEOS_DADOS_J = obj_JSON[i].URL_VIDEOS_DADOS_J;  TROCADO PELA LINHA ABAIXO 03092021
-                    let URL_VIDEOS_DADOS_J = obj_JSON[i].VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS;
+                    let URL_VIDEOS_DADOS_J = obj_JSON[i].URL_VIDEOS_DADOS_J;  // TROCADO PELA LINHA ABAIXO 03092021
+                    // let URL_VIDEOS_DADOS_J = obj_JSON[i].VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS;
                     let ARRAY_VIDEOS = URL_VIDEOS_DADOS_J.split("|");
                     ARRAY_VIDEOS = await REMOVER_ITENS_NULOS_DO_ARRAY(ARRAY_VIDEOS);
                     //ENVIANDO VIDEOS PRO SERVIDOR REMOTO ABAIXO
@@ -969,16 +973,21 @@ export default function Postar(props) {
                                     //} else if (CAMINHO.includes('video%')) {
                                 } else if (CAMINHO.includes('.mp4')) {
 
-                                    // ARRY_URL_VIDEOS.push(CAMINHO);
-                                    VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.push(CAMINHO);
-                                    VARIAVEL_GLOBAL.URL_VIDEO_EXCLUIDO_DURANTE_POSTAGENS = "";// ADICIONANDO 29082021
-                                    let URL_VIDEOS = "";
-                                    // for (var i = 0; i < ARRY_URL_VIDEOS.length; i++) {
-                                    for (var i = 0; i < VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length; i++) {
-                                        // URL_VIDEOS += ARRY_URL_VIDEOS[i] + '|';
-                                        URL_VIDEOS += VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS[i] + '|';
-                                    }//for
+                                    // //  FOI DESATIVADO ABAIXO 04 09 2021  abaixo
+                                    // VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.push(CAMINHO);
+                                    // VARIAVEL_GLOBAL.URL_VIDEO_EXCLUIDO_DURANTE_POSTAGENS = "";// ADICIONANDO 29082021
+                                    // let URL_VIDEOS = "";
+                                    // for (var i = 0; i < VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length; i++) {
+                                    //     URL_VIDEOS += VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS[i] + '|';
+                                    // }//for
+                                    // navigation.navigate("Postar", { URL_FOTOS, URL_VIDEOS });
+                                    // //  FOI DESATIVADO ACIMA 04 09 2021  acima
+
+                                    //ADICIONADO ABAIXO  04092021                                   
+                                    let URL_VIDEOS = CAMINHO + '|';
                                     navigation.navigate("Postar", { URL_FOTOS, URL_VIDEOS });
+                                    //ADICIONADO ACIMA  04092021    
+
 
 
                                 } else {
