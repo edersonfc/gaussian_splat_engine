@@ -301,21 +301,11 @@ export default function Postar(props) {
 
 
     //#Z1
-    const { URL_VIDEOS } = props.route.params; // utilizar a {} para desestruturar a variável pesquisarCompras que está dentro de params
+    let { URL_VIDEOS } = props.route.params; // utilizar a {} para desestruturar a variável pesquisarCompras que está dentro de params
+    
+    // console.log(URL_VIDEOS);
 
-
-    // if (URL_VIDEOS == "" || URL_VIDEOS.length <= 0) {
-    //     URL_VIDEOS.length = 0;
-    //     // URL_VIDEOS = "";
-    //     // console.log("VRAAAAUUUU => " + URL_VIDEOS);
-    //     VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length = 0;
-    // } else {
-    //     VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS = URL_VIDEOS.split("|");
-    //     URL_VIDEOS.length = 0;
-    // }//if else
-
-
-    console.log(URL_VIDEOS);
+    if( typeof(URL_VIDEOS) === "undefined" ){  URL_VIDEOS = '|'  }
 
 
     const [valueStart, setValueStart] = useState(0)
@@ -448,19 +438,32 @@ export default function Postar(props) {
 
 
 
+    let Produtos_rows = [];
 
-    const [atualizarTela, setAtualizarTela] = useState(0);
+    const [produtos_rowsStates, setProdutos_rowsStates] = useState([]);
+    const [removerBoolean, setRemoverBoolean] = useState(false);
+
     let VARIAVEL_DA_FUNCAO_TIMER;
 
 
     useEffect(() => {
 
-        setAtualizarTela(VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length);
-        // nome_da_funcao();
+        // VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length;
+        // VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length
 
         VARIAVEL_GLOBAL.TELA_ATUAL = "Postar";
         // alert(VARIAVEL_GLOBAL.TELA_ATUAL);
     });
+
+
+
+    useEffect(() => {
+
+        setProdutos_rowsStates(Produtos_rows);
+        nome_da_funcao();
+
+    }, [URL_FOTOS, URL_VIDEOS]);
+
 
 
 
@@ -472,113 +475,98 @@ export default function Postar(props) {
 
     /**/
     //INSERINDO IMAGENS ABAIXO POR MEIO DO ARRAY ABAIXO
-    var Produtos_rows = [];
-    function nome_da_funcao() {
 
+    function nome_da_funcao() {
 
         // console.log("ANTES====> " + VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length);
 
         Produtos_rows.length = 0;
 
-        // if (VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length > 0 || VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length > 0) {
-            
-        if (VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length > 0 || URL_VIDEOS.length > 0) {
-
-            // if ( URL_VIDEOS.length > 0 ) {
-       
-         
-
-            //  //______________TENTANDO ABAIXO _______________________________//
-            if (VARIAVEL_GLOBAL.INDICE_DO_VIDEO_EXCLUIR_DURANTE_POSTAGENS === -1) {
-                ARRY_URL_VIDEOS = URL_VIDEOS.split("|");
-                ARRY_URL_VIDEOS.map((VIDEOS_URLS) => { VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.push(VIDEOS_URLS) });
-            }//IF
-
-            // //////REMOVENDO URL QUE ESTÁ DUPLICADA NO ARRAY DE VIDEOS
-            const ARRAY_VIDEOS_PROVISORIO = VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.filter(function (itens, indice) {
-                return VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.indexOf(itens) == indice;
-                // console.log(itens)
-                // console.log(indice)
-            });
-            VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length = 0;
-            VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS = ARRAY_VIDEOS_PROVISORIO;
-            ARRY_URL_VIDEOS.length = 0;
-
-            //______________TENTANDO ACIMA _______________________________//
-
-              
+        ARRY_URL_VIDEOS.length = 0;
 
 
-
-            //LIMPANDO CONTEUDOS VAZIOS DO ARRAY DAS FOTOS ABAIXO
-            for (let i_vazio = 0; i_vazio < VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length; i_vazio++) {
-                var vazio_no_array;
-                vazio_no_array = VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[i_vazio];
-                if (!vazio_no_array.includes("file:///") && !vazio_no_array.includes("content://") || vazio_no_array.length < 14) {
-                    VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.splice(VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.indexOf(VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[i_vazio]), 1);
-                }//IF   
-            }//FOR
-            // //LIMPANDO CONTEUDOS VAZIOS DO ARRAY DAS FOTOS ACIMA
+        // if (VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length > 0 || URL_VIDEOS.length > 0) {
 
 
-            // console.log("DEPOIS====> " + VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS);
+        // console.log("ANTES ==> "+VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS);
 
 
-            // //LIMPANDO CONTEUDOS VAZIOS DO ARRAY DOS VIDEOS ABAIXO 
-            for (var i_vazio = 0; i_vazio < VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length; i_vazio++) {
-                var vazio_no_array;
-                vazio_no_array = VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS[i_vazio];
-                if (!vazio_no_array.includes("file:///") && !vazio_no_array.includes("content://") || vazio_no_array.length < 14) {
-                    VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.splice(VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.indexOf(VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS[i_vazio]), 1);
-                }//IF   
-            }//FOR
-            // //LIMPANDO CONTEUDOS VAZIOS DO ARRAY DOS VIDEOS ACIMA
+        //  //______________TENTANDO ABAIXO _______________________________//
+
+        try { ARRY_URL_VIDEOS = URL_VIDEOS.split("|"); } catch (error) { ARRY_URL_VIDEOS.length = 0; URL_VIDEOS.length = 0; }
+        //    Removendo elementos vazios nesta linha Abaixo
+        ARRY_URL_VIDEOS = ARRY_URL_VIDEOS.filter((elementos) => { return elementos != ""; });
+        ARRY_URL_VIDEOS = ARRY_URL_VIDEOS.filter((elementos) => { return !elementos.includes('undefined') });
 
 
+        if (URL_VIDEOS.length > 0) {
 
-            //ADICIONANDO VIEW COM IMAGEM pelo FOR ABAIXO 
-            // for (var i = 0; i < ARRY_URL_IMAGENS.length; i++) {
-            for (let i = 0; i < VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length; i++) {
+                // Iterando na Lista e Preenchendo o Array de elemnetos
+                ARRY_URL_VIDEOS.map((elementos) => { VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.push(elementos); });
+                //////REMOVENDO URL QUE ESTÁ DUPLICADA NO ARRAY DE VIDEOS
+                const ARRAY_VIDEOS_PROVISORIO = VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.filter(function (itens, indice) {
+                    return VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.indexOf(itens) == indice;
+                });
+                VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length = 0;
+                VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS = ARRAY_VIDEOS_PROVISORIO;
+                ARRY_URL_VIDEOS.length = 0;
 
-                Produtos_rows.push(<ImageLista key={"1" + i} IMAGE={VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[i]} LISTAIMAGENS={VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT} index={i} />);
+                // console.log("DEPOIS ==> "+VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS);
 
-            }//FOR
-            //ADICIONANDO VIEW COM IMAGEM pelo FOR ACIMA 
+                URL_VIDEOS.length = 0;
+                for (let i = 0; i < VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length; i++) {
+                    URL_VIDEOS += VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS[i] + "|";
+                }
 
+        }//IF
 
-
-            //REMOVENDO ITEM DO ARRAY ABAIXO
-            if (VARIAVEL_GLOBAL.INDICE_DO_VIDEO_EXCLUIR_DURANTE_POSTAGENS !== -1) {
-                VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.splice(VARIAVEL_GLOBAL.INDICE_DO_VIDEO_EXCLUIR_DURANTE_POSTAGENS, 1);
-                VARIAVEL_GLOBAL.INDICE_DO_VIDEO_EXCLUIR_DURANTE_POSTAGENS = -1;
-         
-
-
-            }//IF
+       //  //______________TENTANDO ACIMA _______________________________//
 
 
 
 
-            for (let i = 0; i < VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length; i++) {
-                // Promise.all(VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.map( (items, i) => {
 
+
+        //LIMPANDO CONTEUDOS VAZIOS DO ARRAY DAS FOTOS ABAIXO
+        for (let i_vazio = 0; i_vazio < VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length; i_vazio++) {
+            var vazio_no_array;
+            vazio_no_array = VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[i_vazio];
+            if (!vazio_no_array.includes("file:///") && !vazio_no_array.includes("content://") || vazio_no_array.length < 14) {
+                VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.splice(VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.indexOf(VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[i_vazio]), 1);
+            }//IF   
+        }//FOR
+        // //LIMPANDO CONTEUDOS VAZIOS DO ARRAY DAS FOTOS ACIMA
+
+        // console.log("DEPOIS====> " + VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS);
+
+
+
+
+        //ADICIONANDO VIEW COM IMAGEM pelo FOR ABAIXO 
+        // for (var i = 0; i < ARRY_URL_IMAGENS.length; i++) {
+        for (let i = 0; i < VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length; i++) {
+            Produtos_rows.push(<ImageLista key={"1" + i} IMAGE={VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT[i]} LISTAIMAGENS={VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT} index={i} />);
+        }//FOR
+        //ADICIONANDO VIEW COM IMAGEM pelo FOR ACIMA 
+
+
+
+
+        //ADICIONANDO VIEW COM VIDEOS pelo FOR ABAIXO 
+        for (let i = 0; i < VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length; i++) {
+            if (VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS[i].toLowerCase().includes('.mp4')) {
                 Produtos_rows.push(<VideoLista key={"2" + i} VIDEO={VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS[i]} index={i} SETAR_TELA_ATUAL_COMO_POSTAR_R={SETAR_TELA_ATUAL_COMO_POSTAR} />);
-
-                // if( VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length === (i+1) ){   VARIAVEL_GLOBAL.URL_VIDEOS_DURANTE_POSTAGENS.length = 0; }
-
-                // }));//MAP  =>  //PromiseAll
-
-            }//FOR
-
-            URL_VIDEOS.length = 0;
-
-            return Produtos_rows;
-
-        }//IF  
+            }//IF
+        }//FOR
 
 
 
+        // console.log( Produtos_rows );
 
+        return Produtos_rows;
+
+
+        // }//IF  if (VARIAVEL_GLOBAL.LISTAIMAGENS_CONTEXT.length > 0 || URL_VIDEOS.length > 0) {  
 
 
     }
@@ -596,9 +584,7 @@ export default function Postar(props) {
         //alert(NUMERO_DE_TELEFONE_USUARIO);
         //   const  resposta = await Axios.get(IP_DO_SERVIDOR + 'pesquisar_vendas_recentes', {
         const resposta = Axios.get(VARIAVEL_GLOBAL.NUMERO_IP + 'verificar_se_telefone_ja_esta_cadastrado', {
-
             params: { numero_telefone_J: NUMERO_DE_TELEFONE_USUARIO }
-
         });
         return resposta;
     }//function
@@ -1106,7 +1092,8 @@ export default function Postar(props) {
 
 
                 <ScrollView horizontal={true} style={{ borderWidth: 0, borderColor: 'orange', backgroundColor: 'gray', height: 'auto' }} >
-                    {nome_da_funcao()}
+                    {/* {nome_da_funcao()}*/}
+                    {produtos_rowsStates}
                 </ScrollView>
 
 
@@ -1608,8 +1595,6 @@ export default function Postar(props) {
                                     // URL_VIDEOS = "file:///";
                                     URL_VIDEOS.length = 0;
                                     // navigation.navigate("Postar", { URL_FOTOS, URL_VIDEOS, });
-
-                                    Produtos_rows.length = 0;
 
 
                                     setcorMacho(false);
