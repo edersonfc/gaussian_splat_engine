@@ -17,12 +17,12 @@ An implementation of 3D Gaussian Splatting for educational and research purposes
 🚧 **Work in Progress**
 
 Currently implementing:
-- [x] Project structure
-- [x] PLY file loader
-- [x] Visualization (1) (3D Color Points only)
-- [x] CPU rasterizer (for test)
-- [ ] CUDA rasterizer (forward pass)
-- [ ] Visualization (2) (Rendering)
+- [X] Project structure
+- [X] PLY file loader
+- [X] Visualization (1) (3D Color Points only)
+- [X] CPU rasterizer (for test)
+- [X] CUDA rasterizer (forward pass)
+- [X] Visualization (2) (Rendering)
 - [ ] Training pipeline (backward pass)
 - [ ] Optimization algorithms (Adam, SGD)
 
