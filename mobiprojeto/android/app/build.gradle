@@ -139,9 +139,9 @@ android {
     defaultConfig {
         applicationId "com.mobiprojeto"
         minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 9
-        versionName '0.0.0.9'
+        targetSdkVersion targetSdkVersion
+        versionCode 11
+        versionName '0.0.1.1'
         missingDimensionStrategy 'react-native-camera', 'general' // <--- insert this line
         minSdkVersion 21 // 07042021 
         multiDexEnabled true //08102020

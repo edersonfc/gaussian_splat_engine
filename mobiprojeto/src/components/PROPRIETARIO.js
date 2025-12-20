@@ -84,7 +84,7 @@ export default function PROPRIETARIO(param) {
 
             <View style={{ height: '5%' }} />
 
-            <Text style={{ fontSize: 22, color: 'white', fontFamily: 'Roboto-Medium' }}  >Versão do App: 0.0.1.0</Text>
+            <Text style={{ fontSize: 22, color: 'white', fontFamily: 'Roboto-Medium' }}  >Versão do App: 0.0.1.1</Text>
 
             <View style={{ height: '5%' }} />
 

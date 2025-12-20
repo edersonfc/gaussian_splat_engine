@@ -151,9 +151,12 @@ export default function navegacaoFotos(props) {
                 {/*TELA DA IMAGEN ABAIXO*/}
                 <Image style={{ width: '100%', height: '100%', borderRadius: 5 }}
                     source={{ uri: url_strings }}
+                   
                 />
                 {/*TELA DA IMAGEN ACIMA*/}
 
+{/* { //CACILDA
+alert(url_strings)} */}
 
                 {/* paddingTop: '142%' => POSIÇÃO RETRATO */}
                 {/*BOTÕES CONTROLE ABAIXO  rgba(230,200,50,0)  */}
@@ -246,7 +249,7 @@ export default function navegacaoFotos(props) {
 
                                         //alert("Voltar Para a Tela => Postar")
                                         navigation.navigate("Postar", { URL_FOTOS })
-                                        //alert(" tela ATUAL => "+VARIAVEL_GLOBAL.TELA_ATUAL+" |  tela ORIGEM => "+VARIAVEL_GLOBAL.TELA_ORIGEM);
+                                alert(" tela ATUAL => "+VARIAVEL_GLOBAL.TELA_ATUAL+" |  tela ORIGEM => "+VARIAVEL_GLOBAL.TELA_ORIGEM);
 
                                         //navigation.goBack(URL_FOTOS);//funciona perfeitamente esse voltar
                                         //alert(URL_FOTOS)

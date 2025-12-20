@@ -82,23 +82,33 @@ import Importante from './components/Importante';
 
 // LicencaExpirada
 
-//VARIAVÉIS GLOBAIS ABAIXO
+//VARIAVÉIS GLOBAIS ABAIXO 3.134.243.141
 
 
 
-// NO SERVIDOR REMOTO DIGITALOCEAN
-// var IP_DO_SERVIDOR     = "https://gadoapp.online/";
-// var IP_DO_SERVIDOR_IO  = "https://gadoapp.online/";
-// var IP_MERCADO_PAGO    = "https://gadoapp.online/api_recebimento/";
+/**/
+// //NO SERVIDOR DO AWS AMAZON  ABAIXO
+var IP_DO_SERVIDOR     = "https://gadoapp.online/";
+var IP_DO_SERVIDOR_IO  = "https://gadoapp.online/";
+var IP_MERCADO_PAGO    = "https://gadoapp.online/api_recebimento/";
 
 
 
 
 
-//NO SERVIDOR DO MEU NOTEBOOK CASA DA MÃE  ABAIXO
-var IP_DO_SERVIDOR    = "http://192.168.0.107:3000/";
-var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3000/";
-var IP_MERCADO_PAGO   = "http://192.168.0.107:8080/";
+/*
+// //NO SERVIDOR CASA DA MÃE  ABAIXO
+  var IP_DO_SERVIDOR    = "http://192.168.0.107:3000/";
+  var IP_DO_SERVIDOR_IO = "http://192.168.0.107:3000/";
+  var IP_MERCADO_PAGO   = "http://192.168.0.107:8080/";
+*/
+
+
+
+// //NO SERVIDOR DO MEU NOTEBOOK CASA DA MÃE  ABAIXO
+// var IP_DO_SERVIDOR    = "http://192.168.1.7:3000/";
+// var IP_DO_SERVIDOR_IO = "http://192.168.1.7:3000/";
+// var IP_MERCADO_PAGO   = "http://192.168.1.7:8080/";
 
 
 
